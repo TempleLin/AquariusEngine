@@ -132,6 +132,7 @@ private:
                 indices.push_back(face.mIndices[j]);
         }
         // process materials
+        // A mesh only contains an index to a material object.
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
         // we assume a convention for sampler names in the shaders. Each diffuse texture should be named
         // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER. 
