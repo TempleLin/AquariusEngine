@@ -47,7 +47,7 @@
     <ClInclude Include="src\headers\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\database.h">
+    <ClInclude Include="src\headers\AQ_Database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\stbi_image_wrapper.h">

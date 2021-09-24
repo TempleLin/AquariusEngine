@@ -10,7 +10,7 @@
 #include "headers/model.h"
 
 #include <headers/stbi_image_wrapper.h>
-#include <headers/database.h>
+#include <headers/AQ_Database.h>
 #include <headers/AQ_GameObject.h>
 
 #include <iostream>
