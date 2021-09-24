@@ -1,10 +1,6 @@
 #pragma once
 #include <typeinfo>
 
-enum class AQ_EComponents {
-	Transform, Model, InputController, Collider, RigidBody
-};
-
 class AQ_Component {
 	friend class AQ_GameObject;
 protected:
