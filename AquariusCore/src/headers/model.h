@@ -10,6 +10,7 @@
 #include <assimp/postprocess.h>
 
 #include "mesh.h"
+#include "AQ_Component.h"
 #include "shader.h"
 #include "stbi_image_wrapper.h"
 
@@ -24,16 +25,17 @@ using namespace stbi_image_wrap;
 
 inline unsigned int TextureFromFile(const char* path, const string& directory, bool gamma = false);
 
-class Model {
+class Model : public AQ_Component {
 public:
     // model data 
     vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-    vector<Mesh>    meshes;
+    vector<Mesh> meshes;
     string directory;
     bool gammaCorrection;
 
     // constructor, expects a filepath to a 3D model.
-    Model(string const& path, bool gamma = false) : gammaCorrection(gamma) {
+    Model(string const& path, bool gamma = false) : AQ_Component(typeid(Model)) {
+        gammaCorrection = gamma;
         loadModel(path);
     }
 

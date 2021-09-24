@@ -10,6 +10,8 @@
 #include "headers/model.h"
 
 #include <headers/stbi_image_wrapper.h>
+#include <headers/database.h>
+#include <headers/AQ_GameObject.h>
 
 #include <iostream>
 
@@ -83,8 +85,11 @@ namespace read_objmodel {
 
         // load models
         // -----------
-        Model ourModel("resources/objects/backpack/backpack.obj");
-
+        
+        //Model ourModel("resources/objects/backpack/backpack.obj");
+        AQ_GameObject guitar;
+        guitar.addComponent<Model>(Model("resources/objects/backpack/backpack.obj"));
+        Model& guitarModel = guitar.getComponent<Model>(0);
 
         // draw in wireframe
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -121,7 +126,7 @@ namespace read_objmodel {
             model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
             model = glm::scale(model, glm::vec3(.5f, .5f, .5f));	// it's a bit too big for our scene, so scale it down
             ourShader.setMat4("model", model);
-            ourModel.Draw(ourShader);
+            guitarModel.Draw(ourShader);
 
 
             // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
