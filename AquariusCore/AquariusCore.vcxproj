@@ -152,13 +152,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\glad.c" />
-    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\main_deprecated.cpp" />
+    <ClCompile Include="src\stbi_image_wrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\camera.h" />
+    <ClInclude Include="src\headers\database.h" />
     <ClInclude Include="src\headers\mesh.h" />
     <ClInclude Include="src\headers\model.h" />
     <ClInclude Include="src\headers\shader.h" />
+    <ClInclude Include="src\headers\stbi_image_wrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="5.1.framebuffers_fs.glsl" />

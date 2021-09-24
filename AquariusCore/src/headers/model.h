@@ -5,14 +5,13 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
 #include "mesh.h"
 #include "shader.h"
+#include "stbi_image_wrapper.h"
 
 #include <string>
 #include <fstream>
@@ -21,8 +20,9 @@
 #include <map>
 #include <vector>
 using namespace std;
+using namespace stbi_image_wrap;
 
-unsigned int TextureFromFile(const char* path, const string& directory, bool gamma = false);
+inline unsigned int TextureFromFile(const char* path, const string& directory, bool gamma = false);
 
 class Model {
 public:
@@ -188,7 +188,7 @@ private:
 };
 
 
-unsigned int TextureFromFile(const char* path, const string& directory, bool gamma) {
+inline unsigned int TextureFromFile(const char* path, const string& directory, bool gamma) {
     string filename = string(path);
     filename = directory + '/' + filename;
 
@@ -196,7 +196,7 @@ unsigned int TextureFromFile(const char* path, const string& directory, bool gam
     glGenTextures(1, &textureID);
 
     int width, height, nrComponents;
-    unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+    unsigned char* data = loadImage(filename.c_str(), width, height, nrComponents);
     if (data) {
         GLenum format;
         if (nrComponents == 1)
@@ -215,10 +215,10 @@ unsigned int TextureFromFile(const char* path, const string& directory, bool gam
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        stbi_image_free(data);
+        freeImage(*data);
     } else {
         std::cout << "Texture failed to load at path: " << path << std::endl;
-        stbi_image_free(data);
+        freeImage(*data);
     }
 
     return textureID;

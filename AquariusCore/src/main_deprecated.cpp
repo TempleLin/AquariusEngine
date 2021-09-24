@@ -34,7 +34,7 @@ bool firstMouse = true;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-int main() {
+int main_deprecated() {
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
@@ -75,8 +75,8 @@ int main() {
 
     // build and compile shaders
     // -------------------------
-    Shader shader("shaders/5.1.framebuffers_vs.glsl", "shaders/5.1.framebuffers_fs.glsl");
-    Shader screenShader("shaders/5.1.framebuffers_screen_vs.glsl", "shaders/5.1.framebuffers_screen_fs.glsl");
+    Shader shader("5.1.framebuffers_vs.glsl", "5.1.framebuffers_fs.glsl");
+    Shader screenShader("5.1.framebuffers_screen_vs.glsl", "5.1.framebuffers_screen_fs.glsl");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -373,8 +373,7 @@ unsigned int loadTexture(char const* path) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         stbi_image_free(data);
-    }
-    else {
+    } else {
         std::cout << "Texture failed to load at path: " << path << std::endl;
         stbi_image_free(data);
     }
@@ -416,7 +415,7 @@ bool firstMouse = true;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-int main() {
+int main_deprecated() {
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
