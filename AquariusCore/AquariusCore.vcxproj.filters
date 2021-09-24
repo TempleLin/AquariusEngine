@@ -14,7 +14,7 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Shader Files">
-      <UniqueIdentifier>{a4ddfe1f-f775-4bcd-bea9-2c7c19c43bca}</UniqueIdentifier>
+      <UniqueIdentifier>{e71add36-efa5-4695-aefe-fa9d8a08ed30}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -40,10 +40,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\shaderVS.glsl">
+    <None Include="5.1.framebuffers_vs.glsl">
       <Filter>Shader Files</Filter>
     </None>
-    <None Include="shaders\shaderFS.glsl">
+    <None Include="5.1.framebuffers_screen_fs.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="5.1.framebuffers_screen_vs.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="5.1.framebuffers_fs.glsl">
       <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>

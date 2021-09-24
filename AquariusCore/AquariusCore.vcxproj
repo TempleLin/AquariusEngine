@@ -18,25 +18,11 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\glad.c" />
-    <ClCompile Include="src\main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\headers\camera.h" />
-    <ClInclude Include="src\headers\mesh.h" />
-    <ClInclude Include="src\headers\model.h" />
-    <ClInclude Include="src\headers\shader.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shaders\shaderFS.glsl" />
-    <None Include="shaders\shaderVS.glsl" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{3b1550c0-6147-4dcc-ac16-b1e9e8f680ac}</ProjectGuid>
-    <RootNamespace>AquariusEngine</RootNamespace>
+    <ProjectGuid>{aebb15d5-4a91-4448-87c6-f63e6def8e78}</ProjectGuid>
+    <RootNamespace>AquariusCore</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -158,6 +144,28 @@
       <AdditionalDependencies>Assimp\assimp-vc142-mtd.lib;GLFW\glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\headers\camera.h" />
+    <ClInclude Include="src\headers\mesh.h" />
+    <ClInclude Include="src\headers\model.h" />
+    <ClInclude Include="src\headers\shader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="5.1.framebuffers_fs.glsl" />
+    <None Include="5.1.framebuffers_vs.glsl" />
+    <None Include="5.1.framebuffers_screen_fs.glsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </None>
+    <None Include="5.1.framebuffers_screen_vs.glsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </None>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

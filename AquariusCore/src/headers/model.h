@@ -66,7 +66,7 @@ private:
     void processNode(aiNode* node, const aiScene* scene) {
         // process each mesh located at the current node
         for (unsigned int i = 0; i < node->mNumMeshes; i++) {
-            // the node object only contains indices to index the actual objects in the scene. 
+            // the node object only contains indices to index the actual objects in the scene.
             // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
             meshes.push_back(processMesh(mesh, scene));
