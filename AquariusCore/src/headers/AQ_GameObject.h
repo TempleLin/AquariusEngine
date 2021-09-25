@@ -5,7 +5,7 @@
 
 #include "AQ_Database.h"
 #include "AQ_Component.h"
-class Model;
+class AQ_CompModel;
 
 class AQ_GameObject {
 private:
@@ -15,7 +15,7 @@ public:
 	inline void addComponent(T component) {
 		static_assert(std::is_base_of<AQ_Component, T>::value, "Must be component type.");
 		try {
-			AQ_DataBase::addComponent<T>(component, component.dataBaseAcessKey);
+			AQ_DataBase::Components::addComponent<T>(component, component.dataBaseAcessKey);
 			components.push_back(component);
 		}
 		catch (...) {
@@ -30,7 +30,7 @@ public:
 				if (index) {
 					index -= 1;
 				} else {
-					return AQ_DataBase::getComponent<T>(i.dataBaseAcessKey);
+					return AQ_DataBase::Components::getComponent<T>(i.dataBaseAcessKey);
 				}
 			}
 		}

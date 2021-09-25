@@ -33,6 +33,15 @@
     <ClCompile Include="src\AQ_Component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\AQ_GlobalCtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_Database.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_Lights.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\camera.h">
@@ -41,7 +50,7 @@
     <ClInclude Include="src\headers\mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\model.h">
+    <ClInclude Include="src\headers\AQ_CompModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\shader.h">
@@ -57,6 +66,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\AQ_Component.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_GlobalCtrl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_Lights.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

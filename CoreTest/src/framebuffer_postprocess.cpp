@@ -7,7 +7,7 @@
 
 #include "headers/shader.h"
 #include "headers/camera.h"
-#include "headers/model.h"
+#include "headers/AQ_CompModel.h"
 
 #include <iostream>
 

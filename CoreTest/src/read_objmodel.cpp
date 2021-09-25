@@ -7,7 +7,7 @@
 
 #include "headers/shader.h"
 #include "headers/camera.h"
-#include "headers/model.h"
+#include "headers/AQ_CompModel.h"
 
 #include <headers/stbi_image_wrapper.h>
 #include <headers/AQ_Database.h>
@@ -88,8 +88,8 @@ namespace read_objmodel {
         
         //Model ourModel("resources/objects/backpack/backpack.obj");
         AQ_GameObject guitar;
-        guitar.addComponent<Model>(Model("resources/objects/backpack/backpack.obj"));
-        Model& guitarModel = guitar.getComponent<Model>(0);
+        guitar.addComponent<AQ_CompModel>(AQ_CompModel("resources/objects/backpack/backpack.obj"));
+        AQ_CompModel& guitarModel = guitar.getComponent<AQ_CompModel>(0);
 
         // draw in wireframe
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

@@ -25,7 +25,7 @@ using namespace stbi_image_wrap;
 
 inline unsigned int TextureFromFile(const char* path, const string& directory, bool gamma = false);
 
-class Model : public AQ_Component {
+class AQ_CompModel : public AQ_Component {
 public:
     // model data 
     vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
@@ -34,7 +34,7 @@ public:
     bool gammaCorrection;
 
     // constructor, expects a filepath to a 3D model.
-    Model(string const& path, bool gamma = false) : AQ_Component(typeid(Model)) {
+    AQ_CompModel(string const& path, bool gamma = false) : AQ_Component(typeid(AQ_CompModel)) {
         gammaCorrection = gamma;
         loadModel(path);
     }
