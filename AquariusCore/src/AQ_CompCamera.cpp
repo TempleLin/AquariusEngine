@@ -26,14 +26,34 @@ glm::mat4 AQ_CompCamera::getViewMatrix() {
 
 void AQ_CompCamera::processKeyboard(ECameraMovement direction, float deltaTime) {
     float velocity = movementSpeed * deltaTime;
-    if (direction == ECameraMovement::FORWARD)
+    switch (direction) {
+    case ECameraMovement::FORWARD:
+        position += front * velocity;
+        break;
+    case ECameraMovement::BACKWARD:
+        position -= front * velocity;
+        break;
+    case ECameraMovement::LEFT:
+        position -= right * velocity;
+        break;
+    case ECameraMovement::RIGHT:
+        position += right * velocity;
+        break;
+    case ECameraMovement::UP:
+        position += worldUp * velocity;
+        break;
+    case ECameraMovement::DOWN:
+        position -= worldUp * velocity;
+        break;
+    }
+    /*if (direction == ECameraMovement::FORWARD)
         position += front * velocity;
     if (direction == ECameraMovement::BACKWARD)
         position -= front * velocity;
     if (direction == ECameraMovement::LEFT)
         position -= right * velocity;
     if (direction == ECameraMovement::RIGHT)
-        position += right * velocity;
+        position += right * velocity;*/
 }
 
 void AQ_CompCamera::processMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch) {
