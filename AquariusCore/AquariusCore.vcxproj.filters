@@ -21,9 +21,6 @@
     <ClCompile Include="src\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\main_deprecated.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\stbi_image_wrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -42,9 +39,12 @@
     <ClCompile Include="src\AQ_Lights.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\AQ_CompCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\headers\camera.h">
+    <ClInclude Include="src\headers\AQ_CompCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\mesh.h">

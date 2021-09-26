@@ -6,7 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "headers/shader.h"
-#include "headers/camera.h"
+#include "headers/AQ_CompCamera.h"
 #include "headers/AQ_CompModel.h"
 
 #include <iostream>
@@ -23,7 +23,7 @@ namespace framebuffer_postprocess {
     const unsigned int SCR_HEIGHT = 600;
 
     // camera
-    Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+    AQ_CompCamera camera(glm::vec3(0.0f, 0.0f, 3.0f));
     float lastX = (float)SCR_WIDTH / 2.0;
     float lastY = (float)SCR_HEIGHT / 2.0;
     bool firstMouse = true;
@@ -242,8 +242,8 @@ namespace framebuffer_postprocess {
 
             shader.use();
             glm::mat4 model = glm::mat4(1.0f);
-            glm::mat4 view = camera.GetViewMatrix();
-            glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+            glm::mat4 view = camera.getViewMatrix();
+            glm::mat4 projection = glm::perspective(glm::radians(camera.zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
             shader.setMat4("view", view);
             shader.setMat4("projection", projection);
             // cubes
@@ -303,13 +303,13 @@ namespace framebuffer_postprocess {
             glfwSetWindowShouldClose(window, true);
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            camera.ProcessKeyboard(FORWARD, deltaTime);
+            camera.processKeyboard(ECameraMovement::FORWARD, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            camera.ProcessKeyboard(BACKWARD, deltaTime);
+            camera.processKeyboard(ECameraMovement::BACKWARD, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            camera.ProcessKeyboard(LEFT, deltaTime);
+            camera.processKeyboard(ECameraMovement::LEFT, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            camera.ProcessKeyboard(RIGHT, deltaTime);
+            camera.processKeyboard(ECameraMovement::RIGHT, deltaTime);
     }
 
     // glfw: whenever the window size changed (by OS or user resize) this callback function executes
@@ -335,13 +335,13 @@ namespace framebuffer_postprocess {
         lastX = xpos;
         lastY = ypos;
 
-        camera.ProcessMouseMovement(xoffset, yoffset);
+        camera.processMouseMovement(xoffset, yoffset);
     }
 
     // glfw: whenever the mouse scroll wheel scrolls, this callback is called
     // ----------------------------------------------------------------------
     void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
-        camera.ProcessMouseScroll(yoffset);
+        camera.processMouseScroll(yoffset);
     }
 
     // utility function for loading a 2D texture from file

@@ -153,13 +153,13 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AQ_CompCamera.cpp" />
     <ClCompile Include="src\AQ_Component.cpp" />
     <ClCompile Include="src\AQ_Database.cpp" />
     <ClCompile Include="src\AQ_GameObject.cpp" />
     <ClCompile Include="src\AQ_GlobalCtrl.cpp" />
     <ClCompile Include="src\AQ_Lights.cpp" />
     <ClCompile Include="src\glad.c" />
-    <ClCompile Include="src\main_deprecated.cpp" />
     <ClCompile Include="src\stbi_image_wrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,7 +167,7 @@
     <ClInclude Include="src\headers\AQ_GameObject.h" />
     <ClInclude Include="src\headers\AQ_GlobalCtrl.h" />
     <ClInclude Include="src\headers\AQ_Lights.h" />
-    <ClInclude Include="src\headers\camera.h" />
+    <ClInclude Include="src\headers\AQ_CompCamera.h" />
     <ClInclude Include="src\headers\AQ_Database.h" />
     <ClInclude Include="src\headers\mesh.h" />
     <ClInclude Include="src\headers\AQ_CompModel.h" />

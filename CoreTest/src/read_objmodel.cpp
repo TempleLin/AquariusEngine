@@ -6,7 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "headers/shader.h"
-#include "headers/camera.h"
+#include "headers/AQ_CompCamera.h"
 #include "headers/AQ_CompModel.h"
 
 #include <headers/stbi_image_wrapper.h>
@@ -28,7 +28,7 @@ namespace read_objmodel {
     const unsigned int SCR_HEIGHT = 600;
 
     // camera
-    Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+    AQ_CompCamera camera(glm::vec3(0.f, 0.f, 3.f));
     float lastX = SCR_WIDTH / 2.0f;
     float lastY = SCR_HEIGHT / 2.0f;
     bool firstMouse = true;
@@ -116,8 +116,8 @@ namespace read_objmodel {
             ourShader.use();
 
             // view/projection transformations
-            glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-            glm::mat4 view = camera.GetViewMatrix();
+            glm::mat4 projection = glm::perspective(glm::radians(camera.zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+            glm::mat4 view = camera.getViewMatrix();
             ourShader.setMat4("projection", projection);
             ourShader.setMat4("view", view);
 
@@ -148,13 +148,13 @@ namespace read_objmodel {
             glfwSetWindowShouldClose(window, true);
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            camera.ProcessKeyboard(FORWARD, deltaTime);
+            camera.processKeyboard(ECameraMovement::FORWARD, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            camera.ProcessKeyboard(BACKWARD, deltaTime);
+            camera.processKeyboard(ECameraMovement::BACKWARD, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            camera.ProcessKeyboard(LEFT, deltaTime);
+            camera.processKeyboard(ECameraMovement::LEFT, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            camera.ProcessKeyboard(RIGHT, deltaTime);
+            camera.processKeyboard(ECameraMovement::RIGHT, deltaTime);
     }
 
     // glfw: whenever the window size changed (by OS or user resize) this callback function executes
@@ -180,12 +180,12 @@ namespace read_objmodel {
         lastX = xpos;
         lastY = ypos;
 
-        camera.ProcessMouseMovement(xoffset, yoffset);
+        camera.processMouseMovement(xoffset, yoffset);
     }
 
     // glfw: whenever the mouse scroll wheel scrolls, this callback is called
     // ----------------------------------------------------------------------
     void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
-        camera.ProcessMouseScroll(yoffset);
+        camera.processMouseScroll(yoffset);
     }
 }
