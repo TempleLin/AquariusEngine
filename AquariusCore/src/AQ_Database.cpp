@@ -4,8 +4,8 @@ class AQ_Database::Components;
 class AQ_Database::GlobalLights;
 
 unsigned int AQ_Database::Components::currentKeyIndex = 1;
-std::map<unsigned int, AQ_CompModel> AQ_Database::Components::modelComponents;
-std::map<unsigned int, AQ_CompCamera> AQ_Database::Components::cameraComponents;
+std::unordered_map<unsigned int, AQ_CompModel> AQ_Database::Components::modelComponents;
+std::unordered_map<unsigned int, AQ_CompCamera> AQ_Database::Components::cameraComponents;
 
 void AQ_Database::Components::addCameraComponent(AQ_CompCamera& component, unsigned int& returnKey) {
 	cameraComponents.insert(std::pair<unsigned int, AQ_CompCamera>(currentKeyIndex, component));

@@ -3,7 +3,7 @@
 #include "AQ_CompCamera.h"
 #include "AQ_Lights.h"
 
-#include <map>
+#include <unordered_map>
 #include <vector>
 #include <iostream>
 class AQ_Component;
@@ -20,8 +20,8 @@ private:
 	private:
 		// @currentKey will keep += 1 and never repeat for every keys throughout database
 		static unsigned int currentKeyIndex;
-		static std::map<unsigned int, AQ_CompModel> modelComponents;
-		static std::map<unsigned int, AQ_CompCamera> cameraComponents;
+		static std::unordered_map<unsigned int, AQ_CompModel> modelComponents;
+		static std::unordered_map<unsigned int, AQ_CompCamera> cameraComponents;
 
 		static void addCameraComponent(AQ_CompCamera& component, unsigned int& returnKey);
 		static void addModelComponent(AQ_CompModel& component, unsigned int& returnKey);
