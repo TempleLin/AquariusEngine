@@ -1,7 +1,14 @@
 #include "headers/AQ_CompCamera.h"
 
+const float YAW = -90.0f;
+const float PITCH = 0.0f;
+const float SPEED = 2.5f;
+const float SENSITIVITY = 0.1f;
+const float ZOOM = 45.0f;
+
 AQ_CompCamera::AQ_CompCamera(glm::vec3 position, glm::vec3 front, glm::vec3 worldUp, 
-        float yaw, float pitch, float movementSpeed, float mouseSensitivity, float zoom){
+        float yaw, float pitch, float movementSpeed, float mouseSensitivity, float zoom) {
+    componentType = AQ_EComponents::CAMERA;
     this->position = position;
     this->front = front;
     this->worldUp = worldUp;

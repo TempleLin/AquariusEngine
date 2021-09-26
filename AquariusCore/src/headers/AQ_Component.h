@@ -1,11 +1,14 @@
 #pragma once
 #include <typeinfo>
 
+enum class AQ_EComponents {
+	CAMERA, MODEL
+};
+
 class AQ_Component {
 	friend class AQ_GameObject;
+	friend class AQ_GameObjectCtrl;
 protected:
-	const std::type_info& type;
 	unsigned int dataBaseAcessKey;
-public:
-	AQ_Component(const std::type_info& _type);
+	AQ_EComponents componentType;
 };

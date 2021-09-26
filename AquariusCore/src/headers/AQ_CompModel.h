@@ -34,7 +34,8 @@ public:
     bool gammaCorrection;
 
     // constructor, expects a filepath to a 3D model.
-    AQ_CompModel(string const& path, bool gamma = false) : AQ_Component(typeid(AQ_CompModel)) {
+    AQ_CompModel(string const& path, bool gamma = false) {
+        componentType = AQ_EComponents::MODEL;
         gammaCorrection = gamma;
         loadModel(path);
     }

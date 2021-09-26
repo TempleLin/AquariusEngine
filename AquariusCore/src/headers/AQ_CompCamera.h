@@ -1,4 +1,5 @@
 #pragma once
+#include "AQ_Component.h"
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -15,15 +16,15 @@ enum class ECameraMovement{
 };
 
 // Default camera values
-const float YAW = -90.0f;
-const float PITCH = 0.0f;
-const float SPEED = 2.5f;
-const float SENSITIVITY = 0.1f;
-const float ZOOM = 45.0f;
+extern const float YAW;
+extern const float PITCH;
+extern const float SPEED;
+extern const float SENSITIVITY;
+extern const float ZOOM;
 
 
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
-class AQ_CompCamera {
+class AQ_CompCamera : public AQ_Component{
 public:
     // camera Attributes
     glm::vec3 position;

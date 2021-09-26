@@ -157,6 +157,7 @@
     <ClCompile Include="src\AQ_Component.cpp" />
     <ClCompile Include="src\AQ_Database.cpp" />
     <ClCompile Include="src\AQ_GameObject.cpp" />
+    <ClCompile Include="src\AQ_GameObjectCtrl.cpp" />
     <ClCompile Include="src\AQ_GlobalCtrl.cpp" />
     <ClCompile Include="src\AQ_Lights.cpp" />
     <ClCompile Include="src\glad.c" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="src\headers\AQ_Component.h" />
     <ClInclude Include="src\headers\AQ_GameObject.h" />
+    <ClInclude Include="src\headers\AQ_GameObjectCtrl.h" />
     <ClInclude Include="src\headers\AQ_GlobalCtrl.h" />
     <ClInclude Include="src\headers\AQ_Lights.h" />
     <ClInclude Include="src\headers\AQ_CompCamera.h" />

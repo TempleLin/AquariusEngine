@@ -1,5 +1,6 @@
 #pragma once
 #include "AQ_CompModel.h"
+#include "AQ_CompCamera.h"
 #include "AQ_Lights.h"
 
 #include <map>
@@ -11,46 +12,35 @@ class AQ_DataBase {
 	friend class AQ_GameObject;
 	friend class AQ_GlobalCtrl;
 	friend class LightsCtrl;
+	friend class AQ_GameObjectCtrl;
 private:
 	static class Components {
 		friend class AQ_GameObject;
+		friend class AQ_GameObjectCtrl;
 	private:
 		// @currentKey will keep += 1 and never repeat for every keys throughout database
 		static unsigned int currentKeyIndex;
 		static std::map<unsigned int, AQ_CompModel> modelComponents;
+		static std::map<unsigned int, AQ_CompCamera> cameraComponents;
 
-		template<typename T>
-		static void addComponent(T component, unsigned int& returnKey) {
-			static_assert(std::is_base_of<AQ_Component, T>::value, "Must be component type.");
-			if (typeid(T) == typeid(AQ_CompModel)) {
-				try {
-					modelComponents.insert(std::pair<unsigned int, AQ_CompModel>(currentKeyIndex, component));
-					returnKey = currentKeyIndex;
-					currentKeyIndex++;
-				}
-				catch (...) {
-					std::cout << "ERROR: ADDING COMPONENT -- MODEL FAILED" << "\n";
-				}
-			}
-			else {
-				std::cout << "ERROR: CANNOT ADD THIS COMPONENT -- MODEL" << "\n";
-			}
+		static void addCameraComponent(AQ_CompCamera component, unsigned int& returnKey) {
+			cameraComponents.insert(std::pair<unsigned int, AQ_CompCamera>(currentKeyIndex, component));
+			returnKey = currentKeyIndex;
+			currentKeyIndex++;
 		}
 
-		template<typename T>
-		static T& getComponent(unsigned int key) {
-			static_assert(std::is_base_of<AQ_Component, T>::value, "Must be component type.");
-			if (typeid(T) == typeid(AQ_CompModel)) {
-				try {
-					return modelComponents.find(key)->second;
-				}
-				catch (...) {
-					std::cout << "ERROR: GETTING COMPONENT -- MODEL FAILED" << "\n";
-				}
-			}
-			else {
-				std::cout << "ERROR: COMPONENT DOESN'T EXIST" << "\n";
-			}
+		static void addModelComponent(AQ_CompModel component, unsigned int& returnKey) {
+			modelComponents.insert(std::pair<unsigned int, AQ_CompModel>(currentKeyIndex, component));
+			returnKey = currentKeyIndex;
+			currentKeyIndex++;
+		}
+
+		static AQ_CompCamera& getCameraComponent(unsigned int key) {
+			return cameraComponents.find(key)->second;
+		}
+
+		static AQ_CompModel& getModelComponent(unsigned int key) {
+			return modelComponents.find(key)->second;
 		}
 	};
 

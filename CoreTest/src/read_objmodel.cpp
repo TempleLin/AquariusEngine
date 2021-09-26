@@ -8,6 +8,7 @@
 #include "headers/shader.h"
 #include "headers/AQ_CompCamera.h"
 #include "headers/AQ_CompModel.h"
+#include <headers/AQ_GameObjectCtrl.h>
 
 #include <headers/stbi_image_wrapper.h>
 #include <headers/AQ_Database.h>
@@ -28,7 +29,9 @@ namespace read_objmodel {
     const unsigned int SCR_HEIGHT = 600;
 
     // camera
-    AQ_CompCamera camera(glm::vec3(0.f, 0.f, 3.f));
+    //AQ_CompCamera camera(glm::vec3(0.f, 0.f, 3.f));
+    AQ_GameObject cameraObject;
+    AQ_CompCamera* camera;
     float lastX = SCR_WIDTH / 2.0f;
     float lastY = SCR_HEIGHT / 2.0f;
     bool firstMouse = true;
@@ -83,13 +86,19 @@ namespace read_objmodel {
         // -------------------------
         Shader ourShader("shaders/objModelSimpleShader/shaderVS.glsl", "shaders/objModelSimpleShader/shaderFS.glsl");
 
+        AQ_GameObjectCtrl::addCameraComponent(cameraObject, AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)));
+        camera = &(AQ_GameObjectCtrl::getCameraComponent(cameraObject, 0));
+
         // load models
         // -----------
         
-        //Model ourModel("resources/objects/backpack/backpack.obj");
-        AQ_GameObject guitar;
-        guitar.addComponent<AQ_CompModel>(AQ_CompModel("resources/objects/backpack/backpack.obj"));
-        AQ_CompModel& guitarModel = guitar.getComponent<AQ_CompModel>(0);
+        AQ_GameObject guitarObject;
+        AQ_GameObjectCtrl::addModelComponent(guitarObject, AQ_CompModel("resources/objects/backpack/backpack.obj"));
+        AQ_CompModel* guitarModel = nullptr; 
+        guitarModel = &(AQ_GameObjectCtrl::getModelComponent(guitarObject, 0));
+
+        /*guitar.addModelComponent(AQ_CompModel("resources/objects/backpack/backpack.obj"));
+        AQ_CompModel& */
 
         // draw in wireframe
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -116,8 +125,8 @@ namespace read_objmodel {
             ourShader.use();
 
             // view/projection transformations
-            glm::mat4 projection = glm::perspective(glm::radians(camera.zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-            glm::mat4 view = camera.getViewMatrix();
+            glm::mat4 projection = glm::perspective(glm::radians(camera->zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+            glm::mat4 view = camera->getViewMatrix();
             ourShader.setMat4("projection", projection);
             ourShader.setMat4("view", view);
 
@@ -126,7 +135,8 @@ namespace read_objmodel {
             model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
             model = glm::scale(model, glm::vec3(.5f, .5f, .5f));	// it's a bit too big for our scene, so scale it down
             ourShader.setMat4("model", model);
-            guitarModel.Draw(ourShader);
+            if (guitarModel)
+                guitarModel->Draw(ourShader);
 
 
             // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -148,13 +158,13 @@ namespace read_objmodel {
             glfwSetWindowShouldClose(window, true);
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            camera.processKeyboard(ECameraMovement::FORWARD, deltaTime);
+            camera->processKeyboard(ECameraMovement::FORWARD, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            camera.processKeyboard(ECameraMovement::BACKWARD, deltaTime);
+            camera->processKeyboard(ECameraMovement::BACKWARD, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            camera.processKeyboard(ECameraMovement::LEFT, deltaTime);
+            camera->processKeyboard(ECameraMovement::LEFT, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            camera.processKeyboard(ECameraMovement::RIGHT, deltaTime);
+            camera->processKeyboard(ECameraMovement::RIGHT, deltaTime);
     }
 
     // glfw: whenever the window size changed (by OS or user resize) this callback function executes
@@ -180,12 +190,12 @@ namespace read_objmodel {
         lastX = xpos;
         lastY = ypos;
 
-        camera.processMouseMovement(xoffset, yoffset);
+        camera->processMouseMovement(xoffset, yoffset);
     }
 
     // glfw: whenever the mouse scroll wheel scrolls, this callback is called
     // ----------------------------------------------------------------------
     void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
-        camera.processMouseScroll(yoffset);
+        camera->processMouseScroll(yoffset);
     }
 }
