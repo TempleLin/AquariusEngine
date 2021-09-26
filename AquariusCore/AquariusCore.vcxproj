@@ -154,9 +154,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\AQ_CompCamera.cpp" />
-    <ClCompile Include="src\AQ_Component.cpp" />
+    <ClCompile Include="src\AQ_CompModel.cpp" />
     <ClCompile Include="src\AQ_Database.cpp" />
-    <ClCompile Include="src\AQ_GameObject.cpp" />
     <ClCompile Include="src\AQ_GameObjectCtrl.cpp" />
     <ClCompile Include="src\AQ_GlobalCtrl.cpp" />
     <ClCompile Include="src\AQ_Lights.cpp" />

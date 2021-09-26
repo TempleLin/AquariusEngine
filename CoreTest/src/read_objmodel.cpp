@@ -136,7 +136,7 @@ namespace read_objmodel {
             model = glm::scale(model, glm::vec3(.5f, .5f, .5f));	// it's a bit too big for our scene, so scale it down
             ourShader.setMat4("model", model);
             if (guitarModel)
-                guitarModel->Draw(ourShader);
+                guitarModel->draw(ourShader);
 
 
             // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
