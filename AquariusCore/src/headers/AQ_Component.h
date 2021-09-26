@@ -9,6 +9,6 @@ class AQ_Component {
 	friend class AQ_GameObject;
 	friend class AQ_GameObjectCtrl;
 protected:
-	unsigned int dataBaseAcessKey;
+	unsigned int databaseAccessKey;
 	AQ_EComponents componentType;
 };

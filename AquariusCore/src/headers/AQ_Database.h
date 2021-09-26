@@ -8,7 +8,7 @@
 #include <iostream>
 class AQ_Component;
 
-class AQ_DataBase {
+class AQ_Database {
 	friend class AQ_GameObject;
 	friend class AQ_GlobalCtrl;
 	friend class LightsCtrl;
@@ -23,13 +23,13 @@ private:
 		static std::map<unsigned int, AQ_CompModel> modelComponents;
 		static std::map<unsigned int, AQ_CompCamera> cameraComponents;
 
-		static void addCameraComponent(AQ_CompCamera component, unsigned int& returnKey) {
+		static void addCameraComponent(AQ_CompCamera& component, unsigned int& returnKey) {
 			cameraComponents.insert(std::pair<unsigned int, AQ_CompCamera>(currentKeyIndex, component));
 			returnKey = currentKeyIndex;
 			currentKeyIndex++;
 		}
 
-		static void addModelComponent(AQ_CompModel component, unsigned int& returnKey) {
+		static void addModelComponent(AQ_CompModel& component, unsigned int& returnKey) {
 			modelComponents.insert(std::pair<unsigned int, AQ_CompModel>(currentKeyIndex, component));
 			returnKey = currentKeyIndex;
 			currentKeyIndex++;

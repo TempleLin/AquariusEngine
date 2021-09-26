@@ -10,5 +10,6 @@ class AQ_CompModel;
 class AQ_GameObject {
 	friend class AQ_GameObjectCtrl;
 private:
-	std::vector<AQ_Component> components;
+	std::vector<unsigned int> modelComponentsKeys;
+	std::vector<unsigned int> cameraComponentsKeys;
 };

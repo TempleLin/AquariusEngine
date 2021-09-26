@@ -5,7 +5,7 @@
 * @Directional light doesn't need position (Like a sun in Blender which has (fake) inifinite distance).
 */
 struct AQ_DirLight {
-	friend class AQ_DataBase;
+	friend class AQ_Database;
 	friend class AQ_GlobalCtrl;
 private:
 	glm::vec3 direction;
@@ -39,7 +39,7 @@ private:
 */
 
 struct AQ_PointLight {
-	friend class AQ_DataBase;
+	friend class AQ_Database;
 	friend class AQ_GlobalCtrl;
 private:
 	glm::vec3 position;
@@ -53,7 +53,7 @@ private:
 * @Cutoff angle specifies the spotlight's radius. Everything outside this angle is not lit by the spotlight.
 */
 struct AQ_SpotLight {
-	friend class AQ_DataBase;
+	friend class AQ_Database;
 	friend class AQ_GlobalCtrl;
 private:
 	glm::vec3 position;
