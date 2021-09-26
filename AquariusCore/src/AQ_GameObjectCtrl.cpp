@@ -13,7 +13,7 @@ void AQ_GameObjectCtrl::addModelComponent(AQ_GameObject& gameObject, AQ_CompMode
 
 AQ_CompCamera& AQ_GameObjectCtrl::getCameraComponent(AQ_GameObject& gameObject, unsigned int index) {
 	try {
-		return AQ_Database::Components::getCameraComponent(gameObject.cameraComponentsKeys.at(index));
+		return AQ_Database::Components::cameraComponents.at(gameObject.cameraComponentsKeys.at(index));
 	} catch (std::out_of_range& e) {
 		std::cout << "Failed to get component:" << typeid(AQ_CompCamera).name() << "--" << e.what() << "\n";
 	}
@@ -21,7 +21,7 @@ AQ_CompCamera& AQ_GameObjectCtrl::getCameraComponent(AQ_GameObject& gameObject, 
 
 AQ_CompModel& AQ_GameObjectCtrl::getModelComponent(AQ_GameObject& gameObject, unsigned int index) {
 	try {
-		return AQ_Database::Components::getModelComponent(gameObject.modelComponentsKeys.at(index));
+		return AQ_Database::Components::modelComponents.at(gameObject.modelComponentsKeys.at(index));
 	} catch (std::out_of_range& e) {
 		std::cout << "Failed to get component:" << typeid(AQ_CompModel).name() << "--" << e.what() << "\n";
 	}

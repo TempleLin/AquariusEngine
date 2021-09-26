@@ -23,25 +23,8 @@ private:
 		static std::map<unsigned int, AQ_CompModel> modelComponents;
 		static std::map<unsigned int, AQ_CompCamera> cameraComponents;
 
-		static void addCameraComponent(AQ_CompCamera& component, unsigned int& returnKey) {
-			cameraComponents.insert(std::pair<unsigned int, AQ_CompCamera>(currentKeyIndex, component));
-			returnKey = currentKeyIndex;
-			currentKeyIndex++;
-		}
-
-		static void addModelComponent(AQ_CompModel& component, unsigned int& returnKey) {
-			modelComponents.insert(std::pair<unsigned int, AQ_CompModel>(currentKeyIndex, component));
-			returnKey = currentKeyIndex;
-			currentKeyIndex++;
-		}
-
-		static AQ_CompCamera& getCameraComponent(unsigned int key) {
-			return cameraComponents.find(key)->second;
-		}
-
-		static AQ_CompModel& getModelComponent(unsigned int key) {
-			return modelComponents.find(key)->second;
-		}
+		static void addCameraComponent(AQ_CompCamera& component, unsigned int& returnKey);
+		static void addModelComponent(AQ_CompModel& component, unsigned int& returnKey);
 	};
 
 	static class GlobalLights {
