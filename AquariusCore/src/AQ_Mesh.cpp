@@ -9,7 +9,7 @@ AQ_Mesh::AQ_Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<T
     setupMesh();
 }
 
-void AQ_Mesh::draw(Shader& shader) {
+void AQ_Mesh::draw(AQ_Shader& shader) {
     // bind appropriate textures
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;

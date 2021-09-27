@@ -5,9 +5,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "headers/shader.h"
-#include "headers/AQ_CompCamera.h"
-#include "headers/AQ_CompModel.h"
+#include <headers/AQ_Shader.h>
+#include <headers/AQ_CompCamera.h>
+#include <headers/AQ_CompModel.h>
 #include <headers/AQ_GameObjectCtrl.h>
 
 #include <headers/stbi_image_wrapper.h>
@@ -84,7 +84,7 @@ namespace read_objmodel {
 
         // build and compile shaders
         // -------------------------
-        Shader ourShader("shaders/objModelSimpleShader/shaderVS.glsl", "shaders/objModelSimpleShader/shaderFS.glsl");
+        AQ_Shader ourShader("shaders/objModelSimpleShader/shaderVS.glsl", "shaders/objModelSimpleShader/shaderFS.glsl");
 
         AQ_GameObjectCtrl::addCameraComponent(cameraObject, AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)));
         camera = &(AQ_GameObjectCtrl::getCameraComponent(cameraObject, 0));

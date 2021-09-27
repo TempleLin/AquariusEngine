@@ -5,9 +5,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "headers/shader.h"
-#include "headers/AQ_CompCamera.h"
-#include "headers/AQ_CompModel.h"
+#include <headers/AQ_Shader.h>
+#include <headers/AQ_CompCamera.h>
+#include <headers/AQ_CompModel.h>
 
 #include <iostream>
 
@@ -73,8 +73,8 @@ namespace framebuffer_postprocess {
 
         // build and compile shaders
         // -------------------------
-        Shader shader("shaders/5.1.framebuffers_vs.glsl", "shaders/5.1.framebuffers_fs.glsl");
-        Shader screenShader("shaders/5.1.framebuffers_screen_vs.glsl", "shaders/5.1.framebuffers_screen_fs.glsl");
+        AQ_Shader shader("shaders/5.1.framebuffers_vs.glsl", "shaders/5.1.framebuffers_fs.glsl");
+        AQ_Shader screenShader("shaders/5.1.framebuffers_screen_vs.glsl", "shaders/5.1.framebuffers_screen_fs.glsl");
 
         // set up vertex data (and buffer(s)) and configure vertex attributes
         // ------------------------------------------------------------------

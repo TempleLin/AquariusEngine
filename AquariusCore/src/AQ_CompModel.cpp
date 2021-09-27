@@ -6,7 +6,7 @@ AQ_CompModel::AQ_CompModel(string const& path, bool gamma) {
     loadModel(path);
 }
 
-void AQ_CompModel::draw(Shader& shader) {
+void AQ_CompModel::draw(AQ_Shader& shader) {
     for (unsigned int i = 0; i < meshes.size(); i++)
         meshes[i].draw(shader);
 }

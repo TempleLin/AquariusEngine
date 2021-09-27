@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "shader.h"
+#include "AQ_Shader.h"
 
 #include <string>
 #include <vector>
@@ -47,7 +47,7 @@ public:
     AQ_Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
 
     // render the mesh
-    void draw(Shader& shader);
+    void draw(AQ_Shader& shader);
 
 private:
     // render data 

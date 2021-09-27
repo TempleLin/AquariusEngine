@@ -9,7 +9,7 @@
 
 #include "AQ_Mesh.h"
 #include "AQ_Component.h"
-#include "shader.h"
+#include "AQ_Shader.h"
 #include "stbi_image_wrapper.h"
 
 #include <string>
@@ -35,7 +35,7 @@ public:
     AQ_CompModel(string const& path, bool gamma = false);
 
     // draws the model, and thus all its meshes
-    void draw(Shader& shader);
+    void draw(AQ_Shader& shader);
 
 private:
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
