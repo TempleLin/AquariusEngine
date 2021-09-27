@@ -46,14 +46,6 @@ void AQ_CompCamera::processKeyboard(ECameraMovement direction, float deltaTime) 
         position -= worldUp * velocity;
         break;
     }
-    /*if (direction == ECameraMovement::FORWARD)
-        position += front * velocity;
-    if (direction == ECameraMovement::BACKWARD)
-        position -= front * velocity;
-    if (direction == ECameraMovement::LEFT)
-        position -= right * velocity;
-    if (direction == ECameraMovement::RIGHT)
-        position += right * velocity;*/
 }
 
 void AQ_CompCamera::processMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch) {

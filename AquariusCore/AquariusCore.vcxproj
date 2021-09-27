@@ -169,6 +169,7 @@
     <ClInclude Include="src\headers\AQ_GameObject.h" />
     <ClInclude Include="src\headers\AQ_GameObjectCtrl.h" />
     <ClInclude Include="src\headers\AQ_GlobalCtrl.h" />
+    <ClInclude Include="src\headers\AQ_CompInput.h" />
     <ClInclude Include="src\headers\AQ_Lights.h" />
     <ClInclude Include="src\headers\AQ_CompCamera.h" />
     <ClInclude Include="src\headers\AQ_Database.h" />

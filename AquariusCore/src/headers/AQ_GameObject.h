@@ -1,6 +1,5 @@
 #pragma once
-#include <map>
-#include <vector>
+#include <unordered_map>
 #include <type_traits>
 
 #include "AQ_Database.h"
@@ -10,6 +9,5 @@ class AQ_CompModel;
 class AQ_GameObject {
 	friend class AQ_GameObjectCtrl;
 private:
-	std::vector<unsigned int> modelComponentsKeys;
-	std::vector<unsigned int> cameraComponentsKeys;
+	std::unordered_map<AQ_EComponents, std::vector<unsigned int>> componentsKeys;
 };

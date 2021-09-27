@@ -4,6 +4,8 @@
 #include "AQ_CompCamera.h"
 #include "AQ_Database.h"
 #include "AQ_Component.h"
+#include <iostream>
+#include <type_traits>
 
 class AQ_GameObjectCtrl {
 public:
