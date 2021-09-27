@@ -1,6 +1,4 @@
-#ifndef MESH_H
-#define MESH_H
-
+#pragma once
 #include <glad/glad.h> // holds all OpenGL type declarations
 
 #include <glm/glm.hpp>
@@ -58,4 +56,3 @@ private:
     // initializes all the buffer objects/arrays
     void setupMesh();
 };
-#endif
