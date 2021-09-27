@@ -20,5 +20,5 @@ public:
 	}
 	void addOrChangeInputKey(AQ_EInputControllerTypes controllerType, std::pair<int, int> inputKey);
 	void removeInputKey(AQ_EInputControllerTypes controllerType, std::pair<int, int> inputKey);
-	void removeWholeController(AQ_EInputControllerTypes controllerType);
+	void clearControllerKeys(AQ_EInputControllerTypes controllerType);
 };

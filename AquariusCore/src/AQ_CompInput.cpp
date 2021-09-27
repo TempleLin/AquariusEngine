@@ -15,10 +15,9 @@ void AQ_CompInput::removeInputKey(AQ_EInputControllerTypes controllerType, std::
 	}
 }
 
-void AQ_CompInput::removeWholeController(AQ_EInputControllerTypes controllerType) {
+void AQ_CompInput::clearControllerKeys(AQ_EInputControllerTypes controllerType) {
 	try {
-		controllersToUseWithInputs.at(controllerType);
-		controllersToUseWithInputs.erase(controllerType);
+		controllersToUseWithInputs.at(controllerType).clear();
 	} catch (std::out_of_range& e) {
 		std::cout << "ERROR: CONTROLLER DOESN'T EXIST, CANNOT REMOVE--" << e.what() << "\n";
 	}
