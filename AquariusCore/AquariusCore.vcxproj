@@ -161,7 +161,7 @@
     <ClCompile Include="src\AQ_Lights.cpp" />
     <ClCompile Include="src\AQ_Mesh.cpp" />
     <ClCompile Include="src\AQ_Shader.cpp" />
-    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\glad\glad.c" />
     <ClCompile Include="src\stbi_image_wrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
