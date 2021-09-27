@@ -8,7 +8,7 @@ AQ_CompModel::AQ_CompModel(string const& path, bool gamma) {
 
 void AQ_CompModel::draw(Shader& shader) {
     for (unsigned int i = 0; i < meshes.size(); i++)
-        meshes[i].Draw(shader);
+        meshes[i].draw(shader);
 }
 
 void AQ_CompModel::loadModel(string const& path) {
@@ -43,7 +43,7 @@ void AQ_CompModel::processNode(aiNode* node, const aiScene* scene) {
 
 }
 
-Mesh AQ_CompModel::processMesh(aiMesh* mesh, const aiScene* scene) {
+AQ_Mesh AQ_CompModel::processMesh(aiMesh* mesh, const aiScene* scene) {
     // data to fill
     vector<Vertex> vertices;
     vector<unsigned int> indices;
@@ -120,7 +120,7 @@ Mesh AQ_CompModel::processMesh(aiMesh* mesh, const aiScene* scene) {
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
     // return a mesh object created from the extracted mesh data
-    return Mesh(vertices, indices, textures);
+    return AQ_Mesh(vertices, indices, textures);
 }
 
 vector<Texture> AQ_CompModel::loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName) {

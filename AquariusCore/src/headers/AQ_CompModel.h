@@ -7,7 +7,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "mesh.h"
+#include "AQ_Mesh.h"
 #include "AQ_Component.h"
 #include "shader.h"
 #include "stbi_image_wrapper.h"
@@ -27,7 +27,7 @@ class AQ_CompModel : public AQ_Component {
 public:
     // model data 
     vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-    vector<Mesh> meshes;
+    vector<AQ_Mesh> meshes;
     string directory;
     bool gammaCorrection;
 
@@ -44,7 +44,7 @@ private:
     // processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
     void processNode(aiNode* node, const aiScene* scene);
 
-    Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+    AQ_Mesh processMesh(aiMesh* mesh, const aiScene* scene);
 
     // checks all material textures of a given type and loads the textures if they're not loaded yet.
     // the required info is returned as a Texture struct.

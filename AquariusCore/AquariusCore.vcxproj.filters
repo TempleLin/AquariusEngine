@@ -42,12 +42,15 @@
     <ClCompile Include="src\AQ_CompModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\AQ_Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\AQ_CompCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\mesh.h">
+    <ClInclude Include="src\headers\AQ_Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\AQ_CompModel.h">
