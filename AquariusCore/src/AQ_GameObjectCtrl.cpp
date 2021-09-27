@@ -1,5 +1,5 @@
 #include "headers/AQ_GameObjectCtrl.h"
-#include <exception>
+#include <stdexcept>
 
 void AQ_GameObjectCtrl::addCameraComponent(AQ_GameObject& gameObject, AQ_CompCamera camera) {
 	AQ_Database::Components::addCameraComponent(camera, camera.databaseAccessKey);
