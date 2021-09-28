@@ -17,13 +17,19 @@ public:
 		if constexpr (std::is_base_of<AQ_Component, T>::value) {
 			try {
 				component.name = name;
+				/*
+				* @Add the component with to the database and receive its key in database by returning in to
+				*  component object's databaseAccessKey.
+				*/
 				AQ_Database::Components::addComponent(component, component.databaseAccessKey);
 				const auto& componentsKeysVecRef = gameObject.componentsKeys[typeid(T)];
+				// @Check if the name specified already exists in the gameobject's components.
 				for (int i = 0; i < componentsKeysVecRef.size(); i++) {
 					if (componentsKeysVecRef.at(i).first == name) {
 						throw std::string("ERROR: GAMEOBJECT'S SAME COMPONENT TYPE ALREADY HAS ONE WITH THE NAME");
 					}
 				}
+				// @Save name and access key to database descriptions of the component to the gameobject.
 				gameObject.componentsKeys[typeid(T)].push_back(std::pair<std::string, unsigned int>(name, component.databaseAccessKey));
 			} catch (std::string& errorMessage){
 				std::cout << errorMessage << "\n";
