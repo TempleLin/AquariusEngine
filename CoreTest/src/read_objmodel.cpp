@@ -16,6 +16,7 @@
 
 #include <iostream>
 
+
 namespace read_objmodel {
     using namespace stbi_image_wrap;
 
@@ -31,7 +32,7 @@ namespace read_objmodel {
     // camera
     //AQ_CompCamera camera(glm::vec3(0.f, 0.f, 3.f));
     AQ_GameObject cameraObject;
-    AQ_CompCamera* camera;
+    AQ_CompCamera* camera = nullptr;
     float lastX = SCR_WIDTH / 2.0f;
     float lastY = SCR_HEIGHT / 2.0f;
     bool firstMouse = true;
@@ -89,13 +90,14 @@ namespace read_objmodel {
         AQ_GameObjectCtrl::addComponent<AQ_CompCamera>(cameraObject, AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)));
         camera = &(AQ_GameObjectCtrl::getComponent<AQ_CompCamera>(cameraObject, 0));
 
+
         // load models
         // -----------
-        
         AQ_GameObject guitarObject;
-        AQ_GameObjectCtrl::addComponent<AQ_CompModel>(guitarObject, AQ_CompModel("resources/objects/backpack/backpack.obj"));
-        AQ_CompModel* guitarModel = nullptr;
-        guitarModel = &(AQ_GameObjectCtrl::getComponent<AQ_CompModel>(guitarObject, 0));
+        AQ_AddComponent<AQ_CompModel>(guitarObject, AQ_CompModel("resources/objects/backpack/backpack.obj"));
+
+        AQ_CompModel* guitarModel = &(AQ_GetComponent<AQ_CompModel>(guitarObject, 0));
+
 
         // draw in wireframe
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

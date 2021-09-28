@@ -29,3 +29,6 @@ public:
 		}
 	}
 };
+
+#define AQ_AddComponent AQ_GameObjectCtrl::addComponent
+#define AQ_GetComponent AQ_GameObjectCtrl::getComponent
