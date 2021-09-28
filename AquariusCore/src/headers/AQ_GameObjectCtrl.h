@@ -18,8 +18,10 @@ public:
 			try {
 				component.name = name;
 				AQ_Database::Components::addComponent(component, component.databaseAccessKey);
-				for (int i = 0; i < gameObject.componentsKeys[typeid(T)].size(); i++) {
-					if (gameObject.componentsKeys[typeid(T)].at(i).first == name) {
+				const int gameObjectKeysVecSize = gameObject.componentsKeys[typeid(T)].size();
+				const auto& componentsKeysVecRef = gameObject.componentsKeys[typeid(T)];
+				for (int i = 0; i < gameObjectKeysVecSize; i++) {
+					if (componentsKeysVecRef.at(i).first == name) {
 						throw std::string("ERROR: GAMEOBJECT'S SAME COMPONENT TYPE ALREADY HAS ONE WITH THE NAME");
 					}
 				}
