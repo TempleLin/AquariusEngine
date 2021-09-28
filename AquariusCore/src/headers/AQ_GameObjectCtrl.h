@@ -18,9 +18,8 @@ public:
 			try {
 				component.name = name;
 				AQ_Database::Components::addComponent(component, component.databaseAccessKey);
-				const int gameObjectKeysVecSize = gameObject.componentsKeys[typeid(T)].size();
 				const auto& componentsKeysVecRef = gameObject.componentsKeys[typeid(T)];
-				for (int i = 0; i < gameObjectKeysVecSize; i++) {
+				for (int i = 0; i < componentsKeysVecRef.size(); i++) {
 					if (componentsKeysVecRef.at(i).first == name) {
 						throw std::string("ERROR: GAMEOBJECT'S SAME COMPONENT TYPE ALREADY HAS ONE WITH THE NAME");
 					}
@@ -30,6 +29,8 @@ public:
 				std::cout << errorMessage << "\n";
 			} catch (std::out_of_range& e) {
 				std::cout << "ERROR: CANNOT ADD COMPONENT FROM GAMEOBJECT" << e.what() << "\n";
+			} catch (...) {
+				std::cout << "ERROR: UNKNOW ERROR IN ADDCOMPONENT FROM AQ_GAMEOBJECTCTRL" << "\n";
 			}
 			
 		}
@@ -39,10 +40,11 @@ public:
 	static T& getComponent(AQ_GameObject& gameObject, std::string name) {
 		if constexpr (std::is_base_of<AQ_Component, T>::value) {
 			try {
+				const auto& componentsKeysVecRef = gameObject.componentsKeys[typeid(T)];
 				std::string stringHolder = "";
 				int i = 0;
-				for (; i < gameObject.componentsKeys[typeid(T)].size(); i++) {
-					if (gameObject.componentsKeys[typeid(T)].at(i).first == name) {
+				for (; i < componentsKeysVecRef.size(); i++) {
+					if (componentsKeysVecRef.at(i).first == name) {
 						stringHolder = name;
 						break;
 					}
@@ -50,10 +52,12 @@ public:
 				if (stringHolder == "") {
 					throw std::out_of_range("COMPONENT WITH SPECIFIED NAME DOESN'T EXIST IN SPECIFIED COMPONENT TYPE");
 				} else {
-					return std::any_cast<T&>(AQ_Database::Components::allComponents.at(gameObject.componentsKeys[typeid(T)].at(i).second));
+					return std::any_cast<T&>(AQ_Database::Components::allComponents.at(componentsKeysVecRef.at(i).second));
 				}
 			} catch (std::out_of_range& e) {
 				std::cout << "FAILED TO GET COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";
+			} catch (...) {
+				std::cout << "ERROR: UNKNOW ERROR FROM GETTING COMPONENT IN AQ_GAMEOBJECTCTRL" << "\n";
 			}
 		}
 	}
