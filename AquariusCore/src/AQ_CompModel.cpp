@@ -1,7 +1,6 @@
 #include "headers/AQ_CompModel.h"
 
 AQ_CompModel::AQ_CompModel(string const& path, bool gamma) {
-    componentType = AQ_EComponents::MODEL;
     gammaCorrection = gamma;
     loadModel(path);
 }

@@ -8,7 +8,6 @@ const float ZOOM = 45.0f;
 
 AQ_CompCamera::AQ_CompCamera(glm::vec3 position, glm::vec3 front, glm::vec3 worldUp, 
         float yaw, float pitch, float movementSpeed, float mouseSensitivity, float zoom) {
-    componentType = AQ_EComponents::CAMERA;
     this->position = position;
     this->front = front;
     this->worldUp = worldUp;
