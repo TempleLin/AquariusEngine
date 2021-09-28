@@ -5,6 +5,7 @@
 
 #include <unordered_map>
 #include <vector>
+#include <any>
 #include <iostream>
 class AQ_Component;
 
@@ -20,11 +21,14 @@ private:
 	private:
 		// @currentKey will keep += 1 and never repeat for every keys throughout database
 		static unsigned int currentKeyIndex;
-		static std::unordered_map<unsigned int, AQ_CompModel> modelComponents;
-		static std::unordered_map<unsigned int, AQ_CompCamera> cameraComponents;
+		static std::unordered_map<unsigned int, std::any> allComponents;
 
-		static void addCameraComponent(AQ_CompCamera& component, unsigned int& returnKey);
-		static void addModelComponent(AQ_CompModel& component, unsigned int& returnKey);
+		template<typename T>
+		static void addComponent(T& component, unsigned int& returnKey) {
+			allComponents.insert(std::pair<unsigned int, std::any>(currentKeyIndex, component));
+			returnKey = currentKeyIndex;
+			currentKeyIndex++;
+		}
 	};
 
 	static class GlobalLights {

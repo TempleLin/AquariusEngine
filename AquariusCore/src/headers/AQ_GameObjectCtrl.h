@@ -6,12 +6,26 @@
 #include "AQ_Component.h"
 #include <iostream>
 #include <type_traits>
+#include <any>
 
 class AQ_GameObjectCtrl {
 public:
-	static void addCameraComponent(AQ_GameObject& gameObject, AQ_CompCamera camera);
-	static void addModelComponent(AQ_GameObject& gameObject, AQ_CompModel model);
+	template <typename T>
+	static void addComponent(AQ_GameObject& gameObject, T component) {
+		if constexpr (std::is_base_of<AQ_Component, T>::value) {
+			AQ_Database::Components::addComponent(component, component.databaseAccessKey);
+			gameObject.componentsKeys[typeid(T)].push_back(component.databaseAccessKey);
+		}
+	}
 
-	static AQ_CompCamera& getCameraComponent(AQ_GameObject& gameObject, unsigned int index);
-	static AQ_CompModel& getModelComponent(AQ_GameObject& gameObject, unsigned int index);
+	template <typename T>
+	static T& getComponent(AQ_GameObject& gameObject, unsigned int index) {
+		if constexpr (std::is_base_of<AQ_Component, T>::value) {
+			try {
+				return std::any_cast<T&>(AQ_Database::Components::allComponents.at(gameObject.componentsKeys[typeid(T)].at(index)));
+			} catch (std::out_of_range& e) {
+				std::cout << "FAILED TO GET COMPONENT FROM GAMEOBJECT CTRL" << "\n";
+			}
+		}
+	}
 };

@@ -86,16 +86,16 @@ namespace read_objmodel {
         // -------------------------
         AQ_Shader ourShader("shaders/objModelSimpleShader/shaderVS.glsl", "shaders/objModelSimpleShader/shaderFS.glsl");
 
-        AQ_GameObjectCtrl::addCameraComponent(cameraObject, AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)));
-        camera = &(AQ_GameObjectCtrl::getCameraComponent(cameraObject, 0));
+        AQ_GameObjectCtrl::addComponent<AQ_CompCamera>(cameraObject, AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)));
+        camera = &(AQ_GameObjectCtrl::getComponent<AQ_CompCamera>(cameraObject, 0));
 
         // load models
         // -----------
         
         AQ_GameObject guitarObject;
-        AQ_GameObjectCtrl::addModelComponent(guitarObject, AQ_CompModel("resources/objects/backpack/backpack.obj"));
-        AQ_CompModel* guitarModel = nullptr; 
-        guitarModel = &(AQ_GameObjectCtrl::getModelComponent(guitarObject, 0));
+        AQ_GameObjectCtrl::addComponent<AQ_CompModel>(guitarObject, AQ_CompModel("resources/objects/backpack/backpack.obj"));
+        AQ_CompModel* guitarModel = nullptr;
+        guitarModel = &(AQ_GameObjectCtrl::getComponent<AQ_CompModel>(guitarObject, 0));
 
         /*guitar.addModelComponent(AQ_CompModel("resources/objects/backpack/backpack.obj"));
         AQ_CompModel& */

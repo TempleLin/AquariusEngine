@@ -16,7 +16,6 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <map>
 #include <vector>
 using namespace std;
 using namespace stbi_image_wrap;
