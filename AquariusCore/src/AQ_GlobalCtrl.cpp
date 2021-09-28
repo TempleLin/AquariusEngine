@@ -1,8 +1,6 @@
 #include "headers/AQ_GlobalCtrl.h"
 #include "headers/AQ_Database.h"
 
-class AQ_GlobalCtrl::LightsCtrl;
-
 void AQ_GlobalCtrl::LightsCtrl::addDirectionalLight
 	(glm::vec3 direction, glm::vec3 color, float intensity) {
 	AQ_Database::GlobalLights::directionalLights.push_back(AQ_DirLight(direction, color, intensity));

@@ -1,8 +1,5 @@
 #include "headers/AQ_Database.h"
 
-class AQ_Database::Components;
-class AQ_Database::GlobalLights;
-
 unsigned int AQ_Database::Components::currentKeyIndex = 1;
 std::unordered_map<unsigned int, AQ_CompModel> AQ_Database::Components::modelComponents;
 std::unordered_map<unsigned int, AQ_CompCamera> AQ_Database::Components::cameraComponents;
