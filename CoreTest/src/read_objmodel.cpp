@@ -44,8 +44,8 @@ namespace read_objmodel {
     void countTime();
 
     // settings
-    int SCR_WIDTH = 800;
-    int SCR_HEIGHT = 600;
+    int SCR_WIDTH = 1200;
+    int SCR_HEIGHT = 900;
 
     // camera
     AQ_GameObject cameraObject;
@@ -147,7 +147,6 @@ namespace read_objmodel {
         // render loop
         // -----------
         while (!glfwWindowShouldClose(window)) {
-            countTime();
 
             // Poll and handle events (inputs, window resize, etc.)
             // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
@@ -184,6 +183,7 @@ namespace read_objmodel {
                 ImGui::SameLine();
                 ImGui::Text("counter = %d", counter);
 
+                ImGui::Text("Seconds passed in game: %u", (unsigned int)secondsFloatCount);
                 ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
                 ImGui::End();
             }
@@ -197,6 +197,8 @@ namespace read_objmodel {
                 ImGui::End();
             }
 
+            // Count deltaTime and seconds in game.
+            countTime();
 
             // input
                 // -----
@@ -283,7 +285,6 @@ namespace read_objmodel {
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
         // Count seconds using deltaTime
-        std::cout << "\rCurrent Second: " << (int)secondsFloatCount;
         secondsFloatCount += deltaTime;
     }
 
