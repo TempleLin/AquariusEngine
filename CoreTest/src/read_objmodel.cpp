@@ -16,6 +16,10 @@
 
 #include <iostream>
 
+#define REMOVE_GUITAR_IN_SECONDS
+#ifdef REMOVE_GUITAR_IN_SECONDS
+#define SECONDS_TO_REMOVE_GUITAR 15.f
+#endif
 
 namespace read_objmodel {
     using namespace stbi_image_wrap;
@@ -97,6 +101,7 @@ namespace read_objmodel {
         AQ_AddComponent<AQ_CompModel>(guitarObject, AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
 
         AQ_CompModel* guitarModel = &(AQ_GetComponent<AQ_CompModel>(guitarObject, "GUITAR"));
+        
 
 
         // draw in wireframe
@@ -105,11 +110,14 @@ namespace read_objmodel {
         // render loop
         // -----------
         while (!glfwWindowShouldClose(window)) {
+
+
             // per-frame time logic
             // --------------------
             float currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
             lastFrame = currentFrame;
+            
 
             // input
             // -----
@@ -137,6 +145,13 @@ namespace read_objmodel {
             if (guitarModel)
                 guitarModel->draw(ourShader);
 
+#ifdef REMOVE_GUITAR_IN_SECONDS
+            static float secondsCounter{ 0 };
+            secondsCounter += deltaTime;
+            std::cout << secondsCounter << "\n";
+            if (secondsCounter > SECONDS_TO_REMOVE_GUITAR)
+                AQ_GameObjectCtrl::removeComponent<AQ_CompModel>(guitarObject, "GUITAR");
+#endif
 
             // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
             // -------------------------------------------------------------------------------

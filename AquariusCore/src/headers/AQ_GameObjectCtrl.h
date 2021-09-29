@@ -76,6 +76,21 @@ public:
 		}
 	}
 
+
+	template <typename T>
+	static void removeComponent(AQ_GameObject& gameObject, std::string name) {
+		if constexpr (std::is_base_of<AQ_Component, T>::value) {
+			try {
+				const auto& componentsKeysVecRef = gameObject.componentsKeys[typeid(T)];
+				AQ_Database::Components::allComponents.erase
+					(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second);
+			} catch (std::out_of_range& e) {
+				std::cout << "FAILED TO REMOVE COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";
+			} catch (...) {
+				std::cout << "ERROR: UNKNOW ERROR FROM REMOVING COMPONENT IN AQ_GAMEOBJECTCTRL" << "\n";
+			}
+		}
+	}
 };
 
 #define AQ_AddComponent AQ_GameObjectCtrl::addComponent
