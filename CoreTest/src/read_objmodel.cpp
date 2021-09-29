@@ -16,7 +16,7 @@
 
 #include <iostream>
 
-#define REMOVE_GUITAR_IN_SECONDS
+//#define REMOVE_GUITAR_IN_SECONDS
 #ifdef REMOVE_GUITAR_IN_SECONDS
 #define SECONDS_TO_REMOVE_GUITAR 8.f
 #endif
@@ -54,6 +54,7 @@ namespace read_objmodel {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+
 #ifdef __APPLE__
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
@@ -87,6 +88,8 @@ namespace read_objmodel {
         // configure global opengl state
         // -----------------------------
         glEnable(GL_DEPTH_TEST);
+        glEnable(GL_CULL_FACE); //Face culling
+
 
         // build and compile shaders
         // -------------------------
