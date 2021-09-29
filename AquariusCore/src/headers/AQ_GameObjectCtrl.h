@@ -76,7 +76,6 @@ public:
 		}
 	}
 
-
 	template <typename T>
 	static void removeComponent(AQ_GameObject& gameObject, std::string name) {
 		if constexpr (std::is_base_of<AQ_Component, T>::value) {
@@ -89,6 +88,19 @@ public:
 			} catch (...) {
 				std::cout << "ERROR: UNKNOW ERROR FROM REMOVING COMPONENT IN AQ_GAMEOBJECTCTRL" << "\n";
 			}
+		}
+	}
+
+	static void removeAllCompsOfGameObject(AQ_GameObject& gameObject) {
+		try {
+			const auto& allComponentsKeysMapRef = gameObject.componentsKeys;
+			for (auto const& i : allComponentsKeysMapRef) {
+				for (auto const& j : i.second) {
+					AQ_Database::Components::allComponents.erase(j.second);
+				}
+			}
+		} catch (...) {
+			std::cout << "ERROR: UNKNOWN ERROR IN FAILING TO REMOVE ALL COMPONENTS OF GAMEOBJECT" << "\n";
 		}
 	}
 };
