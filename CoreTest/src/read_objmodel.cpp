@@ -149,8 +149,13 @@ namespace read_objmodel {
             static float secondsCounter{ 0 };
             secondsCounter += deltaTime;
             std::cout << secondsCounter << "\n";
+#if defined(SECONDS_TO_REMOVE_GUITAR)
             if (secondsCounter > SECONDS_TO_REMOVE_GUITAR)
                 AQ_GameObjectCtrl::removeComponent<AQ_CompModel>(guitarObject, "GUITAR");
+#else
+            if (secondsCounter > 10.f)
+                AQ_GameObjectCtrl::removeComponent<AQ_CompModel>(guitarObject, "GUITAR");
+#endif
 #endif
 
             // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
