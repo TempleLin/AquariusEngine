@@ -19,10 +19,13 @@ private:
 		friend class AQ_GameObject;
 		friend class AQ_GameObjectCtrl;
 	private:
-		// @currentKey will keep += 1 and never repeat for every keys throughout database
+		// @currentKey will keep += 1 and never repeat for every keys throughout the map of components.
 		static unsigned int currentKeyIndex;
-		static std::unordered_map<unsigned int, std::any> allComponents;
+		// @Create the map in heap allocation to prevent getting destructed before any other GameObject do.
+		inline static std::unordered_map<unsigned int, std::any>& allComponents 
+			= *(new std::unordered_map<unsigned int, std::any>);
 
+		// @Gets called from GameObjectCtrl when adding component to GameObject.
 		template<typename T>
 		static void addComponent(T& component, unsigned int& returnKey) {
 			allComponents.insert(std::pair<unsigned int, std::any>(currentKeyIndex, component));

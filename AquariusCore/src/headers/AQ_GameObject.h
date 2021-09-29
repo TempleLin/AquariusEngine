@@ -14,4 +14,6 @@ class AQ_GameObject {
 	friend class AQ_GameObjectCtrl;
 private:
 	std::map<std::type_index, std::vector<std::pair<std::string, unsigned int>>> componentsKeys;
+public:
+	~AQ_GameObject();
 };

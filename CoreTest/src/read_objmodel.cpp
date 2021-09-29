@@ -18,7 +18,7 @@
 
 #define REMOVE_GUITAR_IN_SECONDS
 #ifdef REMOVE_GUITAR_IN_SECONDS
-#define SECONDS_TO_REMOVE_GUITAR 15.f
+#define SECONDS_TO_REMOVE_GUITAR 8.f
 #endif
 
 namespace read_objmodel {
@@ -28,13 +28,13 @@ namespace read_objmodel {
     void mouse_callback(GLFWwindow* window, double xpos, double ypos);
     void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
     void processInput(GLFWwindow* window);
+    void countTime();
 
     // settings
     const unsigned int SCR_WIDTH = 800;
     const unsigned int SCR_HEIGHT = 600;
 
     // camera
-    //AQ_CompCamera camera(glm::vec3(0.f, 0.f, 3.f));
     AQ_GameObject cameraObject;
     AQ_CompCamera* camera = nullptr;
     float lastX = SCR_WIDTH / 2.0f;
@@ -42,8 +42,9 @@ namespace read_objmodel {
     bool firstMouse = true;
 
     // timing
-    float deltaTime = 0.0f;
-    float lastFrame = 0.0f;
+    float deltaTime{ 0.f };
+    float lastFrame{ 0.f };
+    float secondsFloatCount{ 0.f };
 
     int callable_main() {
         // glfw: initialize and configure
@@ -110,18 +111,12 @@ namespace read_objmodel {
         // render loop
         // -----------
         while (!glfwWindowShouldClose(window)) {
-
-
-            // per-frame time logic
-            // --------------------
-            float currentFrame = glfwGetTime();
-            deltaTime = currentFrame - lastFrame;
-            lastFrame = currentFrame;
+            countTime();
             
-
             // input
-            // -----
+                // -----
             processInput(window);
+
 
             // render
             // ------
@@ -137,6 +132,7 @@ namespace read_objmodel {
             ourShader.setMat4("projection", projection);
             ourShader.setMat4("view", view);
 
+
             // render the loaded model
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
@@ -146,11 +142,8 @@ namespace read_objmodel {
                 guitarModel->draw(ourShader);
 
 #ifdef REMOVE_GUITAR_IN_SECONDS
-            static float secondsCounter{ 0 };
-            secondsCounter += deltaTime;
-            std::cout << secondsCounter << "\n";
 #if defined(SECONDS_TO_REMOVE_GUITAR)
-            if (secondsCounter > SECONDS_TO_REMOVE_GUITAR)
+            if (secondsFloatCount > SECONDS_TO_REMOVE_GUITAR)
                 AQ_GameObjectCtrl::removeComponent<AQ_CompModel>(guitarObject, "GUITAR");
 #else
             if (secondsCounter > 10.f)
@@ -188,6 +181,17 @@ namespace read_objmodel {
             camera->processKeyboard(ECameraMovement::UP, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
             camera->processKeyboard(ECameraMovement::DOWN, deltaTime);
+    }
+
+    void countTime() {
+        // per-frame time logic
+            // --------------------
+        float currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+        // Count seconds using deltaTime
+        std::cout << "\rCurrent Second: " << (int)secondsFloatCount;
+        secondsFloatCount += deltaTime;
     }
 
     // glfw: whenever the window size changed (by OS or user resize) this callback function executes
