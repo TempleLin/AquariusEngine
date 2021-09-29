@@ -10,7 +10,26 @@
 #include <utility>
 #include <any>
 
+/*
+* @Reminder:
+*	1.A gameobject can have components with same name only when they each are different types.
+*/
+
 class AQ_GameObjectCtrl {
+private:
+	static unsigned int getComponentIndex(const std::vector<std::pair<std::string, unsigned int>>& compVector, 
+		std::string& nameOfComponent) {
+		try {
+			for (unsigned int i = 0; i < compVector.size(); i++) {
+				if (compVector.at(i).first == nameOfComponent) {
+					return i;
+				}
+			}
+			throw std::out_of_range("COMPONENT WITH SPECIFIED NAME DOESN'T EXIST IN SPECIFIED COMPONENT TYPE");
+		} catch (std::out_of_range& e) {
+			std::cout << e.what() << "\n";
+		}
+	}
 public:
 	template <typename T>
 	static void addComponent(AQ_GameObject& gameObject, T component, std::string name) {
@@ -47,19 +66,8 @@ public:
 		if constexpr (std::is_base_of<AQ_Component, T>::value) {
 			try {
 				const auto& componentsKeysVecRef = gameObject.componentsKeys[typeid(T)];
-				std::string stringHolder = "";
-				int i = 0;
-				for (; i < componentsKeysVecRef.size(); i++) {
-					if (componentsKeysVecRef.at(i).first == name) {
-						stringHolder = name;
-						break;
-					}
-				}
-				if (stringHolder == "") {
-					throw std::out_of_range("COMPONENT WITH SPECIFIED NAME DOESN'T EXIST IN SPECIFIED COMPONENT TYPE");
-				} else {
-					return std::any_cast<T&>(AQ_Database::Components::allComponents.at(componentsKeysVecRef.at(i).second));
-				}
+				return std::any_cast<T&>(AQ_Database::Components::allComponents
+					.at(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second));
 			} catch (std::out_of_range& e) {
 				std::cout << "FAILED TO GET COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";
 			} catch (...) {
@@ -67,6 +75,7 @@ public:
 			}
 		}
 	}
+
 };
 
 #define AQ_AddComponent AQ_GameObjectCtrl::addComponent
