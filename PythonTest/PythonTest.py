@@ -1,8 +1,16 @@
 import ctypes
 import os
+import platform
 
 path = os.path.dirname(os.path.realpath(__file__))
-libc = ctypes.cdll.LoadLibrary(os.path.join(path, "PythonWrapTest.dll"))
+if(platform.system() == 'Windows'):
+    libc = ctypes.cdll.LoadLibrary(os.path.join(path, "PythonWrapTest.dll"))
+elif(platform.system() == 'Linux'):
+    pass
+elif(platform.system() == 'Darwin'):
+    pass
+else:
+    pass
 
 libc.addThreeNumbers.argtype = (ctypes.POINTER(ctypes.c_float))
 
