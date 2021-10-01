@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{aebb15d5-4a91-4448-87c6-f63e6def8e78}</ProjectGuid>
-    <RootNamespace>AquariusCore</RootNamespace>
+    <ProjectGuid>{dec61eb5-5401-41b9-b196-1849413d60a9}</ProjectGuid>
+    <RootNamespace>PythonWrapTest</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,15 +40,15 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>ClangCL</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>ClangCL</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -78,13 +78,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\external\includes;$(SolutionDir)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\external\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)\external\includes;$(SolutionDir)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\external\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -120,16 +116,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Assimp\assimp-vc142-mtd.lib;GLFW\glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <Lib>
-      <AdditionalDependencies>Assimp\assimp-vc142-mtd.lib;GLFW\glfw3.lib;opengl32.lib;kernel32.lib;</AdditionalDependencies>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -146,67 +137,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Assimp\assimp-vc142-mtd.lib;GLFW\glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <Lib>
-      <AdditionalDependencies>Assimp\assimp-vc142-mt.lib;GLFW\glfw3.lib;opengl32.lib;kernel32.lib;</AdditionalDependencies>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\AQ_CompCamera.cpp" />
-    <ClCompile Include="src\AQ_CompInput.cpp" />
-    <ClCompile Include="src\AQ_CompModel.cpp" />
-    <ClCompile Include="src\AQ_Database.cpp" />
-    <ClCompile Include="src\AQ_GameObject.cpp" />
-    <ClCompile Include="src\AQ_GameObjectCtrl.cpp" />
-    <ClCompile Include="src\AQ_GlobalCtrl.cpp" />
-    <ClCompile Include="src\AQ_Lights.cpp" />
-    <ClCompile Include="src\AQ_Mesh.cpp" />
-    <ClCompile Include="src\AQ_Shader.cpp" />
-    <ClCompile Include="src\dear_imgui\imgui.cpp" />
-    <ClCompile Include="src\dear_imgui\imgui_demo.cpp" />
-    <ClCompile Include="src\dear_imgui\imgui_draw.cpp" />
-    <ClCompile Include="src\dear_imgui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="src\dear_imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="src\dear_imgui\imgui_tables.cpp" />
-    <ClCompile Include="src\dear_imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\glad\glad.c" />
-    <ClCompile Include="src\stbi_image_wrapper.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\dear_imgui\imconfig.h" />
-    <ClInclude Include="src\dear_imgui\imgui.h" />
-    <ClInclude Include="src\dear_imgui\imgui_impl_glfw.h" />
-    <ClInclude Include="src\dear_imgui\imgui_impl_opengl3.h" />
-    <ClInclude Include="src\dear_imgui\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="src\dear_imgui\imgui_internal.h" />
-    <ClInclude Include="src\dear_imgui\imstb_rectpack.h" />
-    <ClInclude Include="src\dear_imgui\imstb_textedit.h" />
-    <ClInclude Include="src\dear_imgui\imstb_truetype.h" />
-    <ClInclude Include="src\headers\AQ_Component.h" />
-    <ClInclude Include="src\headers\AQ_GameObject.h" />
-    <ClInclude Include="src\headers\AQ_GameObjectCtrl.h" />
-    <ClInclude Include="src\headers\AQ_GlobalCtrl.h" />
-    <ClInclude Include="src\headers\AQ_CompInput.h" />
-    <ClInclude Include="src\headers\AQ_Lights.h" />
-    <ClInclude Include="src\headers\AQ_CompCamera.h" />
-    <ClInclude Include="src\headers\AQ_Database.h" />
-    <ClInclude Include="src\headers\AQ_Mesh.h" />
-    <ClInclude Include="src\headers\AQ_CompModel.h" />
-    <ClInclude Include="src\headers\AQ_Shader.h" />
-    <ClInclude Include="src\headers\stbi_image_wrapper.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="5.1.framebuffers_fs.glsl" />
-    <None Include="5.1.framebuffers_vs.glsl" />
-    <None Include="5.1.framebuffers_screen_fs.glsl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </None>
-    <None Include="5.1.framebuffers_screen_vs.glsl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </None>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
