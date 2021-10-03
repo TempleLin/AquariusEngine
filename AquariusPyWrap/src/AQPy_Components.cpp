@@ -17,8 +17,8 @@ extern "C" {
 	}
 
 	void addComponentToGameObject(AQ_GameObject* gameobject, char* compName) {
-		if (compName == cameraComponentName) {
+		/*if (compName == cameraComponentName) {
 			AQ_AddComponent<AQ_CompCamera>(*gameobject, )
-		}
+		}*/
 	}
 }

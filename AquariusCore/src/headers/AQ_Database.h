@@ -15,7 +15,7 @@ class AQ_Database {
 	friend class LightsCtrl;
 	friend class AQ_GameObjectCtrl;
 private:
-	static class Components {
+	class Components {
 		friend class AQ_GameObject;
 		friend class AQ_GameObjectCtrl;
 	private:
@@ -34,7 +34,7 @@ private:
 		}
 	};
 
-	static class GlobalLights {
+	class GlobalLights {
 		friend class AQ_GlobalCtrl;
 		friend class LightsCtrl;
 	private:
