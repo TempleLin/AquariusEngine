@@ -24,6 +24,12 @@
     <ClCompile Include="src\framebuffer_postprocess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\gamma_correction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shadow_mapping.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\framebuffer_postprocess.h">
@@ -32,5 +38,21 @@
     <ClInclude Include="src\headers\read_objmodel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\headers\gamma_correction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\shadow_mapping.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\2.gamma_correction.vs" />
+    <None Include="shaders\2.gamma_correction.fs" />
+    <None Include="shaders\shadow_mapping.fs" />
+    <None Include="shaders\shadow_mapping.vs" />
+    <None Include="shaders\shadow_mapping_depth.vs" />
+    <None Include="shaders\shadow_mapping_depth.fs" />
+    <None Include="shaders\debug_quad.vs" />
+    <None Include="shaders\debug_quad_depth.fs" />
   </ItemGroup>
 </Project>

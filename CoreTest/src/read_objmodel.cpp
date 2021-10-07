@@ -128,7 +128,7 @@ namespace read_objmodel {
         // -------------------------
         AQ_Shader ourShader("shaders/objModelSimpleShader/shaderVS.glsl", "shaders/objModelSimpleShader/shaderFS.glsl");
 
-        AQ_GameObjectCtrl::addComponent<AQ_CompCamera>(cameraObject, AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
+        AQ_AddComponent<AQ_CompCamera>(cameraObject, AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
         camera = &(AQ_GameObjectCtrl::getComponent<AQ_CompCamera>(cameraObject, "CAMERA"));
 
 
@@ -139,8 +139,6 @@ namespace read_objmodel {
 
         AQ_CompModel* guitarModel = &(AQ_GetComponent<AQ_CompModel>(guitarObject, "GUITAR"));
         
-
-
         // draw in wireframe
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 

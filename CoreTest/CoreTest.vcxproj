@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -148,12 +148,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\framebuffer_postprocess.cpp" />
+    <ClCompile Include="src\gamma_correction.cpp" />
     <ClCompile Include="src\read_objmodel.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\shadow_mapping.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\framebuffer_postprocess.h" />
+    <ClInclude Include="src\headers\gamma_correction.h" />
     <ClInclude Include="src\headers\read_objmodel.h" />
+    <ClInclude Include="src\headers\shadow_mapping.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\2.gamma_correction.fs" />
+    <None Include="shaders\2.gamma_correction.vs" />
+    <None Include="shaders\debug_quad.vs" />
+    <None Include="shaders\debug_quad_depth.fs" />
+    <None Include="shaders\shadow_mapping.fs" />
+    <None Include="shaders\shadow_mapping.vs" />
+    <None Include="shaders\shadow_mapping_depth.fs" />
+    <None Include="shaders\shadow_mapping_depth.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
