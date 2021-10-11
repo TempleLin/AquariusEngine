@@ -13,7 +13,9 @@ class AQ_CompModel;
 class AQ_GameObject {
 	friend class AQ_GameObjectCtrl;
 private:
+	AQ_GameObjectCtrl* gameObjectCtrlPtr;
 	std::map<std::type_index, std::vector<std::pair<std::string, unsigned int>>> componentsKeys;
 public:
+	AQ_GameObject(AQ_GameObjectCtrl& gameObjectCtrl);
 	~AQ_GameObject();
 };

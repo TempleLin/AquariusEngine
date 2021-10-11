@@ -18,6 +18,7 @@
 #include <headers/stbi_image_wrapper.h>
 #include <headers/AQ_Database.h>
 #include <headers/AQ_GameObject.h>
+#include <headers/AQ_GlobalCtrl.h>
 
 #include <iostream>
 
@@ -43,12 +44,19 @@ namespace read_objmodel {
     void processInput(GLFWwindow* window);
     void countTime();
 
+    // Initializations of AquariusEngine components.
+    AQ_Database::Components databaseComponents;
+    AQ_GameObjectCtrl gameObjectCtrl(databaseComponents);
+
+    AQ_Database::GlobalLights databaseGlobalLights;
+    AQ_GlobalCtrl::LightsCtrl lightsCtrl(databaseGlobalLights);
+
     // settings
     int SCR_WIDTH = 1200;
     int SCR_HEIGHT = 900;
 
     // camera
-    AQ_GameObject cameraObject;
+    AQ_GameObject cameraObject(gameObjectCtrl);
     AQ_CompCamera* camera = nullptr;
     float lastX = SCR_WIDTH / 2.0f;
     float lastY = SCR_HEIGHT / 2.0f;
@@ -124,20 +132,22 @@ namespace read_objmodel {
         glEnable(GL_CULL_FACE); //Face culling
 
 
+
         // build and compile shaders
         // -------------------------
         AQ_Shader ourShader("shaders/objModelSimpleShader/shaderVS.glsl", "shaders/objModelSimpleShader/shaderFS.glsl");
 
-        AQ_AddComponent<AQ_CompCamera>(cameraObject, AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
-        camera = &(AQ_GameObjectCtrl::getComponent<AQ_CompCamera>(cameraObject, "CAMERA"));
+        gameObjectCtrl.addComponent<AQ_CompCamera>(cameraObject, AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
+        camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(cameraObject, "CAMERA"));
+
 
 
         // load models
         // -----------
-        AQ_GameObject guitarObject;
-        AQ_AddComponent<AQ_CompModel>(guitarObject, AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
-
-        AQ_CompModel* guitarModel = &(AQ_GetComponent<AQ_CompModel>(guitarObject, "GUITAR"));
+        AQ_GameObject guitarObject(gameObjectCtrl);
+        gameObjectCtrl.addComponent<AQ_CompModel>(guitarObject, AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
+        AQ_CompModel* guitarModel = &(gameObjectCtrl.getComponent<AQ_CompModel>(guitarObject, "GUITAR"));
+        
         
         // draw in wireframe
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

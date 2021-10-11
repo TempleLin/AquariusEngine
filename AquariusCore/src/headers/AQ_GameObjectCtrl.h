@@ -18,11 +18,14 @@
 class AQ_GameObjectCtrl {
 	friend class AQ_GameObject;
 private:
-	static unsigned int getComponentIndex(const std::vector<std::pair<std::string, unsigned int>>& compVector,
+	AQ_Database::Components* databaseComponent;
+	unsigned int getComponentIndex(const std::vector<std::pair<std::string, unsigned int>>& compVector,
 		std::string& nameOfComponent);
 public:
+	AQ_GameObjectCtrl(AQ_Database::Components& databaseComponent);
+
 	template <typename T>
-	static void addComponent(AQ_GameObject& gameObject, T component, std::string name) {
+	void addComponent(AQ_GameObject& gameObject, T component, std::string name) {
 		if constexpr (std::is_base_of<AQ_Component, T>::value) {
 			try {
 				component.name = name;
@@ -30,7 +33,7 @@ public:
 				* @Add the component with to the database and receive its key in database by returning in to
 				*  component object's databaseAccessKey.
 				*/
-				AQ_Database::Components::addComponent(component, component.databaseAccessKey);
+				databaseComponent->addComponent(component, component.databaseAccessKey);
 				const auto& componentsKeysVecRef = gameObject.componentsKeys[typeid(T)];
 				// @Check if the name specified already exists in the gameobject's components.
 				for (int i = 0; i < componentsKeysVecRef.size(); i++) {
@@ -52,11 +55,11 @@ public:
 	}
 
 	template <typename T>
-	static T& getComponent(AQ_GameObject& gameObject, std::string name) {
+	T& getComponent(AQ_GameObject& gameObject, std::string name) {
 		if constexpr (std::is_base_of<AQ_Component, T>::value) {
 			try {
 				const auto& componentsKeysVecRef = gameObject.componentsKeys[typeid(T)];
-				return std::any_cast<T&>(AQ_Database::Components::allComponents
+				return std::any_cast<T&>(databaseComponent->allComponents
 					.at(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second));
 			} catch (std::out_of_range& e) {
 				std::cout << "FAILED TO GET COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";
@@ -67,11 +70,11 @@ public:
 	}
 
 	template <typename T>
-	static void removeComponent(AQ_GameObject& gameObject, std::string name) {
+	void removeComponent(AQ_GameObject& gameObject, std::string name) {
 		if constexpr (std::is_base_of<AQ_Component, T>::value) {
 			try {
 				const auto& componentsKeysVecRef = gameObject.componentsKeys[typeid(T)];
-				AQ_Database::Components::allComponents.erase
+				databaseComponent->allComponents.erase
 					(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second);
 			} catch (std::out_of_range& e) {
 				std::cout << "FAILED TO REMOVE COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";
@@ -81,9 +84,5 @@ public:
 		}
 	}
 
-	static void removeAllCompsOfGameObject(AQ_GameObject& gameObject);
+	void removeAllCompsOfGameObject(AQ_GameObject& gameObject);
 };
-
-#define AQ_AddComponent AQ_GameObjectCtrl::addComponent
-#define AQ_GetComponent AQ_GameObjectCtrl::getComponent
-#define AQ_ClearAllComponents AQ_GameObjectCtrl::removeAllCompsOfGameObject

@@ -2,6 +2,10 @@
 #include <stdexcept>
 #include <any>
 
+AQ_GameObjectCtrl::AQ_GameObjectCtrl(AQ_Database::Components& databaseComponent) {
+	this->databaseComponent = &databaseComponent;
+}
+
 unsigned int AQ_GameObjectCtrl::getComponentIndex(const std::vector<std::pair<std::string, unsigned int>>& compVector,
 	std::string& nameOfComponent) {
 	try {
@@ -21,7 +25,7 @@ void AQ_GameObjectCtrl::removeAllCompsOfGameObject(AQ_GameObject& gameObject) {
 		const auto& allComponentsKeysMapRef = gameObject.componentsKeys;
 		for (auto const& i : allComponentsKeysMapRef) {
 			for (auto const& j : i.second) {
-				AQ_Database::Components::allComponents.erase(j.second);
+				databaseComponent->allComponents.erase(j.second);
 			}
 		}
 	} catch (...) {
