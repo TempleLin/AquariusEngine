@@ -39,7 +39,7 @@
     <ClCompile Include="src\AQ_GameObjectCtrl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AQ_CompModel.cpp">
+    <ClCompile Include="src\AQ_Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\AQ_Mesh.cpp">
@@ -75,6 +75,12 @@
     <ClCompile Include="src\dear_imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\AQ_ModelCtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_CompModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\AQ_CompCamera.h">
@@ -83,7 +89,7 @@
     <ClInclude Include="src\headers\AQ_Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_CompModel.h">
+    <ClInclude Include="src\headers\AQ_Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\AQ_Shader.h">
@@ -138,6 +144,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\dear_imgui\imgui_impl_opengl3_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_ModelCtrl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_CompModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

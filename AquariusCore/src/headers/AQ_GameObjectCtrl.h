@@ -1,7 +1,5 @@
 #pragma once
 #include "AQ_GameObject.h"
-#include "AQ_CompModel.h"
-#include "AQ_CompCamera.h"
 #include "AQ_Database.h"
 #include "AQ_Component.h"
 #include <string>

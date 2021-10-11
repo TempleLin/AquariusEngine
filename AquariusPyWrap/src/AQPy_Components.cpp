@@ -7,7 +7,7 @@
 
 extern "C" {
 	const char* cameraComponentName = typeid(AQ_CompCamera).name();
-	const char* modelComponentName = typeid(AQ_CompModel).name();
+	const char* modelComponentName = typeid(AQ_OBJModel).name();
 
 	AQ_CompCamera* createCompCamera(float posX = 0.f, float posY = 0.f, float posZ = 0.f, float frontX = 0.f, float frontY = 0.f, float frontZ = -1.f,
 		float worldUpX = 0.f, float worldUpY = 1.f, float worldUpZ = 0.f,

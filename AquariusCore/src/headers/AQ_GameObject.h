@@ -8,7 +8,7 @@
 
 #include "AQ_Database.h"
 #include "AQ_Component.h"
-class AQ_CompModel;
+class AQ_Model;
 
 class AQ_GameObject {
 	friend class AQ_GameObjectCtrl;

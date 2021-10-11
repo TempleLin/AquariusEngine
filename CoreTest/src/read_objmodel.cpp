@@ -135,9 +135,9 @@ namespace read_objmodel {
         // load models
         // -----------
         AQ_GameObject guitarObject;
-        AQ_AddComponent<AQ_CompModel>(guitarObject, AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
+        AQ_AddComponent<AQ_Model>(guitarObject, AQ_Model("resources/objects/backpack/backpack.obj"), "GUITAR");
 
-        AQ_CompModel* guitarModel = &(AQ_GetComponent<AQ_CompModel>(guitarObject, "GUITAR"));
+        AQ_Model* guitarModel = &(AQ_GetComponent<AQ_Model>(guitarObject, "GUITAR"));
         
         // draw in wireframe
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

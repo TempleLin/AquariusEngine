@@ -163,12 +163,14 @@
     <ClCompile Include="src\AQ_CompCamera.cpp" />
     <ClCompile Include="src\AQ_CompInput.cpp" />
     <ClCompile Include="src\AQ_CompModel.cpp" />
+    <ClCompile Include="src\AQ_Model.cpp" />
     <ClCompile Include="src\AQ_Database.cpp" />
     <ClCompile Include="src\AQ_GameObject.cpp" />
     <ClCompile Include="src\AQ_GameObjectCtrl.cpp" />
     <ClCompile Include="src\AQ_GlobalCtrl.cpp" />
     <ClCompile Include="src\AQ_Lights.cpp" />
     <ClCompile Include="src\AQ_Mesh.cpp" />
+    <ClCompile Include="src\AQ_ModelCtrl.cpp" />
     <ClCompile Include="src\AQ_Shader.cpp" />
     <ClCompile Include="src\dear_imgui\imgui.cpp" />
     <ClCompile Include="src\dear_imgui\imgui_demo.cpp" />
@@ -181,6 +183,7 @@
     <ClCompile Include="src\stbi_image_wrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\headers\AQ_CompModel.h" />
     <ClInclude Include="src\dear_imgui\imconfig.h" />
     <ClInclude Include="src\dear_imgui\imgui.h" />
     <ClInclude Include="src\dear_imgui\imgui_impl_glfw.h" />
@@ -199,7 +202,8 @@
     <ClInclude Include="src\headers\AQ_CompCamera.h" />
     <ClInclude Include="src\headers\AQ_Database.h" />
     <ClInclude Include="src\headers\AQ_Mesh.h" />
-    <ClInclude Include="src\headers\AQ_CompModel.h" />
+    <ClInclude Include="src\headers\AQ_Model.h" />
+    <ClInclude Include="src\headers\AQ_ModelCtrl.h" />
     <ClInclude Include="src\headers\AQ_Shader.h" />
     <ClInclude Include="src\headers\stbi_image_wrapper.h" />
   </ItemGroup>

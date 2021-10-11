@@ -1,7 +1,8 @@
 #pragma once
-#include "AQ_CompModel.h"
+#include "AQ_Model.h"
 #include "AQ_CompCamera.h"
 #include "AQ_Lights.h"
+#include "AQ_ModelCtrl.h"
 
 #include <unordered_map>
 #include <vector>
@@ -14,6 +15,8 @@ class AQ_Database {
 	friend class AQ_GlobalCtrl;
 	friend class LightsCtrl;
 	friend class AQ_GameObjectCtrl;
+	friend class AQ_ModelCtrl;
+	friend class AQ_CompModel;
 private:
 	class Components {
 		friend class AQ_GameObject;
@@ -41,5 +44,12 @@ private:
 		static std::vector<AQ_DirLight> directionalLights;
 		static std::vector<AQ_PointLight> pointLights;
 		static std::vector<AQ_SpotLight> spotLights;
+	};
+
+	class Models {
+		friend class AQ_ModelCtrl;
+		friend class AQ_CompModel;
+	private:
+		static std::vector<AQ_Model> allModels;
 	};
 };
