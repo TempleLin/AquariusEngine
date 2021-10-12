@@ -48,7 +48,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>ClangCL</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -87,7 +87,7 @@
     <LibraryPath>$(SolutionDir)\x64\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
-    <VcpkgAutoLink>false</VcpkgAutoLink>
+    <VcpkgAutoLink>true</VcpkgAutoLink>
     <VcpkgEnabled>true</VcpkgEnabled>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

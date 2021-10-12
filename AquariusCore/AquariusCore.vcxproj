@@ -48,7 +48,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>ClangCL</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -89,7 +89,7 @@
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
-    <VcpkgAutoLink>false</VcpkgAutoLink>
+    <VcpkgAutoLink>true</VcpkgAutoLink>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -156,7 +156,9 @@
       <AdditionalDependencies>Assimp\assimp-vc142-mtd.lib;GLFW\glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>glfw3dll.lib;glad.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
