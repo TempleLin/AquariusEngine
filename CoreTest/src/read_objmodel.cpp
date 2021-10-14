@@ -141,19 +141,36 @@ namespace read_objmodel {
         // -------------------------
         AQ_Shader ourShader("shaders/objModelSimpleShader/shaderVS.glsl", "shaders/objModelSimpleShader/shaderFS.glsl");
 
-        gameObjectCtrl.addComponent<AQ_CompCamera>(cameraObject, AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
+        gameObjectCtrl.addComponent<AQ_CompCamera>(cameraObject, new AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
         camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(cameraObject, "CAMERA"));
 
-        gameObjectCtrl.addComponent<AQ_CompInput>(cameraObject, AQ_CompInput(&std::array<AQ_GameObject*, 1>{&cameraObject}[0], new 
-            std::function<void()>([]() { std::cout << "Test Input" << "\n"; }), inputSystemCtrl), "CameraInput");
+        gameObjectCtrl.addComponent<AQ_CompInput>(cameraObject, 
+            new AQ_CompInput(window, &std::array<AQ_GameObject*, 1>{&cameraObject}[0], 
+                new std::function<void(GLFWwindow*, AQ_GameObject**)>([](GLFWwindow* window, AQ_GameObject** gameObjects) 
+                    { 
+                        static AQ_CompCamera* camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(*(gameObjects[0]), "CAMERA"));
+                        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+                            glfwSetWindowShouldClose(window, true);
+                        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+                            camera->processKeyboard(ECameraMovement::FORWARD, deltaTime);
+                        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+                            camera->processKeyboard(ECameraMovement::BACKWARD, deltaTime);
+                        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+                            camera->processKeyboard(ECameraMovement::LEFT, deltaTime);
+                        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+                            camera->processKeyboard(ECameraMovement::RIGHT, deltaTime);
+                        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+                            camera->processKeyboard(ECameraMovement::UP, deltaTime);
+                        if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+                            camera->processKeyboard(ECameraMovement::DOWN, deltaTime);
+                    }), inputSystemCtrl), "CameraInput");
 
         AQ_CompInput cameraInput = gameObjectCtrl.getComponent<AQ_CompInput>(cameraObject, "CameraInput");
-        (*cameraInput.processInputs)();
 
         // load models
         // -----------
         AQ_GameObject guitarObject(gameObjectCtrl);
-        gameObjectCtrl.addComponent<AQ_CompModel>(guitarObject, AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
+        gameObjectCtrl.addComponent<AQ_CompModel>(guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
         AQ_CompModel* guitarModel = &(gameObjectCtrl.getComponent<AQ_CompModel>(guitarObject, "GUITAR"));
         
 
@@ -220,7 +237,7 @@ namespace read_objmodel {
 
             // input
                 // -----
-            processInput(window);
+            //processInput(window);
             inputSystemCtrl.processInputs();
 
 

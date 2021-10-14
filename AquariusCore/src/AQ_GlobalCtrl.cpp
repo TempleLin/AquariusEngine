@@ -29,9 +29,11 @@ void AQ_GlobalCtrl::InputSystemCtrl::addInputComp(AQ_CompInput& compInput) {
 void AQ_GlobalCtrl::InputSystemCtrl::processInputs() {
 	for (int i = 0; i < allInputComps.size(); i++) {
 		try {
-			auto inputToProcess = (allInputComps.at(i))->processInputs;
-			(*inputToProcess)();
-			std::cout << "Processing inputs" << std::endl;
+			auto& currentInputComp = allInputComps.at(i);
+			if (allInputComps.at(i)) {
+				auto inputToProcess = currentInputComp->processInputs;
+				(*inputToProcess)(currentInputComp->belongedWindow, currentInputComp->gameObjectsToAffect);
+			}
 		} catch (const std::bad_function_call& e) {
 			std::cout << "ERROR: Input function calling failed--" << e.what() << "\n";
 		} catch (...) {
