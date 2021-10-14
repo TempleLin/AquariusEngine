@@ -8,6 +8,7 @@
 
 #include "AQ_Database.h"
 #include "AQ_Component.h"
+class AQ_GameObjectCtrl;
 class AQ_CompModel;
 
 class AQ_GameObject {

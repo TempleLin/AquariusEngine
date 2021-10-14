@@ -1,24 +1,19 @@
 #pragma once
-#include <List>
-#include <map>
+#include <vector>
+#include <functional>
+#include <memory>
+#include "AQ_GameObject.h"
+#include "AQ_GlobalCtrl.h"
+#include "AQ_Component.h"
 
-enum class AQ_EInputControllerTypes {
-	KEYBOARD = -1000000,
-	MOUSE = -2000000,
-	JOYSTICK = -3000000,
-	CLIPBOARD = -4000000,
-	PATHDROP = -5000000
-};
-
-// TODO: Add influence ability to selected component target.
-class AQ_CompInput {
+class AQ_CompInput : public AQ_Component{
+	friend class AQ_GlobalCtrl;
+	friend class InputSystemCtrl;
 private:
-	std::map<AQ_EInputControllerTypes, std::map<int, int>> controllersToUseWithInputs;
+	AQ_GameObject** gameObjectsToAffect;
+	AQ_GlobalCtrl::InputSystemCtrl* pointerToInputSystemCtrl;
 public:
-	AQ_CompInput(std::map<AQ_EInputControllerTypes, std::map<int, int>> controllersToUseWithInputs)
-		: controllersToUseWithInputs(controllersToUseWithInputs) {
-	}
-	void addOrChangeInputKey(AQ_EInputControllerTypes controllerType, std::pair<int, int> inputKey);
-	void removeInputKey(AQ_EInputControllerTypes controllerType, std::pair<int, int> inputKey);
-	void clearControllerKeys(AQ_EInputControllerTypes controllerType);
+	AQ_CompInput(AQ_GameObject** gameObjectsToAffect, std::function<void()>* processInputs, AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl);
+	std::function<void()>* processInputs;
+	//~AQ_CompInput();
 };

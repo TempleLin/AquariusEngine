@@ -19,8 +19,10 @@
 #include <headers/AQ_Database.h>
 #include <headers/AQ_GameObject.h>
 #include <headers/AQ_GlobalCtrl.h>
+#include <headers/AQ_CompInput.h>
 
 #include <iostream>
+#include <array>
 
 // [Win32] Our example includes a copy of glfw3.lib pre-compiled with VS2010 to maximize ease of testing and compatibility with old VS compilers.
 // To link with VS2010-era libraries, VS2015+ requires linking with legacy_stdio_definitions.lib, which we do using this pragma.
@@ -50,6 +52,8 @@ namespace read_objmodel {
 
     AQ_Database::GlobalLights databaseGlobalLights;
     AQ_GlobalCtrl::LightsCtrl lightsCtrl(databaseGlobalLights);
+
+    AQ_GlobalCtrl::InputSystemCtrl inputSystemCtrl;
 
     // settings
     int SCR_WIDTH = 1200;
@@ -140,7 +144,11 @@ namespace read_objmodel {
         gameObjectCtrl.addComponent<AQ_CompCamera>(cameraObject, AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
         camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(cameraObject, "CAMERA"));
 
+        gameObjectCtrl.addComponent<AQ_CompInput>(cameraObject, AQ_CompInput(&std::array<AQ_GameObject*, 1>{&cameraObject}[0], new 
+            std::function<void()>([]() { std::cout << "Test Input" << "\n"; }), inputSystemCtrl), "CameraInput");
 
+        AQ_CompInput cameraInput = gameObjectCtrl.getComponent<AQ_CompInput>(cameraObject, "CameraInput");
+        (*cameraInput.processInputs)();
 
         // load models
         // -----------
@@ -148,6 +156,7 @@ namespace read_objmodel {
         gameObjectCtrl.addComponent<AQ_CompModel>(guitarObject, AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
         AQ_CompModel* guitarModel = &(gameObjectCtrl.getComponent<AQ_CompModel>(guitarObject, "GUITAR"));
         
+
         
         // draw in wireframe
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -212,6 +221,7 @@ namespace read_objmodel {
             // input
                 // -----
             processInput(window);
+            inputSystemCtrl.processInputs();
 
 
             // render

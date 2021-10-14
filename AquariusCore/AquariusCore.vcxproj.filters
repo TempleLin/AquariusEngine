@@ -16,6 +16,12 @@
     <Filter Include="Shader Files">
       <UniqueIdentifier>{e71add36-efa5-4695-aefe-fa9d8a08ed30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\imgui_headers">
+      <UniqueIdentifier>{cd80e22d-0e81-4943-9173-7cfbed2bded3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\imgui_src">
+      <UniqueIdentifier>{1a8b4fb9-9e26-4b7f-acb8-9f3eea6e3e6a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\glad\glad.c">
@@ -55,25 +61,25 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\dear_imgui\imgui.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\imgui_src</Filter>
     </ClCompile>
     <ClCompile Include="src\dear_imgui\imgui_demo.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\imgui_src</Filter>
     </ClCompile>
     <ClCompile Include="src\dear_imgui\imgui_draw.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\imgui_src</Filter>
     </ClCompile>
     <ClCompile Include="src\dear_imgui\imgui_impl_glfw.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\imgui_src</Filter>
     </ClCompile>
     <ClCompile Include="src\dear_imgui\imgui_impl_opengl3.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\imgui_src</Filter>
     </ClCompile>
     <ClCompile Include="src\dear_imgui\imgui_tables.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\imgui_src</Filter>
     </ClCompile>
     <ClCompile Include="src\dear_imgui\imgui_widgets.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\imgui_src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,31 +120,31 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\dear_imgui\imconfig.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\imgui_headers</Filter>
     </ClInclude>
     <ClInclude Include="src\dear_imgui\imgui.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\imgui_headers</Filter>
     </ClInclude>
     <ClInclude Include="src\dear_imgui\imgui_impl_glfw.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\imgui_headers</Filter>
     </ClInclude>
     <ClInclude Include="src\dear_imgui\imgui_impl_opengl3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\dear_imgui\imgui_internal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\dear_imgui\imstb_rectpack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\dear_imgui\imstb_textedit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\dear_imgui\imstb_truetype.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\imgui_headers</Filter>
     </ClInclude>
     <ClInclude Include="src\dear_imgui\imgui_impl_opengl3_loader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\imgui_headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dear_imgui\imgui_internal.h">
+      <Filter>Header Files\imgui_headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dear_imgui\imstb_rectpack.h">
+      <Filter>Header Files\imgui_headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dear_imgui\imstb_textedit.h">
+      <Filter>Header Files\imgui_headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dear_imgui\imstb_truetype.h">
+      <Filter>Header Files\imgui_headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
