@@ -50,7 +50,6 @@ public:
 			} catch (...) {
 				std::cout << "ERROR: UNKNOW ERROR IN ADDCOMPONENT FROM AQ_GAMEOBJECTCTRL" << "\n";
 			}
-			std::cout << "0" << std::endl;
 		}
 	}
 

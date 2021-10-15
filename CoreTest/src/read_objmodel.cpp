@@ -146,24 +146,25 @@ namespace read_objmodel {
         camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(cameraObject, "CAMERA"));
 
         gameObjectCtrl.addComponent<AQ_CompInput>(cameraObject, 
-            new AQ_CompInput(window, &std::array<AQ_GameObject*, 1>{&cameraObject}[0], 
+            new AQ_CompInput(window, new AQ_GameObject * [1] {&cameraObject}, 1,
                 new std::function<void(GLFWwindow*, AQ_GameObject**, AQ_GlobalCtrl::TimeCtrl*)>(
                     [](GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl) {
-                        static AQ_CompCamera* camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(*(gameObjects[0]), "CAMERA"));
+                        gameObjectCtrl.getComponent<AQ_CompCamera>(*(gameObjects[0]), "CAMERA");
+                        static AQ_CompCamera* _camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(*(gameObjects[0]), "CAMERA"));
                         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
                             glfwSetWindowShouldClose(window, true);
                         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-                            camera->processKeyboard(ECameraMovement::FORWARD, timeCtrl->getDeltaTime());
+                            _camera->processKeyboard(ECameraMovement::FORWARD, timeCtrl->getDeltaTime());
                         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-                            camera->processKeyboard(ECameraMovement::BACKWARD, timeCtrl->getDeltaTime());
+                            _camera->processKeyboard(ECameraMovement::BACKWARD, timeCtrl->getDeltaTime());
                         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-                            camera->processKeyboard(ECameraMovement::LEFT, timeCtrl->getDeltaTime());
+                            _camera->processKeyboard(ECameraMovement::LEFT, timeCtrl->getDeltaTime());
                         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-                            camera->processKeyboard(ECameraMovement::RIGHT, timeCtrl->getDeltaTime());
+                            _camera->processKeyboard(ECameraMovement::RIGHT, timeCtrl->getDeltaTime());
                         if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-                            camera->processKeyboard(ECameraMovement::UP, timeCtrl->getDeltaTime());
+                            _camera->processKeyboard(ECameraMovement::UP, timeCtrl->getDeltaTime());
                         if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-                            camera->processKeyboard(ECameraMovement::DOWN, timeCtrl->getDeltaTime());
+                            _camera->processKeyboard(ECameraMovement::DOWN, timeCtrl->getDeltaTime());
                     }), inputSystemCtrl), "CameraInput");
 
         AQ_CompInput* cameraInput = &(gameObjectCtrl.getComponent<AQ_CompInput>(cameraObject, "CameraInput"));
