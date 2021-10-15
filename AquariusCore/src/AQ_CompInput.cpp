@@ -8,7 +8,7 @@ namespace aquarius_engine {
 		this->gameObjectsToAffect = gameObjectsToAffect;
 		this->gameObjectsCount = gameObjectsCount;
 		this->processInputs = processInputsCallBack;
-		inputSystemCtrl.addInputComp(*this);
+		inputSystemCtrl.addInputComp(this);
 		this->pointerToInputSystemCtrl = &inputSystemCtrl;
 	}
 

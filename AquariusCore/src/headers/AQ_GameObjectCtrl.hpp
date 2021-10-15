@@ -23,10 +23,10 @@ namespace aquarius_engine {
 		unsigned int getComponentIndex(const std::vector<std::pair<std::string, unsigned int>>& compVector,
 			std::string& nameOfComponent);
 	public:
-		AQ_GameObjectCtrl(AQ_Database::Components& databaseComponent);
+		AQ_GameObjectCtrl(AQ_Database::Components* databaseComponent);
 
 		template <typename T>
-		void addComponent(AQ_GameObject& gameObject, T* component, std::string name) {
+		void addComponent(AQ_GameObject* gameObject, T* component, std::string name) {
 			if constexpr (std::is_base_of<AQ_Component, T>::value) {
 				try {
 					component->name = name;
@@ -35,7 +35,7 @@ namespace aquarius_engine {
 					*  component object's databaseAccessKey.
 					*/
 					databaseComponent->addComponent(*component, component->databaseAccessKey);
-					const auto& componentsKeysVecRef = gameObject.componentsKeys[typeid(T)];
+					const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
 					// @Check if the name specified already exists in the gameobject's components.
 					for (int i = 0; i < componentsKeysVecRef.size(); i++) {
 						if (componentsKeysVecRef.at(i).first == name) {
@@ -43,7 +43,7 @@ namespace aquarius_engine {
 						}
 					}
 					// @Save name and access key to database descriptions of the component to the gameobject.
-					gameObject.componentsKeys[typeid(T)].push_back(std::pair<std::string, unsigned int>(name, component->databaseAccessKey));
+					gameObject->componentsKeys[typeid(T)].push_back(std::pair<std::string, unsigned int>(name, component->databaseAccessKey));
 				} catch (std::string& errorMessage) {
 					std::cout << errorMessage << "\n";
 				} catch (std::out_of_range& e) {
@@ -55,10 +55,10 @@ namespace aquarius_engine {
 		}
 
 		template <typename T>
-		T& getComponent(AQ_GameObject& gameObject, std::string name) {
+		T& getComponent(AQ_GameObject* gameObject, std::string name) {
 			if constexpr (std::is_base_of<AQ_Component, T>::value) {
 				try {
-					const auto& componentsKeysVecRef = gameObject.componentsKeys[typeid(T)];
+					const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
 					return std::any_cast<T&>(databaseComponent->allComponents
 						.at(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second));
 				} catch (std::out_of_range& e) {
@@ -70,10 +70,10 @@ namespace aquarius_engine {
 		}
 
 		template <typename T>
-		void removeComponent(AQ_GameObject& gameObject, std::string name) {
+		void removeComponent(AQ_GameObject* gameObject, std::string name) {
 			if constexpr (std::is_base_of<AQ_Component, T>::value) {
 				try {
-					const auto& componentsKeysVecRef = gameObject.componentsKeys[typeid(T)];
+					const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
 					databaseComponent->allComponents.erase
 					(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second);
 				} catch (std::out_of_range& e) {
@@ -84,6 +84,6 @@ namespace aquarius_engine {
 			}
 		}
 
-		void removeAllCompsOfGameObject(AQ_GameObject& gameObject);
+		void removeAllCompsOfGameObject(AQ_GameObject* gameObject);
 	};
 }

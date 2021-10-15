@@ -48,21 +48,21 @@ namespace read_objmodel {
     void countTime();
 
     // Initializations of AquariusEngine components.
-    AQ_Database::Components databaseComponents;
+    AQ_Database::Components* databaseComponents= new AQ_Database::Components();
     AQ_GameObjectCtrl gameObjectCtrl(databaseComponents);
 
     AQ_Database::GlobalLights databaseGlobalLights;
-    AQ_GlobalCtrl::LightsCtrl lightsCtrl(databaseGlobalLights);
+    AQ_GlobalCtrl::LightsCtrl lightsCtrl(&databaseGlobalLights);
 
     AQ_GlobalCtrl::TimeCtrl timeCtrl;
-    AQ_GlobalCtrl::InputSystemCtrl inputSystemCtrl(timeCtrl);
+    AQ_GlobalCtrl::InputSystemCtrl inputSystemCtrl(&timeCtrl);
 
     // settings
     int SCR_WIDTH = 1200;
     int SCR_HEIGHT = 900;
 
     // camera
-    AQ_GameObject cameraObject(gameObjectCtrl);
+    AQ_GameObject cameraObject(&gameObjectCtrl);
     AQ_CompCamera* camera = nullptr;
     float lastX = SCR_WIDTH / 2.0f;
     float lastY = SCR_HEIGHT / 2.0f;
@@ -143,15 +143,15 @@ namespace read_objmodel {
         // -------------------------
         AQ_Shader ourShader("shaders/objModelSimpleShader/shaderVS.glsl", "shaders/objModelSimpleShader/shaderFS.glsl");
 
-        gameObjectCtrl.addComponent<AQ_CompCamera>(cameraObject, new AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
-        camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(cameraObject, "CAMERA"));
+        gameObjectCtrl.addComponent<AQ_CompCamera>(&cameraObject, new AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
+        camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(&cameraObject, "CAMERA"));
 
-        gameObjectCtrl.addComponent<AQ_CompInput>(cameraObject, 
+        gameObjectCtrl.addComponent<AQ_CompInput>(&cameraObject, 
             new AQ_CompInput(window, new AQ_GameObject * [1] {&cameraObject}, 1,
                 new std::function<void(GLFWwindow*, AQ_GameObject**, AQ_GlobalCtrl::TimeCtrl*)>(
                     [](GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl) {
-                        gameObjectCtrl.getComponent<AQ_CompCamera>(*(gameObjects[0]), "CAMERA");
-                        static AQ_CompCamera* _camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(*(gameObjects[0]), "CAMERA"));
+                        gameObjectCtrl.getComponent<AQ_CompCamera>(gameObjects[0], "CAMERA");
+                        static AQ_CompCamera* _camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(gameObjects[0], "CAMERA"));
                         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
                             glfwSetWindowShouldClose(window, true);
                         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -168,13 +168,13 @@ namespace read_objmodel {
                             _camera->processKeyboard(ECameraMovement::DOWN, timeCtrl->getDeltaTime());
                     }), inputSystemCtrl), "CameraInput");
 
-        AQ_CompInput* cameraInput = &(gameObjectCtrl.getComponent<AQ_CompInput>(cameraObject, "CameraInput"));
+        AQ_CompInput* cameraInput = &(gameObjectCtrl.getComponent<AQ_CompInput>(&cameraObject, "CameraInput"));
 
         // load models
         // -----------
-        AQ_GameObject guitarObject(gameObjectCtrl);
-        gameObjectCtrl.addComponent<AQ_CompModel>(guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
-        AQ_CompModel* guitarModel = &(gameObjectCtrl.getComponent<AQ_CompModel>(guitarObject, "GUITAR"));
+        AQ_GameObject guitarObject(&gameObjectCtrl);
+        gameObjectCtrl.addComponent<AQ_CompModel>(&guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
+        AQ_CompModel* guitarModel = &(gameObjectCtrl.getComponent<AQ_CompModel>(&guitarObject, "GUITAR"));
         
 
         

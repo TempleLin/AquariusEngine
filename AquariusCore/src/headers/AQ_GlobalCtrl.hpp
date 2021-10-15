@@ -23,7 +23,7 @@ namespace aquarius_engine {
 		private:
 			AQ_Database::GlobalLights* databaseGlobalLights;
 		public:
-			LightsCtrl(AQ_Database::GlobalLights& databaseGlobalLights);
+			LightsCtrl(AQ_Database::GlobalLights* databaseGlobalLights);
 			void addDirectionalLight(glm::vec3 direction, glm::vec3 color, float intensity);
 			void addPointLight(glm::vec3 position, float radius, float intensity);
 			void addSpotLight(glm::vec3 position, glm::vec3 direction, float cutoffAngle, float intensity);
@@ -33,9 +33,9 @@ namespace aquarius_engine {
 		private:
 			std::vector<AQ_CompInput*> allInputComps;
 			AQ_GlobalCtrl::TimeCtrl* timeCtrlReference;
-			void addInputComp(AQ_CompInput& compInput);
+			void addInputComp(AQ_CompInput* compInput);
 		public:
-			InputSystemCtrl(AQ_GlobalCtrl::TimeCtrl& timeCtrlReference);
+			InputSystemCtrl(AQ_GlobalCtrl::TimeCtrl* timeCtrlReference);
 			void processInputs();
 		};
 	};

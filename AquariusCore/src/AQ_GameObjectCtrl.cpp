@@ -3,8 +3,8 @@
 #include <any>
 
 namespace aquarius_engine {
-	AQ_GameObjectCtrl::AQ_GameObjectCtrl(AQ_Database::Components& databaseComponent) {
-		this->databaseComponent = &databaseComponent;
+	AQ_GameObjectCtrl::AQ_GameObjectCtrl(AQ_Database::Components* databaseComponent) {
+		this->databaseComponent = databaseComponent;
 	}
 
 	unsigned int AQ_GameObjectCtrl::getComponentIndex(const std::vector<std::pair<std::string, unsigned int>>& compVector,
@@ -21,9 +21,9 @@ namespace aquarius_engine {
 		}
 	}
 
-	void AQ_GameObjectCtrl::removeAllCompsOfGameObject(AQ_GameObject& gameObject) {
+	void AQ_GameObjectCtrl::removeAllCompsOfGameObject(AQ_GameObject* gameObject) {
 		try {
-			const auto& allComponentsKeysMapRef = gameObject.componentsKeys;
+			const auto& allComponentsKeysMapRef = gameObject->componentsKeys;
 			for (auto const& i : allComponentsKeysMapRef) {
 				for (auto const& j : i.second) {
 					databaseComponent->allComponents.erase(j.second);

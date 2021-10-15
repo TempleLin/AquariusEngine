@@ -4,8 +4,8 @@
 #include <iostream>
 
 namespace aquarius_engine {
-	AQ_GlobalCtrl::LightsCtrl::LightsCtrl(AQ_Database::GlobalLights& databaseGlobalLights) {
-		this->databaseGlobalLights = &databaseGlobalLights;
+	AQ_GlobalCtrl::LightsCtrl::LightsCtrl(AQ_Database::GlobalLights* databaseGlobalLights) {
+		this->databaseGlobalLights = databaseGlobalLights;
 	}
 
 	void AQ_GlobalCtrl::LightsCtrl::addDirectionalLight
@@ -23,12 +23,12 @@ namespace aquarius_engine {
 		databaseGlobalLights->spotLights.push_back(AQ_SpotLight(position, direction, cutoffAngle, intensity));
 	}
 
-	void AQ_GlobalCtrl::InputSystemCtrl::addInputComp(AQ_CompInput& compInput) {
-		allInputComps.push_back(&compInput);
+	void AQ_GlobalCtrl::InputSystemCtrl::addInputComp(AQ_CompInput* compInput) {
+		allInputComps.push_back(compInput);
 	}
 
-	AQ_GlobalCtrl::InputSystemCtrl::InputSystemCtrl(AQ_GlobalCtrl::TimeCtrl& timeCtrlReference) {
-		this->timeCtrlReference = &timeCtrlReference;
+	AQ_GlobalCtrl::InputSystemCtrl::InputSystemCtrl(AQ_GlobalCtrl::TimeCtrl* timeCtrlReference) {
+		this->timeCtrlReference = timeCtrlReference;
 	}
 
 	void AQ_GlobalCtrl::InputSystemCtrl::processInputs() {
