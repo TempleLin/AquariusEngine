@@ -19,3 +19,10 @@ array_type = ctypes.c_float * num_numbers
 
 x = array_type(*[1, 2, 3])
 libc.addThreeNumbers(x)
+
+libc.getTestObject.restype = ctypes.POINTER(ctypes.c_void_p)
+y = libc.getTestObject()
+libc.getTest.argtype = (ctypes.POINTER(ctypes.c_void_p))
+print(libc.getTest(y))
+
+os.system("pause")
