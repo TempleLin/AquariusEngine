@@ -1,5 +1,5 @@
-#include "headers/AQ_GameObject.h"
-#include "headers/AQ_GameObjectCtrl.h"
+#include "headers/AQ_GameObject.hpp"
+#include "headers/AQ_GameObjectCtrl.hpp"
 
 AQ_GameObject::AQ_GameObject(AQ_GameObjectCtrl& gameObjectCtrl) {
 	this->gameObjectCtrlPtr = &gameObjectCtrl;

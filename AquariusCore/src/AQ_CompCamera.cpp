@@ -1,4 +1,4 @@
-#include "headers/AQ_CompCamera.h"
+#include "headers/AQ_CompCamera.hpp"
 
 const float YAW = -90.0f;
 const float PITCH = 0.0f;

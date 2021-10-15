@@ -1,7 +1,5 @@
-#include "headers/AQ_CompInput.h"
-#include "headers/AQ_GlobalCtrl.h"
-#include <iostream>
-#include <stdexcept>
+#include "headers/AQ_CompInput.hpp"
+#include "headers/AQ_GlobalCtrl.hpp"
 
 AQ_CompInput::AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsToAffect, unsigned int gameObjectsCount,
 	std::function<void(GLFWwindow* window, AQ_GameObject**, AQ_GlobalCtrl::TimeCtrl* timeCtrl)>* processInputsCallBack, 

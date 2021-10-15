@@ -1,4 +1,4 @@
-#include "headers/AQ_CompModel.h"
+#include "headers/AQ_CompModel.hpp"
 
 AQ_CompModel::AQ_CompModel(string const& path, bool gamma) {
     gammaCorrection = gamma;

@@ -1,4 +1,4 @@
-#include "headers/AQ_GameObjectCtrl.h"
+#include "headers/AQ_GameObjectCtrl.hpp"
 #include <stdexcept>
 #include <any>
 

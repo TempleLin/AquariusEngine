@@ -6,9 +6,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <headers/AQ_Shader.h>
-#include <headers/AQ_CompCamera.h>
-#include <headers/AQ_CompModel.h>
+#include <headers/AQ_Shader.hpp>
+#include <headers/AQ_CompCamera.hpp>
+#include <headers/AQ_CompModel.hpp>
 
 #include <iostream>
 #include "headers/gamma_correction.h"

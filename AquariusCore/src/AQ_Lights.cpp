@@ -1,4 +1,4 @@
-#include "headers/AQ_Lights.h"
+#include "headers/AQ_Lights.hpp"
 
 AQ_DirLight::AQ_DirLight(glm::vec3 _direction, glm::vec3 _color, float _intensity)
 	: direction(_direction), color(_color), intensity(_intensity) {

@@ -1,4 +1,4 @@
-#include "headers/AQ_Shader.h"
+#include "headers/AQ_Shader.hpp"
 
 AQ_Shader::AQ_Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath) {
     // 1. retrieve the vertex/fragment source code from filePath

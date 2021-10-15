@@ -1,4 +1,4 @@
-#include "headers/stbi_image_wrapper.h"
+#include "headers/stbi_image_wrapper.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 

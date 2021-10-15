@@ -1,9 +1,9 @@
 #pragma once
-#include "AQ_GameObject.h"
-#include "AQ_CompModel.h"
-#include "AQ_CompCamera.h"
-#include "AQ_Database.h"
-#include "AQ_Component.h"
+#include "AQ_GameObject.hpp"
+#include "AQ_CompModel.hpp"
+#include "AQ_CompCamera.hpp"
+#include "AQ_Database.hpp"
+#include "AQ_Component.hpp"
 #include <string>
 #include <iostream>
 #include <type_traits>

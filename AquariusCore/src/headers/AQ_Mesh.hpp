@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "AQ_Shader.h"
+#include "AQ_Shader.hpp"
 
 #include <string>
 #include <vector>

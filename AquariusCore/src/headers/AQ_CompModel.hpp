@@ -7,10 +7,10 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "AQ_Mesh.h"
-#include "AQ_Component.h"
-#include "AQ_Shader.h"
-#include "stbi_image_wrapper.h"
+#include "AQ_Mesh.hpp"
+#include "AQ_Component.hpp"
+#include "AQ_Shader.hpp"
+#include "stbi_image_wrapper.hpp"
 
 #include <string>
 #include <fstream>

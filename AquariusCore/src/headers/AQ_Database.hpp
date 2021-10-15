@@ -1,7 +1,7 @@
 #pragma once
-#include "AQ_CompModel.h"
-#include "AQ_CompCamera.h"
-#include "AQ_Lights.h"
+#include "AQ_CompModel.hpp"
+#include "AQ_CompCamera.hpp"
+#include "AQ_Lights.hpp"
 
 #include <unordered_map>
 #include <vector>

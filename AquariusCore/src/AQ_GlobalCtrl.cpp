@@ -1,6 +1,6 @@
-#include "headers/AQ_GlobalCtrl.h"
-#include "headers/AQ_Database.h"
-#include "headers/AQ_CompInput.h"
+#include "headers/AQ_GlobalCtrl.hpp"
+#include "headers/AQ_Database.hpp"
+#include "headers/AQ_CompInput.hpp"
 #include <iostream>
 
 AQ_GlobalCtrl::LightsCtrl::LightsCtrl(AQ_Database::GlobalLights& databaseGlobalLights) {

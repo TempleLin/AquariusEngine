@@ -83,40 +83,40 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\headers\AQ_CompCamera.h">
+    <ClInclude Include="src\headers\AQ_CompCamera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_Mesh.h">
+    <ClInclude Include="src\headers\AQ_Mesh.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_CompModel.h">
+    <ClInclude Include="src\headers\AQ_CompModel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_Shader.h">
+    <ClInclude Include="src\headers\AQ_Shader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_Database.h">
+    <ClInclude Include="src\headers\AQ_Database.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\stbi_image_wrapper.h">
+    <ClInclude Include="src\headers\stbi_image_wrapper.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_GameObject.h">
+    <ClInclude Include="src\headers\AQ_GameObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_Component.h">
+    <ClInclude Include="src\headers\AQ_Component.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_GlobalCtrl.h">
+    <ClInclude Include="src\headers\AQ_GlobalCtrl.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_Lights.h">
+    <ClInclude Include="src\headers\AQ_Lights.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_GameObjectCtrl.h">
+    <ClInclude Include="src\headers\AQ_GameObjectCtrl.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_CompInput.h">
+    <ClInclude Include="src\headers\AQ_CompInput.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\dear_imgui\imconfig.h">

@@ -1,4 +1,4 @@
-#include "headers/AQ_Mesh.h"
+#include "headers/AQ_Mesh.hpp"
 
 AQ_Mesh::AQ_Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures) {
     this->vertices = vertices;

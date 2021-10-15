@@ -11,15 +11,15 @@
 #include <GLES2/gl2.h>
 #endif
 
-#include <headers/AQ_Shader.h>
-#include <headers/AQ_CompCamera.h>
-#include <headers/AQ_CompModel.h>
-#include <headers/AQ_GameObjectCtrl.h>
-#include <headers/stbi_image_wrapper.h>
-#include <headers/AQ_Database.h>
-#include <headers/AQ_GameObject.h>
-#include <headers/AQ_GlobalCtrl.h>
-#include <headers/AQ_CompInput.h>
+#include <headers/AQ_Shader.hpp>
+#include <headers/AQ_CompCamera.hpp>
+#include <headers/AQ_CompModel.hpp>
+#include <headers/AQ_GameObjectCtrl.hpp>
+#include <headers/stbi_image_wrapper.hpp>
+#include <headers/AQ_Database.hpp>
+#include <headers/AQ_GameObject.hpp>
+#include <headers/AQ_GlobalCtrl.hpp>
+#include <headers/AQ_CompInput.hpp>
 
 #include <iostream>
 #include <array>

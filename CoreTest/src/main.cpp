@@ -6,7 +6,7 @@
 #include "headers/gamma_correction.h"
 #include "headers/shadow_mapping.h"
 
-#include <headers/AQ_GlobalCtrl.h>
+#include <headers/AQ_GlobalCtrl.hpp>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

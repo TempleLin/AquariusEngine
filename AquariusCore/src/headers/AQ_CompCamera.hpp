@@ -1,5 +1,5 @@
 #pragma once
-#include "AQ_Component.h"
+#include "AQ_Component.hpp"
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>

@@ -6,8 +6,8 @@
 #include <typeindex>
 #include <utility>
 
-#include "AQ_Database.h"
-#include "AQ_Component.h"
+#include "AQ_Database.hpp"
+#include "AQ_Component.hpp"
 class AQ_GameObjectCtrl;
 class AQ_CompModel;
 

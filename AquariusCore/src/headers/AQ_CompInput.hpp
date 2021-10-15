@@ -2,9 +2,9 @@
 #include <functional>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "AQ_GameObject.h"
-#include "AQ_GlobalCtrl.h"
-#include "AQ_Component.h"
+#include "AQ_GameObject.hpp"
+#include "AQ_GlobalCtrl.hpp"
+#include "AQ_Component.hpp"
 
 class AQ_CompInput : public AQ_Component{
 	friend class AQ_GlobalCtrl;
