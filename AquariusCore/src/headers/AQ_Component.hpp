@@ -2,14 +2,16 @@
 #include <typeinfo>
 #include <string>
 
-enum class AQ_EComponents {
-	CAMERA, MODEL
-};
+namespace aquarius_engine {
+	enum class AQ_EComponents {
+		CAMERA, MODEL
+	};
 
-class AQ_Component {
-	friend class AQ_GameObject;
-	friend class AQ_GameObjectCtrl;
-protected:
-	unsigned int databaseAccessKey;
-	std::string name;
-};
+	class AQ_Component {
+		friend class AQ_GameObject;
+		friend class AQ_GameObjectCtrl;
+	protected:
+		unsigned int databaseAccessKey;
+		std::string name;
+	};
+}

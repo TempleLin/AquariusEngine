@@ -14,6 +14,7 @@
 #include "headers/gamma_correction.h"
 
 namespace gamma_correction {
+    using namespace aquarius_engine;
 
     void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     void mouse_callback(GLFWwindow* window, double xpos, double ypos);
