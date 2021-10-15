@@ -3,10 +3,13 @@
 #include <iostream>
 #include <stdexcept>
 
-AQ_CompInput::AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsToAffect, std::function<void(GLFWwindow* window, AQ_GameObject**)>* processInputs, AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl) {
+AQ_CompInput::AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsToAffect, 
+	std::function<void(GLFWwindow* window, AQ_GameObject**, AQ_GlobalCtrl::TimeCtrl* timeCtrl)>* processInputsCallBack, 
+	AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl) {
 	this->belongedWindow = belongedWindow;
 	this->gameObjectsToAffect = gameObjectsToAffect;
-	this->processInputs = std::shared_ptr<std::function<void(GLFWwindow* window, AQ_GameObject**)>>(processInputs);
+	this->processInputs = std::shared_ptr<std::function<void(GLFWwindow* window, AQ_GameObject**, 
+		AQ_GlobalCtrl::TimeCtrl* timeCtrl)>>(processInputsCallBack);
 	inputSystemCtrl.addInputComp(*this);
 	this->pointerToInputSystemCtrl = &inputSystemCtrl;
 }

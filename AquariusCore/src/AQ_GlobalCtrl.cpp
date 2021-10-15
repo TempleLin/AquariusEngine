@@ -26,13 +26,17 @@ void AQ_GlobalCtrl::InputSystemCtrl::addInputComp(AQ_CompInput& compInput) {
 	allInputComps.push_back(&compInput);
 }
 
+AQ_GlobalCtrl::InputSystemCtrl::InputSystemCtrl(AQ_GlobalCtrl::TimeCtrl& timeCtrlReference) {
+	this->timeCtrlReference = &timeCtrlReference;
+}
+
 void AQ_GlobalCtrl::InputSystemCtrl::processInputs() {
 	for (int i = 0; i < allInputComps.size(); i++) {
 		try {
 			auto& currentInputComp = allInputComps.at(i);
 			if (allInputComps.at(i)) {
 				auto inputToProcess = currentInputComp->processInputs;
-				(*inputToProcess)(currentInputComp->belongedWindow, currentInputComp->gameObjectsToAffect);
+				(*inputToProcess)(currentInputComp->belongedWindow, currentInputComp->gameObjectsToAffect, timeCtrlReference);
 			}
 		} catch (const std::bad_function_call& e) {
 			std::cout << "ERROR: Input function calling failed--" << e.what() << "\n";
@@ -40,4 +44,20 @@ void AQ_GlobalCtrl::InputSystemCtrl::processInputs() {
 			std::cout << "ERROR: UNKNOWN ERROR IN INPUT FUNCTION CALL" << "\n";
 		}
 	}
+}
+
+void AQ_GlobalCtrl::TimeCtrl::updateTime() {
+	float currentFrame = glfwGetTime();
+	deltaTime = currentFrame - lastFrame;
+	lastFrame = currentFrame;
+	// Count seconds using deltaTime
+	iSecondsInGame += deltaTime;
+}
+
+float AQ_GlobalCtrl::TimeCtrl::getDeltaTime() {
+	return deltaTime;
+}
+
+float AQ_GlobalCtrl::TimeCtrl::getSecondsInGame() {
+	return iSecondsInGame;
 }

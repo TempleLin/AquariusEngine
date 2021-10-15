@@ -53,7 +53,8 @@ namespace read_objmodel {
     AQ_Database::GlobalLights databaseGlobalLights;
     AQ_GlobalCtrl::LightsCtrl lightsCtrl(databaseGlobalLights);
 
-    AQ_GlobalCtrl::InputSystemCtrl inputSystemCtrl;
+    AQ_GlobalCtrl::TimeCtrl timeCtrl;
+    AQ_GlobalCtrl::InputSystemCtrl inputSystemCtrl(timeCtrl);
 
     // settings
     int SCR_WIDTH = 1200;
@@ -146,23 +147,23 @@ namespace read_objmodel {
 
         gameObjectCtrl.addComponent<AQ_CompInput>(cameraObject, 
             new AQ_CompInput(window, &std::array<AQ_GameObject*, 1>{&cameraObject}[0], 
-                new std::function<void(GLFWwindow*, AQ_GameObject**)>(
-                    [](GLFWwindow* window, AQ_GameObject** gameObjects) { 
+                new std::function<void(GLFWwindow*, AQ_GameObject**, AQ_GlobalCtrl::TimeCtrl*)>(
+                    [](GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl) {
                         static AQ_CompCamera* camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(*(gameObjects[0]), "CAMERA"));
                         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
                             glfwSetWindowShouldClose(window, true);
                         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-                            camera->processKeyboard(ECameraMovement::FORWARD, deltaTime);
+                            camera->processKeyboard(ECameraMovement::FORWARD, timeCtrl->getDeltaTime());
                         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-                            camera->processKeyboard(ECameraMovement::BACKWARD, deltaTime);
+                            camera->processKeyboard(ECameraMovement::BACKWARD, timeCtrl->getDeltaTime());
                         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-                            camera->processKeyboard(ECameraMovement::LEFT, deltaTime);
+                            camera->processKeyboard(ECameraMovement::LEFT, timeCtrl->getDeltaTime());
                         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-                            camera->processKeyboard(ECameraMovement::RIGHT, deltaTime);
+                            camera->processKeyboard(ECameraMovement::RIGHT, timeCtrl->getDeltaTime());
                         if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-                            camera->processKeyboard(ECameraMovement::UP, deltaTime);
+                            camera->processKeyboard(ECameraMovement::UP, timeCtrl->getDeltaTime());
                         if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-                            camera->processKeyboard(ECameraMovement::DOWN, deltaTime);
+                            camera->processKeyboard(ECameraMovement::DOWN, timeCtrl->getDeltaTime());
                     }), inputSystemCtrl), "CameraInput");
 
         AQ_CompInput cameraInput = gameObjectCtrl.getComponent<AQ_CompInput>(cameraObject, "CameraInput");
@@ -233,7 +234,8 @@ namespace read_objmodel {
             }
 
             // Count deltaTime and seconds in game.
-            countTime();
+            //countTime();
+            timeCtrl.updateTime();
 
             // input
                 // -----

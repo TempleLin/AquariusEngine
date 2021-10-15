@@ -15,9 +15,10 @@ private:
 	AQ_GameObject** gameObjectsToAffect;
 	AQ_GlobalCtrl::InputSystemCtrl* pointerToInputSystemCtrl;
 	GLFWwindow* belongedWindow;
-	std::shared_ptr<std::function<void(GLFWwindow* window, AQ_GameObject**)>> processInputs;
+	std::shared_ptr<std::function<void(GLFWwindow* window, AQ_GameObject**, AQ_GlobalCtrl::TimeCtrl* timeCtrl)>> processInputs;
 public:
 	AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsToAffect, 
-		std::function<void(GLFWwindow* window, AQ_GameObject**)>* processInputs, AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl);
+		std::function<void(GLFWwindow* window, AQ_GameObject**, AQ_GlobalCtrl::TimeCtrl* timeCtrl)>* processInputs,
+		 AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl);
 	~AQ_CompInput();
 };

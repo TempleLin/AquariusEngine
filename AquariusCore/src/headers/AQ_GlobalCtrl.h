@@ -7,6 +7,17 @@ class AQ_CompInput;
 
 class AQ_GlobalCtrl {
 public:
+	class TimeCtrl {
+	private:
+		float deltaTime;
+		float lastFrame;
+		float currentFrame;
+		float iSecondsInGame;
+	public:
+		void updateTime();
+		float getDeltaTime();
+		float getSecondsInGame();
+	};
 	class LightsCtrl {
 	private:
 		AQ_Database::GlobalLights* databaseGlobalLights;
@@ -20,8 +31,10 @@ public:
 		friend class AQ_CompInput;
 	private:
 		std::vector<AQ_CompInput*> allInputComps;
+		AQ_GlobalCtrl::TimeCtrl* timeCtrlReference;
 		void addInputComp(AQ_CompInput& compInput);
 	public:
+		InputSystemCtrl(AQ_GlobalCtrl::TimeCtrl& timeCtrlReference);
 		void processInputs();
 	};
 };
