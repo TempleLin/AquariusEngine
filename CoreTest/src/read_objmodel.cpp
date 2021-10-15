@@ -166,7 +166,7 @@ namespace read_objmodel {
                             camera->processKeyboard(ECameraMovement::DOWN, timeCtrl->getDeltaTime());
                     }), inputSystemCtrl), "CameraInput");
 
-        AQ_CompInput cameraInput = gameObjectCtrl.getComponent<AQ_CompInput>(cameraObject, "CameraInput");
+        AQ_CompInput* cameraInput = &(gameObjectCtrl.getComponent<AQ_CompInput>(cameraObject, "CameraInput"));
 
         // load models
         // -----------
