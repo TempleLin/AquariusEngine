@@ -9,8 +9,7 @@ AQ_CompInput::AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjec
 	this->belongedWindow = belongedWindow;
 	this->gameObjectsToAffect = gameObjectsToAffect;
 	this->gameObjectsCount = gameObjectsCount;
-	this->processInputs = std::shared_ptr<std::function<void(GLFWwindow* window, AQ_GameObject**, 
-		AQ_GlobalCtrl::TimeCtrl* timeCtrl)>>(processInputsCallBack);
+	this->processInputs = processInputsCallBack;
 	inputSystemCtrl.addInputComp(*this);
 	this->pointerToInputSystemCtrl = &inputSystemCtrl;
 }
@@ -24,4 +23,5 @@ AQ_CompInput::~AQ_CompInput() {
 		}
 	}
 	delete[] gameObjectsToAffect;
+	delete processInputs;
 }
