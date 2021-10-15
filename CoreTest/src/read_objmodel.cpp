@@ -146,8 +146,8 @@ namespace read_objmodel {
 
         gameObjectCtrl.addComponent<AQ_CompInput>(cameraObject, 
             new AQ_CompInput(window, &std::array<AQ_GameObject*, 1>{&cameraObject}[0], 
-                new std::function<void(GLFWwindow*, AQ_GameObject**)>([](GLFWwindow* window, AQ_GameObject** gameObjects) 
-                    { 
+                new std::function<void(GLFWwindow*, AQ_GameObject**)>(
+                    [](GLFWwindow* window, AQ_GameObject** gameObjects) { 
                         static AQ_CompCamera* camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(*(gameObjects[0]), "CAMERA"));
                         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
                             glfwSetWindowShouldClose(window, true);
