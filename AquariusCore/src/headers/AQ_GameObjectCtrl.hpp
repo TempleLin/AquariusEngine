@@ -70,9 +70,14 @@ namespace aquarius_engine {
 						.at(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second));
 				} catch (std::out_of_range& e) {
 					std::cout << "FAILED TO GET COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";
+					return nullptr;
 				} catch (...) {
 					std::cout << "ERROR: UNKNOW ERROR FROM GETTING COMPONENT IN AQ_GAMEOBJECTCTRL" << "\n";
+					return nullptr;
 				}
+			} else {
+				std::cout << "Specified type from getComponent is not a component type." << "\n";
+				return nullptr;
 			}
 		}
 
