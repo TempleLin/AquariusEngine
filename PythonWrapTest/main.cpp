@@ -37,5 +37,5 @@ extern "C" {
 		for (int i = 0; i < count; i++) {
 			tests.push_back(_tests[i]);
 		}
-	}	
+	}
 }

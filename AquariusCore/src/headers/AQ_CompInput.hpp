@@ -16,9 +16,9 @@ namespace aquarius_engine {
 		int* inputKeys;
 		int* inputActions;
 		AQ_GlobalCtrl::InputSystemCtrl* pointerToInputSystemCtrl;
-	public:
 		void (*processInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 			int* keys, int* actions);
+	public:
 		AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsReference,
 			int* inputKeys, int* inputActions,
 			void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl, 
