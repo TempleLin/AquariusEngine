@@ -38,4 +38,8 @@ extern "C" {
 			tests.push_back(_tests[i]);
 		}
 	}
+
+	DLLEXPORT void runFunctionPointer(void(*functionCallback)()) {
+		functionCallback();
+	}
 }

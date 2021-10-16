@@ -36,3 +36,14 @@ array_type = ctypes.POINTER(ctypes.c_void_p) * 3
 d = array_type(*[a, b, c])
 libc.saveTests(d, 3)
 libc.printTests()
+
+
+def function_for_callback():
+    print("Function callback succeeded.")
+
+libc.runFunctionPointer.argtype = ctypes._CFuncPtr
+libc.runFunctionPointer.restype = ctypes.c_void_p
+
+CallBackFUNCTYPE = ctypes.CFUNCTYPE(None)
+callback_func = CallBackFUNCTYPE(function_for_callback)
+libc.runFunctionPointer(callback_func)
