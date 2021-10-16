@@ -1,13 +1,14 @@
 #include "headers/AQ_CompInput.hpp"
 #include "headers/AQ_GlobalCtrl.hpp"
 namespace aquarius_engine {
-	AQ_CompInput::AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsToAffect, unsigned int gameObjectsCount,
-		std::function<void(GLFWwindow* window, AQ_GameObject**, AQ_GlobalCtrl::TimeCtrl* timeCtrl)>* processInputsCallBack,
+	AQ_CompInput::AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsReference, int* inputKeys, 
+		int* inputActions, void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl, int* keys, int* actions),
 		AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl) {
 		this->belongedWindow = belongedWindow;
-		this->gameObjectsToAffect = gameObjectsToAffect;
-		this->gameObjectsCount = gameObjectsCount;
-		this->processInputs = processInputsCallBack;
+		this->gameObjectsReference = gameObjectsReference;
+		this->processInputs = callbackProcessInputs;
+		this->inputKeys = inputKeys;
+		this->inputActions = inputActions;
 		inputSystemCtrl.addInputComp(this);
 		this->pointerToInputSystemCtrl = &inputSystemCtrl;
 	}
@@ -20,7 +21,8 @@ namespace aquarius_engine {
 				holderToAllInputCompsPtrs.erase(holderToAllInputCompsPtrs.begin() + i);
 			}
 		}
-		delete[] gameObjectsToAffect;
-		delete processInputs;
+		delete[] gameObjectsReference;
+		delete[] inputKeys;
+		delete[] inputActions;
 	}
 }

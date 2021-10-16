@@ -11,14 +11,18 @@ namespace aquarius_engine {
 		friend class AQ_GlobalCtrl;
 		friend class InputSystemCtrl;
 	private:
-		AQ_GameObject** gameObjectsToAffect;
-		unsigned int gameObjectsCount;
-		AQ_GlobalCtrl::InputSystemCtrl* pointerToInputSystemCtrl;
 		GLFWwindow* belongedWindow;
-		std::function<void(GLFWwindow* window, AQ_GameObject**, AQ_GlobalCtrl::TimeCtrl* timeCtrl)>* processInputs;
+		AQ_GameObject** gameObjectsReference;
+		int* inputKeys;
+		int* inputActions;
+		AQ_GlobalCtrl::InputSystemCtrl* pointerToInputSystemCtrl;
+		void (*processInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl, 
+			int* keys, int* actions);
 	public:
-		AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsToAffect, unsigned int gameObjectsCount,
-			std::function<void(GLFWwindow* window, AQ_GameObject**, AQ_GlobalCtrl::TimeCtrl* timeCtrl)>* processInputs,
+		AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsReference,
+			int* inputKeys, int* inputActions,
+			void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl, 
+				int* keys, int* actions),
 			AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl);
 		~AQ_CompInput();
 	};

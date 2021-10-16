@@ -37,7 +37,8 @@ namespace aquarius_engine {
 				auto& currentInputComp = allInputComps.at(i);
 				if (allInputComps.at(i)) {
 					auto inputToProcess = currentInputComp->processInputs;
-					(*inputToProcess)(currentInputComp->belongedWindow, currentInputComp->gameObjectsToAffect, timeCtrlReference);
+					(*inputToProcess)(currentInputComp->belongedWindow, currentInputComp->gameObjectsReference, timeCtrlReference,
+						currentInputComp->inputKeys, currentInputComp->inputActions);
 				}
 			} catch (const std::bad_function_call& e) {
 				std::cout << "ERROR: Input function calling failed--" << e.what() << "\n";
