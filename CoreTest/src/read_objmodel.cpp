@@ -46,9 +46,9 @@ namespace read_objmodel {
     void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
     void countTime();
     void processInput_waitForRebind(GLFWwindow* window, AQ_GameObject** gameObjectsRef,
-        AQ_GlobalCtrl::TimeCtrl* timeCtrl, int* inputKeys, int* inputActions);
+        AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* inputKeys, unsigned int* inputActions);
     void processInputCallback(GLFWwindow* window, AQ_GameObject** gameObjectsRef,
-        AQ_GlobalCtrl::TimeCtrl* timeCtrl, int* inputKeys, int* inputActions);
+        AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* inputKeys, unsigned int* inputActions);
 
     // Initializations of AquariusEngine components.
     AQ_Database::Components* databaseComponents= new AQ_Database::Components();
@@ -153,11 +153,11 @@ namespace read_objmodel {
 
         gameObjectCtrl.addComponent<AQ_CompInput>(&cameraObject, 
             new AQ_CompInput(window, new AQ_GameObject * [1] {&cameraObject}, 
-                new int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_A, GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q},
-                new int[1]{ GLFW_PRESS }, processInput_waitForRebind, inputSystemCtrl), "CameraInput");
+                new unsigned int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_A, GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q},
+                new unsigned int[1]{ GLFW_PRESS }, processInput_waitForRebind, inputSystemCtrl), "CameraInput");
 
         AQ_CompInput* cameraInput = gameObjectCtrl.getComponent<AQ_CompInput>(&cameraObject, "CameraInput");
-        cameraInput->rebindInputKeys(new int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_W, GLFW_KEY_A, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q });
+        cameraInput->rebindInputKeys(new unsigned int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_W, GLFW_KEY_A, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q });
 
         // load models
         // -----------
@@ -332,7 +332,7 @@ namespace read_objmodel {
     }
 
     void processInput_waitForRebind(GLFWwindow* window, AQ_GameObject** gameObjectsRef,
-        AQ_GlobalCtrl::TimeCtrl* timeCtrl, int* inputKeys, int* inputActions) {
+        AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* inputKeys, unsigned int* inputActions) {
        AQ_CompInput* _cameraInput = gameObjectCtrl.getComponent<AQ_CompInput>(gameObjectsRef[0], "CameraInput");
         std::cout << timeCtrl->getSecondsInGame() << "\n";
         if (timeCtrl->getSecondsInGame() >= 3.f)
@@ -343,7 +343,7 @@ namespace read_objmodel {
     // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
     // ---------------------------------------------------------------------------------------------------------
     void processInputCallback(GLFWwindow* window, AQ_GameObject** gameObjectsRef,
-        AQ_GlobalCtrl::TimeCtrl* timeCtrl, int* inputKeys, int* inputActions) {
+        AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* inputKeys, unsigned int* inputActions) {
 
         static AQ_CompCamera* _camera = gameObjectCtrl.getComponent<AQ_CompCamera>(gameObjectsRef[0], "CAMERA");
 

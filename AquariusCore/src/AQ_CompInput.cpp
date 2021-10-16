@@ -1,8 +1,9 @@
 #include "headers/AQ_CompInput.hpp"
 #include "headers/AQ_GlobalCtrl.hpp"
 namespace aquarius_engine {
-	AQ_CompInput::AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsReference, int* inputKeys, 
-		int* inputActions, void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl, int* keys, int* actions),
+	AQ_CompInput::AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsReference, unsigned int* inputKeys,
+		unsigned int* inputActions, void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, 
+			AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* keys, unsigned int* actions),
 		AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl) {
 		this->belongedWindow = belongedWindow;
 		this->gameObjectsReference = gameObjectsReference;
@@ -27,7 +28,7 @@ namespace aquarius_engine {
 	}
 
 	void AQ_CompInput::rebindCallBack(void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
-		int* keys, int* actions)) {
+		unsigned int* keys, unsigned int* actions)) {
 		this->processInputs = callbackProcessInputs;
 	}
 
@@ -36,12 +37,12 @@ namespace aquarius_engine {
 		this->gameObjectsReference = gameObjectsReference;
 	}
 
-	void AQ_CompInput::rebindInputKeys(int* inputKeys) {
+	void AQ_CompInput::rebindInputKeys(unsigned int* inputKeys) {
 		delete[] this->inputKeys;
 		this->inputKeys = inputKeys;
 	}
 
-	void AQ_CompInput::rebindInputActions(int* inputActions) {
+	void AQ_CompInput::rebindInputActions(unsigned int* inputActions) {
 		delete[] this->inputActions;
 		this->inputActions = inputActions;
 	}

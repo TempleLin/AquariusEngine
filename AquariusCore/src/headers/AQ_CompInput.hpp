@@ -13,22 +13,22 @@ namespace aquarius_engine {
 	private:
 		GLFWwindow* belongedWindow;
 		AQ_GameObject** gameObjectsReference;
-		int* inputKeys;
-		int* inputActions;
+		unsigned int* inputKeys;
+		unsigned int* inputActions;
 		AQ_GlobalCtrl::InputSystemCtrl* pointerToInputSystemCtrl;
 		void (*processInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
-			int* keys, int* actions);
+			unsigned int* keys, unsigned int* actions);
 	public:
 		AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsReference,
-			int* inputKeys, int* inputActions,
+			unsigned int* inputKeys, unsigned int* inputActions,
 			void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl, 
-				int* keys, int* actions),
+				unsigned int* keys, unsigned int* actions),
 			AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl);
 		void rebindCallBack(void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
-			int* keys, int* actions));
+			unsigned int* keys, unsigned int* actions));
 		void rebindGameObjectsRef(AQ_GameObject** gameObjectsReference);
-		void rebindInputKeys(int* inputKeys);
-		void rebindInputActions(int* inputActions);
+		void rebindInputKeys(unsigned int* inputKeys);
+		void rebindInputActions(unsigned int* inputActions);
 		~AQ_CompInput();
 	};
 }
