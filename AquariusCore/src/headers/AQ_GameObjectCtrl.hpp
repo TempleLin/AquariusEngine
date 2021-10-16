@@ -26,7 +26,7 @@ namespace aquarius_engine {
 		AQ_GameObjectCtrl(AQ_Database::Components* databaseComponent);
 
 		template <typename T>
-		void addComponent(AQ_GameObject* gameObject, T* component, std::string name) {
+		T* addComponent(AQ_GameObject* gameObject, T* component, std::string name) {
 			if constexpr (std::is_base_of<AQ_Component, T>::value) {
 				try {
 					component->name = name;
@@ -44,13 +44,20 @@ namespace aquarius_engine {
 					}
 					// @Save name and access key to database descriptions of the component to the gameobject.
 					gameObject->componentsKeys[typeid(T)].push_back(std::pair<std::string, unsigned int>(name, component->databaseAccessKey));
+					return component;
 				} catch (std::string& errorMessage) {
 					std::cout << errorMessage << "\n";
+					return nullptr;
 				} catch (std::out_of_range& e) {
 					std::cout << "ERROR: CANNOT ADD COMPONENT FROM GAMEOBJECT" << e.what() << "\n";
+					return nullptr;
 				} catch (...) {
 					std::cout << "ERROR: UNKNOW ERROR IN ADDCOMPONENT FROM AQ_GAMEOBJECTCTRL" << "\n";
+					return nullptr;
 				}
+			} else {
+				std::cout << "Specified type from addComponent is not a component type." << "\n";
+				return nullptr;
 			}
 		}
 

@@ -148,22 +148,19 @@ namespace read_objmodel {
         // -------------------------
         AQ_Shader ourShader("shaders/objModelSimpleShader/shaderVS.glsl", "shaders/objModelSimpleShader/shaderFS.glsl");
 
-        gameObjectCtrl.addComponent<AQ_CompCamera>(&cameraObject, new AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
-        camera = gameObjectCtrl.getComponent<AQ_CompCamera>(&cameraObject, "CAMERA");
+        camera =gameObjectCtrl.addComponent<AQ_CompCamera>(&cameraObject, new AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
 
-        gameObjectCtrl.addComponent<AQ_CompInput>(&cameraObject, 
+        AQ_CompInput* cameraInput = gameObjectCtrl.addComponent<AQ_CompInput>(&cameraObject,
             new AQ_CompInput(window, new AQ_GameObject * [1] {&cameraObject}, 
                 new unsigned int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_A, GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q},
                 new unsigned int[1]{ GLFW_PRESS }, processInput_waitForRebind, inputSystemCtrl), "CameraInput");
 
-        AQ_CompInput* cameraInput = gameObjectCtrl.getComponent<AQ_CompInput>(&cameraObject, "CameraInput");
         cameraInput->rebindInputKeys(new unsigned int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_W, GLFW_KEY_A, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q });
 
         // load models
         // -----------
         AQ_GameObject guitarObject(&gameObjectCtrl);
-        gameObjectCtrl.addComponent<AQ_CompModel>(&guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
-        AQ_CompModel* guitarModel = gameObjectCtrl.getComponent<AQ_CompModel>(&guitarObject, "GUITAR");
+        AQ_CompModel* guitarModel = gameObjectCtrl.addComponent<AQ_CompModel>(&guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
         
 
         
@@ -346,7 +343,6 @@ namespace read_objmodel {
         AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* inputKeys, unsigned int* inputActions) {
 
         static AQ_CompCamera* _camera = gameObjectCtrl.getComponent<AQ_CompCamera>(gameObjectsRef[0], "CAMERA");
-
 
         if (glfwGetKey(window, inputKeys[0]) == inputActions[0])
             glfwSetWindowShouldClose(window, true);
