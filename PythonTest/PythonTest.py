@@ -25,4 +25,14 @@ y = libc.getTestObject()
 libc.getTest.argtype = (ctypes.POINTER(ctypes.c_void_p))
 print(libc.getTest(y))
 
-os.system("pause")
+libc.saveTests.argtype = [ctypes.POINTER(ctypes.POINTER(ctypes.c_void_p)), ctypes.c_int]
+libc.saveTests.restype = ctypes.c_voidp
+
+a = libc.getTestObject()
+b = libc.getTestObject()
+c = libc.getTestObject()
+
+array_type = ctypes.POINTER(ctypes.c_void_p) * 3
+d = array_type(*[a, b, c])
+libc.saveTests(d, 3)
+libc.printTests()

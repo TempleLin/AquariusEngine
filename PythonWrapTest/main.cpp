@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 class Test {
 private:
@@ -9,16 +10,32 @@ public:
 	}
 };
 
+std::vector<Test*> tests;
+
+#define DLLEXPORT __declspec(dllexport)
+
 extern "C" {
-	__declspec(dllexport) void addThreeNumbers(float* numbers){
+	DLLEXPORT void addThreeNumbers(float* numbers){
 		std::cout << numbers[0] + numbers[1] + numbers[2] << std::endl;
 	}
 
-	__declspec(dllexport) Test* getTestObject() {
+	DLLEXPORT Test* getTestObject() {
 		return new Test();
 	}
 
-	__declspec(dllexport) int getTest(Test* test) {
+	DLLEXPORT int getTest(Test* test) {
 		return test->getTest();
 	}
+
+	DLLEXPORT void printTests() {
+		for (int i = 0; i < tests.size(); i++) {
+			std::cout << (tests.at(i))->getTest() << "\n";
+		}
+	}
+
+	DLLEXPORT void saveTests(Test** _tests, int count) {
+		for (int i = 0; i < count; i++) {
+			tests.push_back(_tests[i]);
+		}
+	}	
 }
