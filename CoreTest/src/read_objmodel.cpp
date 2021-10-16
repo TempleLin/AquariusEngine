@@ -45,6 +45,8 @@ namespace read_objmodel {
     void mouse_callback(GLFWwindow* window, double xpos, double ypos);
     void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
     void countTime();
+    void processInput_waitForRebind(GLFWwindow* window, AQ_GameObject** gameObjectsToAffect,
+        AQ_GlobalCtrl::TimeCtrl* timeCtrl, int* inputKeys, int* inputActions);
     void processInputCallback(GLFWwindow* window, AQ_GameObject** gameObjectsToAffect,
         AQ_GlobalCtrl::TimeCtrl* timeCtrl, int* inputKeys, int* inputActions);
 
@@ -147,20 +149,20 @@ namespace read_objmodel {
         AQ_Shader ourShader("shaders/objModelSimpleShader/shaderVS.glsl", "shaders/objModelSimpleShader/shaderFS.glsl");
 
         gameObjectCtrl.addComponent<AQ_CompCamera>(&cameraObject, new AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
-        camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(&cameraObject, "CAMERA"));
+        camera = gameObjectCtrl.getComponent<AQ_CompCamera>(&cameraObject, "CAMERA");
 
         gameObjectCtrl.addComponent<AQ_CompInput>(&cameraObject, 
             new AQ_CompInput(window, new AQ_GameObject * [1] {&cameraObject}, 
                 new int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_W, GLFW_KEY_A, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q},
-                new int[1]{ GLFW_PRESS }, processInputCallback, inputSystemCtrl), "CameraInput");
+                new int[1]{ GLFW_PRESS }, processInput_waitForRebind, inputSystemCtrl), "CameraInput");
 
-        AQ_CompInput* cameraInput = &(gameObjectCtrl.getComponent<AQ_CompInput>(&cameraObject, "CameraInput"));
+        AQ_CompInput* cameraInput = gameObjectCtrl.getComponent<AQ_CompInput>(&cameraObject, "CameraInput");
 
         // load models
         // -----------
         AQ_GameObject guitarObject(&gameObjectCtrl);
         gameObjectCtrl.addComponent<AQ_CompModel>(&guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
-        AQ_CompModel* guitarModel = &(gameObjectCtrl.getComponent<AQ_CompModel>(&guitarObject, "GUITAR"));
+        AQ_CompModel* guitarModel = gameObjectCtrl.getComponent<AQ_CompModel>(&guitarObject, "GUITAR");
         
 
         
@@ -229,6 +231,9 @@ namespace read_objmodel {
                 // -----
             //processInput(window);
             inputSystemCtrl.processInputs();
+            /*cameraInput->processInputs(window, new AQ_GameObject * [1]{ &cameraObject }, &timeCtrl,
+                new int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_W, GLFW_KEY_A, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q },
+                new int[1]{ GLFW_PRESS });*/
 
 
             // render
@@ -328,12 +333,21 @@ namespace read_objmodel {
         camera->processMouseScroll(yoffset);
     }
 
+    void processInput_waitForRebind(GLFWwindow* window, AQ_GameObject** gameObjectsToAffect,
+        AQ_GlobalCtrl::TimeCtrl* timeCtrl, int* inputKeys, int* inputActions) {
+       AQ_CompInput* _cameraInput = gameObjectCtrl.getComponent<AQ_CompInput>(gameObjectsToAffect[0], "CameraInput");
+        std::cout << timeCtrl->getSecondsInGame() << "\n";
+        if (timeCtrl->getSecondsInGame() >= 3.f)
+            _cameraInput->rebindCallBack(processInputCallback);
+        std::cout << "Wait for few seconds until rebind" << "\n";
+    }
+
     // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
     // ---------------------------------------------------------------------------------------------------------
     void processInputCallback(GLFWwindow* window, AQ_GameObject** gameObjectsToAffect,
         AQ_GlobalCtrl::TimeCtrl* timeCtrl, int* inputKeys, int* inputActions) {
 
-        static AQ_CompCamera* _camera = &(gameObjectCtrl.getComponent<AQ_CompCamera>(gameObjectsToAffect[0], "CAMERA"));
+        static AQ_CompCamera* _camera = gameObjectCtrl.getComponent<AQ_CompCamera>(gameObjectsToAffect[0], "CAMERA");
 
 
         if (glfwGetKey(window, inputKeys[0]) == inputActions[0])

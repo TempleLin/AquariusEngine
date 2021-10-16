@@ -34,7 +34,7 @@ namespace aquarius_engine {
 					* @Add the component with to the database and receive its key in database by returning in to
 					*  component object's databaseAccessKey.
 					*/
-					databaseComponent->addComponent(*component, component->databaseAccessKey);
+					databaseComponent->addComponent(component, component->databaseAccessKey);
 					const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
 					// @Check if the name specified already exists in the gameobject's components.
 					for (int i = 0; i < componentsKeysVecRef.size(); i++) {
@@ -55,11 +55,11 @@ namespace aquarius_engine {
 		}
 
 		template <typename T>
-		T& getComponent(AQ_GameObject* gameObject, std::string name) {
+		T* getComponent(AQ_GameObject* gameObject, std::string name) {
 			if constexpr (std::is_base_of<AQ_Component, T>::value) {
 				try {
 					const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
-					return std::any_cast<T&>(databaseComponent->allComponents
+					return std::any_cast<T*>(databaseComponent->allComponents
 						.at(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second));
 				} catch (std::out_of_range& e) {
 					std::cout << "FAILED TO GET COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";

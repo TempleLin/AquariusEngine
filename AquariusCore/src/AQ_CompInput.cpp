@@ -25,4 +25,9 @@ namespace aquarius_engine {
 		delete[] inputKeys;
 		delete[] inputActions;
 	}
+
+	void AQ_CompInput::rebindCallBack(void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
+		int* keys, int* actions)) {
+		this->processInputs = callbackProcessInputs;
+	}
 }
