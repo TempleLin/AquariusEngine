@@ -25,9 +25,9 @@ namespace aquarius_engine {
 	public:
 		AQ_GameObjectCtrl(AQ_Database::Components* databaseComponent);
 
-		template <typename T>
+		template <typename T, typename = std::enable_if_t<std::is_base_of<AQ_Component, T>::value>>
 		T* addComponent(AQ_GameObject* gameObject, T* component, std::string name) {
-			if constexpr (std::is_base_of<AQ_Component, T>::value) {
+			if (std::is_base_of<AQ_Component, T>::value) {
 				try {
 					component->name = name;
 					/*
@@ -61,9 +61,9 @@ namespace aquarius_engine {
 			}
 		}
 
-		template <typename T>
+		template <typename T, typename = std::enable_if_t<std::is_base_of<AQ_Component, T>::value>>
 		T* getComponent(AQ_GameObject* gameObject, std::string name) {
-			if constexpr (std::is_base_of<AQ_Component, T>::value) {
+			if (std::is_base_of<AQ_Component, T>::value) {
 				try {
 					const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
 					return std::any_cast<T*>(databaseComponent->allComponents
@@ -81,9 +81,9 @@ namespace aquarius_engine {
 			}
 		}
 
-		template <typename T>
+		template <typename T, typename = std::enable_if_t<std::is_base_of<AQ_Component, T>::value>>
 		void removeComponent(AQ_GameObject* gameObject, std::string name) {
-			if constexpr (std::is_base_of<AQ_Component, T>::value) {
+			if (std::is_base_of<AQ_Component, T>::value) {
 				try {
 					const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
 					databaseComponent->allComponents.erase
