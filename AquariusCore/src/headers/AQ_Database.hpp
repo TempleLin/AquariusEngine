@@ -5,7 +5,6 @@
 
 #include <unordered_map>
 #include <vector>
-#include <any>
 #include <iostream>
 
 namespace aquarius_engine {
@@ -24,12 +23,11 @@ namespace aquarius_engine {
 			// @currentKey will keep += 1 and never repeat for every keys throughout the map of components.
 			unsigned int currentKeyIndex;
 			// @Create the map in heap allocation to prevent getting destructed before any other GameObject do.
-			std::unordered_map<unsigned int, std::any> allComponents;
+			std::unordered_map<unsigned int, void*> allComponents;
 
 			// @Gets called from GameObjectCtrl when adding component to GameObject.
-			template<typename T>
-			void addComponent(T& component, unsigned int& returnKey) {
-				allComponents.insert(std::pair<unsigned int, std::any>(currentKeyIndex, component));
+			void addComponent(void* component, unsigned int& returnKey) {
+				allComponents.insert(std::pair<unsigned int, void*>(currentKeyIndex, component));
 				returnKey = currentKeyIndex;
 				currentKeyIndex++;
 			}
