@@ -30,4 +30,19 @@ namespace aquarius_engine {
 		int* keys, int* actions)) {
 		this->processInputs = callbackProcessInputs;
 	}
+
+	void AQ_CompInput::rebindGameObjectsRef(AQ_GameObject** gameObjectsReference) {
+		delete[] this->gameObjectsReference;
+		this->gameObjectsReference = gameObjectsReference;
+	}
+
+	void AQ_CompInput::rebindInputKeys(int* inputKeys) {
+		delete[] this->inputKeys;
+		this->inputKeys = inputKeys;
+	}
+
+	void AQ_CompInput::rebindInputActions(int* inputActions) {
+		delete[] this->inputActions;
+		this->inputActions = inputActions;
+	}
 }

@@ -26,6 +26,9 @@ namespace aquarius_engine {
 			AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl);
 		void rebindCallBack(void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 			int* keys, int* actions));
+		void rebindGameObjectsRef(AQ_GameObject** gameObjectsReference);
+		void rebindInputKeys(int* inputKeys);
+		void rebindInputActions(int* inputActions);
 		~AQ_CompInput();
 	};
 }
