@@ -42,4 +42,12 @@ extern "C" {
 	DLLEXPORT void runFunctionPointer(void(*functionCallback)()) {
 		functionCallback();
 	}
+
+	//Do not try to delete array passed from Python list. Causes unknown bug.
+	/*DLLEXPORT void testDeletePyList(float* numbers, int count) {
+		for (int i = 0; i < count; i++) {
+			std::cout << numbers[i] << "\n";
+		}
+		delete[] numbers;
+	}*/
 }

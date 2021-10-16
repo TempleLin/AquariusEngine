@@ -47,3 +47,23 @@ libc.runFunctionPointer.restype = ctypes.c_void_p
 CallBackFUNCTYPE = ctypes.CFUNCTYPE(None)
 callback_func = CallBackFUNCTYPE(function_for_callback)
 libc.runFunctionPointer(callback_func)
+
+
+array_type = ctypes.POINTER(ctypes.c_float)
+print(array_type)
+array_type = ctypes.c_float * 3
+print(array_type)
+array_type = ctypes.POINTER(ctypes.c_void_p)
+print(array_type)
+array_type = ctypes.POINTER(ctypes.c_voidp)
+print(array_type)
+
+
+# Do not try to delete array passed from Python list. Causes unknown bug.
+#b = array_type(*[1.0, 2.0, 3.0, 4.0])
+#libc.testDeletePyList.argtype = [ctypes.POINTER(ctypes.c_float), ctypes.c_int]
+#libc.testDeletePyList(b, 4)
+#if b:
+#    print("List still exists")
+#else:
+#    print("List deleted")

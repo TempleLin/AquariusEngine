@@ -75,7 +75,7 @@ namespace aquarius_engine {
 			try {
 				const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
 				databaseComponent->allComponents.erase
-				(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second);
+					(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second);
 			} catch (std::out_of_range& e) {
 				std::cout << "FAILED TO REMOVE COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";
 			} catch (...) {

@@ -153,7 +153,7 @@ namespace read_objmodel {
         AQ_CompInput* cameraInput = gameObjectCtrl.addComponent<AQ_CompInput>(&cameraObject,
             new AQ_CompInput(window, new AQ_GameObject * [1] {&cameraObject}, 
                 new unsigned int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_A, GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q},
-                new unsigned int[1]{ GLFW_PRESS }, processInput_waitForRebind, inputSystemCtrl), "CameraInput");
+                    new unsigned int[1]{ GLFW_PRESS }, processInput_waitForRebind, inputSystemCtrl), "CameraInput");
 
         cameraInput->rebindInputKeys(new unsigned int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_W, GLFW_KEY_A, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q });
 
