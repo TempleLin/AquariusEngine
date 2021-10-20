@@ -22,7 +22,6 @@ namespace aquarius_engine {
 		private:
 			// @currentKey will keep += 1 and never repeat for every keys throughout the map of components.
 			unsigned int currentKeyIndex;
-			// @Create the map in heap allocation to prevent getting destructed before any other GameObject do.
 			std::unordered_map<unsigned int, void*> allComponents;
 
 			// @Gets called from GameObjectCtrl when adding component to GameObject.
