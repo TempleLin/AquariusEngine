@@ -7,42 +7,34 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AquariusCore", "AquariusCor
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CoreTest", "CoreTest\CoreTest.vcxproj", "{B959E0D7-7852-45B6-B430-FEF41260557E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SyntaxTests", "SyntaxTests\SyntaxTests.vcxproj", "{08FBAEA1-5792-4436-8139-50806771255C}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonTest", "PythonTest\PythonTest.pyproj", "{C6872590-6EB6-4393-AF33-B9F93C2376D0}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AquariusPyWrap", "AquariusPyWrap\AquariusPyWrap.vcxproj", "{ABBFAAF1-2F65-44FE-A658-ECF8CFD5C6A4}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PythonWrapTest", "PythonWrapTest\PythonWrapTest.vcxproj", "{DEC61EB5-5401-41B9-B196-1849413D60A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AEBB15D5-4A91-4448-87C6-F63E6DEF8E78}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{AEBB15D5-4A91-4448-87C6-F63E6DEF8E78}.Debug|x64.ActiveCfg = Debug|x64
 		{AEBB15D5-4A91-4448-87C6-F63E6DEF8E78}.Debug|x64.Build.0 = Debug|x64
+		{AEBB15D5-4A91-4448-87C6-F63E6DEF8E78}.Release|Any CPU.ActiveCfg = Release|Win32
 		{AEBB15D5-4A91-4448-87C6-F63E6DEF8E78}.Release|x64.ActiveCfg = Release|x64
 		{AEBB15D5-4A91-4448-87C6-F63E6DEF8E78}.Release|x64.Build.0 = Release|x64
+		{B959E0D7-7852-45B6-B430-FEF41260557E}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{B959E0D7-7852-45B6-B430-FEF41260557E}.Debug|x64.ActiveCfg = Debug|x64
 		{B959E0D7-7852-45B6-B430-FEF41260557E}.Debug|x64.Build.0 = Debug|x64
+		{B959E0D7-7852-45B6-B430-FEF41260557E}.Release|Any CPU.ActiveCfg = Release|Win32
 		{B959E0D7-7852-45B6-B430-FEF41260557E}.Release|x64.ActiveCfg = Release|x64
 		{B959E0D7-7852-45B6-B430-FEF41260557E}.Release|x64.Build.0 = Release|x64
-		{08FBAEA1-5792-4436-8139-50806771255C}.Debug|x64.ActiveCfg = Debug|x64
-		{08FBAEA1-5792-4436-8139-50806771255C}.Debug|x64.Build.0 = Debug|x64
-		{08FBAEA1-5792-4436-8139-50806771255C}.Release|x64.ActiveCfg = Release|x64
-		{08FBAEA1-5792-4436-8139-50806771255C}.Release|x64.Build.0 = Release|x64
-		{C6872590-6EB6-4393-AF33-B9F93C2376D0}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C6872590-6EB6-4393-AF33-B9F93C2376D0}.Release|x64.ActiveCfg = Release|Any CPU
+		{ABBFAAF1-2F65-44FE-A658-ECF8CFD5C6A4}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{ABBFAAF1-2F65-44FE-A658-ECF8CFD5C6A4}.Debug|x64.ActiveCfg = Debug|x64
 		{ABBFAAF1-2F65-44FE-A658-ECF8CFD5C6A4}.Debug|x64.Build.0 = Debug|x64
+		{ABBFAAF1-2F65-44FE-A658-ECF8CFD5C6A4}.Release|Any CPU.ActiveCfg = Release|Win32
 		{ABBFAAF1-2F65-44FE-A658-ECF8CFD5C6A4}.Release|x64.ActiveCfg = Release|x64
 		{ABBFAAF1-2F65-44FE-A658-ECF8CFD5C6A4}.Release|x64.Build.0 = Release|x64
-		{DEC61EB5-5401-41B9-B196-1849413D60A9}.Debug|x64.ActiveCfg = Debug|x64
-		{DEC61EB5-5401-41B9-B196-1849413D60A9}.Debug|x64.Build.0 = Debug|x64
-		{DEC61EB5-5401-41B9-B196-1849413D60A9}.Release|x64.ActiveCfg = Release|x64
-		{DEC61EB5-5401-41B9-B196-1849413D60A9}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
