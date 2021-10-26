@@ -16,9 +16,10 @@ namespace aquarius_engine {
 		friend class AQ_GameObjectCtrl;
 	private:
 		AQ_GameObjectCtrl* gameObjectCtrlPtr;
+		std::string name;
 		std::map<std::type_index, std::vector<std::pair<std::string, unsigned int>>> componentsKeys;
 	public:
-		AQ_GameObject(AQ_GameObjectCtrl* gameObjectCtrl);
+		AQ_GameObject(AQ_GameObjectCtrl* gameObjectCtrl, std::string name);
 		~AQ_GameObject();
 	};
 }

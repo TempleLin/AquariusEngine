@@ -3,8 +3,19 @@
 #include <any>
 
 namespace aquarius_engine {
-	AQ_GameObjectCtrl::AQ_GameObjectCtrl(AQ_Database::Components* databaseComponent) {
+	AQ_GameObjectCtrl::AQ_GameObjectCtrl(AQ_Database::Components* databaseComponent, AQ_Database::GameObjects* databaseGameObjects) {
 		this->databaseComponent = databaseComponent;
+		this->databaseGameObjects = databaseGameObjects;
+	}
+
+	AQ_GameObject* AQ_GameObjectCtrl::createGameObject(std::string name) {
+		if (!(databaseGameObjects->allGameObjects.count(name))) {
+			AQ_GameObject* toStashGameObject = new AQ_GameObject(this, name);
+			databaseGameObjects->createGameObject(toStashGameObject, name);
+			return toStashGameObject;
+		}
+		else
+			std::cout << "ERROR: GAMEOBJECT TO CREATE: " << name << " ALREADY EXISTS" << "\n";
 	}
 
 	unsigned int AQ_GameObjectCtrl::getComponentIndex(const std::vector<std::pair<std::string, unsigned int>>& compVector,

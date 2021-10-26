@@ -19,10 +19,13 @@ namespace aquarius_engine {
 		friend class AQ_GameObject;
 	private:
 		AQ_Database::Components* databaseComponent;
+		AQ_Database::GameObjects* databaseGameObjects;
 		unsigned int getComponentIndex(const std::vector<std::pair<std::string, unsigned int>>& compVector,
 			std::string& nameOfComponent);
 	public:
-		AQ_GameObjectCtrl(AQ_Database::Components* databaseComponent);
+		AQ_GameObjectCtrl(AQ_Database::Components* databaseComponent, AQ_Database::GameObjects* databaseGameObjects);
+
+		AQ_GameObject* createGameObject(std::string name);
 
 		template <typename T, typename = std::enable_if_t<std::is_base_of<AQ_Component, T>::value>>
 		T* addComponent(AQ_GameObject* gameObject, T* component, std::string name) {

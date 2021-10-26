@@ -32,6 +32,16 @@ namespace aquarius_engine {
 			}
 		};
 
+		class GameObjects {
+			friend class AQ_GameObjectCtrl;
+		private:
+			std::unordered_map<std::string, AQ_GameObject*> allGameObjects;
+
+			void createGameObject(AQ_GameObject* gameObject, std::string name) {
+				allGameObjects.insert(std::pair<std::string, AQ_GameObject*>(name, gameObject));
+			}
+		};
+
 		class GlobalLights {
 			friend class AQ_GlobalCtrl;
 			friend class LightsCtrl;

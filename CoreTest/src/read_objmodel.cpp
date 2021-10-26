@@ -52,7 +52,8 @@ namespace read_objmodel {
 
     // Initializations of AquariusEngine components.
     AQ_Database::Components* databaseComponents= new AQ_Database::Components();
-    AQ_GameObjectCtrl gameObjectCtrl(databaseComponents);
+    AQ_Database::GameObjects* databaseGameObjects = new AQ_Database::GameObjects();
+    AQ_GameObjectCtrl gameObjectCtrl(databaseComponents, databaseGameObjects);
 
     AQ_Database::GlobalLights databaseGlobalLights;
     AQ_GlobalCtrl::LightsCtrl lightsCtrl(&databaseGlobalLights);
@@ -65,7 +66,7 @@ namespace read_objmodel {
     int SCR_HEIGHT = 900;
 
     // camera
-    AQ_GameObject cameraObject(&gameObjectCtrl);
+    AQ_GameObject* cameraObject;
     AQ_CompCamera* camera = nullptr;
     float lastX = SCR_WIDTH / 2.0f;
     float lastY = SCR_HEIGHT / 2.0f;
@@ -148,10 +149,13 @@ namespace read_objmodel {
         // -------------------------
         AQ_Shader ourShader("shaders/objModelSimpleShader/shaderVS.glsl", "shaders/objModelSimpleShader/shaderFS.glsl");
 
-        camera =gameObjectCtrl.addComponent<AQ_CompCamera>(&cameraObject, new AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
+        cameraObject = gameObjectCtrl.createGameObject("CAMERA_OBJECT");
+        if (!cameraObject)
+            std::cout << "NULL" << std::endl;
+        camera =gameObjectCtrl.addComponent<AQ_CompCamera>(cameraObject, new AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
 
-        AQ_CompInput* cameraInput = gameObjectCtrl.addComponent<AQ_CompInput>(&cameraObject,
-            new AQ_CompInput(window, new AQ_GameObject * [1] {&cameraObject}, 
+        AQ_CompInput* cameraInput = gameObjectCtrl.addComponent<AQ_CompInput>(cameraObject,
+            new AQ_CompInput(window, new AQ_GameObject * [1] {cameraObject}, 
                 new unsigned int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_A, GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q},
                     new unsigned int[1]{ GLFW_PRESS }, processInput_waitForRebind, inputSystemCtrl), "CameraInput");
 
@@ -159,8 +163,8 @@ namespace read_objmodel {
 
         // load models
         // -----------
-        AQ_GameObject guitarObject(&gameObjectCtrl);
-        AQ_CompModel* guitarModel = gameObjectCtrl.addComponent<AQ_CompModel>(&guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
+        AQ_GameObject* guitarObject = gameObjectCtrl.createGameObject("GUITAR_OBJECT");
+        AQ_CompModel* guitarModel = gameObjectCtrl.addComponent<AQ_CompModel>(guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
         
 
         
