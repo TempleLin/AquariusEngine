@@ -185,4 +185,8 @@ namespace aquarius_engine {
 
         return textureID;
     }
+
+    AQ_CompModel::~AQ_CompModel() {
+        AQ_Component::~AQ_Component();
+    }
 }

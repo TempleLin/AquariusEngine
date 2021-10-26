@@ -58,6 +58,8 @@ namespace aquarius_engine {
         // processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
         void processMouseScroll(float yoffset);
 
+        ~AQ_CompCamera();
+
     private:
         // calculates the front vector from the Camera's (updated) Euler Angles
         void updateCameraVectors();

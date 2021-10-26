@@ -26,6 +26,7 @@ namespace aquarius_engine {
 		AQ_GameObjectCtrl(AQ_Database::Components* databaseComponent, AQ_Database::GameObjects* databaseGameObjects);
 
 		AQ_GameObject* createGameObject(std::string name);
+		void deleteGameObject(std::string name);
 
 		template <typename T, typename = std::enable_if_t<std::is_base_of<AQ_Component, T>::value>>
 		T* addComponent(AQ_GameObject* gameObject, T* component, std::string name) {

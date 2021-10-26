@@ -15,6 +15,7 @@ namespace aquarius_engine {
 	}
 
 	AQ_CompInput::~AQ_CompInput() {
+		AQ_Component::~AQ_Component();
 		unsigned int totalOfAllInputUnits = pointerToInputSystemCtrl->allInputComps.size();
 		auto& holderToAllInputCompsPtrs = pointerToInputSystemCtrl->allInputComps;
 		for (int i = 0; i < totalOfAllInputUnits; i++) {

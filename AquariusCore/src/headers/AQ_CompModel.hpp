@@ -49,6 +49,8 @@ namespace aquarius_engine {
         // checks all material textures of a given type and loads the textures if they're not loaded yet.
         // the required info is returned as a Texture struct.
         vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName);
+
+        ~AQ_CompModel();
     };
 
 

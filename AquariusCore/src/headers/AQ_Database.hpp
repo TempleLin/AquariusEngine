@@ -1,6 +1,7 @@
 #pragma once
 #include "AQ_CompModel.hpp"
 #include "AQ_CompCamera.hpp"
+#include "AQ_GameObject.hpp"
 #include "AQ_Lights.hpp"
 
 #include <unordered_map>

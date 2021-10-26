@@ -13,5 +13,7 @@ namespace aquarius_engine {
 	protected:
 		unsigned int databaseAccessKey;
 		std::string name;
+	public:
+		virtual ~AQ_Component() {}
 	};
 }

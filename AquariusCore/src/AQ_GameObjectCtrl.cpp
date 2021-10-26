@@ -1,4 +1,5 @@
 #include "headers/AQ_GameObjectCtrl.hpp"
+#include "headers/AQ_Component.hpp"
 #include <stdexcept>
 #include <any>
 
@@ -16,6 +17,18 @@ namespace aquarius_engine {
 		}
 		else
 			std::cout << "ERROR: GAMEOBJECT TO CREATE: " << name << " ALREADY EXISTS" << "\n";
+	}
+
+	void AQ_GameObjectCtrl::deleteGameObject(std::string name) {
+		if (databaseGameObjects->allGameObjects.count(name)) {
+			try {
+				delete databaseGameObjects->allGameObjects.at(name);
+			} catch (std::out_of_range& e) {
+				std::cout << "ERROR: GAMEOBJECT TO DELETE NOT FOUND: " << name << " ERROR DESCRIPTION: " << e.what() << "\n";
+			}
+		} else {
+			std::cout << "UNKNOWN ERROR: GAMEOBJECT TO DELETE NOT FOUND: " << name << "\n";
+		}
 	}
 
 	unsigned int AQ_GameObjectCtrl::getComponentIndex(const std::vector<std::pair<std::string, unsigned int>>& compVector,
@@ -37,7 +50,14 @@ namespace aquarius_engine {
 			const auto& allComponentsKeysMapRef = gameObject->componentsKeys;
 			for (auto const& i : allComponentsKeysMapRef) {
 				for (auto const& j : i.second) {
-					databaseComponent->allComponents.erase(j.second);
+					try {
+						delete static_cast<AQ_Component*>(databaseComponent->allComponents.at(j.second));
+						databaseComponent->allComponents.erase(j.second);
+					} catch (std::out_of_range& e) {
+						std::cout << "ERROR: CANNOT REMOVE ALL COMPONENTS OF GAMEOBJECT ERROR DESCRIPTION: " << e.what() << "\n";
+					} catch (...) {
+						std::cout << "UNKNOWN ERROR: CANNOT REMOVE ALL COMPONENTS OF GAMEOBJECT\n";
+					}
 				}
 			}
 		} catch (...) {

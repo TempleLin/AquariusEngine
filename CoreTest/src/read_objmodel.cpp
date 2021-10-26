@@ -166,7 +166,6 @@ namespace read_objmodel {
         AQ_GameObject* guitarObject = gameObjectCtrl.createGameObject("GUITAR_OBJECT");
         AQ_CompModel* guitarModel = gameObjectCtrl.addComponent<AQ_CompModel>(guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
         
-
         
         // draw in wireframe
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -228,6 +227,13 @@ namespace read_objmodel {
             // Count deltaTime and seconds in game.
             //countTime();
             timeCtrl.updateTime();
+
+            // Delete guitar in 8 seconds.
+            static bool deletedGuitar{ false };
+            if (!deletedGuitar && timeCtrl.getSecondsInGame() > 8) {
+                gameObjectCtrl.deleteGameObject("GUITAR_OBJECT");
+                deletedGuitar = true;
+            }
 
             // input
                 // -----
