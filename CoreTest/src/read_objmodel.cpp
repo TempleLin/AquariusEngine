@@ -96,22 +96,6 @@ namespace read_objmodel {
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-        // glfw window creation
-        // --------------------
-        /*GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
-        if (window == NULL) {
-            std::cout << "Failed to create GLFW window" << std::endl;
-            glfwTerminate();
-            return -1;
-        }*/
-        //glfwMakeContextCurrent(window);
-        //glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-        //glfwSetCursorPosCallback(window, mouse_callback);
-        //glfwSetScrollCallback(window, scroll_callback);
-
-        //// tell GLFW to capture our mouse
-        //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
         aqOpenGL->setOpenGL()
             .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE)
             .createWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL, true)
@@ -121,14 +105,9 @@ namespace read_objmodel {
         glfwSetFramebufferSizeCallback(currentWindow, framebuffer_size_callback);
         glfwSetCursorPosCallback(currentWindow, mouse_callback);
         glfwSetScrollCallback(currentWindow, scroll_callback);
+        // tell GLFW to capture our mouse
         glfwSetInputMode(currentWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-        // glad: load all OpenGL function pointers
-        // ---------------------------------------
-        /*if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-            std::cout << "Failed to initialize GLAD" << std::endl;
-            return -1;
-        }*/
         // Setup Dear ImGui context
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -171,7 +150,7 @@ namespace read_objmodel {
         camera =gameObjectCtrl.addComponent<AQ_CompCamera>(cameraObject, new AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
 
         AQ_CompInput* cameraInput = gameObjectCtrl.addComponent<AQ_CompInput>(cameraObject,
-            new AQ_CompInput(/*window*/currentWindow, new AQ_GameObject * [1]{cameraObject},
+            new AQ_CompInput(currentWindow, new AQ_GameObject * [1]{cameraObject},
                 new unsigned int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_A, GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q},
                     new unsigned int[1]{ GLFW_PRESS }, processInput_waitForRebind, inputSystemCtrl), "CameraInput");
 
@@ -188,7 +167,7 @@ namespace read_objmodel {
 
         // render loop
         // -----------
-        while (!glfwWindowShouldClose(currentWindow/*window*/)) {
+        while (!glfwWindowShouldClose(currentWindow)) {
 
             // Poll and handle events (inputs, window resize, etc.)
             // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
@@ -291,7 +270,7 @@ namespace read_objmodel {
 #endif
             // Rendering
             ImGui::Render();
-            glfwGetFramebufferSize(currentWindow/*window*/, &SCR_WIDTH, &SCR_HEIGHT);
+            glfwGetFramebufferSize(currentWindow, &SCR_WIDTH, &SCR_HEIGHT);
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
             // glfw: swap buffers
@@ -308,7 +287,6 @@ namespace read_objmodel {
         ImGui::DestroyContext();
         // glfw: terminate, clearing all previously allocated GLFW resources.
         // ------------------------------------------------------------------
-        //glfwDestroyWindow(window);
         delete databaseComponents;
         delete databaseGameObjects;
         delete aqOpenGL;
