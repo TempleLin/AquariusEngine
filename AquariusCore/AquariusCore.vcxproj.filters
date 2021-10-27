@@ -81,6 +81,9 @@
     <ClCompile Include="src\dear_imgui\imgui_widgets.cpp">
       <Filter>Source Files\imgui_src</Filter>
     </ClCompile>
+    <ClCompile Include="src\AQ_GLIntegrate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\AQ_CompCamera.hpp">

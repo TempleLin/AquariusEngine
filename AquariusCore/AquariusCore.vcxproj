@@ -168,6 +168,7 @@
     <ClCompile Include="src\AQ_Database.cpp" />
     <ClCompile Include="src\AQ_GameObject.cpp" />
     <ClCompile Include="src\AQ_GameObjectCtrl.cpp" />
+    <ClCompile Include="src\AQ_GLIntegrate.cpp" />
     <ClCompile Include="src\AQ_GlobalCtrl.cpp" />
     <ClCompile Include="src\AQ_Lights.cpp" />
     <ClCompile Include="src\AQ_Mesh.cpp" />

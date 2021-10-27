@@ -114,7 +114,7 @@ namespace read_objmodel {
 
         aqOpenGL->setOpenGL()
             .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE)
-            .createWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL)
+            .createWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL, true)
             .setCurrentThreadWindow(aqOpenGL->getWindowByName("LearnOpenGL", 0))
             .initializeGLAD();
         currentWindow = aqOpenGL->getWindowByName("LearnOpenGL", 0);
@@ -300,8 +300,7 @@ namespace read_objmodel {
             glfwSwapBuffers(currentWindow);
         }
 
-        delete databaseComponents;
-        delete databaseGameObjects;
+
 
         // Cleanup
         ImGui_ImplOpenGL3_Shutdown();
@@ -310,7 +309,9 @@ namespace read_objmodel {
         // glfw: terminate, clearing all previously allocated GLFW resources.
         // ------------------------------------------------------------------
         //glfwDestroyWindow(window);
-        glfwDestroyWindow(currentWindow);
+        delete databaseComponents;
+        delete databaseGameObjects;
+        delete aqOpenGL;
         glfwTerminate();
         return 0;
     }
