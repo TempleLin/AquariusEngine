@@ -183,6 +183,7 @@
     <ClCompile Include="src\stbi_image_wrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\headers\AQ_GLIntegrate.hpp" />
     <ClInclude Include="src\dear_imgui\imconfig.h" />
     <ClInclude Include="src\dear_imgui\imgui.h" />
     <ClInclude Include="src\dear_imgui\imgui_impl_glfw.h" />
