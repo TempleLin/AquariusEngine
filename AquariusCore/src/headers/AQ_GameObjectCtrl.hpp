@@ -45,6 +45,9 @@ namespace aquarius_engine {
 				catch(std::out_of_range& e){
 					gameObject->components[typeid(T)].push_back(std::pair<std::string, void*>(name, static_cast<void*>(component)));
 				}
+				catch (std::string& e) {
+					std::cout << e << "\n";
+				}
 
 				/*
 				* @Add the component with to the database and receive its key in database by returning in to
@@ -82,12 +85,15 @@ namespace aquarius_engine {
 						return static_cast<T*>(temp->at(i).second);
 					}
 				}
+				throw std::string("ERROR: GETCOMPONENT DIDN'T FIND THE COMPONENT SPECIFIED");
 				/*const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
 				return static_cast<T*>(databaseComponent->allComponents
 					.at(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second));*/
 			} catch (std::out_of_range& e) {
 				std::cout << "FAILED TO GET COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";
 				return nullptr;
+			} catch (std::string& e) {
+				std::cout << e << "\n";
 			} catch (...) {
 				std::cout << "ERROR: UNKNOW ERROR FROM GETTING COMPONENT IN AQ_GAMEOBJECTCTRL" << "\n";
 				return nullptr;
@@ -97,6 +103,7 @@ namespace aquarius_engine {
 		template <typename T, typename = std::enable_if_t<std::is_base_of<AQ_Component, T>::value>>
 		void removeComponent(AQ_GameObject* gameObject, std::string name) {
 			try {
+
 				/*const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
 				databaseComponent->allComponents.erase
 					(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second);*/

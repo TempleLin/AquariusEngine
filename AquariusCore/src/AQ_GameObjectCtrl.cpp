@@ -46,6 +46,11 @@ namespace aquarius_engine {
 	}
 
 	void AQ_GameObjectCtrl::removeAllCompsOfGameObject(AQ_GameObject* gameObject) {
+		for (auto const& x : gameObject->components) {
+			for (int i = 0; i < x.second.size(); i++) {
+				delete static_cast<AQ_Component*>(x.second.at(i).second);
+			}
+		}
 		/*try {
 			const auto& allComponentsKeysMapRef = gameObject->componentsKeys;
 			for (auto const& i : allComponentsKeysMapRef) {
