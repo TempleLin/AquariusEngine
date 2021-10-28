@@ -17,16 +17,17 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
+int SCR_WIDTH{ 1280 }, SCR_HEIGHT{ 720 };
+
 int main()
 {
     aqOpenGL->setOpenGL()
         .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE, &glfwError)
-        .createWindow(800, 600, "TwoDJavaIntegrate", NULL, NULL, true)
+        .createWindow(SCR_WIDTH, SCR_HEIGHT, "TwoDJavaIntegrate", NULL, NULL, true)
         .setFrameBufferSizeCallback(aqOpenGL->getBoundWindow(), framebuffer_size_callback)
         .setCursorPosCallback(aqOpenGL->getBoundWindow(), mouse_callback)
         .setScrollCallback(aqOpenGL->getBoundWindow(), scroll_callback)
-        .setInputMode(aqOpenGL->getBoundWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED)
-        .setCurrentThreadWindow(aqOpenGL->getWindowByName("TwoDJavaIntegrate", 0))
+        .setCurrentThreadWindow(aqOpenGL->getBoundWindow())
         .initializeGLAD()
         .finishSettings();
     currentWindow = aqOpenGL->getBoundWindow();
