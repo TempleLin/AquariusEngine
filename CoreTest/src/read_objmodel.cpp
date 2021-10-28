@@ -76,13 +76,6 @@ namespace read_objmodel {
     float lastY = SCR_HEIGHT / 2.0f;
     bool firstMouse = true;
 
-    // timing
-    float deltaTime{ 0.f };
-    float lastFrame{ 0.f };
-    float secondsFloatCount{ 0.f };
-
-    
-
     int callable_main() {
         const char* glsl_version = "#version 330";
 
@@ -196,7 +189,7 @@ namespace read_objmodel {
                 ImGui::SameLine();
                 ImGui::Text("counter = %d", counter);
 
-                ImGui::Text("Seconds passed in game: %u", (unsigned int)secondsFloatCount);
+                ImGui::Text("Seconds passed in game: %u", (unsigned int)timeCtrl.getSecondsInGame());
                 ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
                 ImGui::End();
             }
@@ -252,10 +245,10 @@ namespace read_objmodel {
 
 #ifdef REMOVE_GUITAR_IN_SECONDS
 #if defined(SECONDS_TO_REMOVE_GUITAR)
-            if (secondsFloatCount > SECONDS_TO_REMOVE_GUITAR)
+            if (timeCtrl.getSecondsInGame() > SECONDS_TO_REMOVE_GUITAR)
                 AQ_GameObjectCtrl::removeComponent<AQ_CompModel>(guitarObject, "GUITAR");
 #else
-            if (secondsCounter > 10.f)
+            if (timeCtrl.getSecondsInGame() > 10.f)
                 AQ_GameObjectCtrl::removeComponent<AQ_CompModel>(guitarObject, "GUITAR");
 #endif
 #endif
@@ -283,18 +276,6 @@ namespace read_objmodel {
         delete aqOpenGL;
         glfwTerminate();
         return 0;
-    }
-
-    
-
-    void countTime() {
-        // per-frame time logic
-            // --------------------
-        float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
-        // Count seconds using deltaTime
-        secondsFloatCount += deltaTime;
     }
 
     // glfw: whenever the window size changed (by OS or user resize) this callback function executes
