@@ -77,6 +77,8 @@ namespace read_objmodel {
     float lastY = SCR_HEIGHT / 2.0f;
     bool firstMouse = true;
 
+#define REMOVE_GUITAR_IN_SECONDS
+
     int callable_main() {
         const char* glsl_version = "#version 330";
 
@@ -208,12 +210,14 @@ namespace read_objmodel {
             //countTime();
             timeCtrl.updateTime();
 
+#ifdef DELETE_GUITAR_OBJECT_IN8SECS
             // Delete guitar in 8 seconds.
             static bool deletedGuitar{ false };
             if (!deletedGuitar && timeCtrl.getSecondsInGame() > 8) {
                 gameObjectCtrl.deleteGameObject("GUITAR_OBJECT");
                 deletedGuitar = true;
             }
+#endif
 
             // input
                 // -----
@@ -247,10 +251,10 @@ namespace read_objmodel {
 #ifdef REMOVE_GUITAR_IN_SECONDS
 #if defined(SECONDS_TO_REMOVE_GUITAR)
             if (timeCtrl.getSecondsInGame() > SECONDS_TO_REMOVE_GUITAR)
-                AQ_GameObjectCtrl::removeComponent<AQ_CompModel>(guitarObject, "GUITAR");
+                gameObjectCtrl.removeComponent<AQ_CompModel>(guitarObject, "GUITAR");
 #else
             if (timeCtrl.getSecondsInGame() > 10.f)
-                AQ_GameObjectCtrl::removeComponent<AQ_CompModel>(guitarObject, "GUITAR");
+                gameObjectCtrl.removeComponent<AQ_CompModel>(guitarObject, "GUITAR");
 #endif
 #endif
             // Rendering

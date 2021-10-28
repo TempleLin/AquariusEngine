@@ -103,15 +103,29 @@ namespace aquarius_engine {
 		template <typename T, typename = std::enable_if_t<std::is_base_of<AQ_Component, T>::value>>
 		void removeComponent(AQ_GameObject* gameObject, std::string name) {
 			try {
-
+				auto* temp = &(gameObject->components.at(typeid(T)));
+				for (int i = 0; i < temp->size(); i++) {
+					if (temp->at(i).first == name) {
+						if (temp->at(i).second) {
+							delete static_cast<T*>(temp->at(i).second);
+							temp->at(i).second = nullptr;
+						} else {
+							throw std::string("ERROR REMOVING COMPONENT: COMPONENT ALREADY REMOVED");
+						}
+						break;
+					}
+				}
 				/*const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
 				databaseComponent->allComponents.erase
 					(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second);*/
 			} catch (std::out_of_range& e) {
 				std::cout << "FAILED TO REMOVE COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";
+			} catch (std::string& e) {
+				std::cout << e << "\n";
 			} catch (...) {
 				std::cout << "ERROR: UNKNOW ERROR FROM REMOVING COMPONENT IN AQ_GAMEOBJECTCTRL" << "\n";
 			}
+			
 		}
 
 		void removeAllCompsOfGameObject(AQ_GameObject* gameObject);
