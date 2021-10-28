@@ -20,7 +20,8 @@ namespace aquarius_engine {
 			AQ_OpenGL* aq_OpenGL;
 
 			Settings(AQ_OpenGL* openGL);
-			Settings& ver_Profile(unsigned int major, unsigned int minor, unsigned int PROFILE, void (*errorCallback)(int, const char*));
+			Settings& ver_Profile(unsigned int major, unsigned int minor, unsigned int PROFILE, 
+				void (*errorCallback)(int, const char*), bool enableAlpha);
 
 			Settings& createWindow(unsigned int width, unsigned int height, const char* windowName, 
 				GLFWmonitor* monitor, GLFWwindow* share, bool bindWindow);

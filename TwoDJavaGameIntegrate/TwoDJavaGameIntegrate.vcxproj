@@ -152,6 +152,12 @@
   <ItemGroup>
     <Image Include="assets\cleanCharacter.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\two_d_color_fs.glsl" />
+    <None Include="assets\shaders\two_d_color_vs.glsl" />
+    <None Include="assets\shaders\two_d_tex_fs.glsl" />
+    <None Include="assets\shaders\two_d_tex_vs.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

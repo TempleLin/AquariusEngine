@@ -63,7 +63,7 @@ namespace aquarius_engine {
 	}
 
 	AQ_OpenGL::Settings& AQ_OpenGL::Settings::ver_Profile
-		(unsigned int major, unsigned int minor, unsigned int PROFILE, void (*errorCallback)(int, const char*)) {
+		(unsigned int major, unsigned int minor, unsigned int PROFILE, void (*errorCallback)(int, const char*), bool enableAlpha) {
 		glfwSetErrorCallback(errorCallback);
 		if (!glfwInit()) {
 			std::cout << "glfw did not initialize!" << std::endl;
@@ -71,6 +71,8 @@ namespace aquarius_engine {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, PROFILE);
+		if (enableAlpha)
+			glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
 #ifdef __APPLE__
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
