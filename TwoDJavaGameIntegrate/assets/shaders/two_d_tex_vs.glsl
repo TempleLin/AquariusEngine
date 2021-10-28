@@ -8,6 +8,7 @@ out vec2 TexCoord;
 
 uniform float windowWidth, windowHeight;
 uniform bool keepAspectRatio;
+uniform mat4 offsetMat;
 
 vec3 resultPos;
 
@@ -15,7 +16,7 @@ void setAspectRatio();
 
 void main() {
     setAspectRatio();
-    gl_Position = vec4(resultPos, 1.0);
+    gl_Position = offsetMat * vec4(resultPos, 1.0);
     ourColor = aColor;
     TexCoord = aTexCoord;
 }

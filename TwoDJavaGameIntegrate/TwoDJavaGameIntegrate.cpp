@@ -1,6 +1,8 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <headers/AQ_GLIntegrate.hpp>
 #include <headers/AQ_Shader.hpp>
 #include <headers/stbi_image_wrapper.hpp>
@@ -56,6 +58,7 @@ int main()
         0, 1, 3,   // first triangle
         1, 2, 3    // second triangle
     };
+
 
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
@@ -118,10 +121,14 @@ int main()
     unsigned int uniWinWidth = glGetUniformLocation(twoDShader->ID, "windowWidth");
     unsigned int uniWinHeight = glGetUniformLocation(twoDShader->ID, "windowHeight");
     unsigned int uniKeepAspectRatio = glGetUniformLocation(twoDShader->ID, "keepAspectRatio");
+    unsigned int uniOffsetMat = glGetUniformLocation(twoDShader->ID, "offsetMat");
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture1);
 
+
+    glm::mat4 offsetMatrix(1.f);
+    offsetMatrix = glm::translate(offsetMatrix, glm::vec3(-.5f, 0.f, 0.f));
 
     while(!glfwWindowShouldClose(currentWindow)) {
         glfwPollEvents();
@@ -133,6 +140,7 @@ int main()
         glUniform1i(uniKeepAspectRatio, GLFW_TRUE);
         glUniform1f(uniWinWidth, (float)SCR_WIDTH);
         glUniform1f(uniWinHeight, (float)SCR_HEIGHT);
+        glUniformMatrix4fv(uniOffsetMat, 1, false, &offsetMatrix[0][0]);
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
