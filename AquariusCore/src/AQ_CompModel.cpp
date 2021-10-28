@@ -177,10 +177,10 @@ namespace aquarius_engine {
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-            freeImage(*data);
+            freeImage(data);
         } else {
             std::cout << "Texture failed to load at path: " << path << std::endl;
-            freeImage(*data);
+            freeImage(data);
         }
 
         return textureID;
