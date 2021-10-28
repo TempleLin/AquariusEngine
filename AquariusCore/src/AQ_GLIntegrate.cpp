@@ -40,7 +40,8 @@ namespace aquarius_engine {
 	}
 
 	AQ_OpenGL::~AQ_OpenGL() {
-		delete settings;
+		if (settings)
+			delete settings;
 		for (int i = 0; i < windows.size(); i++) {
 			delete windows.at(i);
 		}
@@ -92,9 +93,39 @@ namespace aquarius_engine {
 		return *this;
 	}
 
-	void AQ_OpenGL::Settings::initializeGLAD() {
+	AQ_OpenGL::Settings& AQ_OpenGL::Settings::initializeGLAD() {
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 			std::cout << "Failed to initialize GLAD" << std::endl;
 		}
+		return *this;
+	}
+
+	AQ_OpenGL::Settings& AQ_OpenGL::Settings::setFrameBufferSizeCallback
+	(GLFWwindow* window, void(*callbackFunc)(GLFWwindow*, int, int)) {
+		glfwSetFramebufferSizeCallback(window, callbackFunc);
+		return *this;
+	}
+
+	AQ_OpenGL::Settings& AQ_OpenGL::Settings::setCursorPosCallback(GLFWwindow* window,
+		void(*callbackFunc)(GLFWwindow*, double, double)) {
+		glfwSetCursorPosCallback(window, callbackFunc);
+		return *this;
+	}
+
+	AQ_OpenGL::Settings& AQ_OpenGL::Settings::setScrollCallback
+	(GLFWwindow* window, void(*callbackFunc)(GLFWwindow*, double, double)) {
+		glfwSetScrollCallback(window, callbackFunc);
+		return *this;
+	}
+
+	AQ_OpenGL::Settings& AQ_OpenGL::Settings::setInputMode(GLFWwindow* window, int mode, int value) {
+		// tell GLFW to capture our mouse
+		glfwSetInputMode(window, mode, value);
+		return *this;
+	}
+
+	void AQ_OpenGL::Settings::finishSettings() {
+		aq_OpenGL->settings = nullptr;
+		delete this;
 	}
 }

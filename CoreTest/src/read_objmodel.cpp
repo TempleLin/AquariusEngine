@@ -89,14 +89,15 @@ namespace read_objmodel {
         aqOpenGL->setOpenGL()
             .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE)
             .createWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL, true)
+            .setFrameBufferSizeCallback(aqOpenGL->getBoundWindow(), framebuffer_size_callback)
+            .setCursorPosCallback(aqOpenGL->getBoundWindow(), mouse_callback)
+            .setScrollCallback(aqOpenGL->getBoundWindow(), scroll_callback)
+            .setInputMode(aqOpenGL->getBoundWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED)
             .setCurrentThreadWindow(aqOpenGL->getWindowByName("LearnOpenGL", 0))
-            .initializeGLAD();
-        currentWindow = aqOpenGL->getWindowByName("LearnOpenGL", 0);
-        glfwSetFramebufferSizeCallback(currentWindow, framebuffer_size_callback);
-        glfwSetCursorPosCallback(currentWindow, mouse_callback);
-        glfwSetScrollCallback(currentWindow, scroll_callback);
-        // tell GLFW to capture our mouse
-        glfwSetInputMode(currentWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            .initializeGLAD()
+            .finishSettings();
+        currentWindow = aqOpenGL->getBoundWindow();
+
 
         // Setup Dear ImGui context
         IMGUI_CHECKVERSION();
