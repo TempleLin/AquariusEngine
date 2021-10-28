@@ -17,7 +17,7 @@ namespace aquarius_engine {
 	private:
 		AQ_GameObjectCtrl* gameObjectCtrlPtr;
 		std::string name;
-		std::map<std::type_index, std::vector<std::pair<std::string, unsigned int>>> componentsKeys;
+		std::map<std::type_index, std::vector<std::pair<std::string, void*>>> components;
 	public:
 		AQ_GameObject(AQ_GameObjectCtrl* gameObjectCtrl, std::string name);
 		~AQ_GameObject();

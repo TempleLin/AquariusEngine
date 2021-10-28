@@ -46,7 +46,7 @@ namespace aquarius_engine {
 	}
 
 	void AQ_GameObjectCtrl::removeAllCompsOfGameObject(AQ_GameObject* gameObject) {
-		try {
+		/*try {
 			const auto& allComponentsKeysMapRef = gameObject->componentsKeys;
 			for (auto const& i : allComponentsKeysMapRef) {
 				for (auto const& j : i.second) {
@@ -62,6 +62,6 @@ namespace aquarius_engine {
 			}
 		} catch (...) {
 			std::cout << "ERROR: UNKNOWN ERROR IN FAILING TO REMOVE ALL COMPONENTS OF GAMEOBJECT" << "\n";
-		}
+		}*/
 	}
 }
