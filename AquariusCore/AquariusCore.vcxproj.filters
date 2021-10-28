@@ -152,7 +152,7 @@
     <ClInclude Include="src\headers\AQ_GLIntegrate.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_Comp2DModel.hpp">
+    <ClInclude Include="src\headers\AQ_CompSimple2D.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
