@@ -84,17 +84,7 @@ namespace read_objmodel {
     
 
     int callable_main() {
-        // glfw: initialize and configure
-        // ------------------------------
-        /*glfwInit();
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);*/
         const char* glsl_version = "#version 330";
-
-#ifdef __APPLE__
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
 
         aqOpenGL->setOpenGL()
             .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE)

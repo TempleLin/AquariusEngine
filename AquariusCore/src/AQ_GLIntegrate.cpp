@@ -67,6 +67,9 @@ namespace aquarius_engine {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, PROFILE);
+#ifdef __APPLE__
+		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
 		return *this;
 	}
 
