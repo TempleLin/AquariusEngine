@@ -7,7 +7,6 @@ namespace aquarius_engine {
 	}
 
 	AQ_OpenGL::Settings& AQ_OpenGL::setOpenGL() {
-		glfwInit();
 		if (!settings)
 			settings = new Settings(this);
 		return *settings;
@@ -64,7 +63,11 @@ namespace aquarius_engine {
 	}
 
 	AQ_OpenGL::Settings& AQ_OpenGL::Settings::ver_Profile
-		(unsigned int major, unsigned int minor, unsigned int PROFILE) {
+		(unsigned int major, unsigned int minor, unsigned int PROFILE, void (*errorCallback)(int, const char*)) {
+		glfwSetErrorCallback(errorCallback);
+		if (!glfwInit()) {
+			std::cout << "glfw did not initialize!" << std::endl;
+		}
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, PROFILE);
@@ -79,6 +82,7 @@ namespace aquarius_engine {
 		GLFWwindow* windowCreated = glfwCreateWindow(width, height, windowName, monitor, share);
 		if (windowCreated) {
 			aq_OpenGL->windows.push_back(new WindowNamePair(windowCreated, windowName));
+			std::cout << "Window: " << windowName << " created at address: " << windowCreated << "\n";
 		} else {
 			std::cout << "ERROR: Failed to create GLFW window with name: " << windowName << std::endl;
 			glfwTerminate();

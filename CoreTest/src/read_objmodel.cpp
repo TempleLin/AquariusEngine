@@ -42,10 +42,11 @@ namespace read_objmodel {
     using namespace stbi_image_wrap;
     using namespace aquarius_engine;
 
+    void glfwError(int id, const char* description);
+
     void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     void mouse_callback(GLFWwindow* window, double xpos, double ypos);
     void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-    void countTime();
     void processInput_waitForRebind(GLFWwindow* window, AQ_GameObject** gameObjectsRef,
         AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* inputKeys, unsigned int* inputActions);
     void processInputCallback(GLFWwindow* window, AQ_GameObject** gameObjectsRef,
@@ -80,7 +81,7 @@ namespace read_objmodel {
         const char* glsl_version = "#version 330";
 
         aqOpenGL->setOpenGL()
-            .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE)
+            .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE, &glfwError)
             .createWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL, true)
             .setFrameBufferSizeCallback(aqOpenGL->getBoundWindow(), framebuffer_size_callback)
             .setCursorPosCallback(aqOpenGL->getBoundWindow(), mouse_callback)
@@ -341,5 +342,10 @@ namespace read_objmodel {
             _camera->processKeyboard(ECameraMovement::UP, timeCtrl->getDeltaTime());
         if (glfwGetKey(window, inputKeys[6]) == inputActions[0])
             _camera->processKeyboard(ECameraMovement::DOWN, timeCtrl->getDeltaTime());
+    }
+
+    void glfwError(int id, const char* description)
+    {
+        std::cout << description << std::endl;
     }
 }
