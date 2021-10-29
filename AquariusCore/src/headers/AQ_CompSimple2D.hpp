@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 #include <string>
+#include <iostream>
 
 namespace aquarius_engine {
 	class AQ_CompSimple2D : public AQ_Component {
@@ -20,23 +21,31 @@ namespace aquarius_engine {
 		};
 		unsigned int vao, vbo, ebo, shaderID;
 		unsigned int* uniforms;
-		char** uniformsNames;
+		int uniformsCount, verticesCount;
+		const char** uniformsNames;
 		std::vector<TextureNamePair> textures;
-		void(*preDrawCallback)(unsigned int, unsigned int*, const char**);
+		void(*preDrawCallback)(unsigned int, unsigned int*);
+		bool enableBlend;
+		unsigned int blendValues[2];
 	public:
 
-		AQ_CompSimple2D(unsigned int vao, unsigned int vbo, unsigned int ebo) : vao(vao), vbo(vbo), ebo(ebo) {
-			
+		AQ_CompSimple2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount) 
+			: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), enableBlend(false) {
+			shaderID = 0;
+		}
+		void setBlend(bool enableBlend, unsigned int blendValues[2]) {
+			this->enableBlend = enableBlend;
+			this->blendValues[0] = blendValues[0];
 		}
 		static void enableAlpha() {
 			/*
 			* @Note: These need to be set to have transparent background image.
 			*/
-			glEnable(GL_BLEND);
+			//glEnable(GL_BLEND);
 			glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 		}
-		void addTexture(std::string imageLocation, stbi_image_wrap::ImageLoadingType, std::string name, 
-			bool hasAndUseAlpha, bool bindTexture) {
+		void addTexture(std::string imageLocation, std::string name, 
+			bool hasAndUseAlpha, bool bindTexture, int& returnTexIndex) {
 			for (int i = 0; i < textures.size(); i++) {
 				if (textures.at(i).name == name) {
 					throw std::string("ERROR: IMAGE ADDED WAS SPECIFIED A NAME THAT ALREADY EXISTS");
@@ -53,6 +62,7 @@ namespace aquarius_engine {
 				else
 					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 				textures.push_back(TextureNamePair(name, width, height, nrChannels, texture));
+				returnTexIndex = textures.size() - 1;
 				stbi_image_wrap::freeImage(data);
 				if (!bindTexture)
 					glBindTexture(GL_TEXTURE_2D, 0);
@@ -61,17 +71,32 @@ namespace aquarius_engine {
 			}
 		}
 		void setTexWrapFilter(unsigned int wrap_s, unsigned int wrap_t, unsigned int min_filter, unsigned int mag_filter) {
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap_s);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap_t);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min_filter);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mag_filter);
 		}
 		void setShaderID(unsigned int shaderID) {
 			this->shaderID = shaderID;
 		}
-		void setUniforms(unsigned int* uniforms, char** uniformsNames) {
-			this->uniforms = uniforms;
+		void useShader() {
+			if (!shaderID)
+				std::cout << "WARNING: SHADER CAN'T BE USED, SHADER NOT SET.\n";
+			glUseProgram(shaderID);
+		}
+		void setUniforms(const char** uniformsNames, int uniformsCount) {
+			if (!shaderID) {
+				std::cout << "WARNING: UNIFORMs CAN'T BE SET, SHADER NOT SET.\n";
+			}
 			this->uniformsNames = uniformsNames;
+			this->uniformsCount = uniformsCount;
+			uniforms = new unsigned int[uniformsCount];
+			for (int i = 0; i < uniformsCount; i++) {
+				uniforms[i] = glGetUniformLocation(shaderID, uniformsNames[i]);
+			}
+		}
+		void activateTexture(unsigned int index) {
+			glActiveTexture(index);
 		}
 		void bindTexture(std::string textureName) {
 			for (int i = 0; i < textures.size(); i++) {
@@ -80,11 +105,21 @@ namespace aquarius_engine {
 				}
 			}
 		}
-		void setPreDrawCallback(void(*callback)(unsigned int shaderID, unsigned int* uniforms, const char** uniformsNames)) {
+		void bindTexture(int index) {
+			glBindTexture(GL_TEXTURE_2D, textures.at(index).texture);
+		}
+		void setPreDrawCallback(void(*callback)(unsigned int shaderID, unsigned int* uniforms)) {
 			this->preDrawCallback = callback;
 		}
 		void draw() {
-			preDrawCallback(shaderID, uniforms, uniformsNames);
+			if (enableBlend) {
+				glEnable(GL_BLEND);
+
+			}
+			preDrawCallback(shaderID, uniforms);
+			glBindVertexArray(vao);
+			glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);
+			glBindVertexArray(0);
 		}
 		~AQ_CompSimple2D() {
 			delete[] uniforms;
