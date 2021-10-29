@@ -10,6 +10,7 @@
 #include <headers/AQ_GameObject.hpp>
 #include <headers/AQ_Database.hpp>
 #include <headers/AQ_CompSimple2D.hpp>
+#include <headers/AQ_GlobalCtrl.hpp>
 
 using namespace aquarius_engine;
 using namespace stbi_image_wrap;
@@ -30,7 +31,6 @@ AQ_Shader* twoDShader;
 
 int main()
 {
-
     aqOpenGL->setOpenGL()
         .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE, &glfwError, false)
         .createWindow(SCR_WIDTH, SCR_HEIGHT, "TwoDJavaIntegrate", NULL, NULL, true)
@@ -42,23 +42,26 @@ int main()
         .finishSettings();
     currentWindow = aqOpenGL->getBoundWindow();
 
-    unsigned int mainCharVAO, mainCharVBO, mainCharEBO;
-    createCharacterVertices(&mainCharVAO, &mainCharVBO, &mainCharEBO);
 
     ///*
     //* @Note: Shader can only be created after glfw init().
     //*/
     twoDShader = new AQ_Shader("assets/shaders/two_d_tex_vs.glsl", "assets/shaders/two_d_tex_fs.glsl");
-    //twoDShader->use();
 
     AQ_Database::GameObjects* gameObjectsDatabase = new AQ_Database::GameObjects();
     AQ_Database::Components* componentsDatabase = new AQ_Database::Components();
     AQ_GameObjectCtrl* gameObjectCtrl = new AQ_GameObjectCtrl(componentsDatabase, gameObjectsDatabase);
+    AQ_GlobalCtrl::TimeCtrl* timeCtrl = new AQ_GlobalCtrl::TimeCtrl;
 
+    // -------- Create main character --------------
     AQ_GameObject* mainCharacter = gameObjectCtrl->createGameObject("MainCharacter");
+
+    unsigned int mainCharVAO, mainCharVBO, mainCharEBO;
+    createCharacterVertices(&mainCharVAO, &mainCharVBO, &mainCharEBO);
 
     AQ_CompSimple2D* mainChar2D = gameObjectCtrl->
         addComponent<AQ_CompSimple2D>(mainCharacter, new AQ_CompSimple2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "MainCharacter2D");
+    // ---------------------------------------------
 
 
     stbi_image_wrap::setFlipVerticallyOnLoad(true);
@@ -80,6 +83,8 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(.0f, .0f, .0f, .0f);
 
+        timeCtrl->updateTime();
+
         mainChar2D->draw();
 
         glfwSwapBuffers(currentWindow);
@@ -88,6 +93,10 @@ int main()
     glfwTerminate();
     delete twoDShader;
     gameObjectCtrl->deleteGameObject("MainCharacter");
+    delete gameObjectCtrl;
+    delete gameObjectsDatabase;
+    delete componentsDatabase;
+    delete timeCtrl;
 }
 
 void createCharacterVertices(unsigned int* vao, unsigned int* vbo, unsigned int* ebo) {
