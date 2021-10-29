@@ -22,6 +22,7 @@ namespace aquarius_engine {
 		unsigned int* uniforms;
 		char** uniformsNames;
 		std::vector<TextureNamePair> textures;
+		void(*preDrawCallback)(unsigned int, unsigned int*, const char**);
 	public:
 
 		AQ_CompSimple2D(unsigned int vao, unsigned int vbo, unsigned int ebo) : vao(vao), vbo(vbo), ebo(ebo) {
@@ -34,7 +35,8 @@ namespace aquarius_engine {
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 		}
-		void addTexture(std::string imageLocation, stbi_image_wrap::ImageLoadingType, std::string name, bool hasAndUseAlpha, bool bindTexture) {
+		void addTexture(std::string imageLocation, stbi_image_wrap::ImageLoadingType, std::string name, 
+			bool hasAndUseAlpha, bool bindTexture) {
 			for (int i = 0; i < textures.size(); i++) {
 				if (textures.at(i).name == name) {
 					throw std::string("ERROR: IMAGE ADDED WAS SPECIFIED A NAME THAT ALREADY EXISTS");
@@ -58,6 +60,12 @@ namespace aquarius_engine {
 				throw std::string("ERROR: CANNOT LOAD IMAGE WITH GIVEN PATH--" + imageLocation);
 			}
 		}
+		void setTexWrapFilter(unsigned int wrap_s, unsigned int wrap_t, unsigned int min_filter, unsigned int mag_filter) {
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		}
 		void setShaderID(unsigned int shaderID) {
 			this->shaderID = shaderID;
 		}
@@ -71,6 +79,12 @@ namespace aquarius_engine {
 					glBindTexture(GL_TEXTURE_2D, textures.at(i).texture);
 				}
 			}
+		}
+		void setPreDrawCallback(void(*callback)(unsigned int shaderID, unsigned int* uniforms, const char** uniformsNames)) {
+			this->preDrawCallback = callback;
+		}
+		void draw() {
+			preDrawCallback(shaderID, uniforms, uniformsNames);
 		}
 		~AQ_CompSimple2D() {
 			delete[] uniforms;
