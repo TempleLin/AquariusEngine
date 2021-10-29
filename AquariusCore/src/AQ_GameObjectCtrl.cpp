@@ -23,6 +23,7 @@ namespace aquarius_engine {
 		if (databaseGameObjects->allGameObjects.count(name)) {
 			try {
 				delete databaseGameObjects->allGameObjects.at(name);
+				databaseGameObjects->allGameObjects.erase(name);
 			} catch (std::out_of_range& e) {
 				std::cout << "ERROR: GAMEOBJECT TO DELETE NOT FOUND: " << name << " ERROR DESCRIPTION: " << e.what() << "\n";
 			}

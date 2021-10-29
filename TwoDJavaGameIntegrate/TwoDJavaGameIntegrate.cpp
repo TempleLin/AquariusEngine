@@ -20,6 +20,8 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void mainCharacterPreDrawCallback(unsigned int shaderID, unsigned int* uniforms);
 
+void createCharacterVertices(unsigned int* vao, unsigned int* vbo, unsigned int* ebo);
+
 int SCR_WIDTH{ 1280 }, SCR_HEIGHT{ 720 };
 
 AQ_OpenGL* aqOpenGL = new AQ_OpenGL();
@@ -40,41 +42,8 @@ int main()
         .finishSettings();
     currentWindow = aqOpenGL->getBoundWindow();
 
-    unsigned int VAO, VBO, EBO;
-
-    float vertices[] = {
-        // positions          // colors           // texture coords
-         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
-         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
-        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
-    };
-    unsigned int indices[] = {  // note that we start from 0!
-        0, 1, 3,   // first triangle
-        1, 2, 3    // second triangle
-    };
-
-
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glGenBuffers(1, &EBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    // color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-    // texture coord attribute
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
+    unsigned int mainCharVAO, mainCharVBO, mainCharEBO;
+    createCharacterVertices(&mainCharVAO, &mainCharVBO, &mainCharEBO);
 
     ///*
     //* @Note: Shader can only be created after glfw init().
@@ -89,7 +58,7 @@ int main()
     AQ_GameObject* mainCharacter = gameObjectCtrl->createGameObject("MainCharacter");
 
     AQ_CompSimple2D* mainChar2D = gameObjectCtrl->
-        addComponent<AQ_CompSimple2D>(mainCharacter, new AQ_CompSimple2D(VAO, VBO, EBO, 6), "MainCharacter2D");
+        addComponent<AQ_CompSimple2D>(mainCharacter, new AQ_CompSimple2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "MainCharacter2D");
 
 
     stbi_image_wrap::setFlipVerticallyOnLoad(true);
@@ -118,6 +87,41 @@ int main()
 
     glfwTerminate();
     delete twoDShader;
+    gameObjectCtrl->deleteGameObject("MainCharacter");
+}
+
+void createCharacterVertices(unsigned int* vao, unsigned int* vbo, unsigned int* ebo) {
+    float vertices[] = {
+        // positions          // colors           // texture coords
+         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
+    };
+    unsigned int indices[] = {  // note that we start from 0!
+        0, 1, 3,   // first triangle
+        1, 2, 3    // second triangle
+    };
+    glGenVertexArrays(1, vao);
+    glBindVertexArray(*vao);
+
+    glGenBuffers(1, vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, *vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glGenBuffers(1, ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    // position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    // color attribute
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+    // texture coord attribute
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 }
 
 void mainCharacterPreDrawCallback(unsigned int shaderID, unsigned int* uniforms) {
