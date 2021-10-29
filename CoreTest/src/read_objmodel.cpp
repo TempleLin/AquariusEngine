@@ -81,7 +81,7 @@ namespace read_objmodel {
         const char* glsl_version = "#version 330";
 
         aqOpenGL->setOpenGL()
-            .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE, &glfwError)
+            .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE, &glfwError, glfwError)
             .createWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL, true)
             .setFrameBufferSizeCallback(aqOpenGL->getBoundWindow(), framebuffer_size_callback)
             .setCursorPosCallback(aqOpenGL->getBoundWindow(), mouse_callback)

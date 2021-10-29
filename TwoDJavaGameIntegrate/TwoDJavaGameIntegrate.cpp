@@ -14,11 +14,7 @@
 using namespace aquarius_engine;
 using namespace stbi_image_wrap;
 
-static void glfwError(int id, const char* description)
-{
-    std::cout << description << std::endl;
-}
-
+void glfwError(int id, const char* description);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -43,12 +39,6 @@ int main()
         .initializeGLAD()
         .finishSettings();
     currentWindow = aqOpenGL->getBoundWindow();
-
-    ///*
-    //* @Note: These need to be set to have transparent background image.
-    //*/
-    //glEnable(GL_BLEND);
-    //glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
     unsigned int VAO, VBO, EBO;
 
@@ -86,37 +76,6 @@ int main()
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
-
-    /*unsigned int texture1;
-    glGenTextures(1, &texture1);*/
-
-    ///*
-    //* @If there's only one texture unit, there's no need to sett the active texture unit bc default texture unit is already 0.
-    //* And it will automatically pass into the fragment shader's uniform sampler2D variable.
-    //*/
-    //glBindTexture(GL_TEXTURE_2D, texture1); // @Bind it so any subsequent texture commands will configure the currently bound texture.
-
-    //// @Set the texture wrapping/filtering options (on the currently bound texture object).
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    //int width, height, nrChannels/*Number of color channels.*/;
-    //setFlipVerticallyOnLoad(true); // @Tell stb_image.h to flip loaded texture's on the y-axis.
-
-    //unsigned char* data = loadImage("assets/cleanCharacter.png", width, height, nrChannels);
-    //if (data) {
-
-    //    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-
-    //    glGenerateMipmap(GL_TEXTURE_2D);
-    //} else {
-    //    std::cout << "Failed to load texture1." << std::endl;
-    //}
-    //// @Free the image memory.
-    //freeImage(data);
-
     ///*
     //* @Note: Shader can only be created after glfw init().
     //*/
@@ -132,26 +91,19 @@ int main()
     AQ_CompSimple2D* mainChar2D = gameObjectCtrl->
         addComponent<AQ_CompSimple2D>(mainCharacter, new AQ_CompSimple2D(VAO, VBO, EBO, 6), "MainCharacter2D");
 
+
+    stbi_image_wrap::setFlipVerticallyOnLoad(true);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
     int firstTextureIndex{ 0 };
-    mainChar2D->addTexture("assets/cleanCharacter.png", "CleanCharacter", true, true, firstTextureIndex);
+    mainChar2D->addTexture("assets/cleanCharacter.png", "CleanCharacter", true, true, &firstTextureIndex);
     mainChar2D->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
-    //mainChar2D->setBlend(true, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    //mainChar2D->flipVertically();
     mainChar2D->setShaderID(twoDShader->ID);
     mainChar2D->setUniforms(new const char*[4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);
     mainChar2D->setPreDrawCallback(mainCharacterPreDrawCallback);
     mainChar2D->activateTexture(GL_TEXTURE0);
     mainChar2D->bindTexture(firstTextureIndex);
-
-
-    /*unsigned int uniWinWidth = glGetUniformLocation(twoDShader->ID, "windowWidth");
-    unsigned int uniWinHeight = glGetUniformLocation(twoDShader->ID, "windowHeight");
-    unsigned int uniKeepAspectRatio = glGetUniformLocation(twoDShader->ID, "keepAspectRatio");
-    unsigned int uniOffsetMat = glGetUniformLocation(twoDShader->ID, "offsetMat");*/
-
-    /*glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture1);*/
-
 
 
     while(!glfwWindowShouldClose(currentWindow)) {
@@ -160,15 +112,6 @@ int main()
         glClearColor(.0f, .0f, .0f, .0f);
 
         mainChar2D->draw();
-        /*glBindTexture(GL_TEXTURE_2D, texture1);
-        twoDShader->use();
-        glUniform1i(uniKeepAspectRatio, GLFW_TRUE);
-        glUniform1f(uniWinWidth, (float)SCR_WIDTH);
-        glUniform1f(uniWinHeight, (float)SCR_HEIGHT);
-        glUniformMatrix4fv(uniOffsetMat, 1, false, &offsetMatrix[0][0]);
-        glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);*/
 
         glfwSwapBuffers(currentWindow);
     }
@@ -213,4 +156,9 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
     //camera->processMouseScroll(yoffset);
+}
+
+void glfwError(int id, const char* description)
+{
+    std::cout << description << std::endl;
 }

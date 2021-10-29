@@ -33,19 +33,8 @@ namespace aquarius_engine {
 			: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), enableBlend(false) {
 			shaderID = 0;
 		}
-		void setBlend(bool enableBlend, unsigned int blendValues[2]) {
-			this->enableBlend = enableBlend;
-			this->blendValues[0] = blendValues[0];
-		}
-		static void enableAlpha() {
-			/*
-			* @Note: These need to be set to have transparent background image.
-			*/
-			//glEnable(GL_BLEND);
-			glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-		}
 		void addTexture(std::string imageLocation, std::string name, 
-			bool hasAndUseAlpha, bool bindTexture, int& returnTexIndex) {
+			bool hasAndUseAlpha, bool bindTexture, int* returnTexIndex) {
 			for (int i = 0; i < textures.size(); i++) {
 				if (textures.at(i).name == name) {
 					throw std::string("ERROR: IMAGE ADDED WAS SPECIFIED A NAME THAT ALREADY EXISTS");
@@ -62,7 +51,7 @@ namespace aquarius_engine {
 				else
 					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 				textures.push_back(TextureNamePair(name, width, height, nrChannels, texture));
-				returnTexIndex = textures.size() - 1;
+				*returnTexIndex = textures.size() - 1;
 				stbi_image_wrap::freeImage(data);
 				if (!bindTexture)
 					glBindTexture(GL_TEXTURE_2D, 0);
