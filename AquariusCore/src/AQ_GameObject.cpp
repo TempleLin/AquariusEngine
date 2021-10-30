@@ -3,7 +3,7 @@
 
 namespace aquarius_engine {
 	AQ_GameObject::AQ_GameObject(AQ_GameObjectCtrl* gameObjectCtrl, std::string name) : startCallback(nullptr), 
-		updateCallback(nullptr), gameObjectCtrlPtr(gameObjectCtrl), name(name), componentsRefs(nullptr), otherRefs(nullptr) {
+		updateCallback(nullptr), stopCallback(nullptr), gameObjectCtrlPtr(gameObjectCtrl), name(name), componentsRefs(nullptr), otherRefs(nullptr) {
 
 	}
 
@@ -13,6 +13,10 @@ namespace aquarius_engine {
 
 	void AQ_GameObject::setUpdateCallback(void (*updateCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis)) {
 		this->updateCallback = updateCallback;
+	}
+
+	void AQ_GameObject::setStopCallback(void (*stopCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis)) {
+		this->stopCallback = stopCallback;
 	}
 
 	void AQ_GameObject::setComponentsRefs(AQ_Component** compsRefs) {

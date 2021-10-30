@@ -30,6 +30,7 @@ namespace aquarius_engine {
 
 		void startGameObjects();
 		void updateGameObjects();
+		void stopGameObjects();
 
 		template <typename T, typename = std::enable_if_t<std::is_base_of<AQ_Component, T>::value>>
 		T* addComponent(AQ_GameObject* gameObject, T* component, std::string name) {

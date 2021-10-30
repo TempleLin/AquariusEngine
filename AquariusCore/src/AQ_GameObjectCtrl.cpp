@@ -51,6 +51,15 @@ namespace aquarius_engine {
 		}
 	}
 
+	void AQ_GameObjectCtrl::stopGameObjects() {
+		const auto* allGameObjects = &(databaseGameObjects->allGameObjects);
+		for (auto i : *allGameObjects) {
+			if ((i.second)->stopCallback) {
+				(i.second)->stopCallback(this, i.second);
+			}
+		}
+	}
+
 	unsigned int AQ_GameObjectCtrl::getComponentIndex(const std::vector<std::pair<std::string, unsigned int>>& compVector,
 		std::string& nameOfComponent) {
 		try {

@@ -28,6 +28,7 @@ namespace aquarius_engine {
 		*/
 		void (*startCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis);
 		void (*updateCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis);
+		void (*stopCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis);
 	public:
 		AQ_GameObject(AQ_GameObjectCtrl* gameObjectCtrl, std::string name);
 
@@ -38,6 +39,7 @@ namespace aquarius_engine {
 
 		void setStartCallback(void (*startCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis));
 		void setUpdateCallback(void (*updateCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis));
+		void setStopCallback(void (*stopCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis));
 		~AQ_GameObject();
 	};
 }

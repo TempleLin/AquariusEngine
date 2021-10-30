@@ -97,6 +97,7 @@ int main()
 
     glfwTerminate();
     delete twoDShader;
+    gameObjectCtrl->stopGameObjects();
     gameObjectCtrl->deleteGameObject("MainCharacter");
     delete gameObjectCtrl;
     delete gameObjectsDatabase;
