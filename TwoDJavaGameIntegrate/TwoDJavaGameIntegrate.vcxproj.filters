@@ -21,6 +21,9 @@
     <ClCompile Include="glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mainCharacterCallbacks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\cleanCharacter.jpg">
@@ -32,5 +35,13 @@
     <None Include="assets\shaders\two_d_color_fs.glsl" />
     <None Include="assets\shaders\two_d_tex_vs.glsl" />
     <None Include="assets\shaders\two_d_tex_fs.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="mainCharacterCallbacks.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TwoDJavaGameIntegrate.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

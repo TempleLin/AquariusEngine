@@ -1,5 +1,6 @@
 #include "headers/AQ_GameObjectCtrl.hpp"
 #include "headers/AQ_Component.hpp"
+#include "headers/AQ_GameObject.hpp"
 #include <stdexcept>
 #include <any>
 
@@ -29,6 +30,24 @@ namespace aquarius_engine {
 			}
 		} else {
 			std::cout << "UNKNOWN ERROR: GAMEOBJECT TO DELETE NOT FOUND: " << name << "\n";
+		}
+	}
+
+	void AQ_GameObjectCtrl::startGameObjects() {
+		const auto* allGameObjects = &(databaseGameObjects->allGameObjects);
+		for (auto i : *allGameObjects) {
+			if ((i.second)->startCallback) {
+				(i.second)->startCallback(this, i.second, (i.second)->componentsCallbackPass, (i.second)->otherRefs);
+			}
+		}
+	}
+
+	void AQ_GameObjectCtrl::updateGameObjects() {
+		const auto* allGameObjects = &(databaseGameObjects->allGameObjects);
+		for (auto i : *allGameObjects) {
+			if ((i.second)->updateCallback) {
+				(i.second)->updateCallback(this, i.second, (i.second)->componentsCallbackPass, (i.second)->otherRefs);
+			}
 		}
 	}
 

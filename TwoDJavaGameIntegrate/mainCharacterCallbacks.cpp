@@ -1,4 +1,5 @@
 #include "mainCharacterCallbacks.hpp"
+#include "TwoDJavaGameIntegrate.hpp"
 #include <headers/AQ_Component.hpp>
 #include <headers/AQ_CompSimple2D.hpp>
 
@@ -14,20 +15,21 @@
 */
 
 namespace mainCharacter {
-	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis, AQ_Component** components, void* otherRefs) {
-		components = new AQ_Component * [1]{ gameObjectCtrl->getComponent<AQ_Component>(gameObjectThis, "MainCharacter2D") };
+	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis, AQ_Component** components, void** otherRefs) {
+		components = new AQ_Component * [1]{ gameObjectCtrl->getComponent<AQ_CompSimple2D>(gameObjectThis, "MainCharacter2D") };
 		AQ_CompSimple2D* mainChar2DComp = static_cast<AQ_CompSimple2D*>(components[0]);
 
 		int firstTextureIndex{ 0 };
 		mainChar2DComp->addTexture("assets/cleanCharacter.png", "CleanCharacter", true, true, &firstTextureIndex);
 		mainChar2DComp->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
-		mainChar2DComp->setShaderID(twoDShader->ID);
+		otherRefs = new void* [1]{ static_cast<void*>(new AQ_Shader("assets/shaders/two_d_tex_vs.glsl", "assets/shaders/two_d_tex_fs.glsl")) };
+		mainChar2DComp->setShaderID(static_cast<AQ_Shader*>(otherRefs[0])->ID);
 		mainChar2DComp->setUniforms(new const char* [4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);
 		mainChar2DComp->setPreDrawCallback(mainCharacterPreDrawCallback);
 		mainChar2DComp->activateTexture(GL_TEXTURE0);
 	}
 
-	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis, AQ_Component** components, void* otherRefs) {
+	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis, AQ_Component** components, void** otherRefs) {
 
 	}
 }

@@ -72,14 +72,15 @@ int main()
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
-    int firstTextureIndex{ 0 };
+    /*int firstTextureIndex{ 0 };
     mainChar2D->addTexture("assets/cleanCharacter.png", "CleanCharacter", true, true, &firstTextureIndex);
     mainChar2D->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
     mainChar2D->setShaderID(twoDShader->ID);
     mainChar2D->setUniforms(new const char*[4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);
     mainChar2D->setPreDrawCallback(mainCharacterPreDrawCallback);
     mainChar2D->activateTexture(GL_TEXTURE0);
-    mainChar2D->bindTexture(firstTextureIndex);
+    mainChar2D->bindTexture(firstTextureIndex);*/
+    gameObjectCtrl->startGameObjects();
 
 
     while(!glfwWindowShouldClose(currentWindow)) {
@@ -89,6 +90,7 @@ int main()
 
         timeCtrl->updateTime();
 
+        gameObjectCtrl->updateGameObjects();
         mainChar2D->draw();
 
         glfwSwapBuffers(currentWindow);

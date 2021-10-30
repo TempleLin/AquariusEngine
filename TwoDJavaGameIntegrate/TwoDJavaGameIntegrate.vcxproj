@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
+    <ClCompile Include="mainCharacterCallbacks.cpp" />
     <ClCompile Include="TwoDJavaGameIntegrate.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +158,10 @@
     <None Include="assets\shaders\two_d_color_vs.glsl" />
     <None Include="assets\shaders\two_d_tex_fs.glsl" />
     <None Include="assets\shaders\two_d_tex_vs.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="mainCharacterCallbacks.hpp" />
+    <ClInclude Include="TwoDJavaGameIntegrate.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

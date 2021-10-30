@@ -8,12 +8,12 @@ namespace aquarius_engine {
 	}
 
 	void AQ_GameObject::setStartCallback(void (*startCallback)(AQ_GameObjectCtrl* gameObjectCtrl,
-		AQ_GameObject* gameObjectThis, AQ_Component** components, void* otherRefs)) {
+		AQ_GameObject* gameObjectThis, AQ_Component** components, void** otherRefs)) {
 		this->startCallback = startCallback;
 	}
 
 	void AQ_GameObject::setUpdateCallback(void (*updateCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis, 
-		AQ_Component** components, void* otherRefs)) {
+		AQ_Component** components, void** otherRefs)) {
 		this->updateCallback = updateCallback;
 	}
 
