@@ -23,7 +23,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void mainCharacterPreDrawCallback(unsigned int shaderID, unsigned int* uniforms);
-void createCharacterVertices(unsigned int* vao, unsigned int* vbo, unsigned int* ebo);
+void create2DCubeVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo);
 
 AQ_OpenGL* aqOpenGL = new AQ_OpenGL();
 GLFWwindow* currentWindow;
@@ -57,7 +57,7 @@ int main()
     AQ_GameObject* mainCharacter = gameObjectCtrl->createGameObject("MainCharacter");
 
     unsigned int mainCharVAO, mainCharVBO, mainCharEBO;
-    createCharacterVertices(&mainCharVAO, &mainCharVBO, &mainCharEBO);
+    create2DCubeVerts(&mainCharVAO, &mainCharVBO, &mainCharEBO);
 
     AQ_CompSimple2D* mainChar2D = gameObjectCtrl->
         addComponent<AQ_CompSimple2D>(mainCharacter, new AQ_CompSimple2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "MainCharacter2D");
@@ -99,7 +99,7 @@ int main()
     delete timeCtrl;
 }
 
-void createCharacterVertices(unsigned int* vao, unsigned int* vbo, unsigned int* ebo) {
+void create2DCubeVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo) {
     float vertices[] = {
         // positions          // colors           // texture coords
          0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
