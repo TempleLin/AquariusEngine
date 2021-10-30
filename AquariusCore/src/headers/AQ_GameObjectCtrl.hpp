@@ -26,6 +26,8 @@ namespace aquarius_engine {
 		AQ_GameObjectCtrl(AQ_Database::Components* databaseComponent, AQ_Database::GameObjects* databaseGameObjects);
 
 		AQ_GameObject* createGameObject(std::string name);
+		AQ_GameObject* getGameObject(std::string name);
+
 		void deleteGameObject(std::string name);
 
 		void startGameObjects();

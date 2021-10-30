@@ -17,7 +17,15 @@ namespace aquarius_engine {
 			return toStashGameObject;
 		}
 		else
-			std::cout << "ERROR: GAMEOBJECT TO CREATE: " << name << " ALREADY EXISTS" << "\n";
+			std::cout << "ERROR: GAMEOBJECT TO CREATE: " << name << " ALREADY EXISTS\n";
+	}
+
+	AQ_GameObject* AQ_GameObjectCtrl::getGameObject(std::string name) {
+		if (databaseGameObjects->allGameObjects.count(name)) {
+			return databaseGameObjects->allGameObjects.at(name);
+		} else {
+			std::cout << "ERROR: GAMEOBJECT TO GET: " << name << " DOESN'T EXIST\n";
+		}
 	}
 
 	void AQ_GameObjectCtrl::deleteGameObject(std::string name) {
