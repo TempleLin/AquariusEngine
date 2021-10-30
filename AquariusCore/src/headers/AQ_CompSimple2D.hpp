@@ -25,12 +25,11 @@ namespace aquarius_engine {
 		const char** uniformsNames;
 		std::vector<TextureNamePair> textures;
 		void(*preDrawCallback)(unsigned int, unsigned int*);
-		bool enableBlend;
 		unsigned int blendValues[2];
 	public:
 
 		AQ_CompSimple2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount) 
-			: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), enableBlend(false) {
+			: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount) {
 			shaderID = 0;
 		}
 		void addTexture(std::string imageLocation, std::string name, 
@@ -101,10 +100,6 @@ namespace aquarius_engine {
 			this->preDrawCallback = callback;
 		}
 		void draw() {
-			if (enableBlend) {
-				glEnable(GL_BLEND);
-
-			}
 			preDrawCallback(shaderID, uniforms);
 			glBindVertexArray(vao);
 			glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);

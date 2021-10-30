@@ -37,7 +37,7 @@ namespace aquarius_engine {
 		const auto* allGameObjects = &(databaseGameObjects->allGameObjects);
 		for (auto i : *allGameObjects) {
 			if ((i.second)->startCallback) {
-				(i.second)->startCallback(this, i.second, (i.second)->componentsCallbackPass, (i.second)->otherRefs);
+				(i.second)->startCallback(this, i.second);
 			}
 		}
 	}
@@ -46,7 +46,7 @@ namespace aquarius_engine {
 		const auto* allGameObjects = &(databaseGameObjects->allGameObjects);
 		for (auto i : *allGameObjects) {
 			if ((i.second)->updateCallback) {
-				(i.second)->updateCallback(this, i.second, (i.second)->componentsCallbackPass, (i.second)->otherRefs);
+				(i.second)->updateCallback(this, i.second);
 			}
 		}
 	}

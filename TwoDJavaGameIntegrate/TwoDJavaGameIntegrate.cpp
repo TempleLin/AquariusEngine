@@ -91,7 +91,6 @@ int main()
         timeCtrl->updateTime();
 
         gameObjectCtrl->updateGameObjects();
-        mainChar2D->draw();
 
         glfwSwapBuffers(currentWindow);
     }
