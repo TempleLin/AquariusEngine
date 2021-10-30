@@ -48,8 +48,6 @@ int main()
     ///*
     //* @Note: Shader can only be created after glfw init().
     //*/
-    twoDShader = new AQ_Shader("assets/shaders/two_d_tex_vs.glsl", "assets/shaders/two_d_tex_fs.glsl");
-
     AQ_Database::GameObjects* gameObjectsDatabase = new AQ_Database::GameObjects();
     AQ_Database::Components* componentsDatabase = new AQ_Database::Components();
     AQ_GameObjectCtrl* gameObjectCtrl = new AQ_GameObjectCtrl(componentsDatabase, gameObjectsDatabase);
@@ -72,7 +70,11 @@ int main()
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
+
     gameObjectCtrl->startGameObjects();
+    // @The shader object gets back from gameObject created in start().
+    AQ_Shader* mainCharacterShader = static_cast<AQ_Shader*>(mainCharacter->getOtherRefs()[0]);
+    mainCharacterShader->use();
 
 
     while(!glfwWindowShouldClose(currentWindow)) {
