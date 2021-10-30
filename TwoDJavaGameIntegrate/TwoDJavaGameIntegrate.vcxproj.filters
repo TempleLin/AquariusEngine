@@ -24,6 +24,9 @@
     <ClCompile Include="mainCharacterCallbacks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="glConfigCallbacks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\cleanCharacter.jpg">
@@ -37,10 +40,13 @@
     <None Include="assets\shaders\two_d_tex_fs.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="mainCharacterCallbacks.hpp">
+    <ClInclude Include="headers\mainCharacterCallbacks.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="TwoDJavaGameIntegrate.hpp">
+    <ClInclude Include="headers\TwoDJavaGameIntegrate.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\glConfigCallbacks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

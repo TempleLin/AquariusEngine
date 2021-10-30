@@ -1,5 +1,5 @@
-#include "mainCharacterCallbacks.hpp"
-#include "TwoDJavaGameIntegrate.hpp"
+#include "headers/mainCharacterCallbacks.hpp"
+#include "headers/TwoDJavaGameIntegrate.hpp"
 #include <headers/AQ_Component.hpp>
 #include <headers/AQ_CompSimple2D.hpp>
 

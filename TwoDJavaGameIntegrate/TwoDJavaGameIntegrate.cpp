@@ -12,7 +12,8 @@
 #include <headers/AQ_CompSimple2D.hpp>
 #include <headers/AQ_GlobalCtrl.hpp>
 
-#include "mainCharacterCallbacks.hpp"
+#include "headers/TwoDJavaGameIntegrate.hpp"
+#include "headers/mainCharacterCallbacks.hpp"
 
 using namespace aquarius_engine;
 using namespace stbi_image_wrap;
@@ -22,14 +23,13 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void mainCharacterPreDrawCallback(unsigned int shaderID, unsigned int* uniforms);
-
 void createCharacterVertices(unsigned int* vao, unsigned int* vbo, unsigned int* ebo);
-
-int SCR_WIDTH{ 1280 }, SCR_HEIGHT{ 720 };
 
 AQ_OpenGL* aqOpenGL = new AQ_OpenGL();
 GLFWwindow* currentWindow;
 AQ_Shader* twoDShader;
+
+int SCR_WIDTH{ 1280 }, SCR_HEIGHT{ 720 };
 
 int main()
 {
@@ -141,37 +141,4 @@ void mainCharacterPreDrawCallback(unsigned int shaderID, unsigned int* uniforms)
     glm::mat4 offsetMatrix(1.f);
     offsetMatrix = glm::translate(offsetMatrix, glm::vec3(-.5f, 0.f, 0.f));
     glUniformMatrix4fv(uniforms[3], 1, false, &offsetMatrix[0][0]);
-}
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-    // make sure the viewport matches the new window dimensions; note that width and 
-    // height will be significantly larger than specified on retina displays.
-    glViewport(0, 0, width, height);
-    SCR_WIDTH = width;
-    SCR_HEIGHT = height;
-}
-
-void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
-    //if (firstMouse) {
-    //    lastX = xpos;
-    //    lastY = ypos;
-    //    firstMouse = false;
-    //}
-
-    //float xoffset = xpos - lastX;
-    //float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
-
-    //lastX = xpos;
-    //lastY = ypos;
-
-    //camera->processMouseMovement(xoffset, yoffset);
-}
-
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
-    //camera->processMouseScroll(yoffset);
-}
-
-void glfwError(int id, const char* description)
-{
-    std::cout << description << std::endl;
 }
