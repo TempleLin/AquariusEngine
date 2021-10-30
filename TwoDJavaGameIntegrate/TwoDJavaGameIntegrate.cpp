@@ -49,9 +49,9 @@ int main()
     ///*
     //* @Note: Shader can only be created after glfw init().
     //*/
-    AQ_Database::GameObjects* gameObjectsDatabase = new AQ_Database::GameObjects();
-    AQ_Database::Components* componentsDatabase = new AQ_Database::Components();
-    AQ_GameObjectCtrl* gameObjectCtrl = new AQ_GameObjectCtrl(componentsDatabase, gameObjectsDatabase);
+    AQ_Scene::GameObjects* scene0GameObjs = new AQ_Scene::GameObjects();
+    AQ_Scene::GameObjects::Components* scene0Comps = new AQ_Scene::GameObjects::Components();
+    AQ_GameObjectCtrl* gameObjectCtrl = new AQ_GameObjectCtrl(scene0Comps, scene0GameObjs);
     AQ_GlobalCtrl::TimeCtrl* timeCtrl = new AQ_GlobalCtrl::TimeCtrl;
 
     stbi_image_wrap::setFlipVerticallyOnLoad(true);
@@ -100,8 +100,8 @@ int main()
     gameObjectCtrl->stopGameObjects();
     gameObjectCtrl->deleteGameObject("MainCharacter");
     delete gameObjectCtrl;
-    delete gameObjectsDatabase;
-    delete componentsDatabase;
+    delete scene0GameObjs;
+    delete scene0Comps;
     delete timeCtrl;
     glDeleteVertexArrays(1, &mainCharVAO);
     glDeleteBuffers(1, &mainCharVBO);

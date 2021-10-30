@@ -5,15 +5,15 @@
 #include <any>
 
 namespace aquarius_engine {
-	AQ_GameObjectCtrl::AQ_GameObjectCtrl(AQ_Database::Components* databaseComponent, AQ_Database::GameObjects* databaseGameObjects) {
-		this->databaseComponent = databaseComponent;
-		this->databaseGameObjects = databaseGameObjects;
+	AQ_GameObjectCtrl::AQ_GameObjectCtrl(AQ_Scene::GameObjects::Components* databaseComponent, AQ_Scene::GameObjects* databaseGameObjects) {
+		this->sceneComponents = databaseComponent;
+		this->sceneGameObjects = databaseGameObjects;
 	}
 
 	AQ_GameObject* AQ_GameObjectCtrl::createGameObject(std::string name) {
-		if (!(databaseGameObjects->allGameObjects.count(name))) {
+		if (!(sceneGameObjects->allGameObjects.count(name))) {
 			AQ_GameObject* toStashGameObject = new AQ_GameObject(this, name);
-			databaseGameObjects->createGameObject(toStashGameObject, name);
+			sceneGameObjects->createGameObject(toStashGameObject, name);
 			return toStashGameObject;
 		}
 		else
@@ -21,18 +21,18 @@ namespace aquarius_engine {
 	}
 
 	AQ_GameObject* AQ_GameObjectCtrl::getGameObject(std::string name) {
-		if (databaseGameObjects->allGameObjects.count(name)) {
-			return databaseGameObjects->allGameObjects.at(name);
+		if (sceneGameObjects->allGameObjects.count(name)) {
+			return sceneGameObjects->allGameObjects.at(name);
 		} else {
 			std::cout << "ERROR: GAMEOBJECT TO GET: " << name << " DOESN'T EXIST\n";
 		}
 	}
 
 	void AQ_GameObjectCtrl::deleteGameObject(std::string name) {
-		if (databaseGameObjects->allGameObjects.count(name)) {
+		if (sceneGameObjects->allGameObjects.count(name)) {
 			try {
-				delete databaseGameObjects->allGameObjects.at(name);
-				databaseGameObjects->allGameObjects.erase(name);
+				delete sceneGameObjects->allGameObjects.at(name);
+				sceneGameObjects->allGameObjects.erase(name);
 			} catch (std::out_of_range& e) {
 				std::cout << "ERROR: GAMEOBJECT TO DELETE NOT FOUND: " << name << " ERROR DESCRIPTION: " << e.what() << "\n";
 			}
@@ -42,7 +42,7 @@ namespace aquarius_engine {
 	}
 
 	void AQ_GameObjectCtrl::startGameObjects() {
-		const auto* allGameObjects = &(databaseGameObjects->allGameObjects);
+		const auto* allGameObjects = &(sceneGameObjects->allGameObjects);
 		for (auto i : *allGameObjects) {
 			if ((i.second)->startCallback) {
 				(i.second)->startCallback(this, i.second);
@@ -51,7 +51,7 @@ namespace aquarius_engine {
 	}
 
 	void AQ_GameObjectCtrl::updateGameObjects() {
-		const auto* allGameObjects = &(databaseGameObjects->allGameObjects);
+		const auto* allGameObjects = &(sceneGameObjects->allGameObjects);
 		for (auto i : *allGameObjects) {
 			if ((i.second)->updateCallback) {
 				(i.second)->updateCallback(this, i.second);
@@ -60,7 +60,7 @@ namespace aquarius_engine {
 	}
 
 	void AQ_GameObjectCtrl::stopGameObjects() {
-		const auto* allGameObjects = &(databaseGameObjects->allGameObjects);
+		const auto* allGameObjects = &(sceneGameObjects->allGameObjects);
 		for (auto i : *allGameObjects) {
 			if ((i.second)->stopCallback) {
 				(i.second)->stopCallback(this, i.second);
@@ -88,8 +88,8 @@ namespace aquarius_engine {
 			for (auto const& i : allComponentsKeysMapRef) {
 				for (auto const& j : i.second) {
 					try {
-						delete static_cast<AQ_Component*>(databaseComponent->allComponents.at(j.second));
-						databaseComponent->allComponents.erase(j.second);
+						delete static_cast<AQ_Component*>(sceneComponents->allComponents.at(j.second));
+						sceneComponents->allComponents.erase(j.second);
 					} catch (std::out_of_range& e) {
 						std::cout << "ERROR: CANNOT REMOVE ALL COMPONENTS OF GAMEOBJECT ERROR DESCRIPTION: " << e.what() << "\n";
 					} catch (...) {

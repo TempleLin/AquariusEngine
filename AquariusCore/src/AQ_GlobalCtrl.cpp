@@ -4,7 +4,7 @@
 #include <iostream>
 
 namespace aquarius_engine {
-	AQ_GlobalCtrl::LightsCtrl::LightsCtrl(AQ_Database::GlobalLights* databaseGlobalLights) {
+	AQ_GlobalCtrl::LightsCtrl::LightsCtrl(AQ_Scene::GlobalLights* databaseGlobalLights) {
 		this->databaseGlobalLights = databaseGlobalLights;
 	}
 

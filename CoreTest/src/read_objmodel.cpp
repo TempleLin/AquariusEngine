@@ -53,11 +53,11 @@ namespace read_objmodel {
         AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* inputKeys, unsigned int* inputActions);
 
     // Initializations of AquariusEngine components.
-    AQ_Database::Components* databaseComponents= new AQ_Database::Components();
-    AQ_Database::GameObjects* databaseGameObjects = new AQ_Database::GameObjects();
-    AQ_GameObjectCtrl gameObjectCtrl(databaseComponents, databaseGameObjects);
+    AQ_Scene::GameObjects::Components* sceneComponents= new AQ_Scene::GameObjects::Components();
+    AQ_Scene::GameObjects* sceneGameObjects = new AQ_Scene::GameObjects();
+    AQ_GameObjectCtrl gameObjectCtrl(sceneComponents, sceneGameObjects);
 
-    AQ_Database::GlobalLights databaseGlobalLights;
+    AQ_Scene::GlobalLights databaseGlobalLights;
     AQ_GlobalCtrl::LightsCtrl lightsCtrl(&databaseGlobalLights);
 
     AQ_GlobalCtrl::TimeCtrl timeCtrl;
@@ -272,8 +272,8 @@ namespace read_objmodel {
         ImGui::DestroyContext();
         // glfw: terminate, clearing all previously allocated GLFW resources.
         // ------------------------------------------------------------------
-        delete databaseComponents;
-        delete databaseGameObjects;
+        delete sceneComponents;
+        delete sceneGameObjects;
         delete aqOpenGL;
         glfwTerminate();
         return 0;

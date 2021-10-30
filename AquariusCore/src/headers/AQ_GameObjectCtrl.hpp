@@ -18,12 +18,12 @@ namespace aquarius_engine {
 	class AQ_GameObjectCtrl {
 		friend class AQ_GameObject;
 	private:
-		AQ_Database::Components* databaseComponent;
-		AQ_Database::GameObjects* databaseGameObjects;
+		AQ_Scene::GameObjects::Components* sceneComponents;
+		AQ_Scene::GameObjects* sceneGameObjects;
 		unsigned int getComponentIndex(const std::vector<std::pair<std::string, unsigned int>>& compVector,
 			std::string& nameOfComponent);
 	public:
-		AQ_GameObjectCtrl(AQ_Database::Components* databaseComponent, AQ_Database::GameObjects* databaseGameObjects);
+		AQ_GameObjectCtrl(AQ_Scene::GameObjects::Components* databaseComponent, AQ_Scene::GameObjects* databaseGameObjects);
 
 		AQ_GameObject* createGameObject(std::string name);
 		AQ_GameObject* getGameObject(std::string name);
@@ -42,7 +42,7 @@ namespace aquarius_engine {
 				* @Add the component with to the database and receive its key in database by returning in to
 				*  component object's databaseAccessKey.
 				*/
-				databaseComponent->addComponent(static_cast<void*>(component), component->databaseAccessKey);
+				sceneComponents->addComponent(static_cast<void*>(component), component->databaseAccessKey);
 				const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
 				// @Check if the name specified already exists in the gameobject's components.
 				for (int i = 0; i < componentsKeysVecRef.size(); i++) {
@@ -69,7 +69,7 @@ namespace aquarius_engine {
 		T* getComponent(AQ_GameObject* gameObject, std::string name) {
 			try {
 				const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
-				return static_cast<T*>(databaseComponent->allComponents
+				return static_cast<T*>(sceneComponents->allComponents
 					.at(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second));
 			} catch (std::out_of_range& e) {
 				std::cout << "FAILED TO GET COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";
@@ -84,7 +84,7 @@ namespace aquarius_engine {
 		void removeComponent(AQ_GameObject* gameObject, std::string name) {
 			try {
 				const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
-				databaseComponent->allComponents.erase
+				sceneComponents->allComponents.erase
 					(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second);
 			} catch (std::out_of_range& e) {
 				std::cout << "FAILED TO REMOVE COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";

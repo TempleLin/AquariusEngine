@@ -21,9 +21,9 @@ namespace aquarius_engine {
 		};
 		class LightsCtrl {
 		private:
-			AQ_Database::GlobalLights* databaseGlobalLights;
+			AQ_Scene::GlobalLights* databaseGlobalLights;
 		public:
-			LightsCtrl(AQ_Database::GlobalLights* databaseGlobalLights);
+			LightsCtrl(AQ_Scene::GlobalLights* databaseGlobalLights);
 			void addDirectionalLight(glm::vec3 direction, glm::vec3 color, float intensity);
 			void addPointLight(glm::vec3 position, float radius, float intensity);
 			void addSpotLight(glm::vec3 position, glm::vec3 direction, float cutoffAngle, float intensity);
