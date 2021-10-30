@@ -12,6 +12,8 @@
 #include <headers/AQ_CompSimple2D.hpp>
 #include <headers/AQ_GlobalCtrl.hpp>
 
+#include "mainCharacterCallbacks.hpp"
+
 using namespace aquarius_engine;
 using namespace stbi_image_wrap;
 
@@ -63,6 +65,8 @@ int main()
         addComponent<AQ_CompSimple2D>(mainCharacter, new AQ_CompSimple2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "MainCharacter2D");
     // ---------------------------------------------
 
+    mainCharacter->setStartCallback(mainCharacter::start);
+    mainCharacter->setUpdateCallback(mainCharacter::update);
 
     stbi_image_wrap::setFlipVerticallyOnLoad(true);
     glEnable(GL_BLEND);
