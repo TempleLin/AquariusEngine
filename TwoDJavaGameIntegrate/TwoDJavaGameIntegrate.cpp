@@ -67,18 +67,15 @@ int main()
     AQ_CompSimple2D* mainChar2D = gameObjectCtrl->
         addComponent<AQ_CompSimple2D>(mainCharacter, new AQ_CompSimple2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "MainCharacter2D");
     // ---------------------------------------------
-    mainCharacter->setStartCallback(mainCharacter::start);
-    mainCharacter->setUpdateCallback(mainCharacter::update);
-    mainCharacter->setStopCallback(mainCharacter::stop);
+    mainCharacter->setCallbackFuncs(mainCharacter::start, mainCharacter::update, mainCharacter::stop);
 
     // -------- Create button ----------------------
     AQ_GameObject* firstBtn = gameObjectCtrl->createGameObject("FirstButton");
     AQ_CompSimple2D* firstBtn2D = gameObjectCtrl->addComponent<AQ_CompSimple2D>(firstBtn,
         new AQ_CompSimple2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "FirstButton2");
     // ---------------------------------------------
-    firstBtn->setStartCallback(firstButton::start);
-    firstBtn->setUpdateCallback(firstButton::update);
-    firstBtn->setStopCallback(firstButton::stop);
+    firstBtn->setCallbackFuncs(firstButton::start, firstButton::update, firstButton::stop);
+
 
     gameObjectCtrl->startGameObjects();
     // @The shader object gets back from gameObject created in start().

@@ -37,9 +37,9 @@ namespace aquarius_engine {
 		AQ_Component** getComponentsRefs();
 		void** getOtherRefs();
 
-		void setStartCallback(void (*startCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis));
-		void setUpdateCallback(void (*updateCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis));
-		void setStopCallback(void (*stopCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis));
+		void setCallbackFuncs(void (*start)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis),
+			void (*update)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis),
+			void (*stop)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis));
 		~AQ_GameObject();
 	};
 }
