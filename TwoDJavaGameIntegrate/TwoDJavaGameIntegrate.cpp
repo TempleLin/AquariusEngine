@@ -14,6 +14,7 @@
 
 #include "headers/TwoDJavaGameIntegrate.hpp"
 #include "headers/mainCharacterCallbacks.hpp"
+#include "headers/firstButtonCallbacks.hpp"
 
 using namespace aquarius_engine;
 using namespace stbi_image_wrap;
@@ -53,6 +54,10 @@ int main()
     AQ_GameObjectCtrl* gameObjectCtrl = new AQ_GameObjectCtrl(componentsDatabase, gameObjectsDatabase);
     AQ_GlobalCtrl::TimeCtrl* timeCtrl = new AQ_GlobalCtrl::TimeCtrl;
 
+    stbi_image_wrap::setFlipVerticallyOnLoad(true);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
     // -------- Create main character --------------
     AQ_GameObject* mainCharacter = gameObjectCtrl->createGameObject("MainCharacter");
 
@@ -62,14 +67,18 @@ int main()
     AQ_CompSimple2D* mainChar2D = gameObjectCtrl->
         addComponent<AQ_CompSimple2D>(mainCharacter, new AQ_CompSimple2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "MainCharacter2D");
     // ---------------------------------------------
-
     mainCharacter->setStartCallback(mainCharacter::start);
     mainCharacter->setUpdateCallback(mainCharacter::update);
+    mainCharacter->setStopCallback(mainCharacter::stop);
 
-    stbi_image_wrap::setFlipVerticallyOnLoad(true);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-
+    // -------- Create button ----------------------
+    AQ_GameObject* firstBtn = gameObjectCtrl->createGameObject("FirstButton");
+    AQ_CompSimple2D* firstBtn2D = gameObjectCtrl->addComponent<AQ_CompSimple2D>(firstBtn,
+        new AQ_CompSimple2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "FirstButton2");
+    // ---------------------------------------------
+    firstBtn->setStartCallback(firstButton::start);
+    firstBtn->setUpdateCallback(firstButton::update);
+    firstBtn->setStopCallback(firstButton::stop);
 
     gameObjectCtrl->startGameObjects();
     // @The shader object gets back from gameObject created in start().
@@ -97,6 +106,9 @@ int main()
     delete gameObjectsDatabase;
     delete componentsDatabase;
     delete timeCtrl;
+    glDeleteVertexArrays(1, &mainCharVAO);
+    glDeleteBuffers(1, &mainCharVBO);
+    glDeleteBuffers(1, &mainCharEBO);
 }
 
 void create2DCubeVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo) {
