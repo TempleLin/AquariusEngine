@@ -12,21 +12,18 @@ namespace aquarius_engine {
 		friend class InputSystemCtrl;
 	private:
 		GLFWwindow* belongedWindow;
-		AQ_GameObject** gameObjectsReference;
 		unsigned int* inputKeys;
 		unsigned int* inputActions;
 		AQ_GlobalCtrl::InputSystemCtrl* pointerToInputSystemCtrl;
-		void (*processInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
+		void (*processInputs)(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 			unsigned int* keys, unsigned int* actions);
 	public:
-		AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsReference,
-			unsigned int* inputKeys, unsigned int* inputActions,
-			void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl, 
-				unsigned int* keys, unsigned int* actions),
+		AQ_CompInput(GLFWwindow* belongedWindow, unsigned int* inputKeys,
+			unsigned int* inputActions, void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject* gameObjectThis,
+				AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* keys, unsigned int* actions),
 			AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl);
-		void rebindCallBack(void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
+		void rebindCallBack(void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 			unsigned int* keys, unsigned int* actions));
-		void rebindGameObjectsRef(AQ_GameObject** gameObjectsReference);
 		void rebindInputKeys(unsigned int* inputKeys);
 		void rebindInputActions(unsigned int* inputActions);
 		~AQ_CompInput();

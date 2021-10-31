@@ -1,12 +1,11 @@
 #include "headers/AQ_CompInput.hpp"
 #include "headers/AQ_GlobalCtrl.hpp"
 namespace aquarius_engine {
-	AQ_CompInput::AQ_CompInput(GLFWwindow* belongedWindow, AQ_GameObject** gameObjectsReference, unsigned int* inputKeys,
-		unsigned int* inputActions, void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, 
+	AQ_CompInput::AQ_CompInput(GLFWwindow* belongedWindow, unsigned int* inputKeys,
+		unsigned int* inputActions, void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject* gameObjectThis, 
 			AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* keys, unsigned int* actions),
 		AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl) {
 		this->belongedWindow = belongedWindow;
-		this->gameObjectsReference = gameObjectsReference;
 		this->processInputs = callbackProcessInputs;
 		this->inputKeys = inputKeys;
 		this->inputActions = inputActions;
@@ -23,19 +22,13 @@ namespace aquarius_engine {
 				holderToAllInputCompsPtrs.erase(holderToAllInputCompsPtrs.begin() + i);
 			}
 		}
-		delete[] gameObjectsReference;
 		delete[] inputKeys;
 		delete[] inputActions;
 	}
 
-	void AQ_CompInput::rebindCallBack(void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject** gameObjects, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
+	void AQ_CompInput::rebindCallBack(void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 		unsigned int* keys, unsigned int* actions)) {
 		this->processInputs = callbackProcessInputs;
-	}
-
-	void AQ_CompInput::rebindGameObjectsRef(AQ_GameObject** gameObjectsReference) {
-		delete[] this->gameObjectsReference;
-		this->gameObjectsReference = gameObjectsReference;
 	}
 
 	void AQ_CompInput::rebindInputKeys(unsigned int* inputKeys) {

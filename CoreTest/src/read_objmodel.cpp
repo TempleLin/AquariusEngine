@@ -47,10 +47,10 @@ namespace read_objmodel {
     void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     void mouse_callback(GLFWwindow* window, double xpos, double ypos);
     void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-    void processInput_waitForRebind(GLFWwindow* window, AQ_GameObject** gameObjectsRef,
+    void processInput_waitForRebind(GLFWwindow* window, AQ_GameObject* gameObjectThis, 
         AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* inputKeys, unsigned int* inputActions);
-    void processInputCallback(GLFWwindow* window, AQ_GameObject** gameObjectsRef,
-        AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* inputKeys, unsigned int* inputActions);
+    void processInputCallback(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
+        unsigned int* inputKeys, unsigned int* inputActions);
 
     // Initializations of AquariusEngine components.
     AQ_Scene::GameObjects::Components* sceneComponents= new AQ_Scene::GameObjects::Components();
@@ -135,7 +135,7 @@ namespace read_objmodel {
         camera =gameObjectCtrl.addComponent<AQ_CompCamera>(cameraObject, new AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
 
         AQ_CompInput* cameraInput = gameObjectCtrl.addComponent<AQ_CompInput>(cameraObject,
-            new AQ_CompInput(currentWindow, new AQ_GameObject * [1]{cameraObject},
+            new AQ_CompInput(currentWindow,
                 new unsigned int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_A, GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q},
                     new unsigned int[1]{ GLFW_PRESS }, processInput_waitForRebind, inputSystemCtrl), "CameraInput");
 
@@ -311,21 +311,29 @@ namespace read_objmodel {
         camera->processMouseScroll(yoffset);
     }
 
-    void processInput_waitForRebind(GLFWwindow* window, AQ_GameObject** gameObjectsRef,
-        AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* inputKeys, unsigned int* inputActions) {
-       AQ_CompInput* _cameraInput = gameObjectCtrl.getComponent<AQ_CompInput>(gameObjectsRef[0], "CameraInput");
+    void processInput_waitForRebind(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
+        unsigned int* keys, unsigned int* actions) {
         std::cout << timeCtrl->getSecondsInGame() << "\n";
-        if (timeCtrl->getSecondsInGame() >= 3.f)
+
+        if (timeCtrl->getSecondsInGame() >= 3.f) {
+            AQ_CompInput* _cameraInput = gameObjectThis->getGameObjectCtrl()->
+                getComponent<AQ_CompInput>(gameObjectThis, "CameraInput");
+            //AQ_CompInput* _cameraInput = gameObjectCtrl.getComponent<AQ_CompInput>(gameObjectsRef[0], "CameraInput");
             _cameraInput->rebindCallBack(processInputCallback);
+        }
+            
         std::cout << "Wait for few seconds until rebind" << "\n";
     }
 
     // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
     // ---------------------------------------------------------------------------------------------------------
-    void processInputCallback(GLFWwindow* window, AQ_GameObject** gameObjectsRef,
-        AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* inputKeys, unsigned int* inputActions) {
+    void processInputCallback(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
+        unsigned int* inputKeys, unsigned int* inputActions) {
 
-        static AQ_CompCamera* _camera = gameObjectCtrl.getComponent<AQ_CompCamera>(gameObjectsRef[0], "CAMERA");
+        //static AQ_CompCamera* _camera = gameObjectCtrl.getComponent<AQ_CompCamera>(gameObjectsRef[0], "CAMERA");
+        static AQ_GameObjectCtrl* gameObjectCtrl = gameObjectThis->getGameObjectCtrl();
+        static AQ_GameObject* _cameraGameObject = gameObjectCtrl->getGameObject("CAMERA_OBJECT");
+        static AQ_CompCamera* _camera = gameObjectCtrl->getComponent<AQ_CompCamera>(_cameraGameObject, "CAMERA");
 
         if (glfwGetKey(window, inputKeys[0]) == inputActions[0])
             glfwSetWindowShouldClose(window, true);

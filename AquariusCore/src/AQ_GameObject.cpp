@@ -15,6 +15,10 @@ namespace aquarius_engine {
 		this->stopCallback = stop;
 	}
 
+	AQ_GameObjectCtrl* AQ_GameObject::getGameObjectCtrl() {
+		return gameObjectCtrlPtr;
+	}
+
 	void AQ_GameObject::setComponentsRefs(AQ_Component** compsRefs) {
 		if (this->componentsRefs)
 			delete[] componentsRefs;

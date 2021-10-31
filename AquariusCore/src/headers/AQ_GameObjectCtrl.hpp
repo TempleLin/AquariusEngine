@@ -52,6 +52,7 @@ namespace aquarius_engine {
 				}
 				// @Save name and access key to database descriptions of the component to the gameobject.
 				gameObject->componentsKeys[typeid(T)].push_back(std::pair<std::string, unsigned int>(name, component->databaseAccessKey));
+				component->gameObjectThis = gameObject;
 				return component;
 			} catch (std::string& errorMessage) {
 				std::cout << errorMessage << "\n";
