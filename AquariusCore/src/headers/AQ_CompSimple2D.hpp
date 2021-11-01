@@ -9,7 +9,7 @@
 
 namespace aquarius_engine {
 	class AQ_CompSimple2D : public AQ_Component {
-	private:
+	protected:
 		struct TextureNamePair {
 		public:
 			std::string name;
