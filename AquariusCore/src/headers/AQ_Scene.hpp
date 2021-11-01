@@ -16,9 +16,15 @@ namespace aquarius_engine {
 		friend class AQ_GlobalCtrl;
 		friend class LightsCtrl;
 		friend class AQ_GameObjectCtrl;
+	private:
+		class GameObjects;
+		class Globals;
+		GameObjects* gameObjects;
+		Globals* globals;
 	public:
 		class GameObjects {
 			friend class AQ_GameObjectCtrl;
+			friend class AQ_Scene;
 		private:
 			class Components;
 			Components* components;
@@ -27,9 +33,8 @@ namespace aquarius_engine {
 			void createGameObject(AQ_GameObject* gameObject, std::string name) {
 				allGameObjects.insert(std::pair<std::string, AQ_GameObject*>(name, gameObject));
 			}
-
-		public:
 			GameObjects();
+		public:
 			~GameObjects();
 			class Components {
 				friend class AQ_GameObject;
@@ -48,13 +53,25 @@ namespace aquarius_engine {
 			};
 		};
 
-		class GlobalLights {
-			friend class AQ_GlobalCtrl;
-			friend class LightsCtrl;
+		class Globals {
+			friend class AQ_Scene;
 		private:
-			std::vector<AQ_DirLight> directionalLights;
-			std::vector<AQ_PointLight> pointLights;
-			std::vector<AQ_SpotLight> spotLights;
+			Globals() {};
+		public:
+			//class GlobalLights {
+			//	friend class AQ_GlobalCtrl;
+			//	friend class LightsCtrl;
+			//private:
+			//	GlobalLights() {};
+			//	std::vector<AQ_DirLight> directionalLights;
+			//	std::vector<AQ_PointLight> pointLights;
+			//	std::vector<AQ_SpotLight> spotLights;
+			//};
 		};
+	public:
+		AQ_Scene();
+		~AQ_Scene();
+		GameObjects* getGameObjects();
+		Globals* getGlobals();
 	};
 }

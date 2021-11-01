@@ -4,24 +4,37 @@
 #include <iostream>
 
 namespace aquarius_engine {
-	AQ_GlobalCtrl::LightsCtrl::LightsCtrl(AQ_Scene::GlobalLights* databaseGlobalLights) {
-		this->databaseGlobalLights = databaseGlobalLights;
+	AQ_GlobalCtrl::AQ_GlobalCtrl() {
+		timeCtrl = new TimeCtrl();
+		inputSystemCtrl = new AQ_GlobalCtrl::InputSystemCtrl(timeCtrl);
 	}
 
-	void AQ_GlobalCtrl::LightsCtrl::addDirectionalLight
-	(glm::vec3 direction, glm::vec3 color, float intensity) {
-		databaseGlobalLights->directionalLights.push_back(AQ_DirLight(direction, color, intensity));
+	AQ_GlobalCtrl::TimeCtrl* AQ_GlobalCtrl::getTimeCtrl() {
+		return timeCtrl;
 	}
 
-	void AQ_GlobalCtrl::LightsCtrl::addPointLight
-	(glm::vec3 position, float radius, float intensity) {
-		databaseGlobalLights->pointLights.push_back(AQ_PointLight(position, radius, intensity));
+	AQ_GlobalCtrl::InputSystemCtrl* AQ_GlobalCtrl::getInputSystemCtrl() {
+		return inputSystemCtrl;
 	}
 
-	void AQ_GlobalCtrl::LightsCtrl::addSpotLight
-	(glm::vec3 position, glm::vec3 direction, float cutoffAngle, float intensity) {
-		databaseGlobalLights->spotLights.push_back(AQ_SpotLight(position, direction, cutoffAngle, intensity));
-	}
+	//AQ_GlobalCtrl::LightsCtrl::LightsCtrl(AQ_Scene::Globals::GlobalLights* sceneGlobalLights) {
+	//	this->sceneGlobalLights = sceneGlobalLights;
+	//}
+
+	//void AQ_GlobalCtrl::LightsCtrl::addDirectionalLight
+	//(glm::vec3 direction, glm::vec3 color, float intensity) {
+	//	sceneGlobalLights->directionalLights.push_back(AQ_DirLight(direction, color, intensity));
+	//}
+
+	//void AQ_GlobalCtrl::LightsCtrl::addPointLight
+	//(glm::vec3 position, float radius, float intensity) {
+	//	sceneGlobalLights->pointLights.push_back(AQ_PointLight(position, radius, intensity));
+	//}
+
+	//void AQ_GlobalCtrl::LightsCtrl::addSpotLight
+	//(glm::vec3 position, glm::vec3 direction, float cutoffAngle, float intensity) {
+	//	sceneGlobalLights->spotLights.push_back(AQ_SpotLight(position, direction, cutoffAngle, intensity));
+	//}
 
 	void AQ_GlobalCtrl::InputSystemCtrl::addInputComp(AQ_CompInput* compInput) {
 		allInputComps.push_back(compInput);
@@ -62,5 +75,10 @@ namespace aquarius_engine {
 
 	float AQ_GlobalCtrl::TimeCtrl::getSecondsInGame() {
 		return iSecondsInGame;
+	}
+
+	AQ_GlobalCtrl::~AQ_GlobalCtrl() {
+		delete timeCtrl;
+		delete inputSystemCtrl;
 	}
 }

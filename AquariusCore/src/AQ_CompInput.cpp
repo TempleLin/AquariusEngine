@@ -4,13 +4,13 @@ namespace aquarius_engine {
 	AQ_CompInput::AQ_CompInput(GLFWwindow* belongedWindow, unsigned int* inputKeys,
 		unsigned int* inputActions, void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject* gameObjectThis, 
 			AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* keys, unsigned int* actions),
-		AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl) {
+		AQ_GlobalCtrl::InputSystemCtrl* inputSystemCtrl) {
 		this->belongedWindow = belongedWindow;
 		this->processInputs = callbackProcessInputs;
 		this->inputKeys = inputKeys;
 		this->inputActions = inputActions;
-		inputSystemCtrl.addInputComp(this);
-		this->pointerToInputSystemCtrl = &inputSystemCtrl;
+		inputSystemCtrl->addInputComp(this);
+		this->pointerToInputSystemCtrl = inputSystemCtrl;
 	}
 
 	AQ_CompInput::~AQ_CompInput() {

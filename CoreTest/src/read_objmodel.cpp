@@ -18,6 +18,7 @@
 #include <headers/stbi_image_wrapper.hpp>
 #include <headers/AQ_Scene.hpp>
 #include <headers/AQ_GameObject.hpp>
+#include <headers/AQ_UniControls.h>
 #include <headers/AQ_GlobalCtrl.hpp>
 #include <headers/AQ_CompInput.hpp>
 #include <headers/AQ_GLIntegrate.hpp>
@@ -53,14 +54,20 @@ namespace read_objmodel {
         unsigned int* inputKeys, unsigned int* inputActions);
 
     // Initializations of AquariusEngine components.
-    AQ_Scene::GameObjects* sceneGameObjects = new AQ_Scene::GameObjects();
+    AQ_Scene* scene = new AQ_Scene();
+    AQ_UniControls* uniControls = new AQ_UniControls(scene);
+    AQ_GameObjectCtrl* gameObjectCtrl = uniControls->getGameObjectCtrl();
+    AQ_GlobalCtrl* globalCtrl = uniControls->getGlobalCtrl();
+    AQ_GlobalCtrl::TimeCtrl* timeCtrl = globalCtrl->getTimeCtrl();
+    AQ_GlobalCtrl::InputSystemCtrl* inputSystemCtrl = globalCtrl->getInputSystemCtrl();
+    /*AQ_Scene::GameObjects* sceneGameObjects = new AQ_Scene::GameObjects();
     AQ_GameObjectCtrl gameObjectCtrl(sceneGameObjects);
 
     AQ_Scene::GlobalLights databaseGlobalLights;
     AQ_GlobalCtrl::LightsCtrl lightsCtrl(&databaseGlobalLights);
 
     AQ_GlobalCtrl::TimeCtrl timeCtrl;
-    AQ_GlobalCtrl::InputSystemCtrl inputSystemCtrl(&timeCtrl);
+    AQ_GlobalCtrl::InputSystemCtrl inputSystemCtrl(&timeCtrl);*/
 
     AQ_OpenGL* aqOpenGL = new AQ_OpenGL();
     GLFWwindow* currentWindow;
@@ -128,12 +135,12 @@ namespace read_objmodel {
         // -------------------------
         AQ_Shader ourShader("shaders/objModelSimpleShader/shaderVS.glsl", "shaders/objModelSimpleShader/shaderFS.glsl");
 
-        cameraObject = gameObjectCtrl.createGameObject("CAMERA_OBJECT");
+        cameraObject = gameObjectCtrl->createGameObject("CAMERA_OBJECT");
         if (!cameraObject)
             std::cout << "NULL" << std::endl;
-        camera =gameObjectCtrl.addComponent<AQ_CompCamera>(cameraObject, new AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
+        camera =gameObjectCtrl->addComponent<AQ_CompCamera>(cameraObject, new AQ_CompCamera(glm::vec3(0.f, 0.f, 3.f)), "CAMERA");
 
-        AQ_CompInput* cameraInput = gameObjectCtrl.addComponent<AQ_CompInput>(cameraObject,
+        AQ_CompInput* cameraInput = gameObjectCtrl->addComponent<AQ_CompInput>(cameraObject,
             new AQ_CompInput(currentWindow,
                 new unsigned int[7]{ GLFW_KEY_ESCAPE, GLFW_KEY_A, GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_D, GLFW_KEY_E, GLFW_KEY_Q},
                     new unsigned int[1]{ GLFW_PRESS }, processInput_waitForRebind, inputSystemCtrl), "CameraInput");
@@ -142,8 +149,8 @@ namespace read_objmodel {
 
         // load models
         // -----------
-        AQ_GameObject* guitarObject = gameObjectCtrl.createGameObject("GUITAR_OBJECT");
-        AQ_CompModel* guitarModel = gameObjectCtrl.addComponent<AQ_CompModel>(guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
+        AQ_GameObject* guitarObject = gameObjectCtrl->createGameObject("GUITAR_OBJECT");
+        AQ_CompModel* guitarModel = gameObjectCtrl->addComponent<AQ_CompModel>(guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
         
         
         // draw in wireframe
@@ -189,7 +196,7 @@ namespace read_objmodel {
                 ImGui::SameLine();
                 ImGui::Text("counter = %d", counter);
 
-                ImGui::Text("Seconds passed in game: %u", (unsigned int)timeCtrl.getSecondsInGame());
+                ImGui::Text("Seconds passed in game: %u", (unsigned int)timeCtrl->getSecondsInGame());
                 ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
                 ImGui::End();
             }
@@ -205,19 +212,19 @@ namespace read_objmodel {
 
             // Count deltaTime and seconds in game.
             //countTime();
-            timeCtrl.updateTime();
+            timeCtrl->updateTime();
 
             // Delete guitar in 8 seconds.
             static bool deletedGuitar{ false };
-            if (!deletedGuitar && timeCtrl.getSecondsInGame() > 8) {
-                gameObjectCtrl.deleteGameObject("GUITAR_OBJECT");
+            if (!deletedGuitar && timeCtrl->getSecondsInGame() > 8) {
+                gameObjectCtrl->deleteGameObject("GUITAR_OBJECT");
                 deletedGuitar = true;
             }
 
             // input
                 // -----
             //processInput(window);
-            inputSystemCtrl.processInputs();
+            inputSystemCtrl->processInputs();
 
 
             // render
@@ -271,7 +278,7 @@ namespace read_objmodel {
         ImGui::DestroyContext();
         // glfw: terminate, clearing all previously allocated GLFW resources.
         // ------------------------------------------------------------------
-        delete sceneGameObjects;
+        delete scene;
         delete aqOpenGL;
         glfwTerminate();
         return 0;

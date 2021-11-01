@@ -30,7 +30,10 @@ namespace aquarius_engine {
 	void AQ_GameObjectCtrl::deleteGameObject(std::string name) {
 		if (sceneGameObjects->allGameObjects.count(name)) {
 			try {
-				delete sceneGameObjects->allGameObjects.at(name);
+				if (sceneGameObjects->allGameObjects.at(name)) {
+					delete sceneGameObjects->allGameObjects.at(name);
+					sceneGameObjects->allGameObjects.at(name) = nullptr;
+				}
 				sceneGameObjects->allGameObjects.erase(name);
 			} catch (std::out_of_range& e) {
 				std::cout << "ERROR: GAMEOBJECT TO DELETE NOT FOUND: " << name << " ERROR DESCRIPTION: " << e.what() << "\n";
@@ -87,7 +90,10 @@ namespace aquarius_engine {
 			for (auto const& i : allComponentsKeysMapRef) {
 				for (auto const& j : i.second) {
 					try {
-						delete static_cast<AQ_Component*>(sceneGameObjects->components->allComponents.at(j.second));
+						if (sceneGameObjects->components->allComponents.at(j.second)) {
+							delete static_cast<AQ_Component*>(sceneGameObjects->components->allComponents.at(j.second));
+							sceneGameObjects->components->allComponents.at(j.second) = nullptr;
+						}
 						sceneGameObjects->components->allComponents.erase(j.second);
 					} catch (std::out_of_range& e) {
 						std::cout << "ERROR: CANNOT REMOVE ALL COMPONENTS OF GAMEOBJECT ERROR DESCRIPTION: " << e.what() << "\n";

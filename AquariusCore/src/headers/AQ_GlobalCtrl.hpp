@@ -7,7 +7,18 @@ namespace aquarius_engine {
 	class AQ_CompInput;
 
 	class AQ_GlobalCtrl {
+		friend class AQ_UniControls;
+		class TimeCtrl;
+		//class LightsCtrl;
+		class InputSystemCtrl;
+	private:
+		TimeCtrl* timeCtrl;
+		InputSystemCtrl* inputSystemCtrl;
+		//LightsCtrl* lightsCtrl;
+		AQ_GlobalCtrl();
 	public:
+		TimeCtrl* getTimeCtrl();
+		InputSystemCtrl* getInputSystemCtrl();
 		class TimeCtrl {
 		private:
 			float deltaTime;
@@ -19,15 +30,15 @@ namespace aquarius_engine {
 			float getDeltaTime();
 			float getSecondsInGame();
 		};
-		class LightsCtrl {
+		/*class LightsCtrl {
 		private:
-			AQ_Scene::GlobalLights* databaseGlobalLights;
+			AQ_Scene::Globals::GlobalLights* sceneGlobalLights;
 		public:
-			LightsCtrl(AQ_Scene::GlobalLights* databaseGlobalLights);
+			LightsCtrl(AQ_Scene* scene);
 			void addDirectionalLight(glm::vec3 direction, glm::vec3 color, float intensity);
 			void addPointLight(glm::vec3 position, float radius, float intensity);
 			void addSpotLight(glm::vec3 position, glm::vec3 direction, float cutoffAngle, float intensity);
-		};
+		};*/
 		class InputSystemCtrl {
 			friend class AQ_CompInput;
 		private:
@@ -38,5 +49,6 @@ namespace aquarius_engine {
 			InputSystemCtrl(AQ_GlobalCtrl::TimeCtrl* timeCtrlReference);
 			void processInputs();
 		};
+		~AQ_GlobalCtrl();
 	};
 }

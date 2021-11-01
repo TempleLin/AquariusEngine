@@ -21,7 +21,7 @@ namespace aquarius_engine {
 		AQ_CompInput(GLFWwindow* belongedWindow, unsigned int* inputKeys,
 			unsigned int* inputActions, void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject* gameObjectThis,
 				AQ_GlobalCtrl::TimeCtrl* timeCtrl, unsigned int* keys, unsigned int* actions),
-			AQ_GlobalCtrl::InputSystemCtrl& inputSystemCtrl);
+			AQ_GlobalCtrl::InputSystemCtrl* inputSystemCtrl);
 		void rebindCallBack(void (*callbackProcessInputs)(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 			unsigned int* keys, unsigned int* actions));
 		void rebindInputKeys(unsigned int* inputKeys);
