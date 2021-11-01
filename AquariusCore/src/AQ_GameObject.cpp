@@ -1,9 +1,11 @@
 #include "headers/AQ_GameObject.hpp"
 #include "headers/AQ_GameObjectCtrl.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace aquarius_engine {
 	AQ_GameObject::AQ_GameObject(AQ_GameObjectCtrl* gameObjectCtrl, std::string name) : startCallback(nullptr), 
-		updateCallback(nullptr), stopCallback(nullptr), gameObjectCtrlPtr(gameObjectCtrl), name(name), componentsRefs(nullptr), otherRefs(nullptr) {
+		updateCallback(nullptr), stopCallback(nullptr), gameObjectCtrlPtr(gameObjectCtrl), name(name), componentsRefs(nullptr), otherRefs(nullptr),
+	transform(glm::mat4(1.f)) {
 
 	}
 
@@ -38,6 +40,20 @@ namespace aquarius_engine {
 	void** AQ_GameObject::getOtherRefs() {
 		return otherRefs;
 	}
+
+	glm::mat4 AQ_GameObject::getTransform() {
+		return this->transform;
+	}
+	void AQ_GameObject::transformTranslate(glm::vec3 translateVector) {
+		this->transform = glm::translate(this->transform, translateVector);
+	}
+	void AQ_GameObject::transformRotate(glm::vec3 rotateVector, float angle) {
+		this->transform = glm::rotate(this->transform, glm::radians(angle), rotateVector);
+	}
+	void AQ_GameObject::transformScale(glm::vec3 scaleVector) {
+		this->transform = glm::scale(this->transform, scaleVector);
+	}
+
 
 	AQ_GameObject::~AQ_GameObject() {
 		gameObjectCtrlPtr->removeAllCompsOfGameObject(this);

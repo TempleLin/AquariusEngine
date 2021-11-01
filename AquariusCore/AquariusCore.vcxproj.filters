@@ -158,6 +158,9 @@
     <ClInclude Include="src\headers\AQ_CompSimple2D.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\headers\AQ_Transform.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="5.1.framebuffers_vs.glsl">
