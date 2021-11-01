@@ -86,8 +86,11 @@ namespace aquarius_engine {
 		void removeComponent(AQ_GameObject* gameObject, std::string name) {
 			try {
 				const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
-				sceneGameObjects->components->allComponents.erase
-					(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second);
+				auto componentIndex = getComponentIndex(componentsKeysVecRef, name);
+				auto componentPointer = sceneGameObjects->components->allComponents.at(componentsKeysVecRef.at(componentIndex).second);
+				if (componentPointer)
+					delete static_cast<AQ_Component*>(componentPointer);
+				sceneGameObjects->components->allComponents.erase(componentsKeysVecRef.at(componentIndex).second);
 			} catch (std::out_of_range& e) {
 				std::cout << "FAILED TO REMOVE COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";
 			} catch (...) {

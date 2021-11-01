@@ -143,8 +143,8 @@ namespace read_objmodel {
         // -----------
         AQ_GameObject* guitarObject = gameObjectCtrl->createGameObject("GUITAR_OBJECT");
         AQ_CompModel* guitarModel = gameObjectCtrl->addComponent<AQ_CompModel>(guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
-        //AQ_CompModel* guitarModel2 = gameObjectCtrl->addComponent<AQ_CompModel>(guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR2");
-        //gameObjectCtrl->removeComponent<AQ_CompModel>(guitarObject, "GUITAR2");
+        AQ_CompModel* guitarModel2 = gameObjectCtrl->addComponent<AQ_CompModel>(guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR2");
+        gameObjectCtrl->removeComponent<AQ_CompModel>(guitarObject, "GUITAR2");
         
         // draw in wireframe
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
