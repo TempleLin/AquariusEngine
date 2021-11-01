@@ -60,14 +60,6 @@ namespace read_objmodel {
     AQ_GlobalCtrl* globalCtrl = uniControls->getGlobalCtrl();
     AQ_GlobalCtrl::TimeCtrl* timeCtrl = globalCtrl->getTimeCtrl();
     AQ_GlobalCtrl::InputSystemCtrl* inputSystemCtrl = globalCtrl->getInputSystemCtrl();
-    /*AQ_Scene::GameObjects* sceneGameObjects = new AQ_Scene::GameObjects();
-    AQ_GameObjectCtrl gameObjectCtrl(sceneGameObjects);
-
-    AQ_Scene::GlobalLights databaseGlobalLights;
-    AQ_GlobalCtrl::LightsCtrl lightsCtrl(&databaseGlobalLights);
-
-    AQ_GlobalCtrl::TimeCtrl timeCtrl;
-    AQ_GlobalCtrl::InputSystemCtrl inputSystemCtrl(&timeCtrl);*/
 
     AQ_OpenGL* aqOpenGL = new AQ_OpenGL();
     GLFWwindow* currentWindow;

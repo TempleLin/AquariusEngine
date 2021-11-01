@@ -10,6 +10,7 @@
 #include <headers/AQ_GameObject.hpp>
 #include <headers/AQ_Scene.hpp>
 #include <headers/AQ_CompSimple2D.hpp>
+#include <headers/AQ_UniControls.h>
 #include <headers/AQ_GlobalCtrl.hpp>
 
 #include "headers/TwoDJavaGameIntegrate.hpp"
@@ -34,6 +35,9 @@ int SCR_WIDTH{ 1280 }, SCR_HEIGHT{ 720 };
 
 int main()
 {
+    ///*
+    //* @Note: Shader can only be created after glfw init().
+    //*/
     aqOpenGL->setOpenGL()
         .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE, &glfwError, false)
         .createWindow(SCR_WIDTH, SCR_HEIGHT, "TwoDJavaIntegrate", NULL, NULL, true)
@@ -46,12 +50,10 @@ int main()
     currentWindow = aqOpenGL->getBoundWindow();
 
 
-    ///*
-    //* @Note: Shader can only be created after glfw init().
-    //*/
-    AQ_Scene::GameObjects* scene0GameObjs = new AQ_Scene::GameObjects();
-    AQ_GameObjectCtrl* gameObjectCtrl = new AQ_GameObjectCtrl(scene0GameObjs);
-    AQ_GlobalCtrl::TimeCtrl* timeCtrl = new AQ_GlobalCtrl::TimeCtrl;
+    AQ_Scene* scene = new AQ_Scene();
+    AQ_UniControls* uniControls = new AQ_UniControls(scene);
+    AQ_GameObjectCtrl* gameObjectCtrl = uniControls->getGameObjectCtrl();
+    AQ_GlobalCtrl::TimeCtrl* timeCtrl = uniControls->getGlobalCtrl()->getTimeCtrl();
 
     stbi_image_wrap::setFlipVerticallyOnLoad(true);
     glEnable(GL_BLEND);
@@ -98,9 +100,8 @@ int main()
     delete twoDShader;
     gameObjectCtrl->stopGameObjects();
     gameObjectCtrl->deleteGameObject("MainCharacter");
-    delete gameObjectCtrl;
-    delete scene0GameObjs;
-    delete timeCtrl;
+    delete uniControls;
+    delete scene;
     glDeleteVertexArrays(1, &mainCharVAO);
     glDeleteBuffers(1, &mainCharVBO);
     glDeleteBuffers(1, &mainCharEBO);
