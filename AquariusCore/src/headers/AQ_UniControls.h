@@ -7,8 +7,8 @@ namespace aquarius_engine {
 
 	class AQ_UniControls {
 	private:
-		AQ_GameObjectCtrl* gameObjectCtrlReference;
-		AQ_GlobalCtrl* globalCtrlReference;
+		AQ_GameObjectCtrl* gameObjectCtrl;
+		AQ_GlobalCtrl* globalCtrl;
 	public:
 		AQ_UniControls(AQ_Scene* scene);
 		AQ_GameObjectCtrl* getGameObjectCtrl();

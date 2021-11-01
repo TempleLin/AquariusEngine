@@ -4,20 +4,20 @@
 
 namespace aquarius_engine {
 	AQ_UniControls::AQ_UniControls(AQ_Scene* scene) {
-		gameObjectCtrlReference = new AQ_GameObjectCtrl(scene->getGameObjects());
-		globalCtrlReference = new AQ_GlobalCtrl();
+		gameObjectCtrl = new AQ_GameObjectCtrl(scene->getGameObjects());
+		globalCtrl = new AQ_GlobalCtrl();
 	}
 
 	AQ_GameObjectCtrl* AQ_UniControls::getGameObjectCtrl() {
-		return gameObjectCtrlReference;
+		return gameObjectCtrl;
 	}
 
 	AQ_GlobalCtrl* AQ_UniControls::getGlobalCtrl() {
-		return globalCtrlReference;
+		return globalCtrl;
 	}
 
 	AQ_UniControls::~AQ_UniControls() {
-		delete gameObjectCtrlReference;
-		delete globalCtrlReference;
+		delete gameObjectCtrl;
+		delete globalCtrl;
 	}
 }

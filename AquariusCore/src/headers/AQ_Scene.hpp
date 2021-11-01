@@ -34,11 +34,12 @@ namespace aquarius_engine {
 				allGameObjects.insert(std::pair<std::string, AQ_GameObject*>(name, gameObject));
 			}
 			GameObjects();
-		public:
 			~GameObjects();
+		public:
 			class Components {
 				friend class AQ_GameObject;
 				friend class AQ_GameObjectCtrl;
+				friend class GameObjects;
 			private:
 				// @currentKey will keep += 1 and never repeat for every keys throughout the map of components.
 				unsigned int currentKeyIndex;
@@ -50,6 +51,7 @@ namespace aquarius_engine {
 					returnKey = currentKeyIndex;
 					currentKeyIndex++;
 				}
+				~Components();
 			};
 		};
 
