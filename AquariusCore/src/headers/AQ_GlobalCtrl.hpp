@@ -1,5 +1,5 @@
 #pragma once
-#include "AQ_Database.hpp"
+#include "AQ_Scene.hpp"
 #include <vector>
 #include <glm/glm.hpp>
 

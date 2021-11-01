@@ -17,11 +17,11 @@ namespace aquarius_engine {
 		friend class LightsCtrl;
 		friend class AQ_GameObjectCtrl;
 	public:
-		
-
 		class GameObjects {
 			friend class AQ_GameObjectCtrl;
 		private:
+			class Components;
+			Components* components;
 			std::unordered_map<std::string, AQ_GameObject*> allGameObjects;
 
 			void createGameObject(AQ_GameObject* gameObject, std::string name) {
@@ -29,6 +29,8 @@ namespace aquarius_engine {
 			}
 
 		public:
+			GameObjects();
+			~GameObjects();
 			class Components {
 				friend class AQ_GameObject;
 				friend class AQ_GameObjectCtrl;

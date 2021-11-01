@@ -33,7 +33,7 @@
     <ClCompile Include="src\AQ_GlobalCtrl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AQ_Database.cpp">
+    <ClCompile Include="src\AQ_Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\AQ_Lights.cpp">
@@ -87,6 +87,12 @@
     <ClCompile Include="src\AQ_Component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\AQ_CompButton2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_UniControls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\AQ_CompCamera.hpp">
@@ -101,7 +107,7 @@
     <ClInclude Include="src\headers\AQ_Shader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_Database.hpp">
+    <ClInclude Include="src\headers\AQ_Scene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\stbi_image_wrapper.hpp">
@@ -159,6 +165,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\AQ_Transform.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_CompButton2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_UniControls.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

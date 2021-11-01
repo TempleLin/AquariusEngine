@@ -5,9 +5,8 @@
 #include <any>
 
 namespace aquarius_engine {
-	AQ_GameObjectCtrl::AQ_GameObjectCtrl(AQ_Scene::GameObjects::Components* databaseComponent, AQ_Scene::GameObjects* databaseGameObjects) {
-		this->sceneComponents = databaseComponent;
-		this->sceneGameObjects = databaseGameObjects;
+	AQ_GameObjectCtrl::AQ_GameObjectCtrl(AQ_Scene::GameObjects* sceneGameObjects) {
+		this->sceneGameObjects = sceneGameObjects;
 	}
 
 	AQ_GameObject* AQ_GameObjectCtrl::createGameObject(std::string name) {
@@ -88,8 +87,8 @@ namespace aquarius_engine {
 			for (auto const& i : allComponentsKeysMapRef) {
 				for (auto const& j : i.second) {
 					try {
-						delete static_cast<AQ_Component*>(sceneComponents->allComponents.at(j.second));
-						sceneComponents->allComponents.erase(j.second);
+						delete static_cast<AQ_Component*>(sceneGameObjects->components->allComponents.at(j.second));
+						sceneGameObjects->components->allComponents.erase(j.second);
 					} catch (std::out_of_range& e) {
 						std::cout << "ERROR: CANNOT REMOVE ALL COMPONENTS OF GAMEOBJECT ERROR DESCRIPTION: " << e.what() << "\n";
 					} catch (...) {

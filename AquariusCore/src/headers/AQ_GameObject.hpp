@@ -7,7 +7,7 @@
 #include <typeindex>
 #include <utility>
 
-#include "AQ_Database.hpp"
+#include "AQ_Scene.hpp"
 #include "AQ_Component.hpp"
 #include "AQ_Transform.hpp"
 namespace aquarius_engine {

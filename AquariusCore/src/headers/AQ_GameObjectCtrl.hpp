@@ -2,7 +2,7 @@
 #include "AQ_GameObject.hpp"
 #include "AQ_CompModel.hpp"
 #include "AQ_CompCamera.hpp"
-#include "AQ_Database.hpp"
+#include "AQ_Scene.hpp"
 #include "AQ_Component.hpp"
 #include <string>
 #include <iostream>
@@ -18,12 +18,11 @@ namespace aquarius_engine {
 	class AQ_GameObjectCtrl {
 		friend class AQ_GameObject;
 	private:
-		AQ_Scene::GameObjects::Components* sceneComponents;
 		AQ_Scene::GameObjects* sceneGameObjects;
 		unsigned int getComponentIndex(const std::vector<std::pair<std::string, unsigned int>>& compVector,
 			std::string& nameOfComponent);
 	public:
-		AQ_GameObjectCtrl(AQ_Scene::GameObjects::Components* databaseComponent, AQ_Scene::GameObjects* databaseGameObjects);
+		AQ_GameObjectCtrl(AQ_Scene::GameObjects* sceneGameObjects);
 
 		AQ_GameObject* createGameObject(std::string name);
 		AQ_GameObject* getGameObject(std::string name);
@@ -42,7 +41,7 @@ namespace aquarius_engine {
 				* @Add the component with to the database and receive its key in database by returning in to
 				*  component object's databaseAccessKey.
 				*/
-				sceneComponents->addComponent(static_cast<void*>(component), component->databaseAccessKey);
+				sceneGameObjects->components->addComponent(static_cast<void*>(component), component->databaseAccessKey);
 				const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
 				// @Check if the name specified already exists in the gameobject's components.
 				for (int i = 0; i < componentsKeysVecRef.size(); i++) {
@@ -72,7 +71,7 @@ namespace aquarius_engine {
 		T* getComponent(AQ_GameObject* gameObject, std::string name) {
 			try {
 				const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
-				return static_cast<T*>(sceneComponents->allComponents
+				return static_cast<T*>(sceneGameObjects->components->allComponents
 					.at(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second));
 			} catch (std::out_of_range& e) {
 				std::cout << "FAILED TO GET COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";
@@ -87,7 +86,7 @@ namespace aquarius_engine {
 		void removeComponent(AQ_GameObject* gameObject, std::string name) {
 			try {
 				const auto& componentsKeysVecRef = gameObject->componentsKeys[typeid(T)];
-				sceneComponents->allComponents.erase
+				sceneGameObjects->components->allComponents.erase
 					(componentsKeysVecRef.at(getComponentIndex(componentsKeysVecRef, name)).second);
 			} catch (std::out_of_range& e) {
 				std::cout << "FAILED TO REMOVE COMPONENT FROM GAMEOBJECT CTRL" << e.what() << "\n";

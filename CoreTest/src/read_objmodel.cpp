@@ -16,7 +16,7 @@
 #include <headers/AQ_CompModel.hpp>
 #include <headers/AQ_GameObjectCtrl.hpp>
 #include <headers/stbi_image_wrapper.hpp>
-#include <headers/AQ_Database.hpp>
+#include <headers/AQ_Scene.hpp>
 #include <headers/AQ_GameObject.hpp>
 #include <headers/AQ_GlobalCtrl.hpp>
 #include <headers/AQ_CompInput.hpp>
@@ -53,9 +53,8 @@ namespace read_objmodel {
         unsigned int* inputKeys, unsigned int* inputActions);
 
     // Initializations of AquariusEngine components.
-    AQ_Scene::GameObjects::Components* sceneComponents= new AQ_Scene::GameObjects::Components();
     AQ_Scene::GameObjects* sceneGameObjects = new AQ_Scene::GameObjects();
-    AQ_GameObjectCtrl gameObjectCtrl(sceneComponents, sceneGameObjects);
+    AQ_GameObjectCtrl gameObjectCtrl(sceneGameObjects);
 
     AQ_Scene::GlobalLights databaseGlobalLights;
     AQ_GlobalCtrl::LightsCtrl lightsCtrl(&databaseGlobalLights);
@@ -272,7 +271,6 @@ namespace read_objmodel {
         ImGui::DestroyContext();
         // glfw: terminate, clearing all previously allocated GLFW resources.
         // ------------------------------------------------------------------
-        delete sceneComponents;
         delete sceneGameObjects;
         delete aqOpenGL;
         glfwTerminate();
