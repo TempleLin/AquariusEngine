@@ -8,7 +8,7 @@
 #include <headers/stbi_image_wrapper.hpp>
 #include <headers/AQ_GameObjectCtrl.hpp>
 #include <headers/AQ_GameObject.hpp>
-#include <headers/AQ_Database.hpp>
+#include <headers/AQ_Scene.hpp>
 #include <headers/AQ_CompSimple2D.hpp>
 #include <headers/AQ_GlobalCtrl.hpp>
 
@@ -50,8 +50,7 @@ int main()
     //* @Note: Shader can only be created after glfw init().
     //*/
     AQ_Scene::GameObjects* scene0GameObjs = new AQ_Scene::GameObjects();
-    AQ_Scene::GameObjects::Components* scene0Comps = new AQ_Scene::GameObjects::Components();
-    AQ_GameObjectCtrl* gameObjectCtrl = new AQ_GameObjectCtrl(scene0Comps, scene0GameObjs);
+    AQ_GameObjectCtrl* gameObjectCtrl = new AQ_GameObjectCtrl(scene0GameObjs);
     AQ_GlobalCtrl::TimeCtrl* timeCtrl = new AQ_GlobalCtrl::TimeCtrl;
 
     stbi_image_wrap::setFlipVerticallyOnLoad(true);
@@ -101,7 +100,6 @@ int main()
     gameObjectCtrl->deleteGameObject("MainCharacter");
     delete gameObjectCtrl;
     delete scene0GameObjs;
-    delete scene0Comps;
     delete timeCtrl;
     glDeleteVertexArrays(1, &mainCharVAO);
     glDeleteBuffers(1, &mainCharVBO);
