@@ -11,19 +11,20 @@ namespace firstButton {
 		AQ_GameObject* mainCharacterGameObject{};
 		mainCharacterGameObject = gameObjectCtrl->getGameObject("MainCharacter");
 
+		int firstButtonTexIndex{};
+		firstBtn2D->addTexture("assets/tempButton.png", "FirstButton2D", true, true, &firstButtonTexIndex);
+		firstBtn2D->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
 		float topLeft[3]{ -0.5f,  0.5f, .0f };
 		float topRight[3]{ 0.5f,  0.5f, .0f };
 		float bottomRight[3]{ 0.5f, -0.5f, .0f };
 		float bottomLeft[3]{ -0.5f,  -0.5f, .0f };
 		firstBtn2D->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		std::cout << "Shader ID at first button: " << static_cast<AQ_Shader*>(mainCharacterGameObject->getOtherRefs()[0])->ID << "\n";
+		firstBtn2D->activateTexture(GL_TEXTURE0);
 		firstBtn2D->setShaderID((static_cast<AQ_Shader*>(mainCharacterGameObject->getOtherRefs()[0]))->ID);
-		int firstButtonTextIndex{};
-		firstBtn2D->addTexture("assets/tempButton.png", "FirstButton2D", true, true, &firstButtonTextIndex);
 		firstBtn2D->setUniforms(new const char* [4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);
 		firstBtn2D->keepAspectRatio();
 		firstBtn2D->setPreDrawCallback(firstButtonPredrawCallback);
-		firstBtn2D->activateTexture(GL_TEXTURE0);
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		static AQ_CompBoxButton2D* firstBtn2D = gameObjectCtrl->getComponent<AQ_CompBoxButton2D>(gameObjectThis, "FirstButton2D");
@@ -48,9 +49,12 @@ namespace firstButton {
 			->getScene()->getCurrentWindow();
 		int windowWidth, windowHeight;
 		glfwGetWindowSize(currentWindow, &windowWidth, &windowHeight);
+		glUniform1f(uniforms[0], (float)windowWidth);
+		glUniform1f(uniforms[1], (float)windowHeight);
+		glUniform1i(uniforms[2], GLFW_TRUE);
 		simpleBox2DThis->bindTexture(0);
 		glm::mat4 offsetMatrix(1.f);
-		offsetMatrix = glm::translate(offsetMatrix, glm::vec3(-.5f, 0.f, 0.f));
+		offsetMatrix = glm::translate(offsetMatrix, glm::vec3(.5f, 0.f, 0.f));
 		glUniformMatrix4fv(uniforms[3], 1, false, &offsetMatrix[0][0]);
 	}
 }

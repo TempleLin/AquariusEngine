@@ -37,7 +37,7 @@ namespace mainCharacter {
 	}
 
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis){
-		//static_cast<AQ_CompSimpleBox2D*>(gameObjectThis->getComponentsRefs()[0])->draw();
+		static_cast<AQ_CompSimpleBox2D*>(gameObjectThis->getComponentsRefs()[0])->draw();
 	}
 
 	void stop(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
