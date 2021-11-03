@@ -44,6 +44,9 @@ namespace aquarius_engine {
 		private:
 			std::vector<AQ_CompInput*> allInputComps;
 			AQ_GlobalCtrl::TimeCtrl* timeCtrlReference;
+			/*
+			* @Gets called from AQ_CompButton2D.
+			*/
 			void addInputComp(AQ_CompInput* compInput);
 		public:
 			InputSystemCtrl(AQ_GlobalCtrl::TimeCtrl* timeCtrlReference);

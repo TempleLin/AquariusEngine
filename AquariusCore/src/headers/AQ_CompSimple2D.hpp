@@ -29,8 +29,8 @@ namespace aquarius_engine {
 	public:
 
 		AQ_CompSimple2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount) 
-			: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount) {
-			shaderID = 0;
+			: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), shaderID(0) {
+
 		}
 		void addTexture(std::string imageLocation, std::string name, 
 			bool hasAndUseAlpha, bool bindTexture, int* returnTexIndex) {

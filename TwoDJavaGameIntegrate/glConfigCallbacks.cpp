@@ -25,6 +25,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     //lastY = ypos;
 
     //camera->processMouseMovement(xoffset, yoffset);
+    std::cout << "xpos: " << xpos << ", ypos: " << ypos << "\n";
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {

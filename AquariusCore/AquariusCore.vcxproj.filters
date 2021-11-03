@@ -167,7 +167,7 @@
     <ClInclude Include="src\headers\AQ_Transform.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\AQ_CompButton2D.h">
+    <ClInclude Include="src\headers\AQ_CompBoxButton2D.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\AQ_UniControls.h">
