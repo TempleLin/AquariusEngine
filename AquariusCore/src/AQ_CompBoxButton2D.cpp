@@ -21,6 +21,10 @@ namespace aquarius_engine {
 		glfwGetWindowSize(window, &tempWindWidth, &tempWindHeight);
 		windowWidth = tempWindWidth;
 		windowHeight = tempWindHeight;
+
+		if (!normalized)
+			normalizeCoordinate(&cursorX, &cursorY, windowWidth, windowHeight);
+
 		std::cout << "cursorX: " << cursorX << "\n";
 		std::cout << "cursorY: " << cursorY << "\n";
 		std::cout << "windowWidth: " << windowWidth << "\n";
@@ -32,8 +36,6 @@ namespace aquarius_engine {
 				windowWidth *= (windowHeight / windowWidth);
 			}
 		}
-		if (!normalized)
-			normalizeCoordinate(&cursorX, &cursorY, windowWidth, windowHeight);
 		std::cout << "cursorX after normalized: " << cursorX << "\n";
 		std::cout << "cursorY after normalized: " << cursorY << "\n";
 		std::cout << "fourVerts of button: " << "0: " << fourVertsXYZ[0] << ", 9: " << fourVertsXYZ[9]
