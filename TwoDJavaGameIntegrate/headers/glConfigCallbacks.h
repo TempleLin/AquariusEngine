@@ -8,8 +8,8 @@ private:
     static double _ypos;
 public:
     static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-    double getXPos();
-    double getYPos();
+    static double getXPos();
+    static double getYPos();
 };
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);

@@ -13,11 +13,13 @@
 #include <headers/AQ_CompBoxButton2D.hpp>
 #include <headers/AQ_UniControls.h>
 #include <headers/AQ_GlobalCtrl.hpp>
+#include <headers/AQ_CompInput.hpp>
 
 #include "headers/TwoDJavaGameIntegrate.hpp"
 #include "headers/mainCharacterCallbacks.hpp"
 #include "headers/firstButtonCallbacks.hpp"
 #include "headers/glConfigCallbacks.h"
+
 
 using namespace aquarius_engine;
 using namespace stbi_image_wrap;
@@ -58,7 +60,9 @@ int main()
     AQ_Scene* scene = new AQ_Scene(currentWindow);
     AQ_UniControls* uniControls = new AQ_UniControls(scene);
     AQ_GameObjectCtrl* gameObjectCtrl = uniControls->getGameObjectCtrl();
-    AQ_GlobalCtrl::TimeCtrl* timeCtrl = uniControls->getGlobalCtrl()->getTimeCtrl();
+    AQ_GlobalCtrl* globalCtrl = uniControls->getGlobalCtrl();
+    AQ_GlobalCtrl::InputSystemCtrl* inputSystemCtrl = globalCtrl->getInputSystemCtrl();
+    AQ_GlobalCtrl::TimeCtrl* timeCtrl = globalCtrl->getTimeCtrl();
 
     stbi_image_wrap::setFlipVerticallyOnLoad(true);
     glEnable(GL_BLEND);
@@ -73,7 +77,7 @@ int main()
     float topLeft[3]{ -0.5f,  0.5f, 0.0f };
     float topRight[3]{ 0.5f,  0.5f, 0.0f };
     float bottomRight[3]{ 0.5f, -0.5f, 0.0f };
-    float bottomLeft[3]{ -0.5f,  0.5f, 0.0f };
+    float bottomLeft[3]{ -0.5f,  -0.5f, 0.0f };
     AQ_CompSimpleBox2D* mainChar2D = gameObjectCtrl->
         addComponent<AQ_CompSimpleBox2D>(mainCharacter, new AQ_CompSimpleBox2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "MainCharacter2D");
     mainChar2D->keepAspectRatio();
@@ -83,7 +87,9 @@ int main()
     // -------- Create button ----------------------
     AQ_GameObject* firstBtn = gameObjectCtrl->createGameObject("FirstButton");
     AQ_CompBoxButton2D* firstBtn2D = gameObjectCtrl->addComponent<AQ_CompBoxButton2D>(firstBtn,
-        new AQ_CompBoxButton2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "FirstButton2");
+        new AQ_CompBoxButton2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "FirstButton2D");
+    AQ_CompInput* firstBtnInput = gameObjectCtrl->addComponent<AQ_CompInput>(firstBtn, new AQ_CompInput(currentWindow, new unsigned int[1]{ GLFW_KEY_A },
+        new unsigned int[1]{ GLFW_PRESS }, firstButton::processInputs, inputSystemCtrl), "FirstButtonInput");
     // ---------------------------------------------
     firstBtn->setCallbackFuncs(firstButton::start, firstButton::update, firstButton::stop);
     std::cout << "test" << std::endl;
@@ -104,7 +110,7 @@ int main()
         glClearColor(.0f, .0f, .0f, .0f);
 
         timeCtrl->updateTime();
-
+        inputSystemCtrl->processInputs();
         gameObjectCtrl->updateGameObjects();
 
         glfwSwapBuffers(currentWindow);

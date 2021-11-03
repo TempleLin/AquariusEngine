@@ -5,12 +5,16 @@
 namespace aquarius_engine {
 	void AQ_CompBoxButton2D::normalizeCoordinate(double* cursorX, double* cursorY, int windowWidth, int windowHeight) {
 		*cursorX = (*cursorX / windowWidth * 2) - 1;
-		*cursorY = (*cursorY / windowHeight * 2) - 1;
+		*cursorY = - ((*cursorY / windowHeight * 2) - 1);
 	}
 
 	void AQ_CompBoxButton2D::checkInButtonRange(double cursorX, double cursorY, bool normalized) {
 		int windowWidth, windowHeight;
 		glfwGetWindowSize(window, &windowWidth, &windowHeight);
+		std::cout << "cursorX: " << cursorX << "\n";
+		std::cout << "cursorY: " << cursorY << "\n";
+		std::cout << "windowWidth: " << windowWidth << "\n";
+		std::cout << "windowHeight: " << windowHeight << "\n";
 		if (_keepAspectRatio) {
 			if (windowHeight > windowHeight) {
 				windowHeight *= windowWidth / windowHeight;
@@ -20,10 +24,17 @@ namespace aquarius_engine {
 		}
 		if (!normalized)
 			normalizeCoordinate(&cursorX, &cursorY, windowWidth, windowHeight);
+		std::cout << "cursorX after normalized: " << cursorX << "\n";
+		std::cout << "cursorY after normalized: " << cursorY << "\n";
+		std::cout << "fourVerts of button: " << "0: " << fourVertsXYZ[0] << ", 9: " << fourVertsXYZ[9]
+			<< ", 3: " << fourVertsXYZ[3] << ", 6: " << fourVertsXYZ[6] << ", 1: " << fourVertsXYZ[1] << ", 4: "
+			<< fourVertsXYZ[4] << ", 10: " << fourVertsXYZ[10] << ", 7: " << fourVertsXYZ[7] << "\n";
 		if (cursorX >= fourVertsXYZ[0] && cursorX >= fourVertsXYZ[9] && cursorX <= fourVertsXYZ[3]
 			&& cursorX <= fourVertsXYZ[6] && cursorY <= fourVertsXYZ[1] && cursorY <= fourVertsXYZ[4]
 			&& cursorY >= fourVertsXYZ[10] && cursorY >= fourVertsXYZ[7]) {
-			std::cout << "Pressed button!" << "\n";
+			std::cout << "Cursor in button range\n";
+		} else {
+			std::cout << "Cursor not in button range\n";
 		}
 	}
 

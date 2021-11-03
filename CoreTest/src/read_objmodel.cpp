@@ -53,13 +53,6 @@ namespace read_objmodel {
     void processInputCallback(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
         unsigned int* inputKeys, unsigned int* inputActions);
 
-    // Initializations of AquariusEngine components.
-    AQ_Scene* scene = new AQ_Scene();
-    AQ_UniControls* uniControls = new AQ_UniControls(scene);
-    AQ_GameObjectCtrl* gameObjectCtrl = uniControls->getGameObjectCtrl();
-    AQ_GlobalCtrl* globalCtrl = uniControls->getGlobalCtrl();
-    AQ_GlobalCtrl::TimeCtrl* timeCtrl = globalCtrl->getTimeCtrl();
-    AQ_GlobalCtrl::InputSystemCtrl* inputSystemCtrl = globalCtrl->getInputSystemCtrl();
 
     AQ_OpenGL* aqOpenGL = new AQ_OpenGL();
     GLFWwindow* currentWindow;
@@ -90,6 +83,13 @@ namespace read_objmodel {
             .finishSettings();
         currentWindow = aqOpenGL->getBoundWindow();
 
+        // Initializations of AquariusEngine components.
+        AQ_Scene* scene = new AQ_Scene(currentWindow);
+        AQ_UniControls* uniControls = new AQ_UniControls(scene);
+        AQ_GameObjectCtrl* gameObjectCtrl = uniControls->getGameObjectCtrl();
+        AQ_GlobalCtrl* globalCtrl = uniControls->getGlobalCtrl();
+        AQ_GlobalCtrl::TimeCtrl* timeCtrl = globalCtrl->getTimeCtrl();
+        AQ_GlobalCtrl::InputSystemCtrl* inputSystemCtrl = globalCtrl->getInputSystemCtrl();
 
         // Setup Dear ImGui context
         IMGUI_CHECKVERSION();

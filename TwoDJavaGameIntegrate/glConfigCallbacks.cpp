@@ -30,7 +30,6 @@ void MousePosCallback::mouse_callback(GLFWwindow* window, double xpos, double yp
     //camera->processMouseMovement(xoffset, yoffset);
     _xpos = xpos;
     _ypos = ypos;
-    std::cout << "xpos: " << xpos << ", ypos: " << ypos << "\n";
 }
 
 double MousePosCallback::getXPos() {
