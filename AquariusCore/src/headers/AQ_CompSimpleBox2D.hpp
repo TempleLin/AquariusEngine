@@ -24,7 +24,7 @@ namespace aquarius_engine {
 		int uniformsCount, verticesCount;
 		const char** uniformsNames;
 		std::vector<TextureNamePair> textures;
-		void(*preDrawCallback)(unsigned int, unsigned int*);
+		void(*preDrawCallback)(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis);
 		bool _keepAspectRatio;
 		GLFWwindow* window;
 	public:
@@ -39,7 +39,7 @@ namespace aquarius_engine {
 		void activateTexture(unsigned int index);
 		void bindTexture(std::string textureName);
 		void bindTexture(int index);
-		void setPreDrawCallback(void(*callback)(unsigned int shaderID, unsigned int* uniforms));
+		void setPreDrawCallback(void(*callback)(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis));
 		void keepAspectRatio();
 		void draw();
 		~AQ_CompSimpleBox2D();

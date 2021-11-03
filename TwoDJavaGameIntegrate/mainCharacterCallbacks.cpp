@@ -1,5 +1,7 @@
 #include "headers/mainCharacterCallbacks.hpp"
 #include "headers/TwoDJavaGameIntegrate.hpp"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <headers/AQ_Component.hpp>
 #include <headers/AQ_CompSimpleBox2D.hpp>
 
@@ -15,14 +17,18 @@
 */
 
 namespace mainCharacter {
+	void mainCharacterPreDrawCallback(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis);
+
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		gameObjectThis->setComponentsRefs(new AQ_Component * [1]{ gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "MainCharacter2D") });
 		AQ_CompSimpleBox2D* mainChar2DComp = static_cast<AQ_CompSimpleBox2D*>(gameObjectThis->getComponentsRefs()[0]);
 
 		int firstTextureIndex{ 0 };
 		mainChar2DComp->addTexture("assets/cleanCharacter.png", "CleanCharacter", true, true, &firstTextureIndex);
+		std::cout << "firstTextureIndex: " << firstTextureIndex << "\n";
+
 		mainChar2DComp->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
-		gameObjectThis->setOtherRefs(new void* [1]{ static_cast<void*>(new AQ_Shader("assets/shaders/two_d_tex_vs.glsl", "assets/shaders/two_d_tex_fs.glsl")) });
+		gameObjectThis->setOtherRefs(new void* [1]{ static_cast<void*>(new AQ_Shader("assets/shaders/two_d_tex_vs.glsl", "assets/shaders/two_d_tex_fs.glsl"))});
 		mainChar2DComp->setShaderID(static_cast<AQ_Shader*>(gameObjectThis->getOtherRefs()[0])->ID);
 		mainChar2DComp->setUniforms(new const char* [4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);
 		mainChar2DComp->setPreDrawCallback(mainCharacterPreDrawCallback);
@@ -38,4 +44,21 @@ namespace mainCharacter {
 		delete static_cast<AQ_Shader*>(gameObjectThis->getOtherRefs()[0]);
 		delete[] gameObjectThis->getOtherRefs();
 	}
+
+
+	void mainCharacterPreDrawCallback(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis) {
+		glUseProgram(shaderID);
+		static GLFWwindow* currentWindow = simpleBox2DThis->getGameObject()->getGameObjectCtrl()->getSceneGameObjects()
+			->getScene()->getCurrentWindow();
+		int windowWidth, windowHeight;
+		glfwGetWindowSize(currentWindow, &windowWidth, &windowHeight);
+		glUniform1f(uniforms[0], (float)windowWidth);
+		glUniform1f(uniforms[1], (float)windowHeight);
+		glUniform1i(uniforms[2], GLFW_TRUE);
+		simpleBox2DThis->bindTexture(0);
+		glm::mat4 offsetMatrix(1.f);
+		offsetMatrix = glm::translate(offsetMatrix, glm::vec3(-.5f, 0.f, 0.f));
+		glUniformMatrix4fv(uniforms[3], 1, false, &offsetMatrix[0][0]);
+	}
+
 }

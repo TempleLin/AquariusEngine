@@ -80,7 +80,7 @@ namespace aquarius_engine {
 		glBindTexture(GL_TEXTURE_2D, textures.at(index).texture);
 	}
 
-	void AQ_CompSimpleBox2D::setPreDrawCallback(void(*callback)(unsigned int shaderID, unsigned int* uniforms)) {
+	void AQ_CompSimpleBox2D::setPreDrawCallback(void(*callback)(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis)) {
 		this->preDrawCallback = callback;
 	}
 
@@ -89,7 +89,7 @@ namespace aquarius_engine {
 	}
 
 	void AQ_CompSimpleBox2D::draw() {
-		preDrawCallback(shaderID, uniforms);
+		preDrawCallback(shaderID, uniforms, this);
 		if (!window)
 			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
 

@@ -28,7 +28,6 @@ void glfwError(int id, const char* description);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-void mainCharacterPreDrawCallback(unsigned int shaderID, unsigned int* uniforms);
 void create2DCubeVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo);
 
 AQ_OpenGL* aqOpenGL = new AQ_OpenGL();
@@ -159,14 +158,4 @@ void create2DCubeVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo) 
     // texture coord attribute
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
-}
-
-void mainCharacterPreDrawCallback(unsigned int shaderID, unsigned int* uniforms) {
-    glUseProgram(shaderID);
-    glUniform1f(uniforms[0], (float)SCR_WIDTH);
-    glUniform1f(uniforms[1], (float)SCR_HEIGHT);
-    glUniform1i(uniforms[2], GLFW_TRUE);
-    glm::mat4 offsetMatrix(1.f);
-    offsetMatrix = glm::translate(offsetMatrix, glm::vec3(-.5f, 0.f, 0.f));
-    glUniformMatrix4fv(uniforms[3], 1, false, &offsetMatrix[0][0]);
 }
