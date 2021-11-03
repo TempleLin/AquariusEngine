@@ -19,6 +19,10 @@ namespace aquarius_engine {
 			std::cout << "ERROR: GAMEOBJECT TO CREATE: " << name << " ALREADY EXISTS\n";
 	}
 
+	AQ_Scene::GameObjects* AQ_GameObjectCtrl::getSceneGameObjects() {
+		return sceneGameObjects;
+	}
+
 	AQ_GameObject* AQ_GameObjectCtrl::getGameObject(std::string name) {
 		if (sceneGameObjects->allGameObjects.count(name)) {
 			return sceneGameObjects->allGameObjects.at(name);

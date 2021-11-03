@@ -51,6 +51,8 @@ namespace aquarius_engine {
 		virtual void transformTranslate(glm::vec3 translateVector);
 		virtual void transformScale(glm::vec3 scaleVector);
 
+		std::string getName();
+
 		~AQ_GameObject();
 	};
 }

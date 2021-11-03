@@ -8,12 +8,12 @@
 namespace aquarius_engine {
 	class AQ_OpenGL {
 	private:
-		class WindowNamePair {
+		class WindowWithInfo {
 		public:
 			GLFWwindow* window;
 			std::string name;
-			WindowNamePair(GLFWwindow* window, std::string name);
-			~WindowNamePair();
+			WindowWithInfo(GLFWwindow* window, std::string name);
+			~WindowWithInfo();
 		};
 		class Settings {
 		public:
@@ -37,7 +37,7 @@ namespace aquarius_engine {
 			void finishSettings();
 		};
 		Settings* settings;
-		std::vector<WindowNamePair*> windows;
+		std::vector<WindowWithInfo*> windows;
 		GLFWwindow* boundWindow;
 	public:
 		AQ_OpenGL();

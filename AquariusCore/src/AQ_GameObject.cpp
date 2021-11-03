@@ -54,6 +54,9 @@ namespace aquarius_engine {
 		this->transform = glm::scale(this->transform, scaleVector);
 	}
 
+	std::string AQ_GameObject::getName() {
+		return this->name;
+	}
 
 	AQ_GameObject::~AQ_GameObject() {
 		gameObjectCtrlPtr->removeAllCompsOfGameObject(this);

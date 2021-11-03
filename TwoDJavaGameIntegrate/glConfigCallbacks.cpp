@@ -11,7 +11,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     SCR_HEIGHT = height;
 }
 
-void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+double MousePosCallback::_xpos{};
+double MousePosCallback::_ypos{};
+
+void MousePosCallback::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     //if (firstMouse) {
     //    lastX = xpos;
     //    lastY = ypos;
@@ -25,7 +28,17 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     //lastY = ypos;
 
     //camera->processMouseMovement(xoffset, yoffset);
+    _xpos = xpos;
+    _ypos = ypos;
     std::cout << "xpos: " << xpos << ", ypos: " << ypos << "\n";
+}
+
+double MousePosCallback::getXPos() {
+    return _xpos;
+}
+
+double MousePosCallback::getYPos() {
+    return _ypos;
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {

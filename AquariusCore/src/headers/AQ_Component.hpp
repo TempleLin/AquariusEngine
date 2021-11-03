@@ -23,6 +23,7 @@ namespace aquarius_engine {
 		std::string name;
 	public:
 		AQ_GameObject* getGameObject();
+		std::string getName();
 
 		virtual glm::mat4 getTransform();
 		virtual void transformRotate(glm::vec3 rotateVector, float angle);

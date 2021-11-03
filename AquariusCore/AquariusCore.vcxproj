@@ -162,11 +162,13 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AQ_CompBoxButton2D.cpp" />
     <ClCompile Include="src\AQ_CompButton2D.cpp" />
     <ClCompile Include="src\AQ_CompCamera.cpp" />
     <ClCompile Include="src\AQ_CompInput.cpp" />
     <ClCompile Include="src\AQ_CompModel.cpp" />
     <ClCompile Include="src\AQ_Component.cpp" />
+    <ClCompile Include="src\AQ_CompSimpleBox2D.cpp" />
     <ClCompile Include="src\AQ_Scene.cpp" />
     <ClCompile Include="src\AQ_GameObject.cpp" />
     <ClCompile Include="src\AQ_GameObjectCtrl.cpp" />
@@ -189,7 +191,7 @@
   <ItemGroup>
     <ClInclude Include="src\headers\AQ_CompBoxButton2D.hpp" />
     <ClInclude Include="src\headers\AQ_Transform.hpp" />
-    <ClInclude Include="src\headers\AQ_CompSimple2D.hpp" />
+    <ClInclude Include="src\headers\AQ_CompSimpleBox2D.hpp" />
     <ClInclude Include="src\headers\AQ_GLIntegrate.hpp" />
     <ClInclude Include="src\dear_imgui\imconfig.h" />
     <ClInclude Include="src\dear_imgui\imgui.h" />

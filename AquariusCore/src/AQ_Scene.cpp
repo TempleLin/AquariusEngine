@@ -2,8 +2,13 @@
 #include "headers/AQ_Component.hpp"
 
 namespace aquarius_engine {
-	AQ_Scene::GameObjects::GameObjects() {
+	AQ_Scene::GameObjects::GameObjects(AQ_Scene* sceneRef) {
 		components = new AQ_Scene::GameObjects::Components();
+		this->sceneRef = sceneRef;
+	}
+
+	AQ_Scene* AQ_Scene::GameObjects::getScene() {
+		return sceneRef;
 	}
 
 	AQ_Scene::GameObjects::~GameObjects() {
@@ -23,8 +28,8 @@ namespace aquarius_engine {
 		}
 	}
 
-	AQ_Scene::AQ_Scene() {
-		gameObjects = new AQ_Scene::GameObjects();
+	AQ_Scene::AQ_Scene(GLFWwindow* currentWindow) : currentWindow(currentWindow){
+		gameObjects = new AQ_Scene::GameObjects(this);
 		globals = new AQ_Scene::Globals();
 	}
 
@@ -34,6 +39,10 @@ namespace aquarius_engine {
 
 	AQ_Scene::Globals* AQ_Scene::getGlobals() {
 		return globals;
+	}
+
+	GLFWwindow* AQ_Scene::getCurrentWindow() {
+		return this->currentWindow;
 	}
 
 	AQ_Scene::~AQ_Scene() {

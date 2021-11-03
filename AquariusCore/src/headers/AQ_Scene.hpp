@@ -4,6 +4,8 @@
 #include "AQ_GameObject.hpp"
 #include "AQ_Lights.hpp"
 
+#include <GLFW/glfw3.h>
+
 #include <unordered_map>
 #include <vector>
 #include <iostream>
@@ -21,6 +23,7 @@ namespace aquarius_engine {
 		class Globals;
 		GameObjects* gameObjects;
 		Globals* globals;
+		GLFWwindow* currentWindow;
 	public:
 		class GameObjects {
 			friend class AQ_GameObjectCtrl;
@@ -29,11 +32,12 @@ namespace aquarius_engine {
 			class Components;
 			Components* components;
 			std::unordered_map<std::string, AQ_GameObject*> allGameObjects;
+			AQ_Scene* sceneRef;
 
 			void createGameObject(AQ_GameObject* gameObject, std::string name) {
 				allGameObjects.insert(std::pair<std::string, AQ_GameObject*>(name, gameObject));
 			}
-			GameObjects();
+			GameObjects(AQ_Scene* sceneRef);
 			~GameObjects();
 		public:
 			class Components {
@@ -53,6 +57,7 @@ namespace aquarius_engine {
 				}
 				~Components();
 			};
+			AQ_Scene* getScene();
 		};
 
 		class Globals {
@@ -71,9 +76,10 @@ namespace aquarius_engine {
 			//};
 		};
 	public:
-		AQ_Scene();
+		AQ_Scene(GLFWwindow* currentWindow);
 		~AQ_Scene();
 		GameObjects* getGameObjects();
 		Globals* getGlobals();
+		GLFWwindow* getCurrentWindow();
 	};
 }

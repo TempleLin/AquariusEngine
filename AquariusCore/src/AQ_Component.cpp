@@ -7,6 +7,10 @@ namespace aquarius_engine {
 		return gameObjectThis;
 	}
 
+	std::string AQ_Component::getName() {
+		return this->name;
+	}
+
 	glm::mat4 AQ_Component::getTransform() {
 		return this->transformOffset * *(this->gameObjectTrans);
 	}

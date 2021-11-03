@@ -48,12 +48,12 @@ namespace aquarius_engine {
 		std::cout << "OpenGL deleted\n";
 	}
 
-	AQ_OpenGL::WindowNamePair::WindowNamePair(GLFWwindow* window, std::string name) {
+	AQ_OpenGL::WindowWithInfo::WindowWithInfo(GLFWwindow* window, std::string name) {
 		this->window = window;
 		this->name = name;
 	}
 
-	AQ_OpenGL::WindowNamePair::~WindowNamePair() {
+	AQ_OpenGL::WindowWithInfo::~WindowWithInfo() {
 		glfwDestroyWindow(window);
 		std::cout << "Window pair deleted\n";
 	}
@@ -83,7 +83,7 @@ namespace aquarius_engine {
 		const char* windowName, GLFWmonitor* monitor, GLFWwindow* share, bool bindWindow) {
 		GLFWwindow* windowCreated = glfwCreateWindow(width, height, windowName, monitor, share);
 		if (windowCreated) {
-			aq_OpenGL->windows.push_back(new WindowNamePair(windowCreated, windowName));
+			aq_OpenGL->windows.push_back(new WindowWithInfo(windowCreated, windowName));
 			std::cout << "Window: " << windowName << " created at address: " << windowCreated << "\n";
 		} else {
 			std::cout << "ERROR: Failed to create GLFW window with name: " << windowName << std::endl;

@@ -9,13 +9,15 @@
 #include <headers/AQ_GameObjectCtrl.hpp>
 #include <headers/AQ_GameObject.hpp>
 #include <headers/AQ_Scene.hpp>
-#include <headers/AQ_CompSimple2D.hpp>
+#include <headers/AQ_CompSimpleBox2D.hpp>
+#include <headers/AQ_CompBoxButton2D.hpp>
 #include <headers/AQ_UniControls.h>
 #include <headers/AQ_GlobalCtrl.hpp>
 
 #include "headers/TwoDJavaGameIntegrate.hpp"
 #include "headers/mainCharacterCallbacks.hpp"
 #include "headers/firstButtonCallbacks.hpp"
+#include "headers/glConfigCallbacks.h"
 
 using namespace aquarius_engine;
 using namespace stbi_image_wrap;
@@ -38,19 +40,22 @@ int main()
     ///*
     //* @Note: Shader can only be created after glfw init().
     //*/
+    std::cout << "test" << std::endl;
+
     aqOpenGL->setOpenGL()
         .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE, &glfwError, false)
         .createWindow(SCR_WIDTH, SCR_HEIGHT, "TwoDJavaIntegrate", NULL, NULL, true)
         .setFrameBufferSizeCallback(aqOpenGL->getBoundWindow(), framebuffer_size_callback)
-        .setCursorPosCallback(aqOpenGL->getBoundWindow(), mouse_callback)
+        .setCursorPosCallback(aqOpenGL->getBoundWindow(), MousePosCallback::mouse_callback)
         .setScrollCallback(aqOpenGL->getBoundWindow(), scroll_callback)
         .setCurrentThreadWindow(aqOpenGL->getBoundWindow())
         .initializeGLAD()
         .finishSettings();
     currentWindow = aqOpenGL->getBoundWindow();
 
+    std::cout << "test" << std::endl;
 
-    AQ_Scene* scene = new AQ_Scene();
+    AQ_Scene* scene = new AQ_Scene(currentWindow);
     AQ_UniControls* uniControls = new AQ_UniControls(scene);
     AQ_GameObjectCtrl* gameObjectCtrl = uniControls->getGameObjectCtrl();
     AQ_GlobalCtrl::TimeCtrl* timeCtrl = uniControls->getGlobalCtrl()->getTimeCtrl();
@@ -65,18 +70,27 @@ int main()
     unsigned int mainCharVAO, mainCharVBO, mainCharEBO;
     create2DCubeVerts(&mainCharVAO, &mainCharVBO, &mainCharEBO);
 
-    AQ_CompSimple2D* mainChar2D = gameObjectCtrl->
-        addComponent<AQ_CompSimple2D>(mainCharacter, new AQ_CompSimple2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "MainCharacter2D");
+    float topLeft[3]{ -0.5f,  0.5f, 0.0f };
+    float topRight[3]{ 0.5f,  0.5f, 0.0f };
+    float bottomRight[3]{ 0.5f, -0.5f, 0.0f };
+    float bottomLeft[3]{ -0.5f,  0.5f, 0.0f };
+    AQ_CompSimpleBox2D* mainChar2D = gameObjectCtrl->
+        addComponent<AQ_CompSimpleBox2D>(mainCharacter, new AQ_CompSimpleBox2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "MainCharacter2D");
+    mainChar2D->keepAspectRatio();
     // ---------------------------------------------
     mainCharacter->setCallbackFuncs(mainCharacter::start, mainCharacter::update, mainCharacter::stop);
-
+    std::cout << "test" << std::endl;
     // -------- Create button ----------------------
     AQ_GameObject* firstBtn = gameObjectCtrl->createGameObject("FirstButton");
-    AQ_CompSimple2D* firstBtn2D = gameObjectCtrl->addComponent<AQ_CompSimple2D>(firstBtn,
-        new AQ_CompSimple2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "FirstButton2");
+    AQ_CompBoxButton2D* firstBtn2D = gameObjectCtrl->addComponent<AQ_CompBoxButton2D>(firstBtn,
+        new AQ_CompBoxButton2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "FirstButton2");
     // ---------------------------------------------
     firstBtn->setCallbackFuncs(firstButton::start, firstButton::update, firstButton::stop);
+    std::cout << "test" << std::endl;
 
+    firstBtn2D->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
+
+    std::cout << "test" << std::endl;
 
     gameObjectCtrl->startGameObjects();
     // @The shader object gets back from gameObject created in start().

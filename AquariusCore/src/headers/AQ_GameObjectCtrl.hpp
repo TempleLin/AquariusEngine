@@ -27,6 +27,8 @@ namespace aquarius_engine {
 		AQ_GameObject* createGameObject(std::string name);
 		AQ_GameObject* getGameObject(std::string name);
 
+		AQ_Scene::GameObjects* getSceneGameObjects();
+
 		void deleteGameObject(std::string name);
 
 		void startGameObjects();
@@ -52,6 +54,8 @@ namespace aquarius_engine {
 				// @Save name and access key to database descriptions of the component to the gameobject.
 				gameObject->componentsKeys[typeid(T)].push_back(std::pair<std::string, unsigned int>(name, component->databaseAccessKey));
 				component->gameObjectThis = gameObject;
+				std::cout << "Add GameObject reference named: " << component->gameObjectThis->getName() << " to its component: "
+					<< component->getName() << "\n";
 				component->gameObjectTrans = &(gameObject->transform);
 				component->transformOffset = glm::mat4(1.f);
 				return component;
