@@ -73,10 +73,7 @@ int main()
     unsigned int mainCharVAO, mainCharVBO, mainCharEBO;
     create2DCubeVerts(&mainCharVAO, &mainCharVBO, &mainCharEBO);
 
-    float topLeft[3]{ -0.5f,  0.5f, 0.0f };
-    float topRight[3]{ 0.5f,  0.5f, 0.0f };
-    float bottomRight[3]{ 0.5f, -0.5f, 0.0f };
-    float bottomLeft[3]{ -0.5f,  -0.5f, 0.0f };
+
     AQ_CompSimpleBox2D* mainChar2D = gameObjectCtrl->
         addComponent<AQ_CompSimpleBox2D>(mainCharacter, new AQ_CompSimpleBox2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "MainCharacter2D");
     mainChar2D->keepAspectRatio();
@@ -91,9 +88,7 @@ int main()
         new unsigned int[1]{ GLFW_PRESS }, firstButton::processInputs, inputSystemCtrl), "FirstButtonInput");
     // ---------------------------------------------
     firstBtn->setCallbackFuncs(firstButton::start, firstButton::update, firstButton::stop);
-    std::cout << "test" << std::endl;
 
-    firstBtn2D->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 
     std::cout << "test" << std::endl;
 

@@ -98,7 +98,7 @@ namespace aquarius_engine {
 		glUniform1i(uniforms[2], _keepAspectRatio? GLFW_TRUE : GLFW_FALSE);
 		glUniform1i(uniforms[0], windWidth);
 		glUniform1i(uniforms[1], windHeight);
-
+		bindTexture(0);
 		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);

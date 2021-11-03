@@ -29,6 +29,7 @@ namespace mainCharacter {
 
 		mainChar2DComp->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
 		gameObjectThis->setOtherRefs(new void* [1]{ static_cast<void*>(new AQ_Shader("assets/shaders/two_d_tex_vs.glsl", "assets/shaders/two_d_tex_fs.glsl"))});
+		std::cout << "Shader ID at main character: " << static_cast<AQ_Shader*>(gameObjectThis->getOtherRefs()[0])->ID << "\n";
 		mainChar2DComp->setShaderID(static_cast<AQ_Shader*>(gameObjectThis->getOtherRefs()[0])->ID);
 		mainChar2DComp->setUniforms(new const char* [4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);
 		mainChar2DComp->setPreDrawCallback(mainCharacterPreDrawCallback);
@@ -36,7 +37,7 @@ namespace mainCharacter {
 	}
 
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis){
-		static_cast<AQ_CompSimpleBox2D*>(gameObjectThis->getComponentsRefs()[0])->draw();
+		//static_cast<AQ_CompSimpleBox2D*>(gameObjectThis->getComponentsRefs()[0])->draw();
 	}
 
 	void stop(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {

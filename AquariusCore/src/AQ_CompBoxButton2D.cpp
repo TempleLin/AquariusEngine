@@ -4,22 +4,32 @@
 
 namespace aquarius_engine {
 	void AQ_CompBoxButton2D::normalizeCoordinate(double* cursorX, double* cursorY, int windowWidth, int windowHeight) {
+		std::cout << "-------------------\n";
+		std::cout << *cursorX << "\n";
+		std::cout << windowWidth << "\n";
+		std::cout << windowHeight << "\n";
+		std::cout << (*cursorX / windowWidth * 2) << "\n";
+		std::cout << *cursorX / windowWidth << "\n";
+		std::cout << "-------------------\n";
 		*cursorX = (*cursorX / windowWidth * 2) - 1;
 		*cursorY = - ((*cursorY / windowHeight * 2) - 1);
 	}
 
 	void AQ_CompBoxButton2D::checkInButtonRange(double cursorX, double cursorY, bool normalized) {
-		int windowWidth, windowHeight;
-		glfwGetWindowSize(window, &windowWidth, &windowHeight);
+		double windowWidth{}, windowHeight{};
+		int tempWindWidth{ (int)windowWidth }, tempWindHeight{ (int)windowHeight };
+		glfwGetWindowSize(window, &tempWindWidth, &tempWindHeight);
+		windowWidth = tempWindWidth;
+		windowHeight = tempWindHeight;
 		std::cout << "cursorX: " << cursorX << "\n";
 		std::cout << "cursorY: " << cursorY << "\n";
 		std::cout << "windowWidth: " << windowWidth << "\n";
 		std::cout << "windowHeight: " << windowHeight << "\n";
 		if (_keepAspectRatio) {
 			if (windowHeight > windowHeight) {
-				windowHeight *= windowWidth / windowHeight;
+				windowHeight *= (windowWidth / windowHeight);
 			} else {
-				windowWidth *= windowHeight / windowWidth;
+				windowWidth *= (windowHeight / windowWidth);
 			}
 		}
 		if (!normalized)
