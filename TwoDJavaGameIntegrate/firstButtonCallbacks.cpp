@@ -14,10 +14,10 @@ namespace firstButton {
 		int firstButtonTexIndex{};
 		firstBtn2D->addTexture("assets/tempButton.png", "FirstButton2D", true, true, &firstButtonTexIndex);
 		firstBtn2D->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
-		float topLeft[3]{ 0.f,  0.5f, .0f };
-		float topRight[3]{ 1.f,  0.5f, .0f };
-		float bottomRight[3]{ 1.f, -0.5f, .0f };
-		float bottomLeft[3]{ 0.f,  -0.5f, .0f };
+		float topLeft[3]{ 0.f,  0.2f, .0f };
+		float topRight[3]{ 1.f,  0.2f, .0f };
+		float bottomRight[3]{ 1.f, -0.2f, .0f };
+		float bottomLeft[3]{ 0.f,  -0.2f, .0f };
 		firstBtn2D->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		std::cout << "Shader ID at first button: " << static_cast<AQ_Shader*>(mainCharacterGameObject->getOtherRefs()[0])->ID << "\n";
 		firstBtn2D->activateTexture(GL_TEXTURE0);
@@ -55,6 +55,7 @@ namespace firstButton {
 		simpleBox2DThis->bindTexture(0);
 		glm::mat4 offsetMatrix(1.f);
 		offsetMatrix = glm::translate(offsetMatrix, glm::vec3(.5f, 0.f, 0.f));
+		offsetMatrix = glm::scale(offsetMatrix, glm::vec3(1.f, .4f, 1.f));
 		glUniformMatrix4fv(uniforms[3], 1, false, &offsetMatrix[0][0]);
 	}
 }
