@@ -1,6 +1,7 @@
 #include "headers/firstButtonCallbacks.hpp"
 #include <headers/AQ_CompBoxButton2D.hpp>
 #include <headers/AQ_GlobalCtrl.hpp>
+#include <glm/glm.hpp>
 #include "headers/glConfigCallbacks.h"
 
 namespace firstButton {
@@ -14,12 +15,13 @@ namespace firstButton {
 		int firstButtonTexIndex{};
 		firstBtn2D->addTexture("assets/tempButton.png", "FirstButton2D", true, true, &firstButtonTexIndex);
 		firstBtn2D->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
-		float topLeft[3]{ 0.f,  0.2f, .0f };
-		float topRight[3]{ 1.f,  0.2f, .0f };
-		float bottomRight[3]{ 1.f, -0.2f, .0f };
-		float bottomLeft[3]{ 0.f,  -0.2f, .0f };
+		glm::vec3 topLeft{ -0.5f,  0.5f, .0f };
+		glm::vec3 topRight{ 0.5f,  0.5f, .0f };
+		glm::vec3 bottomRight{ 0.5f, -0.5f, .0f };
+		glm::vec3 bottomLeft{ -0.5f, -0.5f, .0f };
 		firstBtn2D->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
-		std::cout << "Shader ID at first button: " << static_cast<AQ_Shader*>(mainCharacterGameObject->getOtherRefs()[0])->ID << "\n";
+		firstBtn2D->translateSensorRange(glm::vec3(.5f, 0.f, 0.f));
+		firstBtn2D->scaleSensorRange(glm::vec3(1.f, .4f, 1.f));
 		firstBtn2D->activateTexture(GL_TEXTURE0);
 		firstBtn2D->setShaderID((static_cast<AQ_Shader*>(mainCharacterGameObject->getOtherRefs()[0]))->ID);
 		firstBtn2D->setUniforms(new const char* [4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);

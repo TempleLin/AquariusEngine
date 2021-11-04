@@ -1,9 +1,10 @@
 #include "headers/AQ_CompBoxButton2D.hpp"
 #include "headers/AQ_GameObjectCtrl.hpp"
 #include "headers/AQ_GameObject.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace aquarius_engine {
-	void AQ_CompBoxButton2D::normalizeCoordinate(double* cursorX, double* cursorY, int windowWidth, int windowHeight) {
+	void AQ_CompBoxButton2D::ratioChangeVerts(double* cursorX, double* cursorY, int windowWidth, int windowHeight) {
 		/*std::cout << "-------------------\n";
 		std::cout << *cursorX << "\n";
 		std::cout << windowWidth << "\n";
@@ -13,6 +14,37 @@ namespace aquarius_engine {
 		std::cout << "-------------------\n";*/
 		*cursorX = (*cursorX / windowWidth * 2) - 1;
 		*cursorY = - ((*cursorY / windowHeight * 2) - 1);
+		for (int i = 0; i < 4; i++) {
+			fourVertsRatioChanged[i].x = fourVertsXYZ[i].x;
+			fourVertsRatioChanged[i].y = fourVertsXYZ[i].y;
+		}
+		if (_keepAspectRatio) {
+			if (windowHeight > windowWidth) {
+				float yRange = fourVertsXYZ[0].y - fourVertsXYZ[3].y;
+				float offsetRange = (yRange - (yRange * ((float)windowWidth / (float)windowHeight))) / 2.f;
+				fourVertsRatioChanged[0].y -= offsetRange;
+				fourVertsRatioChanged[1].y -= offsetRange;
+				fourVertsRatioChanged[2].y += offsetRange;
+				fourVertsRatioChanged[3].y += offsetRange;
+				for (int i = 0; i < 4; i++) {
+					fourVertsRatioChanged[i].x = fourVertsXYZ[i].x;
+				}
+			} else {
+				float xRange = fourVertsXYZ[1].x - fourVertsXYZ[0].x;
+				float offsetRange = (xRange - (xRange * ((float)windowHeight / (float)windowWidth))) / 2.f;
+				fourVertsRatioChanged[0].x += offsetRange;
+				fourVertsRatioChanged[1].x -= offsetRange;
+				fourVertsRatioChanged[2].x -= offsetRange;
+				fourVertsRatioChanged[3].x += offsetRange;
+				for (int i = 0; i < 4; i++) {
+					fourVertsRatioChanged[i].y = fourVertsXYZ[i].y;
+				}
+			}
+		}
+		for (int i = 0; i < 4; i++) {
+			std::cout << i << "\n";
+			std::cout << fourVertsRatioChanged[i].x << "," << fourVertsRatioChanged[i].y << "\n";
+		}
 	}
 
 	void AQ_CompBoxButton2D::checkInButtonRange(double cursorX, double cursorY, bool normalized) {
@@ -22,28 +54,36 @@ namespace aquarius_engine {
 		windowWidth = tempWindWidth;
 		windowHeight = tempWindHeight;
 
-		if (!normalized)
-			normalizeCoordinate(&cursorX, &cursorY, windowWidth, windowHeight);
-
 		std::cout << "cursorX: " << cursorX << "\n";
 		std::cout << "cursorY: " << cursorY << "\n";
 		std::cout << "windowWidth: " << windowWidth << "\n";
 		std::cout << "windowHeight: " << windowHeight << "\n";
-		if (_keepAspectRatio) {
+		/*if (_keepAspectRatio) {
 			if (windowHeight > windowHeight) {
 				windowHeight *= (windowWidth / windowHeight);
 			} else {
 				windowWidth *= (windowHeight / windowWidth);
 			}
-		}
+		}*/
+
+		if (!normalized)
+			ratioChangeVerts(&cursorX, &cursorY, windowWidth, windowHeight);
+
+
 		std::cout << "cursorX after normalized: " << cursorX << "\n";
 		std::cout << "cursorY after normalized: " << cursorY << "\n";
-		std::cout << "fourVerts of button: " << "0: " << fourVertsXYZ[0] << ", 9: " << fourVertsXYZ[9]
+		/*std::cout << "fourVerts of button: " << "0: " << fourVertsXYZ[0] << ", 9: " << fourVertsXYZ[9]
 			<< ", 3: " << fourVertsXYZ[3] << ", 6: " << fourVertsXYZ[6] << ", 1: " << fourVertsXYZ[1] << ", 4: "
 			<< fourVertsXYZ[4] << ", 10: " << fourVertsXYZ[10] << ", 7: " << fourVertsXYZ[7] << "\n";
 		if (cursorX >= fourVertsXYZ[0] && cursorX >= fourVertsXYZ[9] && cursorX <= fourVertsXYZ[3]
 			&& cursorX <= fourVertsXYZ[6] && cursorY <= fourVertsXYZ[1] && cursorY <= fourVertsXYZ[4]
 			&& cursorY >= fourVertsXYZ[10] && cursorY >= fourVertsXYZ[7]) {
+			std::cout << "Cursor in button range\n";
+		} else {
+			std::cout << "Cursor not in button range\n";
+		}*/
+		if (cursorX >= fourVertsRatioChanged[0].x && cursorX >= fourVertsRatioChanged[3].x && cursorX <= fourVertsRatioChanged[1].x && cursorX <= fourVertsRatioChanged[2].x
+			&& cursorY <= fourVertsRatioChanged[0].y && cursorY <= fourVertsRatioChanged[1].y && cursorY >= fourVertsRatioChanged[2].y && cursorY >= fourVertsRatioChanged[3].y) {
 			std::cout << "Cursor in button range\n";
 		} else {
 			std::cout << "Cursor not in button range\n";
@@ -56,15 +96,51 @@ namespace aquarius_engine {
 
 	}
 
-	void AQ_CompBoxButton2D::setSensorRange(float topLeftVertXYZ[3], float topRightVertXYZ[3], float downRightVertXYZ[3], float downLeftVertXYZ[3]) {
+	void AQ_CompBoxButton2D::setSensorRange(glm::vec3 topLeftVertXYZ, glm::vec3 topRightVertXYZ, glm::vec3 downRightVertXYZ, glm::vec3 downLeftVertXYZ) {
 		if (!window) {
 			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
 		}
-		for (int i = 0; i < 3; i++) {
+		/*for (int i = 0; i < 3; i++) {
 			fourVertsXYZ[i] = topLeftVertXYZ[i];
 			fourVertsXYZ[3 + i] = topRightVertXYZ[i];
 			fourVertsXYZ[6 + i] = downRightVertXYZ[i];
 			fourVertsXYZ[9 + i] = downLeftVertXYZ[i];
+		}*/
+		fourVertsXYZ[0] = topLeftVertXYZ;
+		fourVertsXYZ[1] = topRightVertXYZ;
+		fourVertsXYZ[2] = downRightVertXYZ;
+		fourVertsXYZ[3] = downLeftVertXYZ;
+	}
+
+	void AQ_CompBoxButton2D::translateSensorRange(glm::vec3 translateVector) {
+		std::cout << "After translate: \n";
+		for (int i = 0; i < 4; i++) {
+			fourVertsXYZ[i].x += translateVector.x;
+			fourVertsXYZ[i].y += translateVector.y;
+			fourVertsXYZ[i].z += translateVector.z;
+			std::cout << fourVertsXYZ[i].x << "," << fourVertsXYZ[i].y << "\n";
+		}
+	}
+
+	void AQ_CompBoxButton2D::scaleSensorRange(glm::vec3 scaleVector) {
+		float xRange = fourVertsXYZ[1].x - fourVertsXYZ[0].x;
+		float yRange = fourVertsXYZ[0].y - fourVertsXYZ[3].y;
+		float xTransform = xRange - (xRange * scaleVector.x);
+		float yTransform = yRange - (yRange * scaleVector.y);
+
+		fourVertsXYZ[0].x += (xTransform / 2);
+		fourVertsXYZ[1].x -= (xTransform / 2);
+		fourVertsXYZ[2].x -= (xTransform / 2);
+		fourVertsXYZ[3].x += (xTransform / 2);
+
+		fourVertsXYZ[0].y -= (yTransform / 2);
+		fourVertsXYZ[1].y -= (yTransform / 2);
+		fourVertsXYZ[2].y += (yTransform / 2);
+		fourVertsXYZ[3].y += (yTransform / 2);
+
+		std::cout << "After Scale: \n";
+		for (int i = 0; i < 4; i++) {
+			std::cout << fourVertsXYZ[i].x << "," << fourVertsXYZ[i].y << "\n";
 		}
 	}
 
