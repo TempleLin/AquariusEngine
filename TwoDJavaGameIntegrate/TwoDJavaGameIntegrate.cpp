@@ -31,7 +31,7 @@ void glfwError(int id, const char* description);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void create2DBackgroundVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo);
-void create2DCubeVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo);
+void createChar_BtnVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo);
 
 AQ_OpenGL* aqOpenGL = new AQ_OpenGL();
 GLFWwindow* currentWindow;
@@ -82,11 +82,11 @@ int main()
     // -------- Create main character --------------
     AQ_GameObject* mainCharacter = gameObjectCtrl->createGameObject("MainCharacter");
 
-    unsigned int mainCharVAO, mainCharVBO, mainCharEBO;
-    create2DCubeVerts(&mainCharVAO, &mainCharVBO, &mainCharEBO);
+    unsigned int charAndBtnVAO, charAndBtnVBO, charAndBtnEBO;
+    createChar_BtnVerts(&charAndBtnVAO, &charAndBtnVBO, &charAndBtnEBO);
 
     AQ_CompSimpleBox2D* mainChar2D = gameObjectCtrl->
-        addComponent<AQ_CompSimpleBox2D>(mainCharacter, new AQ_CompSimpleBox2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "MainCharacter2D");
+        addComponent<AQ_CompSimpleBox2D>(mainCharacter, new AQ_CompSimpleBox2D(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "MainCharacter2D");
     mainChar2D->keepAspectRatio();
     mainCharacter->setCallbackFuncs(mainCharacter::start, mainCharacter::update, mainCharacter::stop);
     // ---------------------------------------------
@@ -94,7 +94,7 @@ int main()
     // -------- Create button ----------------------
     AQ_GameObject* firstBtn = gameObjectCtrl->createGameObject("FirstButton");
     CustomButtonComp* firstBtn2D = gameObjectCtrl->addComponent<CustomButtonComp>(firstBtn,
-        new CustomButtonComp(mainCharVAO, mainCharVBO, mainCharEBO, 6), "FirstButton2D");
+        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "FirstButton2D");
     AQ_CompInput* firstBtnInput = gameObjectCtrl->addComponent<AQ_CompInput>(firstBtn, new AQ_CompInput(currentWindow, new unsigned int[1]{ GLFW_KEY_A },
         new unsigned int[1]{ GLFW_PRESS }, firstButton::processInputs, inputSystemCtrl), "FirstButtonInput");
     firstBtn->setCallbackFuncs(firstButton::start, firstButton::update, firstButton::stop);
@@ -123,9 +123,12 @@ int main()
     gameObjectCtrl->deleteGameObject("MainCharacter");
     delete uniControls;
     delete scene;
-    glDeleteVertexArrays(1, &mainCharVAO);
-    glDeleteBuffers(1, &mainCharVBO);
-    glDeleteBuffers(1, &mainCharEBO);
+
+    unsigned int buffersToDel[4]{ charAndBtnVBO, charAndBtnEBO, backgroundVBO, backgroundEBO };
+    unsigned int vertexArraysToDel[2]{ charAndBtnVAO, backgroundVAO };
+
+    glDeleteVertexArrays(1, vertexArraysToDel);
+    glDeleteBuffers(4, buffersToDel);
 }
 
 void create2DBackgroundVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo) {
@@ -162,7 +165,7 @@ void create2DBackgroundVerts(unsigned int* vao, unsigned int* vbo, unsigned int*
     glEnableVertexAttribArray(2);
 }
 
-void create2DCubeVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo) {
+void createChar_BtnVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo) {
     float vertices[] = {
         // positions          // colors           // texture coords
          0.5f,  0.5f, -1.0f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   // top right
