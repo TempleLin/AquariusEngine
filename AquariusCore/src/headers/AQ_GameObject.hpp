@@ -22,11 +22,6 @@ namespace aquarius_engine {
 		glm::mat4 transform;
 		std::map<std::type_index, std::vector<std::pair<std::string, unsigned int>>> componentsKeys;
 		/*
-		* @These references are useful when calling start and update methods.
-		*/
-		AQ_Component** componentsRefs;
-		void** otherRefs;
-		/*
 		* @These get called from gameObjectCtrl for processing start and update of this gameObject.
 		*/
 		void (*startCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis);
@@ -34,11 +29,6 @@ namespace aquarius_engine {
 		void (*stopCallback)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis);
 	public:
 		AQ_GameObject(AQ_GameObjectCtrl* gameObjectCtrl, std::string name);
-
-		void setComponentsRefs(AQ_Component** compsRefs);
-		void setOtherRefs(void** otherRefs);
-		AQ_Component** getComponentsRefs();
-		void** getOtherRefs();
 
 		AQ_GameObjectCtrl* getGameObjectCtrl();
 

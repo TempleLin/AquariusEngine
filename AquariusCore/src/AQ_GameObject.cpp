@@ -4,8 +4,7 @@
 
 namespace aquarius_engine {
 	AQ_GameObject::AQ_GameObject(AQ_GameObjectCtrl* gameObjectCtrl, std::string name) : startCallback(nullptr), 
-		updateCallback(nullptr), stopCallback(nullptr), gameObjectCtrlPtr(gameObjectCtrl), name(name), componentsRefs(nullptr), otherRefs(nullptr),
-	transform(glm::mat4(1.f)) {
+		updateCallback(nullptr), stopCallback(nullptr), gameObjectCtrlPtr(gameObjectCtrl), name(name), transform(glm::mat4(1.f)) {
 
 	}
 
@@ -19,26 +18,6 @@ namespace aquarius_engine {
 
 	AQ_GameObjectCtrl* AQ_GameObject::getGameObjectCtrl() {
 		return gameObjectCtrlPtr;
-	}
-
-	void AQ_GameObject::setComponentsRefs(AQ_Component** compsRefs) {
-		if (this->componentsRefs)
-			delete[] componentsRefs;
-		this->componentsRefs = compsRefs;
-	}
-
-	void AQ_GameObject::setOtherRefs(void** otherRefs) {
-		if (this->otherRefs)
-			delete[] this->otherRefs;
-		this->otherRefs = otherRefs;
-	}
-
-	AQ_Component** AQ_GameObject::getComponentsRefs() {
-		return componentsRefs;
-	}
-
-	void** AQ_GameObject::getOtherRefs() {
-		return otherRefs;
 	}
 
 	glm::mat4 AQ_GameObject::getTransform() {

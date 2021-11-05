@@ -21,8 +21,7 @@ namespace mainCharacter {
 	void mainCharacterPreDrawCallback(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis);
 
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		gameObjectThis->setComponentsRefs(new AQ_Component * [1]{ gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "MainCharacter2D") });
-		AQ_CompSimpleBox2D* mainChar2DComp = static_cast<AQ_CompSimpleBox2D*>(gameObjectThis->getComponentsRefs()[0]);
+		AQ_CompSimpleBox2D* mainChar2DComp = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "MainCharacter2D");
 
 		int firstTextureIndex{ 0 };
 		mainChar2DComp->addTexture("assets/cleanCharacter.png", "CleanCharacter", true, true, &firstTextureIndex);
@@ -37,14 +36,13 @@ namespace mainCharacter {
 	}
 
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis){
-		static_cast<AQ_CompSimpleBox2D*>(gameObjectThis->getComponentsRefs()[0])->draw();
+		static AQ_CompSimpleBox2D* mainChar2DComp = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "MainCharacter2D");
+		mainChar2DComp->draw();
 	}
 
 	void stop(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		delete[] gameObjectThis->getComponentsRefs();
-		delete[] gameObjectThis->getOtherRefs();
-	}
 
+	}
 
 	void mainCharacterPreDrawCallback(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis) {
 		glUseProgram(shaderID);
