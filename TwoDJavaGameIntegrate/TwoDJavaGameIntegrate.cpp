@@ -26,7 +26,6 @@ using namespace stbi_image_wrap;
 
 void glfwError(int id, const char* description);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void create2DCubeVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo);
 
@@ -41,8 +40,6 @@ int main()
     ///*
     //* @Note: Shader can only be created after glfw init().
     //*/
-    std::cout << "test" << std::endl;
-
     aqOpenGL->setOpenGL()
         .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE, &glfwError, false)
         .createWindow(SCR_WIDTH, SCR_HEIGHT, "TwoDJavaIntegrate", NULL, NULL, true)
@@ -52,8 +49,6 @@ int main()
         .initializeGLAD()
         .finishSettings();
     currentWindow = aqOpenGL->getBoundWindow();
-
-    std::cout << "test" << std::endl;
 
     AQ_Scene* scene = new AQ_Scene(currentWindow);
     AQ_UniControls* uniControls = new AQ_UniControls(scene);
@@ -78,7 +73,7 @@ int main()
     mainChar2D->keepAspectRatio();
     // ---------------------------------------------
     mainCharacter->setCallbackFuncs(mainCharacter::start, mainCharacter::update, mainCharacter::stop);
-    std::cout << "test" << std::endl;
+
     // -------- Create button ----------------------
     AQ_GameObject* firstBtn = gameObjectCtrl->createGameObject("FirstButton");
     AQ_CompBoxButton2D* firstBtn2D = gameObjectCtrl->addComponent<AQ_CompBoxButton2D>(firstBtn,
@@ -88,8 +83,6 @@ int main()
     // ---------------------------------------------
     firstBtn->setCallbackFuncs(firstButton::start, firstButton::update, firstButton::stop);
 
-
-    std::cout << "test" << std::endl;
 
     gameObjectCtrl->startGameObjects();
     // @The shader object gets back from gameObject created in start().
