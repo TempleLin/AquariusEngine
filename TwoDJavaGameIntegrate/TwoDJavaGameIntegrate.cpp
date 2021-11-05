@@ -18,7 +18,7 @@
 #include "headers/TwoDJavaGameIntegrate.hpp"
 #include "headers/mainCharacterCallbacks.hpp"
 #include "headers/firstButtonCallbacks.hpp"
-#include "headers/glConfigCallbacks.h"
+#include "headers/glConfigCallbacks.hpp"
 
 
 using namespace aquarius_engine;
@@ -47,7 +47,6 @@ int main()
         .ver_Profile(3, 3, GLFW_OPENGL_CORE_PROFILE, &glfwError, false)
         .createWindow(SCR_WIDTH, SCR_HEIGHT, "TwoDJavaIntegrate", NULL, NULL, true)
         .setFrameBufferSizeCallback(aqOpenGL->getBoundWindow(), framebuffer_size_callback)
-        .setCursorPosCallback(aqOpenGL->getBoundWindow(), MousePosCallback::mouse_callback)
         .setScrollCallback(aqOpenGL->getBoundWindow(), scroll_callback)
         .setCurrentThreadWindow(aqOpenGL->getBoundWindow())
         .initializeGLAD()

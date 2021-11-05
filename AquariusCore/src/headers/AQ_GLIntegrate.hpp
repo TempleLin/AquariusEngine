@@ -30,6 +30,7 @@ namespace aquarius_engine {
 			Settings& initializeGLAD();
 
 			Settings& setFrameBufferSizeCallback(GLFWwindow* window, void(*callbackFunc)(GLFWwindow*, int, int));
+			Settings& setMouseButtonCallback(GLFWwindow* window, void(*callbackFunc)(GLFWwindow* window, int button, int action, int modes));
 			Settings& setCursorPosCallback(GLFWwindow* window, void(*callbackFunc)(GLFWwindow*, double, double));
 			Settings& setScrollCallback(GLFWwindow* window, void(*callbackFunc)(GLFWwindow*, double, double));
 			Settings& setInputMode(GLFWwindow* window, int mode, int value);

@@ -118,6 +118,11 @@ namespace aquarius_engine {
 		return *this;
 	}
 
+	AQ_OpenGL::Settings& AQ_OpenGL::Settings::setMouseButtonCallback(GLFWwindow* window, void(*callbackFunc)(GLFWwindow* window, int button, int action, int modes)) {
+		glfwSetMouseButtonCallback(window, callbackFunc);
+		return *this;
+	}
+
 	AQ_OpenGL::Settings& AQ_OpenGL::Settings::setScrollCallback
 	(GLFWwindow* window, void(*callbackFunc)(GLFWwindow*, double, double)) {
 		glfwSetScrollCallback(window, callbackFunc);

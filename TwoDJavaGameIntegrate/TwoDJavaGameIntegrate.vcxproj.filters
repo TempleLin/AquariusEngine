@@ -49,7 +49,7 @@
     <ClInclude Include="headers\TwoDJavaGameIntegrate.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\glConfigCallbacks.h">
+    <ClInclude Include="headers\glConfigCallbacks.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\firstButtonCallbacks.hpp">

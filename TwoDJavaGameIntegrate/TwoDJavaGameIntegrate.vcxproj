@@ -163,7 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\firstButtonCallbacks.hpp" />
-    <ClInclude Include="headers\glConfigCallbacks.h" />
+    <ClInclude Include="headers\glConfigCallbacks.hpp" />
     <ClInclude Include="headers\mainCharacterCallbacks.hpp" />
     <ClInclude Include="headers\TwoDJavaGameIntegrate.hpp" />
   </ItemGroup>

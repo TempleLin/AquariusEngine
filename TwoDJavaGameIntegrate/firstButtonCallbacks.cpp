@@ -2,7 +2,7 @@
 #include <headers/AQ_CompBoxButton2D.hpp>
 #include <headers/AQ_GlobalCtrl.hpp>
 #include <glm/glm.hpp>
-#include "headers/glConfigCallbacks.h"
+#include "headers/glConfigCallbacks.hpp"
 
 namespace firstButton {
 	void firstButtonPredrawCallback(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis);
@@ -39,9 +39,13 @@ namespace firstButton {
 	void processInputs(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 		unsigned int* keys, unsigned int* actions) {
 		AQ_CompBoxButton2D* firstButton = gameObjectThis->getGameObjectCtrl()->getComponent<AQ_CompBoxButton2D>(gameObjectThis, "FirstButton2D");
-		if (glfwGetKey(window, keys[0]) == actions[0]) {
-			std::cout << "Key pressed\n";
-			firstButton->clickCheck(MousePosCallback::getXPos(), MousePosCallback::getYPos(), false);
+		//firstButton->hoverCheck(mouseXPos, mouseYPos, false);
+
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+			std::cout << "Mouse pressed\n";
+			double mouseXPos, mouseYPos;
+			glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
+			firstButton->clickCheck(mouseXPos, mouseYPos, false);
 		}
 	}
 
