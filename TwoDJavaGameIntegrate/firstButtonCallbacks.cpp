@@ -41,11 +41,21 @@ namespace firstButton {
 		AQ_CompBoxButton2D* firstButton = gameObjectThis->getGameObjectCtrl()->getComponent<AQ_CompBoxButton2D>(gameObjectThis, "FirstButton2D");
 		//firstButton->hoverCheck(mouseXPos, mouseYPos, false);
 
-		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-			std::cout << "Mouse pressed\n";
-			double mouseXPos, mouseYPos;
-			glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
-			firstButton->clickCheck(mouseXPos, mouseYPos, false);
+		static bool mouseLeftOnPress{ false };
+
+		switch (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
+		case GLFW_PRESS:
+			if (!mouseLeftOnPress) {
+				std::cout << "Mouse pressed\n";
+				double mouseXPos, mouseYPos;
+				glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
+				firstButton->clickCheck(mouseXPos, mouseYPos, false);
+				mouseLeftOnPress = true;
+			}
+			break;
+		case GLFW_RELEASE:
+			mouseLeftOnPress = false;
+			break;
 		}
 	}
 
