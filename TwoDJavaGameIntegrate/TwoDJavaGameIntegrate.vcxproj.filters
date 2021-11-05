@@ -30,6 +30,9 @@
     <ClCompile Include="firstButtonCallbacks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CustomButtonComp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\cleanCharacter.jpg">
@@ -53,6 +56,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\firstButtonCallbacks.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\CustomButtonComp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

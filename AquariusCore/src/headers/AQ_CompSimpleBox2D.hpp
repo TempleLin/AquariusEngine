@@ -3,6 +3,7 @@
 #include "stbi_image_wrapper.hpp"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 #include <vector>
 #include <string>
 #include <iostream>
@@ -26,6 +27,7 @@ namespace aquarius_engine {
 		std::vector<TextureNamePair> textures;
 		void(*preDrawCallback)(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis);
 		bool _keepAspectRatio;
+		glm::mat4 offsetMatrix;
 		GLFWwindow* window;
 	public:
 
@@ -41,6 +43,7 @@ namespace aquarius_engine {
 		void bindTexture(int index);
 		void setPreDrawCallback(void(*callback)(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis));
 		void keepAspectRatio();
+		glm::mat4 getOffsetMatrix();
 		void draw();
 		~AQ_CompSimpleBox2D();
 	};

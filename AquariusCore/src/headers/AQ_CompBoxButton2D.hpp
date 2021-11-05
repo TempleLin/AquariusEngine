@@ -16,7 +16,7 @@ namespace aquarius_engine {
 		void (*onHoverCallback)(AQ_GameObject* gameObjectThis, AQ_GameObjectCtrl* gameObjectCtrl);
 		void (*onClickCallback)(AQ_GameObject* gameObjectThis, AQ_GameObjectCtrl* gameObjectCtrl);
 		void ratioChangeVerts(double* cursorX, double* cursorY, int windowWidth, int windowHeight);
-		void checkInButtonRange(double cursorX, double cursorY, bool normalized);
+		bool checkInButtonRange(double cursorX, double cursorY, bool normalized);
 	public:
 		AQ_CompBoxButton2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int vertsCount);
 		void setSensorRange(glm::vec3 topLeftVertXYZ, glm::vec3 topRightVertXYZ, glm::vec3 downRightVertXYZ, glm::vec3 downLeftVertXYZ);
@@ -24,7 +24,7 @@ namespace aquarius_engine {
 		void scaleSensorRange(glm::vec3 scaleVector);
 		void setListenHover(void (*onHoverCallback)(AQ_GameObject* gameObjectThis, AQ_GameObjectCtrl* gameObjectCtrl));
 		void setListenClick(void (*onClickCallback)(AQ_GameObject* gameObjectThis, AQ_GameObjectCtrl* gameObjectCtrl));
-		void hoverCheck(double cursorX, double cursorY, bool normalized);
-		void clickCheck(double cursorX, double cursorY, bool normalized);
+		virtual bool hoverCheck(double cursorX, double cursorY, bool normalized);
+		virtual bool clickCheck(double cursorX, double cursorY, bool normalized);
 	};
 }

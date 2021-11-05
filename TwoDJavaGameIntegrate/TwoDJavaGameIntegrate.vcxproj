@@ -149,6 +149,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="glConfigCallbacks.cpp" />
     <ClCompile Include="firstButtonCallbacks.cpp" />
+    <ClCompile Include="CustomButtonComp.cpp" />
     <ClCompile Include="mainCharacterCallbacks.cpp" />
     <ClCompile Include="TwoDJavaGameIntegrate.cpp" />
   </ItemGroup>
@@ -162,6 +163,7 @@
     <None Include="assets\shaders\two_d_tex_vs.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\CustomButtonComp.hpp" />
     <ClInclude Include="headers\firstButtonCallbacks.hpp" />
     <ClInclude Include="headers\glConfigCallbacks.hpp" />
     <ClInclude Include="headers\mainCharacterCallbacks.hpp" />

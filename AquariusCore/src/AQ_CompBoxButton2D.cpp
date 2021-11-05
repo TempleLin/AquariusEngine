@@ -5,13 +5,6 @@
 
 namespace aquarius_engine {
 	void AQ_CompBoxButton2D::ratioChangeVerts(double* cursorX, double* cursorY, int windowWidth, int windowHeight) {
-		/*std::cout << "-------------------\n";
-		std::cout << *cursorX << "\n";
-		std::cout << windowWidth << "\n";
-		std::cout << windowHeight << "\n";
-		std::cout << (*cursorX / windowWidth * 2) << "\n";
-		std::cout << *cursorX / windowWidth << "\n";
-		std::cout << "-------------------\n";*/
 		*cursorX = (*cursorX / windowWidth * 2) - 1;
 		*cursorY = - ((*cursorY / windowHeight * 2) - 1);
 		for (int i = 0; i < 4; i++) {
@@ -41,53 +34,40 @@ namespace aquarius_engine {
 				}
 			}
 		}
-		for (int i = 0; i < 4; i++) {
-			std::cout << i << "\n";
-			std::cout << fourVertsRatioChanged[i].x << "," << fourVertsRatioChanged[i].y << "\n";
-		}
+		//for (int i = 0; i < 4; i++) {
+		//	std::cout << i << "\n";
+		//	std::cout << fourVertsRatioChanged[i].x << "," << fourVertsRatioChanged[i].y << "\n";
+		//}
 	}
 
-	void AQ_CompBoxButton2D::checkInButtonRange(double cursorX, double cursorY, bool normalized) {
+	bool AQ_CompBoxButton2D::checkInButtonRange(double cursorX, double cursorY, bool normalized) {
 		double windowWidth{}, windowHeight{};
 		int tempWindWidth{ (int)windowWidth }, tempWindHeight{ (int)windowHeight };
 		glfwGetWindowSize(window, &tempWindWidth, &tempWindHeight);
 		windowWidth = tempWindWidth;
 		windowHeight = tempWindHeight;
 
-		std::cout << "cursorX: " << cursorX << "\n";
-		std::cout << "cursorY: " << cursorY << "\n";
-		std::cout << "windowWidth: " << windowWidth << "\n";
-		std::cout << "windowHeight: " << windowHeight << "\n";
-		/*if (_keepAspectRatio) {
-			if (windowHeight > windowHeight) {
-				windowHeight *= (windowWidth / windowHeight);
-			} else {
-				windowWidth *= (windowHeight / windowWidth);
-			}
-		}*/
+		//std::cout << "cursorX: " << cursorX << "\n";
+		//std::cout << "cursorY: " << cursorY << "\n";
+		//std::cout << "windowWidth: " << windowWidth << "\n";
+		//std::cout << "windowHeight: " << windowHeight << "\n";
 
 		if (!normalized)
 			ratioChangeVerts(&cursorX, &cursorY, windowWidth, windowHeight);
 
 
-		std::cout << "cursorX after normalized: " << cursorX << "\n";
-		std::cout << "cursorY after normalized: " << cursorY << "\n";
-		/*std::cout << "fourVerts of button: " << "0: " << fourVertsXYZ[0] << ", 9: " << fourVertsXYZ[9]
-			<< ", 3: " << fourVertsXYZ[3] << ", 6: " << fourVertsXYZ[6] << ", 1: " << fourVertsXYZ[1] << ", 4: "
-			<< fourVertsXYZ[4] << ", 10: " << fourVertsXYZ[10] << ", 7: " << fourVertsXYZ[7] << "\n";
-		if (cursorX >= fourVertsXYZ[0] && cursorX >= fourVertsXYZ[9] && cursorX <= fourVertsXYZ[3]
-			&& cursorX <= fourVertsXYZ[6] && cursorY <= fourVertsXYZ[1] && cursorY <= fourVertsXYZ[4]
-			&& cursorY >= fourVertsXYZ[10] && cursorY >= fourVertsXYZ[7]) {
-			std::cout << "Cursor in button range\n";
-		} else {
-			std::cout << "Cursor not in button range\n";
-		}*/
+		//std::cout << "cursorX after normalized: " << cursorX << "\n";
+		//std::cout << "cursorY after normalized: " << cursorY << "\n";
+
 		if (cursorX >= fourVertsRatioChanged[0].x && cursorX >= fourVertsRatioChanged[3].x && cursorX <= fourVertsRatioChanged[1].x && cursorX <= fourVertsRatioChanged[2].x
 			&& cursorY <= fourVertsRatioChanged[0].y && cursorY <= fourVertsRatioChanged[1].y && cursorY >= fourVertsRatioChanged[2].y && cursorY >= fourVertsRatioChanged[3].y) {
-			std::cout << "Cursor in button range\n";
+			//std::cout << "Cursor in button range\n";
+			return true;
 		} else {
-			std::cout << "Cursor not in button range\n";
+			//std::cout << "Cursor not in button range\n";
+			return false;
 		}
+		
 	}
 
 	AQ_CompBoxButton2D::AQ_CompBoxButton2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int vertsCount)
@@ -113,12 +93,12 @@ namespace aquarius_engine {
 	}
 
 	void AQ_CompBoxButton2D::translateSensorRange(glm::vec3 translateVector) {
-		std::cout << "After translate: \n";
+		//std::cout << "After translate: \n";
 		for (int i = 0; i < 4; i++) {
 			fourVertsXYZ[i].x += translateVector.x;
 			fourVertsXYZ[i].y += translateVector.y;
 			fourVertsXYZ[i].z += translateVector.z;
-			std::cout << fourVertsXYZ[i].x << "," << fourVertsXYZ[i].y << "\n";
+			//std::cout << fourVertsXYZ[i].x << "," << fourVertsXYZ[i].y << "\n";
 		}
 	}
 
@@ -138,10 +118,10 @@ namespace aquarius_engine {
 		fourVertsXYZ[2].y += (yTransform / 2);
 		fourVertsXYZ[3].y += (yTransform / 2);
 
-		std::cout << "After Scale: \n";
-		for (int i = 0; i < 4; i++) {
-			std::cout << fourVertsXYZ[i].x << "," << fourVertsXYZ[i].y << "\n";
-		}
+		//std::cout << "After Scale: \n";
+		//for (int i = 0; i < 4; i++) {
+		//	std::cout << fourVertsXYZ[i].x << "," << fourVertsXYZ[i].y << "\n";
+		//}
 	}
 
 	void AQ_CompBoxButton2D::setListenHover(void (*onHoverCallback)(AQ_GameObject* gameObjectThis, AQ_GameObjectCtrl* gameObjectCtrl)) {
@@ -152,11 +132,11 @@ namespace aquarius_engine {
 		this->onClickCallback = onClickCallback;
 	}
 
-	void AQ_CompBoxButton2D::hoverCheck(double cursorX, double cursorY, bool normalized) {
-		checkInButtonRange(cursorX, cursorY, normalized);
+	bool AQ_CompBoxButton2D::hoverCheck(double cursorX, double cursorY, bool normalized) {
+		return checkInButtonRange(cursorX, cursorY, normalized);
 	}
 
-	void AQ_CompBoxButton2D::clickCheck(double cursorX, double cursorY, bool normalized) {
-		checkInButtonRange(cursorX, cursorY, normalized);
+	bool AQ_CompBoxButton2D::clickCheck(double cursorX, double cursorY, bool normalized) {
+		return checkInButtonRange(cursorX, cursorY, normalized);
 	}
 }

@@ -4,7 +4,8 @@
 
 namespace aquarius_engine {
 	AQ_CompSimpleBox2D::AQ_CompSimpleBox2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount)
-		: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), shaderID(0), window(nullptr), _keepAspectRatio(false) {
+		: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), shaderID(0), window(nullptr), _keepAspectRatio(false),
+		offsetMatrix(glm::mat4(1.f)) {
 
 	}
 
@@ -86,6 +87,10 @@ namespace aquarius_engine {
 
 	void AQ_CompSimpleBox2D::keepAspectRatio() {
 		_keepAspectRatio = true;
+	}
+
+	glm::mat4 AQ_CompSimpleBox2D::getOffsetMatrix() {
+		return offsetMatrix;
 	}
 
 	void AQ_CompSimpleBox2D::draw() {

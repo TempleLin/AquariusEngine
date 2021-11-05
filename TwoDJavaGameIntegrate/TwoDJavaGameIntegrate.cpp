@@ -19,6 +19,7 @@
 #include "headers/mainCharacterCallbacks.hpp"
 #include "headers/firstButtonCallbacks.hpp"
 #include "headers/glConfigCallbacks.hpp"
+#include "headers/CustomButtonComp.hpp"
 
 
 using namespace aquarius_engine;
@@ -76,8 +77,8 @@ int main()
 
     // -------- Create button ----------------------
     AQ_GameObject* firstBtn = gameObjectCtrl->createGameObject("FirstButton");
-    AQ_CompBoxButton2D* firstBtn2D = gameObjectCtrl->addComponent<AQ_CompBoxButton2D>(firstBtn,
-        new AQ_CompBoxButton2D(mainCharVAO, mainCharVBO, mainCharEBO, 6), "FirstButton2D");
+    CustomButtonComp* firstBtn2D = gameObjectCtrl->addComponent<CustomButtonComp>(firstBtn,
+        new CustomButtonComp(mainCharVAO, mainCharVBO, mainCharEBO, 6), "FirstButton2D");
     AQ_CompInput* firstBtnInput = gameObjectCtrl->addComponent<AQ_CompInput>(firstBtn, new AQ_CompInput(currentWindow, new unsigned int[1]{ GLFW_KEY_A },
         new unsigned int[1]{ GLFW_PRESS }, firstButton::processInputs, inputSystemCtrl), "FirstButtonInput");
     // ---------------------------------------------

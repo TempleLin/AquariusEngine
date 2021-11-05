@@ -3,12 +3,13 @@
 #include <headers/AQ_GlobalCtrl.hpp>
 #include <glm/glm.hpp>
 #include "headers/glConfigCallbacks.hpp"
+#include "headers/CustomButtonComp.hpp"
 
 namespace firstButton {
 	void firstButtonPredrawCallback(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis);
 
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		AQ_CompBoxButton2D* firstBtn2D = gameObjectCtrl->getComponent<AQ_CompBoxButton2D>(gameObjectThis, "FirstButton2D");
+		CustomButtonComp* firstBtn2D = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "FirstButton2D");
 		AQ_GameObject* mainCharacterGameObject{};
 		mainCharacterGameObject = gameObjectCtrl->getGameObject("MainCharacter");
 
@@ -29,7 +30,7 @@ namespace firstButton {
 		firstBtn2D->setPreDrawCallback(firstButtonPredrawCallback);
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		static AQ_CompBoxButton2D* firstBtn2D = gameObjectCtrl->getComponent<AQ_CompBoxButton2D>(gameObjectThis, "FirstButton2D");
+		static CustomButtonComp* firstBtn2D = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "FirstButton2D");
 		firstBtn2D->draw();
 	}
 	void stop(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
@@ -38,17 +39,19 @@ namespace firstButton {
 
 	void processInputs(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 		unsigned int* keys, unsigned int* actions) {
-		AQ_CompBoxButton2D* firstButton = gameObjectThis->getGameObjectCtrl()->getComponent<AQ_CompBoxButton2D>(gameObjectThis, "FirstButton2D");
+		CustomButtonComp* firstButton = gameObjectThis->getGameObjectCtrl()->getComponent<CustomButtonComp>(gameObjectThis, "FirstButton2D");
 		//firstButton->hoverCheck(mouseXPos, mouseYPos, false);
 
 		static bool mouseLeftOnPress{ false };
+
+		double mouseXPos, mouseYPos;
+		glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
+		firstButton->hoverCheck(mouseXPos, mouseYPos, false);
 
 		switch (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
 		case GLFW_PRESS:
 			if (!mouseLeftOnPress) {
 				std::cout << "Mouse pressed\n";
-				double mouseXPos, mouseYPos;
-				glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
 				firstButton->clickCheck(mouseXPos, mouseYPos, false);
 				mouseLeftOnPress = true;
 			}
@@ -69,9 +72,6 @@ namespace firstButton {
 		glUniform1f(uniforms[1], (float)windowHeight);
 		glUniform1i(uniforms[2], GLFW_TRUE);
 		simpleBox2DThis->bindTexture(0);
-		glm::mat4 offsetMatrix(1.f);
-		offsetMatrix = glm::translate(offsetMatrix, glm::vec3(.5f, 0.f, 0.f));
-		offsetMatrix = glm::scale(offsetMatrix, glm::vec3(1.f, .4f, 1.f));
-		glUniformMatrix4fv(uniforms[3], 1, false, &offsetMatrix[0][0]);
+		glUniformMatrix4fv(uniforms[3], 1, false, &(simpleBox2DThis->getOffsetMatrix())[0][0]);
 	}
 }
