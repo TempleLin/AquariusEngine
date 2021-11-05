@@ -33,6 +33,12 @@
     <ClCompile Include="CustomButtonComp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="backgroundCallbacks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PassingValues.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\cleanCharacter.jpg">
@@ -59,6 +65,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\CustomButtonComp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\backgroundCallbacks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\PassingValues.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

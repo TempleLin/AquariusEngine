@@ -4,14 +4,15 @@
 #include <glm/glm.hpp>
 #include "headers/glConfigCallbacks.hpp"
 #include "headers/CustomButtonComp.hpp"
+#include "headers/PassingValues.hpp"
 
 namespace firstButton {
 	void firstButtonPredrawCallback(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis);
 
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		CustomButtonComp* firstBtn2D = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "FirstButton2D");
-		AQ_GameObject* mainCharacterGameObject{};
-		mainCharacterGameObject = gameObjectCtrl->getGameObject("MainCharacter");
+		AQ_GameObject* backgroundGameObject{};
+		backgroundGameObject = gameObjectCtrl->getGameObject("Background");
 
 		int firstButtonTexIndex{};
 		firstBtn2D->addTexture("assets/tempButton.png", "FirstButton2D", true, true, &firstButtonTexIndex);
@@ -24,7 +25,7 @@ namespace firstButton {
 		firstBtn2D->translateSensorRange(glm::vec3(.5f, 0.f, 0.f));
 		firstBtn2D->scaleSensorRange(glm::vec3(1.f, .4f, 1.f));
 		firstBtn2D->activateTexture(GL_TEXTURE0);
-		firstBtn2D->setShaderID((static_cast<AQ_Shader*>(mainCharacterGameObject->getOtherRefs()[0]))->ID);
+		firstBtn2D->setShaderID(shaders.at(0).ID);
 		firstBtn2D->setUniforms(new const char* [4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);
 		firstBtn2D->keepAspectRatio();
 		firstBtn2D->setPreDrawCallback(firstButtonPredrawCallback);
