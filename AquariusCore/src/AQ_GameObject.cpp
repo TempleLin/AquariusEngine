@@ -23,6 +23,9 @@ namespace aquarius_engine {
 	glm::mat4 AQ_GameObject::getTransform() {
 		return this->transform;
 	}
+	void AQ_GameObject::transformReset() {
+		this->transform = glm::mat4(1.f);
+	}
 	void AQ_GameObject::transformTranslate(glm::vec3 translateVector) {
 		this->transform = glm::translate(this->transform, translateVector);
 	}

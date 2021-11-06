@@ -37,6 +37,7 @@ namespace aquarius_engine {
 			void (*stop)(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis));
 
 		virtual glm::mat4 getTransform();
+		virtual void transformReset();
 		virtual void transformRotate(glm::vec3 rotateVector, float angle);
 		virtual void transformTranslate(glm::vec3 translateVector);
 		virtual void transformScale(glm::vec3 scaleVector);
