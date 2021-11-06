@@ -7,6 +7,7 @@ namespace aquarius_engine {
 	AQ_GlobalCtrl::AQ_GlobalCtrl() {
 		timeCtrl = new TimeCtrl();
 		inputSystemCtrl = new AQ_GlobalCtrl::InputSystemCtrl(timeCtrl);
+		audioSystemCtrl = new AQ_GlobalCtrl::AudioSystemCtrl();
 	}
 
 	AQ_GlobalCtrl::TimeCtrl* AQ_GlobalCtrl::getTimeCtrl() {
@@ -15,6 +16,10 @@ namespace aquarius_engine {
 
 	AQ_GlobalCtrl::InputSystemCtrl* AQ_GlobalCtrl::getInputSystemCtrl() {
 		return inputSystemCtrl;
+	}
+
+	AQ_GlobalCtrl::AudioSystemCtrl* AQ_GlobalCtrl::getAudioSystemCtrl() {
+		return audioSystemCtrl;
 	}
 
 	//AQ_GlobalCtrl::LightsCtrl::LightsCtrl(AQ_Scene::Globals::GlobalLights* sceneGlobalLights) {
@@ -80,5 +85,21 @@ namespace aquarius_engine {
 	AQ_GlobalCtrl::~AQ_GlobalCtrl() {
 		delete timeCtrl;
 		delete inputSystemCtrl;
+	}
+
+	AQ_GlobalCtrl::AudioSystemCtrl::AudioSystemCtrl() {
+		this->engine = irrklang::createIrrKlangDevice();
+	}
+
+	void AQ_GlobalCtrl::AudioSystemCtrl::play2D(std::string path, bool looped) {
+		engine->play2D(&path[0], looped);
+	}
+
+	void AQ_GlobalCtrl::AudioSystemCtrl::stopAllSounds() {
+		engine->stopAllSounds();
+	}
+
+	AQ_GlobalCtrl::AudioSystemCtrl::~AudioSystemCtrl() {
+		this->engine->drop(); //Delete sound engine.
 	}
 }

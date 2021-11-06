@@ -65,6 +65,7 @@ int main()
     AQ_GlobalCtrl* globalCtrl = uniControls->getGlobalCtrl();
     AQ_GlobalCtrl::InputSystemCtrl* inputSystemCtrl = globalCtrl->getInputSystemCtrl();
     AQ_GlobalCtrl::TimeCtrl* timeCtrl = globalCtrl->getTimeCtrl();
+    AQ_GlobalCtrl::AudioSystemCtrl* audioSystemCtrl = globalCtrl->getAudioSystemCtrl();
 
 
     shaders.push_back(AQ_Shader("assets/shaders/two_d_tex_vs.glsl", "assets/shaders/two_d_tex_fs.glsl"));
@@ -104,7 +105,7 @@ int main()
     gameObjectCtrl->startGameObjects();
     // @The shader object gets back from gameObject created in start().
 
-
+    audioSystemCtrl->play2D("assets/Sounds/Musics/Testing/getout.ogg", true);
     while(!glfwWindowShouldClose(currentWindow)) {
         glfwPollEvents();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -116,6 +117,7 @@ int main()
 
         glfwSwapBuffers(currentWindow);
     }
+    audioSystemCtrl->stopAllSounds();
 
     glfwTerminate();
     delete twoDShader;

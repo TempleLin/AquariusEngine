@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <headers/AQ_GameObjectCtrl.hpp>
 #include <headers/AQ_GameObject.hpp>
+#include <headers/AQ_GlobalCtrl.hpp>
 
 namespace aquarius_engine {
 	CustomButtonComp::CustomButtonComp(unsigned int vao, unsigned int vbo, unsigned int ebo, int vertsCount) : 
@@ -30,8 +31,12 @@ namespace aquarius_engine {
 	// @Override
 	bool CustomButtonComp::clickCheck(double cursorX, double cursorY, bool normalized) {
 		bool superCheck = AQ_CompBoxButton2D::clickCheck(cursorX, cursorY, normalized);
-		if (superCheck)
+		if (superCheck) {
 			std::cout << "On click button\n";
+			static AQ_GlobalCtrl::AudioSystemCtrl* audioSystemCtrl = getGameObject()->getGameObjectCtrl()->getUniControls()->getGlobalCtrl()
+				->getAudioSystemCtrl();
+			audioSystemCtrl->play2D("assets/Sounds/SoundEffects/Testing/explosion.wav", false);
+		}
 		return superCheck;
 	}
 }

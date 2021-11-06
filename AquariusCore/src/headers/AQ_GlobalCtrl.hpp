@@ -1,7 +1,9 @@
 #pragma once
 #include "AQ_Scene.hpp"
 #include <vector>
+#include <string>
 #include <glm/glm.hpp>
+#include <irrKlang/irrKlang.h>
 
 namespace aquarius_engine {
 	class AQ_CompInput;
@@ -11,14 +13,17 @@ namespace aquarius_engine {
 		class TimeCtrl;
 		//class LightsCtrl;
 		class InputSystemCtrl;
+		class AudioSystemCtrl;
 	private:
 		TimeCtrl* timeCtrl;
 		InputSystemCtrl* inputSystemCtrl;
+		AudioSystemCtrl* audioSystemCtrl;
 		//LightsCtrl* lightsCtrl;
 		AQ_GlobalCtrl();
 	public:
 		TimeCtrl* getTimeCtrl();
 		InputSystemCtrl* getInputSystemCtrl();
+		AudioSystemCtrl* getAudioSystemCtrl();
 		class TimeCtrl {
 		private:
 			float deltaTime;
@@ -51,6 +56,16 @@ namespace aquarius_engine {
 		public:
 			InputSystemCtrl(AQ_GlobalCtrl::TimeCtrl* timeCtrlReference);
 			void processInputs();
+		};
+
+		class AudioSystemCtrl {
+		private:
+			irrklang::ISoundEngine* engine;
+		public:
+			AudioSystemCtrl();
+			void play2D(std::string path, bool looped);
+			void stopAllSounds();
+			~AudioSystemCtrl();
 		};
 		~AQ_GlobalCtrl();
 	};

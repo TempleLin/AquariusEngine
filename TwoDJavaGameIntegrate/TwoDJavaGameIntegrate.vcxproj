@@ -81,7 +81,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)\AquariusCore\src;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\AquariusCore\src;$(SolutionDir)\external\includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\x64\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
