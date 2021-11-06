@@ -85,6 +85,7 @@ namespace aquarius_engine {
 	AQ_GlobalCtrl::~AQ_GlobalCtrl() {
 		delete timeCtrl;
 		delete inputSystemCtrl;
+		delete audioSystemCtrl;
 	}
 
 	AQ_GlobalCtrl::AudioSystemCtrl::AudioSystemCtrl() {
