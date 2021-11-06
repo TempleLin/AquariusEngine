@@ -85,6 +85,14 @@ namespace aquarius_engine {
 		return uniforms;
 	}
 
+	void AQ_CompSimpleBox2D::translateOffsetMatrix(glm::vec3 offset) {
+		offsetMatrix = glm::translate(offsetMatrix, offset);
+	}
+
+	void AQ_CompSimpleBox2D::resetOffsetMatrix() {
+		offsetMatrix = glm::mat4(1.f);
+	}
+
 	void AQ_CompSimpleBox2D::draw() {
 		preDrawCallback(shaderID, this);
 		if (!window)
@@ -92,10 +100,10 @@ namespace aquarius_engine {
 
 		int windWidth, windHeight;
 		glfwGetWindowSize(window, &windWidth, &windHeight);
+		glUniform1f(uniforms[0], (float)windWidth);
+		glUniform1f(uniforms[1], (float)windHeight);
 		glUniform1i(uniforms[2], _keepAspectRatio? GLFW_TRUE : GLFW_FALSE);
-		glUniform1i(uniforms[0], windWidth);
-		glUniform1i(uniforms[1], windHeight);
-		glUniformMatrix4fv(uniforms[3], 1, false, &offsetMatrix[0][0]);
+		//glUniformMatrix4fv(uniforms[3], 1, false, &offsetMatrix[0][0]);
 		bindTexture(0);
 		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);

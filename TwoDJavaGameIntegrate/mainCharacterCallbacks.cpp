@@ -50,9 +50,9 @@ namespace mainCharacter {
 			->getScene()->getCurrentWindow();
 		int windowWidth, windowHeight;
 		glfwGetWindowSize(currentWindow, &windowWidth, &windowHeight);
-		glUniform1f(simpleBox2DThis->getUniforms()[0], (float)windowWidth);
+		/*glUniform1f(simpleBox2DThis->getUniforms()[0], (float)windowWidth);
 		glUniform1f(simpleBox2DThis->getUniforms()[1], (float)windowHeight);
-		glUniform1i(simpleBox2DThis->getUniforms()[2], GLFW_TRUE);
+		glUniform1i(simpleBox2DThis->getUniforms()[2], GLFW_TRUE);*/
 		simpleBox2DThis->bindTexture(0);
 		glm::mat4 offsetMatrix(1.f);
 		offsetMatrix = glm::translate(offsetMatrix, glm::vec3(-.5f, 0.f, 0.f));

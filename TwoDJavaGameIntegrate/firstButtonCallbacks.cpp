@@ -69,9 +69,9 @@ namespace firstButton {
 			->getScene()->getCurrentWindow();
 		int windowWidth, windowHeight;
 		glfwGetWindowSize(currentWindow, &windowWidth, &windowHeight);
-		glUniform1f(simpleBox2DThis->getUniforms()[0], (float)windowWidth);
+		/*glUniform1f(simpleBox2DThis->getUniforms()[0], (float)windowWidth);
 		glUniform1f(simpleBox2DThis->getUniforms()[1], (float)windowHeight);
-		glUniform1i(simpleBox2DThis->getUniforms()[2], GLFW_TRUE);
+		glUniform1i(simpleBox2DThis->getUniforms()[2], GLFW_TRUE);*/
 		simpleBox2DThis->bindTexture(0);
 		glUniformMatrix4fv(simpleBox2DThis->getUniforms()[3], 1, false, &(simpleBox2DThis->getOffsetMatrix())[0][0]);
 	}

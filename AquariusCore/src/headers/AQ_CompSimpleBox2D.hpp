@@ -43,6 +43,8 @@ namespace aquarius_engine {
 		void setPreDrawCallback(void(*callback)(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis));
 		void keepAspectRatio();
 		std::vector<int>& getUniforms();
+		void translateOffsetMatrix(glm::vec3 offset);
+		void resetOffsetMatrix();
 		glm::mat4 getOffsetMatrix();
 		void draw();
 		~AQ_CompSimpleBox2D();
