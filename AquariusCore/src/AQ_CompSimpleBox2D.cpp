@@ -98,14 +98,18 @@ namespace aquarius_engine {
 		if (!window)
 			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
 
+		glUseProgram(shaderID);
+		bindTexture(0);
+		glBindVertexArray(vao);
+
 		int windWidth, windHeight;
 		glfwGetWindowSize(window, &windWidth, &windHeight);
 		glUniform1f(uniforms[0], (float)windWidth);
 		glUniform1f(uniforms[1], (float)windHeight);
 		glUniform1i(uniforms[2], _keepAspectRatio? GLFW_TRUE : GLFW_FALSE);
-		//glUniformMatrix4fv(uniforms[3], 1, false, &offsetMatrix[0][0]);
-		bindTexture(0);
-		glBindVertexArray(vao);
+		glUniformMatrix4fv(uniforms[3], 1, false, &offsetMatrix[0][0]);
+		glActiveTexture(GL_TEXTURE0);
+
 		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}

@@ -26,15 +26,6 @@ namespace background_callbacks {
 	}
 
 	void backgroundPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
-		glUseProgram(shaderID);
-		static GLFWwindow* currentWindow = simpleBox2DThis->getGameObject()->getGameObjectCtrl()->getSceneGameObjects()
-			->getScene()->getCurrentWindow();
-		int windowWidth, windowHeight;
-		glfwGetWindowSize(currentWindow, &windowWidth, &windowHeight);
-		/*glUniform1f(uniforms[0], (float)windowWidth);
-		glUniform1f(uniforms[1], (float)windowHeight);
-		glUniform1i(uniforms[2], GLFW_TRUE);*/
-		simpleBox2DThis->bindTexture(0);
-		glUniformMatrix4fv(simpleBox2DThis->getUniforms()[3], 1, false, &(simpleBox2DThis->getOffsetMatrix())[0][0]);
+
 	}
 }
