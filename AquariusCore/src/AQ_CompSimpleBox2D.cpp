@@ -140,10 +140,10 @@ namespace aquarius_engine {
 		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);*/
 
+		preDrawCallback(shaderID, this);
 		if (!window)
 			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
 		glUseProgram(shaderID);
-		glBindVertexArray(vao);
 		/*std::cout << "0: " << (int)(timePassedInGame - (int)timePassedInGame) << "\n";
 		std::cout << "1: " << (int)(timePassedInGame - (int)timePassedInGame) / .01f << "\n";
 		std::cout << "2: " << (timePassedInGame - (int)timePassedInGame) << "\n";
@@ -153,6 +153,7 @@ namespace aquarius_engine {
 		//std::cout << animSprites.at((int)((timePassedInGame - (int)timePassedInGame) / (1.f / (float)(animSprites.size())))) << "\n";
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, animSprites.at((int)((timePassedInGame - (int)timePassedInGame) / (1.f / (float)(animSprites.size())))));
+		glBindVertexArray(vao);
 
 		int windWidth, windHeight;
 		glfwGetWindowSize(window, &windWidth, &windHeight);

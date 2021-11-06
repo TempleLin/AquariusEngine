@@ -15,7 +15,7 @@ namespace firstButton {
 		backgroundGameObject = gameObjectCtrl->getGameObject("Background");
 
 		int firstButtonTexIndex{};
-		firstBtn2D->setDiffuseTexture("assets/tempButton.png", "FirstButton2D", true, GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, &firstButtonTexIndex);
+		firstBtn2D->setDiffuseTexture("assets/tempButton.png", "FirstButton2D", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &firstButtonTexIndex);
 		//firstBtn2D->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
 		glm::vec3 topLeft{ -0.5f,  0.5f, .0f };
 		glm::vec3 topRight{ 0.5f,  0.5f, .0f };
