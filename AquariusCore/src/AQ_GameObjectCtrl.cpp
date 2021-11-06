@@ -5,8 +5,9 @@
 #include <any>
 
 namespace aquarius_engine {
-	AQ_GameObjectCtrl::AQ_GameObjectCtrl(AQ_Scene::GameObjects* sceneGameObjects) {
+	AQ_GameObjectCtrl::AQ_GameObjectCtrl(AQ_Scene::GameObjects* sceneGameObjects, AQ_UniControls* uniControls) {
 		this->sceneGameObjects = sceneGameObjects;
+		this->uniControls = uniControls;
 	}
 
 	AQ_GameObject* AQ_GameObjectCtrl::createGameObject(std::string name) {
@@ -21,6 +22,10 @@ namespace aquarius_engine {
 
 	AQ_Scene::GameObjects* AQ_GameObjectCtrl::getSceneGameObjects() {
 		return sceneGameObjects;
+	}
+
+	AQ_UniControls* AQ_GameObjectCtrl::getUniControls() {
+		return uniControls;
 	}
 
 	AQ_GameObject* AQ_GameObjectCtrl::getGameObject(std::string name) {

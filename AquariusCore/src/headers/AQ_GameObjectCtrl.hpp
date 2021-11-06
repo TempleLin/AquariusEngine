@@ -4,6 +4,7 @@
 #include "AQ_CompCamera.hpp"
 #include "AQ_Scene.hpp"
 #include "AQ_Component.hpp"
+#include "AQ_UniControls.h"
 #include <string>
 #include <iostream>
 #include <type_traits>
@@ -14,20 +15,21 @@ namespace aquarius_engine {
 	* @Reminder:
 	*	1.A gameobject can have components with same name only when they each are different types.
 	*/
-
 	class AQ_GameObjectCtrl {
 		friend class AQ_GameObject;
 	private:
 		AQ_Scene::GameObjects* sceneGameObjects;
+		AQ_UniControls* uniControls;
 		unsigned int getComponentIndex(const std::vector<std::pair<std::string, unsigned int>>& compVector,
 			std::string& nameOfComponent);
 	public:
-		AQ_GameObjectCtrl(AQ_Scene::GameObjects* sceneGameObjects);
+		AQ_GameObjectCtrl(AQ_Scene::GameObjects* sceneGameObjects, AQ_UniControls* uniControls);
 
 		AQ_GameObject* createGameObject(std::string name);
 		AQ_GameObject* getGameObject(std::string name);
 
 		AQ_Scene::GameObjects* getSceneGameObjects();
+		AQ_UniControls* getUniControls();
 
 		void deleteGameObject(std::string name);
 

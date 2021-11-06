@@ -4,7 +4,7 @@
 
 namespace aquarius_engine {
 	AQ_UniControls::AQ_UniControls(AQ_Scene* scene) {
-		gameObjectCtrl = new AQ_GameObjectCtrl(scene->getGameObjects());
+		gameObjectCtrl = new AQ_GameObjectCtrl(scene->getGameObjects(), this);
 		globalCtrl = new AQ_GlobalCtrl();
 	}
 

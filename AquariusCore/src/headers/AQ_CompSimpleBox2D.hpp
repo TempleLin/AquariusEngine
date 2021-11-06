@@ -23,17 +23,20 @@ namespace aquarius_engine {
 		unsigned int vao, vbo, ebo, shaderID;
 		std::vector<int> uniforms;
 		int uniformsCount, verticesCount;
-		const char** uniformsNames;
 		std::vector<TextureNamePair> textures;
+		std::vector<unsigned int> animSprites;
 		void(*preDrawCallback)(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 		bool _keepAspectRatio;
 		GLFWwindow* window;
+
+		void setTexWrapFilter(unsigned int wrap_s, unsigned int wrap_t, unsigned int min_filter, unsigned int mag_filter);
 	public:
 
 		AQ_CompSimpleBox2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount);
-		void addDiffuseTexture(std::string imageLocation, std::string name,
-			bool hasAndUseAlpha, int* returnTexIndex);
-		void setTexWrapFilter(unsigned int wrap_s, unsigned int wrap_t, unsigned int min_filter, unsigned int mag_filter);
+		void setDiffuseTexture(std::string imageLocation, std::string name, unsigned int wrap_s, unsigned int wrap_t,
+			unsigned int min_filter, unsigned int mag_filter, bool hasAndUseAlpha, int* returnTexIndex);
+		void setAnimSprites(std::vector<std::string> imagesLocations, unsigned int wrap_s, unsigned int wrap_t,
+			unsigned int min_filter, unsigned int mag_filter, bool hasAndUseAlpha);
 		void setShaderID(unsigned int shaderID);
 		void useShader();
 		void activateTexture(unsigned int index);
@@ -42,6 +45,7 @@ namespace aquarius_engine {
 		void setPreDrawCallback(void(*callback)(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis));
 		void keepAspectRatio();
 		void draw();
+		void drawSpriteAnim(float timePassedInGame);
 		~AQ_CompSimpleBox2D();
 	};
 }

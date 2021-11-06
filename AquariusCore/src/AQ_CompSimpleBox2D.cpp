@@ -1,14 +1,15 @@
 #include "headers/AQ_CompBoxButton2D.hpp"
 #include "headers/AQ_GameObjectCtrl.hpp"
 #include "headers/AQ_GameObject.hpp"
+#include "headers/AQ_GlobalCtrl.hpp"
 
 namespace aquarius_engine {
 	AQ_CompSimpleBox2D::AQ_CompSimpleBox2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount)
 		: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), shaderID(0), window(nullptr), _keepAspectRatio(false) {
 	}
 
-	void AQ_CompSimpleBox2D::addDiffuseTexture(std::string imageLocation, std::string name,
-		bool hasAndUseAlpha, int* returnTexIndex) {
+	void AQ_CompSimpleBox2D::setDiffuseTexture(std::string imageLocation, std::string name, unsigned int wrap_s, unsigned int wrap_t,
+		unsigned int min_filter, unsigned int mag_filter, bool hasAndUseAlpha, int* returnTexIndex) {
 		for (int i = 0; i < textures.size(); i++) {
 			if (textures.at(i).name == name) {
 				throw std::string("ERROR: IMAGE ADDED WAS SPECIFIED A NAME THAT ALREADY EXISTS");
@@ -29,6 +30,29 @@ namespace aquarius_engine {
 			stbi_image_wrap::freeImage(data);
 		} else {
 			throw std::string("ERROR: CANNOT LOAD IMAGE WITH GIVEN PATH--" + imageLocation);
+		}
+		setTexWrapFilter(wrap_s, wrap_t, min_filter, mag_filter);
+	}
+
+	void AQ_CompSimpleBox2D::setAnimSprites(std::vector<std::string> imagesLocations, unsigned int wrap_s, unsigned int wrap_t,
+		unsigned int min_filter, unsigned int mag_filter, bool hasAndUseAlpha) {
+		for (int i = 0; i < imagesLocations.size(); i++) {
+			unsigned int texture;
+			glGenTextures(1, &texture);
+			glBindTexture(GL_TEXTURE_2D, texture);
+			int width, height, nrChannels;
+			unsigned char* data = stbi_image_wrap::loadImage(imagesLocations.at(i), width, height, nrChannels);
+			if (data) {
+				if (!hasAndUseAlpha)
+					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+				else
+					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+				animSprites.push_back(texture);
+				stbi_image_wrap::freeImage(data);
+			} else {
+				throw std::string("ERROR: CANNOT LOAD IMAGE WITH GIVEN PATH--" + imagesLocations.at(i));
+			}
+			setTexWrapFilter(wrap_s, wrap_t, min_filter, mag_filter);
 		}
 	}
 
@@ -81,6 +105,7 @@ namespace aquarius_engine {
 			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
 
 		glUseProgram(shaderID);
+		glActiveTexture(GL_TEXTURE0);
 		bindTexture(0);
 		glBindVertexArray(vao);
 
@@ -90,13 +115,56 @@ namespace aquarius_engine {
 		glUniform1f(uniforms[1], (float)windHeight);
 		glUniform1i(uniforms[2], _keepAspectRatio? GLFW_TRUE : GLFW_FALSE);
 		glUniformMatrix4fv(uniforms[3], 1, false, &(getTransform())[0][0]);
+
+		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+	}
+
+	void AQ_CompSimpleBox2D::drawSpriteAnim(float timePassedInGame) {
+		/*preDrawCallback(shaderID, this);
+		if (!window)
+			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
+
+		glUseProgram(shaderID);
 		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, animSprites.at(0));
+		glBindVertexArray(vao);
+
+		int windWidth, windHeight;
+		glfwGetWindowSize(window, &windWidth, &windHeight);
+		glUniform1f(uniforms[0], (float)windWidth);
+		glUniform1f(uniforms[1], (float)windHeight);
+		glUniform1i(uniforms[2], _keepAspectRatio ? GLFW_TRUE : GLFW_FALSE);
+		glUniformMatrix4fv(uniforms[3], 1, false, &(getTransform())[0][0]);
+
+		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);*/
+
+		if (!window)
+			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
+		glUseProgram(shaderID);
+		glBindVertexArray(vao);
+		/*std::cout << "0: " << (int)(timePassedInGame - (int)timePassedInGame) << "\n";
+		std::cout << "1: " << (int)(timePassedInGame - (int)timePassedInGame) / .01f << "\n";
+		std::cout << "2: " << (timePassedInGame - (int)timePassedInGame) << "\n";
+		std::cout << "3: " << (int)((timePassedInGame - (int)timePassedInGame) / .01f / animSprites.size()) << "\n";
+		std::cout << "4: " << animSprites.size() << "\n";*/
+		//glBindTexture(GL_TEXTURE_2D, animSprites.at((int)((timePassedInGame - (int)timePassedInGame) / .01f / animSprites.size())));
+		//std::cout << animSprites.at((int)((timePassedInGame - (int)timePassedInGame) / (1.f / (float)(animSprites.size())))) << "\n";
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, animSprites.at((int)((timePassedInGame - (int)timePassedInGame) / (1.f / (float)(animSprites.size())))));
+
+		int windWidth, windHeight;
+		glfwGetWindowSize(window, &windWidth, &windHeight);
+		glUniform1f(uniforms[0], (float)windWidth);
+		glUniform1f(uniforms[1], (float)windHeight);
+		glUniform1i(uniforms[2], _keepAspectRatio ? GLFW_TRUE : GLFW_FALSE);
+		glUniformMatrix4fv(uniforms[3], 1, false, &(getTransform())[0][0]);
 
 		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 
 	AQ_CompSimpleBox2D::~AQ_CompSimpleBox2D() {
-		delete[] uniformsNames;
 	}
 }
