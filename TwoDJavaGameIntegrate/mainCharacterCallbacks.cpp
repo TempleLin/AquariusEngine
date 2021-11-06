@@ -18,19 +18,19 @@
 */
 
 namespace mainCharacter {
-	void mainCharacterPreDrawCallback(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis);
+	void mainCharacterPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		AQ_CompSimpleBox2D* mainChar2DComp = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "MainCharacter2D");
 
 		int firstTextureIndex{ 0 };
-		mainChar2DComp->addTexture("assets/cleanCharacter.png", "CleanCharacter", true, true, &firstTextureIndex);
+		mainChar2DComp->addDiffuseTexture("assets/cleanCharacter.png", "CleanCharacter", true, &firstTextureIndex);
 		std::cout << "firstTextureIndex: " << firstTextureIndex << "\n";
 
 		mainChar2DComp->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
 		AQ_GameObject* backgroundObject = gameObjectCtrl->getGameObject("Background");
 		mainChar2DComp->setShaderID(shaders.at(0).ID);
-		mainChar2DComp->setUniforms(new const char* [4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);
+		//mainChar2DComp->setUniforms(new const char* [4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);
 		mainChar2DComp->setPreDrawCallback(mainCharacterPreDrawCallback);
 		mainChar2DComp->activateTexture(GL_TEXTURE0);
 	}
@@ -44,19 +44,19 @@ namespace mainCharacter {
 
 	}
 
-	void mainCharacterPreDrawCallback(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis) {
+	void mainCharacterPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
 		glUseProgram(shaderID);
 		static GLFWwindow* currentWindow = simpleBox2DThis->getGameObject()->getGameObjectCtrl()->getSceneGameObjects()
 			->getScene()->getCurrentWindow();
 		int windowWidth, windowHeight;
 		glfwGetWindowSize(currentWindow, &windowWidth, &windowHeight);
-		glUniform1f(uniforms[0], (float)windowWidth);
-		glUniform1f(uniforms[1], (float)windowHeight);
-		glUniform1i(uniforms[2], GLFW_TRUE);
+		glUniform1f(simpleBox2DThis->getUniforms()[0], (float)windowWidth);
+		glUniform1f(simpleBox2DThis->getUniforms()[1], (float)windowHeight);
+		glUniform1i(simpleBox2DThis->getUniforms()[2], GLFW_TRUE);
 		simpleBox2DThis->bindTexture(0);
 		glm::mat4 offsetMatrix(1.f);
 		offsetMatrix = glm::translate(offsetMatrix, glm::vec3(-.5f, 0.f, 0.f));
-		glUniformMatrix4fv(uniforms[3], 1, false, &offsetMatrix[0][0]);
+		glUniformMatrix4fv(simpleBox2DThis->getUniforms()[3], 1, false, &offsetMatrix[0][0]);
 	}
 
 }

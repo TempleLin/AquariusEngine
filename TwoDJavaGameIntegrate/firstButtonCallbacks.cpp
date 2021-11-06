@@ -7,7 +7,7 @@
 #include "headers/PassingValues.hpp"
 
 namespace firstButton {
-	void firstButtonPredrawCallback(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis);
+	void firstButtonPredrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		CustomButtonComp* firstBtn2D = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "FirstButton2D");
@@ -15,7 +15,7 @@ namespace firstButton {
 		backgroundGameObject = gameObjectCtrl->getGameObject("Background");
 
 		int firstButtonTexIndex{};
-		firstBtn2D->addTexture("assets/tempButton.png", "FirstButton2D", true, true, &firstButtonTexIndex);
+		firstBtn2D->addDiffuseTexture("assets/tempButton.png", "FirstButton2D", true, &firstButtonTexIndex);
 		firstBtn2D->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
 		glm::vec3 topLeft{ -0.5f,  0.5f, .0f };
 		glm::vec3 topRight{ 0.5f,  0.5f, .0f };
@@ -26,7 +26,7 @@ namespace firstButton {
 		firstBtn2D->scaleSensorRange(glm::vec3(1.f, .4f, 1.f));
 		firstBtn2D->activateTexture(GL_TEXTURE0);
 		firstBtn2D->setShaderID(shaders.at(0).ID);
-		firstBtn2D->setUniforms(new const char* [4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);
+		//firstBtn2D->setUniforms(new const char* [4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);
 		firstBtn2D->keepAspectRatio();
 		firstBtn2D->setPreDrawCallback(firstButtonPredrawCallback);
 	}
@@ -63,16 +63,16 @@ namespace firstButton {
 		}
 	}
 
-	void firstButtonPredrawCallback(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis) {
+	void firstButtonPredrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
 		glUseProgram(shaderID);
 		static GLFWwindow* currentWindow = simpleBox2DThis->getGameObject()->getGameObjectCtrl()->getSceneGameObjects()
 			->getScene()->getCurrentWindow();
 		int windowWidth, windowHeight;
 		glfwGetWindowSize(currentWindow, &windowWidth, &windowHeight);
-		glUniform1f(uniforms[0], (float)windowWidth);
-		glUniform1f(uniforms[1], (float)windowHeight);
-		glUniform1i(uniforms[2], GLFW_TRUE);
+		glUniform1f(simpleBox2DThis->getUniforms()[0], (float)windowWidth);
+		glUniform1f(simpleBox2DThis->getUniforms()[1], (float)windowHeight);
+		glUniform1i(simpleBox2DThis->getUniforms()[2], GLFW_TRUE);
 		simpleBox2DThis->bindTexture(0);
-		glUniformMatrix4fv(uniforms[3], 1, false, &(simpleBox2DThis->getOffsetMatrix())[0][0]);
+		glUniformMatrix4fv(simpleBox2DThis->getUniforms()[3], 1, false, &(simpleBox2DThis->getOffsetMatrix())[0][0]);
 	}
 }

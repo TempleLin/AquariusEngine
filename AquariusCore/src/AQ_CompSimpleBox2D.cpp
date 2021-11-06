@@ -9,8 +9,8 @@ namespace aquarius_engine {
 
 	}
 
-	void AQ_CompSimpleBox2D::addTexture(std::string imageLocation, std::string name,
-		bool hasAndUseAlpha, bool bindTexture, int* returnTexIndex) {
+	void AQ_CompSimpleBox2D::addDiffuseTexture(std::string imageLocation, std::string name,
+		bool hasAndUseAlpha, int* returnTexIndex) {
 		for (int i = 0; i < textures.size(); i++) {
 			if (textures.at(i).name == name) {
 				throw std::string("ERROR: IMAGE ADDED WAS SPECIFIED A NAME THAT ALREADY EXISTS");
@@ -29,8 +29,6 @@ namespace aquarius_engine {
 			textures.push_back(TextureNamePair(name, width, height, nrChannels, texture));
 			*returnTexIndex = textures.size() - 1;
 			stbi_image_wrap::freeImage(data);
-			if (!bindTexture)
-				glBindTexture(GL_TEXTURE_2D, 0);
 		} else {
 			throw std::string("ERROR: CANNOT LOAD IMAGE WITH GIVEN PATH--" + imageLocation);
 		}
@@ -45,24 +43,14 @@ namespace aquarius_engine {
 
 	void AQ_CompSimpleBox2D::setShaderID(unsigned int shaderID) {
 		this->shaderID = shaderID;
+		uniforms = { glGetUniformLocation(shaderID, "windowWidth"), glGetUniformLocation(shaderID, "windowHeight"),
+		glGetUniformLocation(shaderID, "keepAspectRatio"), glGetUniformLocation(shaderID, "offsetMat") };
 	}
 
 	void AQ_CompSimpleBox2D::useShader() {
 		if (!shaderID)
 			std::cout << "WARNING: SHADER CAN'T BE USED, SHADER NOT SET.\n";
 		glUseProgram(shaderID);
-	}
-
-	void AQ_CompSimpleBox2D::setUniforms(const char** uniformsNames, int uniformsCount) {
-		if (!shaderID) {
-			std::cout << "WARNING: UNIFORMs CAN'T BE SET, SHADER NOT SET.\n";
-		}
-		this->uniformsNames = uniformsNames;
-		this->uniformsCount = uniformsCount;
-		uniforms = new unsigned int[uniformsCount];
-		for (int i = 0; i < uniformsCount; i++) {
-			uniforms[i] = glGetUniformLocation(shaderID, uniformsNames[i]);
-		}
 	}
 
 	void AQ_CompSimpleBox2D::activateTexture(unsigned int index) {
@@ -81,7 +69,7 @@ namespace aquarius_engine {
 		glBindTexture(GL_TEXTURE_2D, textures.at(index).texture);
 	}
 
-	void AQ_CompSimpleBox2D::setPreDrawCallback(void(*callback)(unsigned int shaderID, unsigned int* uniforms, AQ_CompSimpleBox2D* simpleBox2DThis)) {
+	void AQ_CompSimpleBox2D::setPreDrawCallback(void(*callback)(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis)) {
 		this->preDrawCallback = callback;
 	}
 
@@ -93,8 +81,12 @@ namespace aquarius_engine {
 		return offsetMatrix;
 	}
 
+	std::vector<int>& AQ_CompSimpleBox2D::getUniforms() {
+		return uniforms;
+	}
+
 	void AQ_CompSimpleBox2D::draw() {
-		preDrawCallback(shaderID, uniforms, this);
+		preDrawCallback(shaderID, this);
 		if (!window)
 			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
 
@@ -103,6 +95,7 @@ namespace aquarius_engine {
 		glUniform1i(uniforms[2], _keepAspectRatio? GLFW_TRUE : GLFW_FALSE);
 		glUniform1i(uniforms[0], windWidth);
 		glUniform1i(uniforms[1], windHeight);
+		glUniformMatrix4fv(uniforms[3], 1, false, &offsetMatrix[0][0]);
 		bindTexture(0);
 		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);
@@ -110,7 +103,6 @@ namespace aquarius_engine {
 	}
 
 	AQ_CompSimpleBox2D::~AQ_CompSimpleBox2D() {
-		delete[] uniforms;
 		delete[] uniformsNames;
 	}
 }
