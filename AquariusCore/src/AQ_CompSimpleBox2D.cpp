@@ -4,9 +4,7 @@
 
 namespace aquarius_engine {
 	AQ_CompSimpleBox2D::AQ_CompSimpleBox2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount)
-		: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), shaderID(0), window(nullptr), _keepAspectRatio(false),
-		offsetMatrix(glm::mat4(1.f)) {
-
+		: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), shaderID(0), window(nullptr), _keepAspectRatio(false) {
 	}
 
 	void AQ_CompSimpleBox2D::addDiffuseTexture(std::string imageLocation, std::string name,
@@ -77,22 +75,6 @@ namespace aquarius_engine {
 		_keepAspectRatio = true;
 	}
 
-	glm::mat4 AQ_CompSimpleBox2D::getOffsetMatrix() {
-		return offsetMatrix;
-	}
-
-	std::vector<int>& AQ_CompSimpleBox2D::getUniforms() {
-		return uniforms;
-	}
-
-	void AQ_CompSimpleBox2D::translateOffsetMatrix(glm::vec3 offset) {
-		offsetMatrix = glm::translate(offsetMatrix, offset);
-	}
-
-	void AQ_CompSimpleBox2D::resetOffsetMatrix() {
-		offsetMatrix = glm::mat4(1.f);
-	}
-
 	void AQ_CompSimpleBox2D::draw() {
 		preDrawCallback(shaderID, this);
 		if (!window)
@@ -107,7 +89,7 @@ namespace aquarius_engine {
 		glUniform1f(uniforms[0], (float)windWidth);
 		glUniform1f(uniforms[1], (float)windHeight);
 		glUniform1i(uniforms[2], _keepAspectRatio? GLFW_TRUE : GLFW_FALSE);
-		glUniformMatrix4fv(uniforms[3], 1, false, &offsetMatrix[0][0]);
+		glUniformMatrix4fv(uniforms[3], 1, false, &(getTransform())[0][0]);
 		glActiveTexture(GL_TEXTURE0);
 
 		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);

@@ -14,6 +14,9 @@ namespace aquarius_engine {
 	glm::mat4 AQ_Component::getTransform() {
 		return this->transformOffset * *(this->gameObjectTrans);
 	}
+	void AQ_Component::transformReset() {
+		transformOffset = glm::mat4(1.f);
+	}
 	void AQ_Component::transformRotate(glm::vec3 rotateVector, float angle) {
 		this->transformOffset = glm::rotate(this->transformOffset, glm::radians(angle), rotateVector);
 	}

@@ -27,7 +27,6 @@ namespace aquarius_engine {
 		std::vector<TextureNamePair> textures;
 		void(*preDrawCallback)(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 		bool _keepAspectRatio;
-		glm::mat4 offsetMatrix;
 		GLFWwindow* window;
 	public:
 
@@ -42,10 +41,6 @@ namespace aquarius_engine {
 		void bindTexture(int index);
 		void setPreDrawCallback(void(*callback)(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis));
 		void keepAspectRatio();
-		std::vector<int>& getUniforms();
-		void translateOffsetMatrix(glm::vec3 offset);
-		void resetOffsetMatrix();
-		glm::mat4 getOffsetMatrix();
 		void draw();
 		~AQ_CompSimpleBox2D();
 	};

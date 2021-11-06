@@ -26,9 +26,10 @@ namespace firstButton {
 		firstBtn2D->scaleSensorRange(glm::vec3(1.f, .4f, 1.f));
 		firstBtn2D->activateTexture(GL_TEXTURE0);
 		firstBtn2D->setShaderID(shaders.at(0).ID);
-		//firstBtn2D->setUniforms(new const char* [4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);
 		firstBtn2D->keepAspectRatio();
 		firstBtn2D->setPreDrawCallback(firstButtonPredrawCallback);
+		firstBtn2D->transformTranslate(glm::vec3(.5f, 0.f, 0.f));
+		firstBtn2D->transformScale(glm::vec3(1.f, .4f, 1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		static CustomButtonComp* firstBtn2D = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "FirstButton2D");
@@ -41,7 +42,6 @@ namespace firstButton {
 	void processInputs(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 		unsigned int* keys, unsigned int* actions) {
 		CustomButtonComp* firstButton = gameObjectThis->getGameObjectCtrl()->getComponent<CustomButtonComp>(gameObjectThis, "FirstButton2D");
-		//firstButton->hoverCheck(mouseXPos, mouseYPos, false);
 
 		static bool mouseLeftOnPress{ false };
 

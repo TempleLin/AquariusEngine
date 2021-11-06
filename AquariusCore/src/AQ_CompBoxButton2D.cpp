@@ -34,10 +34,6 @@ namespace aquarius_engine {
 				}
 			}
 		}
-		//for (int i = 0; i < 4; i++) {
-		//	std::cout << i << "\n";
-		//	std::cout << fourVertsRatioChanged[i].x << "," << fourVertsRatioChanged[i].y << "\n";
-		//}
 	}
 
 	bool AQ_CompBoxButton2D::checkInButtonRange(double cursorX, double cursorY, bool normalized) {
@@ -47,24 +43,14 @@ namespace aquarius_engine {
 		windowWidth = tempWindWidth;
 		windowHeight = tempWindHeight;
 
-		//std::cout << "cursorX: " << cursorX << "\n";
-		//std::cout << "cursorY: " << cursorY << "\n";
-		//std::cout << "windowWidth: " << windowWidth << "\n";
-		//std::cout << "windowHeight: " << windowHeight << "\n";
-
 		if (!normalized)
 			ratioChangeVerts(&cursorX, &cursorY, windowWidth, windowHeight);
 
 
-		//std::cout << "cursorX after normalized: " << cursorX << "\n";
-		//std::cout << "cursorY after normalized: " << cursorY << "\n";
-
 		if (cursorX >= fourVertsRatioChanged[0].x && cursorX >= fourVertsRatioChanged[3].x && cursorX <= fourVertsRatioChanged[1].x && cursorX <= fourVertsRatioChanged[2].x
 			&& cursorY <= fourVertsRatioChanged[0].y && cursorY <= fourVertsRatioChanged[1].y && cursorY >= fourVertsRatioChanged[2].y && cursorY >= fourVertsRatioChanged[3].y) {
-			//std::cout << "Cursor in button range\n";
 			return true;
 		} else {
-			//std::cout << "Cursor not in button range\n";
 			return false;
 		}
 		
@@ -80,12 +66,6 @@ namespace aquarius_engine {
 		if (!window) {
 			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
 		}
-		/*for (int i = 0; i < 3; i++) {
-			fourVertsXYZ[i] = topLeftVertXYZ[i];
-			fourVertsXYZ[3 + i] = topRightVertXYZ[i];
-			fourVertsXYZ[6 + i] = downRightVertXYZ[i];
-			fourVertsXYZ[9 + i] = downLeftVertXYZ[i];
-		}*/
 		fourVertsXYZ[0] = topLeftVertXYZ;
 		fourVertsXYZ[1] = topRightVertXYZ;
 		fourVertsXYZ[2] = downRightVertXYZ;
@@ -93,12 +73,10 @@ namespace aquarius_engine {
 	}
 
 	void AQ_CompBoxButton2D::translateSensorRange(glm::vec3 translateVector) {
-		//std::cout << "After translate: \n";
 		for (int i = 0; i < 4; i++) {
 			fourVertsXYZ[i].x += translateVector.x;
 			fourVertsXYZ[i].y += translateVector.y;
 			fourVertsXYZ[i].z += translateVector.z;
-			//std::cout << fourVertsXYZ[i].x << "," << fourVertsXYZ[i].y << "\n";
 		}
 	}
 
@@ -117,11 +95,6 @@ namespace aquarius_engine {
 		fourVertsXYZ[1].y -= (yTransform / 2);
 		fourVertsXYZ[2].y += (yTransform / 2);
 		fourVertsXYZ[3].y += (yTransform / 2);
-
-		//std::cout << "After Scale: \n";
-		//for (int i = 0; i < 4; i++) {
-		//	std::cout << fourVertsXYZ[i].x << "," << fourVertsXYZ[i].y << "\n";
-		//}
 	}
 
 	void AQ_CompBoxButton2D::setListenHover(void (*onHoverCallback)(AQ_GameObject* gameObjectThis, AQ_GameObjectCtrl* gameObjectCtrl)) {

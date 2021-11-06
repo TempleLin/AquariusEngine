@@ -30,7 +30,6 @@ namespace mainCharacter {
 		mainChar2DComp->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
 		AQ_GameObject* backgroundObject = gameObjectCtrl->getGameObject("Background");
 		mainChar2DComp->setShaderID(shaders.at(0).ID);
-		//mainChar2DComp->setUniforms(new const char* [4]{ "windowWidth", "windowHeight", "keepAspectRatio", "offsetMat" }, 4);
 		mainChar2DComp->setPreDrawCallback(mainCharacterPreDrawCallback);
 		mainChar2DComp->activateTexture(GL_TEXTURE0);
 	}
@@ -45,8 +44,8 @@ namespace mainCharacter {
 	}
 
 	void mainCharacterPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
-		simpleBox2DThis->resetOffsetMatrix();
-		simpleBox2DThis->translateOffsetMatrix(glm::vec3(-.5f, 0.f, 0.f));
+		simpleBox2DThis->transformReset();
+		simpleBox2DThis->transformTranslate(glm::vec3(-.5f, 0.f, 0.f));
 	}
 
 }
