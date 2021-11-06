@@ -121,36 +121,10 @@ namespace aquarius_engine {
 	}
 
 	void AQ_CompSimpleBox2D::drawSpriteAnim(float timePassedInGame) {
-		/*preDrawCallback(shaderID, this);
-		if (!window)
-			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
-
-		glUseProgram(shaderID);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, animSprites.at(0));
-		glBindVertexArray(vao);
-
-		int windWidth, windHeight;
-		glfwGetWindowSize(window, &windWidth, &windHeight);
-		glUniform1f(uniforms[0], (float)windWidth);
-		glUniform1f(uniforms[1], (float)windHeight);
-		glUniform1i(uniforms[2], _keepAspectRatio ? GLFW_TRUE : GLFW_FALSE);
-		glUniformMatrix4fv(uniforms[3], 1, false, &(getTransform())[0][0]);
-
-		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);*/
-
 		preDrawCallback(shaderID, this);
 		if (!window)
 			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
 		glUseProgram(shaderID);
-		/*std::cout << "0: " << (int)(timePassedInGame - (int)timePassedInGame) << "\n";
-		std::cout << "1: " << (int)(timePassedInGame - (int)timePassedInGame) / .01f << "\n";
-		std::cout << "2: " << (timePassedInGame - (int)timePassedInGame) << "\n";
-		std::cout << "3: " << (int)((timePassedInGame - (int)timePassedInGame) / .01f / animSprites.size()) << "\n";
-		std::cout << "4: " << animSprites.size() << "\n";*/
-		//glBindTexture(GL_TEXTURE_2D, animSprites.at((int)((timePassedInGame - (int)timePassedInGame) / .01f / animSprites.size())));
-		//std::cout << animSprites.at((int)((timePassedInGame - (int)timePassedInGame) / (1.f / (float)(animSprites.size())))) << "\n";
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, animSprites.at((int)((timePassedInGame - (int)timePassedInGame) / (1.f / (float)(animSprites.size())))));
 		glBindVertexArray(vao);

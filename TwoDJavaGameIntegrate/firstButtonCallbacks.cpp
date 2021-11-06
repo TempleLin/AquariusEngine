@@ -16,7 +16,6 @@ namespace firstButton {
 
 		int firstButtonTexIndex{};
 		firstBtn2D->setDiffuseTexture("assets/tempButton.png", "FirstButton2D", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &firstButtonTexIndex);
-		//firstBtn2D->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
 		glm::vec3 topLeft{ -0.5f,  0.5f, .0f };
 		glm::vec3 topRight{ 0.5f,  0.5f, .0f };
 		glm::vec3 bottomRight{ 0.5f, -0.5f, .0f };

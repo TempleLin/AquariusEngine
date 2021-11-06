@@ -26,9 +26,6 @@ namespace mainCharacter {
 		int firstTextureIndex{ 0 };
 		mainChar2DComp->setDiffuseTexture("assets/cleanCharacter.png", "CleanCharacter", true, 
 			GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, &firstTextureIndex);
-		//mainChar2DComp->setTexWrapFilter(GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
-
-		//std::cout << "firstTextureIndex: " << firstTextureIndex << "\n";
 
 		mainChar2DComp->setAnimSprites(std::vector<std::string>{
 			"assets/Animations/MainCharWalk/1.png",
