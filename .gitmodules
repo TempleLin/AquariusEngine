@@ -1,0 +1,3 @@
+[submodule "submodules/audeo"]
+	path = submodules/audeo
+	url = https://github.com/NotAPenguin0/audeo.git
