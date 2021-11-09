@@ -19,9 +19,6 @@
 #pragma comment(lib, "legacy_stdio_definitions")
 #endif
 
-enum class AQSLShaderType {
-	SimpleBox2D
-};
 
 using namespace aquarius_engine;
 
