@@ -1,6 +1,6 @@
 public class GLWrap {
-    private native void defaultOpenGLSettings();
-    private native long createWindow(String windowName, int width, int height);
+    public native void defaultOpenGLSettings();
+    public native long createWindow(String windowName, int width, int height);
     public native boolean glfwWindowShouldClose(long currentWindow);
     public native void glfwPollEvents();
     public native void glClearColor(float r, float g, float b, float a);
