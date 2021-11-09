@@ -71,8 +71,9 @@ int main()
             static int counter = 0;
 
             ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-            ImVec2 windowSize(336.f, 210.f);
-            ImGui::SetWindowSize(windowSize);
+            //ImVec2 windowSize(336.f, 210.f);
+            ImGui::SetWindowSize(ImVec2{static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT)});
+            ImGui::SetWindowPos(ImVec2{ 0.f, 0.f });
             ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
             //ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
             //ImGui::Checkbox("Another Window", &show_another_window);
