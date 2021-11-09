@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="guiDesign.cpp" />
+    <ClCompile Include="settingsValues.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="guiDesign.h" />
