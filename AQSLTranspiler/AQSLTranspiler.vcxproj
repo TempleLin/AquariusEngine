@@ -144,6 +144,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AQSLTranspiler.cpp" />
+    <ClCompile Include="guiDesign.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="guiDesign.h" />
+    <ClInclude Include="settingsValues.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

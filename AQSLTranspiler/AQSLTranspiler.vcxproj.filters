@@ -18,5 +18,16 @@
     <ClCompile Include="AQSLTranspiler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="guiDesign.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="guiDesign.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="settingsValues.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
