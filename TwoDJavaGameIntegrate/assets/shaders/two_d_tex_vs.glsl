@@ -18,11 +18,6 @@ void main() {
     setAspectRatio();
     gl_Position = offsetMat * vec4(resultPos, 1.0);
     ourColor = aColor;
-//    if (gl_Position.z == -1.f){
-//        ourColor *= vec3(1, 0, 0);
-//    } else if (gl_Position.z == 1.f){
-//        ourColor *= vec3(0, 0, 1);
-//    }
     TexCoord = aTexCoord;
 }
 

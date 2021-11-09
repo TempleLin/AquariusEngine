@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{b959e0d7-7852-45b6-b430-fef41260557e}</ProjectGuid>
-    <RootNamespace>CoreTest</RootNamespace>
+    <ProjectGuid>{1352da62-9a27-4e04-8814-f638c45d51c1}</ProjectGuid>
+    <RootNamespace>AQSLTranspiler</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -78,17 +78,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\external\includes;$(SolutionDir)\include;$(SolutionDir)\AquariusCore\src;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\x64\Debug;$(SolutionDir)\external\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(SolutionDir)\AquariusCore\src;$(SolutionDir)\external\includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\x64\Release;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Label="Vcpkg">
-    <VcpkgAutoLink>true</VcpkgAutoLink>
-    <VcpkgEnabled>true</VcpkgEnabled>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -124,12 +118,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Assimp\assimp-vc142-mtd.lib;GLFW\glfw3.lib;AquariusCore.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -151,27 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\framebuffer_postprocess.cpp" />
-    <ClCompile Include="src\gamma_correction.cpp" />
-    <ClCompile Include="src\read_objmodel.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\shadow_mapping.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\headers\framebuffer_postprocess.h" />
-    <ClInclude Include="src\headers\gamma_correction.h" />
-    <ClInclude Include="src\headers\read_objmodel.h" />
-    <ClInclude Include="src\headers\shadow_mapping.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shaders\2.gamma_correction.fs" />
-    <None Include="shaders\2.gamma_correction.vs" />
-    <None Include="shaders\debug_quad.vs" />
-    <None Include="shaders\debug_quad_depth.fs" />
-    <None Include="shaders\shadow_mapping.fs" />
-    <None Include="shaders\shadow_mapping.vs" />
-    <None Include="shaders\shadow_mapping_depth.fs" />
-    <None Include="shaders\shadow_mapping_depth.vs" />
+    <ClCompile Include="AQSLTranspiler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
