@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Shader Files">
+      <UniqueIdentifier>{e71add36-efa5-4695-aefe-fa9d8a08ed30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\imgui_headers">
+      <UniqueIdentifier>{cd80e22d-0e81-4943-9173-7cfbed2bded3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\imgui_src">
+      <UniqueIdentifier>{1a8b4fb9-9e26-4b7f-acb8-9f3eea6e3e6a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\glad\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stbi_image_wrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_GlobalCtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_Lights.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_CompCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_GameObjectCtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_CompModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_CompInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dear_imgui\imgui.cpp">
+      <Filter>Source Files\imgui_src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dear_imgui\imgui_demo.cpp">
+      <Filter>Source Files\imgui_src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dear_imgui\imgui_draw.cpp">
+      <Filter>Source Files\imgui_src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dear_imgui\imgui_impl_glfw.cpp">
+      <Filter>Source Files\imgui_src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dear_imgui\imgui_impl_opengl3.cpp">
+      <Filter>Source Files\imgui_src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dear_imgui\imgui_tables.cpp">
+      <Filter>Source Files\imgui_src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dear_imgui\imgui_widgets.cpp">
+      <Filter>Source Files\imgui_src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_GLIntegrate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_Component.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_CompButton2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_UniControls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_CompSimpleBox2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQ_CompBoxButton2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\headers\AQ_CompCamera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_Mesh.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_CompModel.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_Shader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_Scene.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\stbi_image_wrapper.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_GameObject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_Component.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_GlobalCtrl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_Lights.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_GameObjectCtrl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_CompInput.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dear_imgui\imconfig.h">
+      <Filter>Header Files\imgui_headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dear_imgui\imgui.h">
+      <Filter>Header Files\imgui_headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dear_imgui\imgui_impl_glfw.h">
+      <Filter>Header Files\imgui_headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dear_imgui\imgui_impl_opengl3.h">
+      <Filter>Header Files\imgui_headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dear_imgui\imgui_impl_opengl3_loader.h">
+      <Filter>Header Files\imgui_headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dear_imgui\imgui_internal.h">
+      <Filter>Header Files\imgui_headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dear_imgui\imstb_rectpack.h">
+      <Filter>Header Files\imgui_headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dear_imgui\imstb_textedit.h">
+      <Filter>Header Files\imgui_headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dear_imgui\imstb_truetype.h">
+      <Filter>Header Files\imgui_headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_GLIntegrate.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_CompSimpleBox2D.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_Transform.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_CompBoxButton2D.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_UniControls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="5.1.framebuffers_vs.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="5.1.framebuffers_screen_fs.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="5.1.framebuffers_screen_vs.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="5.1.framebuffers_fs.glsl">
+      <Filter>Shader Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
