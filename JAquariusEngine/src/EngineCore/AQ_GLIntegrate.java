@@ -32,8 +32,7 @@ public class AQ_GLIntegrate {
             return this;
         }
         public Settings createWindow(int width, int height, String windowName){
-            long window = _createWindow(width, height, windowName);
-            aq_glIntegrate.boundWindow = window;
+            aq_glIntegrate.boundWindow = _createWindow(width, height, windowName);
             return this;
         }
         public Settings setCurrentThreadWindow(long window){
