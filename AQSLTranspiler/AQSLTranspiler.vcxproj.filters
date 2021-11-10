@@ -24,6 +24,9 @@
     <ClCompile Include="settingsValues.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="glWrap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="guiDesign.h">
@@ -31,6 +34,9 @@
     </ClInclude>
     <ClInclude Include="settingsValues.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="aqslTranspiler.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -81,7 +81,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)\AquariusCore\src;$(SolutionDir)\external\includes;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files\Java\jdk-17\include\win32;C:\Program Files\Java\jdk-17\include;$(SolutionDir)\AquariusCore\src;$(SolutionDir)\external\includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\x64\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -143,11 +143,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="glWrap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="guiDesign.cpp" />
     <ClCompile Include="settingsValues.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="aqslTranspiler.h" />
     <ClInclude Include="guiDesign.h" />
     <ClInclude Include="settingsValues.h" />
   </ItemGroup>

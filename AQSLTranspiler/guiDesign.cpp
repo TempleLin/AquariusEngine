@@ -6,7 +6,53 @@
 #include <GLES2/gl2.h>
 #endif
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include "settingsValues.h"
+#include "./AQSLTranspilerJNI/ImguiWrap.h"
+
+void guiUpdate();
+
+JNIEXPORT void JNICALL Java_ImguiWrap_initializeImGUI
+(JNIEnv*, jobject, jlong currentWindow) {
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+    ImGui::StyleColorsDark();
+    ImGui_ImplGlfw_InitForOpenGL((GLFWwindow*)currentWindow, true);
+    ImGui_ImplOpenGL3_Init(glsl_version);
+}
+
+JNIEXPORT void JNICALL Java_ImguiWrap_newFrame
+(JNIEnv*, jobject) {
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+}
+
+JNIEXPORT void JNICALL Java_ImguiWrap_render
+(JNIEnv*, jobject, jlong currentWindow) {
+    ImGui::Render();
+}
+
+JNIEXPORT void JNICALL Java_ImguiWrap_renderDrawData
+(JNIEnv*, jobject) {
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+JNIEXPORT void JNICALL Java_ImguiWrap_guiUpdate
+(JNIEnv*, jobject) {
+    guiUpdate();
+}
+
+JNIEXPORT void JNICALL Java_ImguiWrap_shutdown
+(JNIEnv*, jobject) {
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+}
 
 void guiUpdate() {
     static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);

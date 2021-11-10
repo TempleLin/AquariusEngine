@@ -6,5 +6,6 @@ public class GLWrap {
     public native void glClearColor(float r, float g, float b, float a);
     public native void glClearColorDepthBuffer();
     public native void glfwSwapBuffers(long currentWindow);
-    public native void glfwTernimate();
+    public native void glfwTerminate();
+    public native void deleteGL();
 }
