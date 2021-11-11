@@ -1,3 +1,4 @@
+#include <string>
 #include "headers/firstButtonCallbacks.hpp"
 #include <headers/AQ_CompBoxButton2D.hpp>
 #include <headers/AQ_GlobalCtrl.hpp>
@@ -15,7 +16,7 @@ namespace firstButton {
 		backgroundGameObject = gameObjectCtrl->getGameObject("Background");
 
 		int firstButtonTexIndex{};
-		firstBtn2D->setDiffuseTexture("assets/tempButton.png", "FirstButton2D", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &firstButtonTexIndex);
+		firstBtn2D->addDiffuseTexture("assets/tempButton.png", "FirstButton2D", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &firstButtonTexIndex);
 		glm::vec3 topLeft{ -0.5f,  0.5f, .0f };
 		glm::vec3 topRight{ 0.5f,  0.5f, .0f };
 		glm::vec3 bottomRight{ 0.5f, -0.5f, .0f };
@@ -40,7 +41,10 @@ namespace firstButton {
 
 	void processInputs(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 		unsigned int* keys, unsigned int* actions) {
-		CustomButtonComp* firstButton = gameObjectThis->getGameObjectCtrl()->getComponent<CustomButtonComp>(gameObjectThis, "FirstButton2D");
+		static AQ_GameObjectCtrl* gameObjectCtrl = gameObjectThis->getGameObjectCtrl();
+		static CustomButtonComp* firstButton = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "FirstButton2D");
+		static AQ_GameObject* background = gameObjectCtrl->getGameObject("Background");
+		static AQ_CompSimpleBox2D* background2D = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(background, "Background2D");
 
 		static bool mouseLeftOnPress{ false };
 
@@ -52,7 +56,14 @@ namespace firstButton {
 		case GLFW_PRESS:
 			if (!mouseLeftOnPress) {
 				std::cout << "Mouse pressed\n";
-				firstButton->clickCheck(mouseXPos, mouseYPos, false);
+				static std::string bckgroundTexNames[2]{ "TreeElfBackground", "Background2DTex" };
+				static int currentIndex{ 0 };
+
+				bool pressSuccess = firstButton->clickCheck(mouseXPos, mouseYPos, false);
+				if (pressSuccess) {
+					background2D->switchDiffuseTexture(bckgroundTexNames[currentIndex]);
+					++currentIndex %= 2;
+				}
 				mouseLeftOnPress = true;
 			}
 			break;

@@ -24,7 +24,7 @@ namespace mainCharacter {
 		AQ_CompSimpleBox2D* mainChar2DComp = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "MainCharacter2D");
 
 		int firstTextureIndex{ 0 };
-		mainChar2DComp->setDiffuseTexture("assets/cleanCharacter.png", "CleanCharacter", true, 
+		mainChar2DComp->addDiffuseTexture("assets/cleanCharacter.png", "CleanCharacter", true, 
 			GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, &firstTextureIndex);
 
 		mainChar2DComp->setAnimSprites(std::vector<std::string>{

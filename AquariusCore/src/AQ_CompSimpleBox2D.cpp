@@ -8,7 +8,7 @@ namespace aquarius_engine {
 		: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), shaderID(0), window(nullptr), _keepAspectRatio(false) {
 	}
 
-	void AQ_CompSimpleBox2D::setDiffuseTexture(std::string imageLocation, std::string name, unsigned int wrap_s, unsigned int wrap_t,
+	void AQ_CompSimpleBox2D::addDiffuseTexture(std::string imageLocation, std::string name, unsigned int wrap_s, unsigned int wrap_t,
 		unsigned int min_filter, unsigned int mag_filter, bool hasAndUseAlpha, int* returnTexIndex) {
 		for (int i = 0; i < textures.size(); i++) {
 			if (textures.at(i).name == name) {
@@ -32,6 +32,16 @@ namespace aquarius_engine {
 			throw std::string("ERROR: CANNOT LOAD IMAGE WITH GIVEN PATH--" + imageLocation);
 		}
 		setTexWrapFilter(wrap_s, wrap_t, min_filter, mag_filter);
+	}
+
+	void AQ_CompSimpleBox2D::switchDiffuseTexture(std::string name) {
+		for (int i = 0; i < textures.size(); i++) {
+			if (textures.at(i).name == name) {
+				auto temp = textures.at(0);
+				textures.at(0) = textures.at(i);
+				textures.at(i) = temp;
+			}
+		}
 	}
 
 	void AQ_CompSimpleBox2D::setAnimSprites(std::vector<std::string> imagesLocations, unsigned int wrap_s, unsigned int wrap_t,
