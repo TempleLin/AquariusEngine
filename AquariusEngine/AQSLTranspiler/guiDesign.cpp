@@ -1,5 +1,6 @@
 #include "guiDesign.h"
 #include "dear_imgui/imgui.h"
+#include <dear_imgui/imgui_internal.h>
 #include "dear_imgui/imgui_impl_glfw.h"
 #include "dear_imgui/imgui_impl_opengl3.h"
 #if defined(IMGUI_IMPL_OPENGL_ES2)
@@ -8,6 +9,9 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <string>
+#include <iostream>
+#include <vector>
 
 #include "settingsValues.h"
 #include <AQSLTranspilerJNI_ImguiWrap.h>
@@ -73,6 +77,14 @@ void guiUpdate() {
         counter++;
     ImGui::SameLine();
     ImGui::Text("counter = %d", counter);
+
+    ImGui::NewLine();
+    //std::vector<char*>linesOfInputs;
+    char inputtedText[255];
+    //if (!ImGui::IsKeyPressedMap(ImGuiKey_Escape)) {
+        ImGui::InputTextMultiline("Input text here", inputtedText, sizeof(inputtedText));
+    //}
+    std::cout << inputtedText << "\n";
 
     //ImGui::Text("Seconds passed in game: %u", (unsigned int)timeCtrl->getSecondsInGame());
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
