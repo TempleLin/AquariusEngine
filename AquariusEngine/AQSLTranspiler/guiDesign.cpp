@@ -81,9 +81,7 @@ void guiUpdate() {
     ImGui::NewLine();
     //std::vector<char*>linesOfInputs;
     char inputtedText[255];
-    //if (!ImGui::IsKeyPressedMap(ImGuiKey_Escape)) {
-        ImGui::InputTextMultiline("Input text here", inputtedText, sizeof(inputtedText));
-    //}
+    ImGui::InputTextMultiline("Input text here", inputtedText, sizeof(inputtedText), ImVec2{ (float)SCR_WIDTH, (float) SCR_HEIGHT / 2.f });
     std::cout << inputtedText << "\n";
 
     //ImGui::Text("Seconds passed in game: %u", (unsigned int)timeCtrl->getSecondsInGame());
