@@ -27,6 +27,9 @@
     <ClCompile Include="glWrap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="shaderHeaderConvert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="guiDesign.h">
@@ -38,5 +41,13 @@
     <ClInclude Include="aqslTranspiler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="shaderHeaderConvert.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="two_d_tex_vs.glsl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -148,11 +148,16 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="guiDesign.cpp" />
     <ClCompile Include="settingsValues.cpp" />
+    <ClCompile Include="shaderHeaderConvert.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aqslTranspiler.h" />
     <ClInclude Include="guiDesign.h" />
     <ClInclude Include="settingsValues.h" />
+    <ClInclude Include="shaderHeaderConvert.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="two_d_tex_vs.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

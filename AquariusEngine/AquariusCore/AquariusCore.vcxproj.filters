@@ -179,6 +179,9 @@
     <ClInclude Include="src\headers\AQ_UniControls.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AQ_ShaderTypes.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="5.1.framebuffers_vs.glsl">

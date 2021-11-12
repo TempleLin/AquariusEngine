@@ -189,6 +189,7 @@
     <ClCompile Include="src\stbi_image_wrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AQ_ShaderTypes.hpp" />
     <ClInclude Include="src\headers\AQ_CompBoxButton2D.hpp" />
     <ClInclude Include="src\headers\AQ_Transform.hpp" />
     <ClInclude Include="src\headers\AQ_CompSimpleBox2D.hpp" />
