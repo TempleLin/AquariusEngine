@@ -138,9 +138,40 @@ class Editor extends JFrame implements ActionListener {
     {
         switch (e.getActionCommand()){
             case "SimpleBox2D_VS":
+                File file;
+                try{
+                    file = new File("two_d_tex_vs.glsl");
+                    FileReader fileReader = new FileReader(file);
+                    BufferedReader bufferedReader = new BufferedReader(fileReader);
+                    String readText = null;
+                    String strBuffer;
+                    while ((strBuffer = bufferedReader.readLine()) != null){
+                        readText = readText + strBuffer + "\n";
+                    }
+                    textPane.setText(readText);
+                } catch (NullPointerException | FileNotFoundException exception){
+                    System.out.println(exception.getMessage());
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
                 System.out.println("SimpleBox2D_VS");
                 break;
             case "SimpleBox2D_FS":
+                try{
+                    file = new File("two_d_tex_fs.glsl");
+                    FileReader fileReader = new FileReader(file);
+                    BufferedReader bufferedReader = new BufferedReader(fileReader);
+                    String readText = null;
+                    String strBuffer;
+                    while ((strBuffer = bufferedReader.readLine()) != null){
+                        readText = readText + strBuffer + "\n";
+                    }
+                    textPane.setText(readText);
+                } catch (NullPointerException | FileNotFoundException exception){
+                    System.out.println(exception.getMessage());
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
                 System.out.println("SimpleBox2D_FS");
                 break;
         }
