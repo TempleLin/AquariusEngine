@@ -15,6 +15,7 @@ import javax.swing.text.StyleContext;
 class Editor extends JFrame implements ActionListener {
     // Text component
     JTextPane textPane;
+    SyntaxHighlighter syntaxHighlighter;
     // Frame
     JFrame frame;
 
@@ -23,6 +24,7 @@ class Editor extends JFrame implements ActionListener {
     {
         // Create a frame
         frame = new JFrame("editor");
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
@@ -69,10 +71,13 @@ class Editor extends JFrame implements ActionListener {
         menuBar.add(menu0);
         menuBar.add(menu1);
 
+        syntaxHighlighter = new SyntaxHighlighter(textPane);
+
         frame.setJMenuBar(menuBar);
         frame.add(textPane);
         frame.setSize(800, 800);
         frame.setVisible(true);
+
 
 //        // Create a menubar
 //        JMenuBar mb = new JMenuBar();
@@ -125,20 +130,6 @@ class Editor extends JFrame implements ActionListener {
 //        f.add(t);
 //        f.setSize(500, 500);
 //        f.show();
-    }
-
-    private void appendToPane(JTextPane tp, String msg, Color c)
-    {
-        StyleContext sc = StyleContext.getDefaultStyleContext();
-        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
-
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-
-        int len = tp.getDocument().getLength();
-        tp.setCaretPosition(len);
-        tp.setCharacterAttributes(aset, false);
-        tp.replaceSelection(msg);
     }
 
     // If a button is pressed
