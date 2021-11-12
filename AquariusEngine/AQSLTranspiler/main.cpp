@@ -53,7 +53,7 @@ int main()
     std::cout << shaderStrBuffer.topMainBottom[1] << "\n";
     std::cout << shaderStrBuffer.topMainBottom[2] << "\n";
     stringToShader(shaderStrBuffer, "testOutput.glsl");
-
+    stringToHeader(shaderStrBuffer, "testOutput.hpp", "testOutput");
 
     while (!glfwWindowShouldClose(currentWindow)) {
         glfwPollEvents();

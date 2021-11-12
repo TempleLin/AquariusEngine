@@ -82,7 +82,7 @@ void guiUpdate() {
     //std::vector<char*>linesOfInputs;
     char inputtedText[255];
     ImGui::InputTextMultiline("Input text here", inputtedText, sizeof(inputtedText), ImVec2{ (float)SCR_WIDTH, (float) SCR_HEIGHT / 2.f });
-    std::cout << inputtedText << "\n";
+    //std::cout << inputtedText << "\n";
 
     //ImGui::Text("Seconds passed in game: %u", (unsigned int)timeCtrl->getSecondsInGame());
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
