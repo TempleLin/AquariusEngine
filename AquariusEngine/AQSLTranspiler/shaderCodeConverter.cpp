@@ -1,4 +1,4 @@
-#include "shaderHeaderConvert.hpp"
+#include "shaderCodeConverter.hpp"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -74,10 +74,8 @@ void stringToHeader(const ShaderStrBuffer& strsBuffer, std::string headerFileNam
 		ofstream << "//@TopSectionStart@\n";
 		strstream << strsBuffer.topMainBottom[0];
 		if (!strsBuffer.topMainBottom[0].empty()) {
-			std::cout << "Test0: \n";
 			while (std::getline(strstream, tempStr, '\n')) {
 				ofstream << "\"" << tempStr << "\\n\"\n";
-				std::cout << tempStr;
 			}
 		}
 		ofstream << "//@TopSectionEnd@\n";
@@ -86,10 +84,8 @@ void stringToHeader(const ShaderStrBuffer& strsBuffer, std::string headerFileNam
 		strstream.clear();
 		strstream << strsBuffer.topMainBottom[1];
 		if (!strsBuffer.topMainBottom[1].empty()) {
-			std::cout << "Test1: \n";
 			while (std::getline(strstream, tempStr, '\n')) {
 				ofstream << "\"" << tempStr << "\\n\"\n";
-				std::cout << tempStr;
 			}
 		}
 		ofstream << "//@MainSectionEnd@\n";
@@ -98,10 +94,8 @@ void stringToHeader(const ShaderStrBuffer& strsBuffer, std::string headerFileNam
 		strstream.clear();
 		strstream << strsBuffer.topMainBottom[2];
 		if (!strsBuffer.topMainBottom[2].empty()) {
-			std::cout << "Test2: \n";
 			while (std::getline(strstream, tempStr, '\n')) {
 				ofstream << "\"" << tempStr << "\\n\"\n";
-				std::cout << tempStr;
 			}
 		}
 		ofstream << "//@BottomSectionEnd@\n" << "};";

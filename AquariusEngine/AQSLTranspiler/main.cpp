@@ -12,7 +12,7 @@
 #include <headers/AQ_GameObject.hpp>
 #include <headers/AQ_CompBoxButton2D.hpp>
 
-#include "shaderHeaderConvert.hpp"
+#include "shaderCodeConverter.hpp"
 #include "settingsValues.h"
 #include "guiDesign.h"
 
@@ -49,9 +49,6 @@ int main()
     ImGui_ImplOpenGL3_Init(glsl_version);
 
     ShaderStrBuffer shaderStrBuffer = shaderToString("two_d_tex_vs.glsl");
-    std::cout << shaderStrBuffer.topMainBottom[0] << "\n";
-    std::cout << shaderStrBuffer.topMainBottom[1] << "\n";
-    std::cout << shaderStrBuffer.topMainBottom[2] << "\n";
     stringToShader(shaderStrBuffer, "testOutput.glsl");
     stringToHeader(shaderStrBuffer, "testOutput.hpp", "testOutput");
 
