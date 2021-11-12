@@ -7,10 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.awt.event.*;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
 
 class Editor extends JFrame implements ActionListener {
     // Text component
@@ -23,7 +19,7 @@ class Editor extends JFrame implements ActionListener {
     public Editor()
     {
         // Create a frame
-        frame = new JFrame("editor");
+        frame = new JFrame("AQSLTranspiler");
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
