@@ -41,4 +41,4 @@ const char* testOutput {
 "    }\n"
 "}\n"
 //@BottomSectionEnd@
-}
+};

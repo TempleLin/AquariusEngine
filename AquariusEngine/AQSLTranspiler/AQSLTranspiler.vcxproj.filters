@@ -27,7 +27,7 @@
     <ClCompile Include="glWrap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="shaderHeaderConvert.cpp">
+    <ClCompile Include="shaderCodeConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClInclude Include="aqslTranspiler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="shaderHeaderConvert.hpp">
+    <ClInclude Include="shaderCodeConverter.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

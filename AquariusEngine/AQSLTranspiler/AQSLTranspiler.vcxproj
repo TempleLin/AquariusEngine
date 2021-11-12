@@ -149,13 +149,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="guiDesign.cpp" />
     <ClCompile Include="settingsValues.cpp" />
-    <ClCompile Include="shaderHeaderConvert.cpp" />
+    <ClCompile Include="shaderCodeConverter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aqslTranspiler.h" />
     <ClInclude Include="guiDesign.h" />
     <ClInclude Include="settingsValues.h" />
-    <ClInclude Include="shaderHeaderConvert.hpp" />
+    <ClInclude Include="shaderCodeConverter.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="two_d_tex_vs.glsl" />

@@ -48,7 +48,7 @@ int main()
     ImGui_ImplGlfw_InitForOpenGL(currentWindow, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    ShaderStrBuffer shaderStrBuffer = shaderToString("two_d_tex_vs.glsl");
+    shaderStrBuffer = shaderToString("two_d_tex_vs.glsl");
     stringToShader(shaderStrBuffer, "testOutput.glsl");
     stringToHeader(shaderStrBuffer, "testOutput.hpp", "testOutput");
 

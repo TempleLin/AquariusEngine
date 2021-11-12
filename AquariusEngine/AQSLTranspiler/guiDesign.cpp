@@ -58,30 +58,29 @@ JNIEXPORT void JNICALL Java_AQSLTranspilerJNI_ImguiWrap_shutdown
     ImGui::DestroyContext();
 }
 
+ShaderStrBuffer shaderStrBuffer;
 void guiUpdate() {
     static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     static float f = 0.0f;
     static int counter = 0;
 
-    ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-    //ImVec2 windowSize(336.f, 210.f);
-    ImGui::SetWindowSize(ImVec2{ static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT) });
+    ImGui::Begin("Top Section");                          // Create a window called "Hello, world!" and append into it.
+    ImGui::SetWindowSize(ImVec2{ static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT)});
     ImGui::SetWindowPos(ImVec2{ 0.f, 0.f });
-    ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
 
-    ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-    ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-    if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-        counter++;
-    ImGui::SameLine();
-    ImGui::Text("counter = %d", counter);
-
+    ImGui::Text(shaderStrBuffer.topMainBottom[0].c_str());
     ImGui::NewLine();
-    //std::vector<char*>linesOfInputs;
-    char inputtedText[255];
-    ImGui::InputTextMultiline("Input text here", inputtedText, sizeof(inputtedText), ImVec2{ (float)SCR_WIDTH, (float) SCR_HEIGHT / 2.f });
+    char topSection[2550];
+    ImGui::InputTextMultiline("Top Section Input", topSection, sizeof(topSection), ImVec2{ (float)SCR_WIDTH, (float) SCR_HEIGHT / 4.f });
+
+    ImGui::Text(shaderStrBuffer.topMainBottom[1].substr(0, shaderStrBuffer.topMainBottom[1].size() - 2).c_str());
+    char premainSection[2550];
+    ImGui::InputTextMultiline("Pre Main Section Input", premainSection, sizeof(premainSection), ImVec2{ (float)SCR_WIDTH, (float)SCR_HEIGHT / 4.f });
+    ImGui::End();
+
+    char bottomSection[25500];
+
     //std::cout << inputtedText << "\n";
 
     //ImGui::Text("Seconds passed in game: %u", (unsigned int)timeCtrl->getSecondsInGame());
