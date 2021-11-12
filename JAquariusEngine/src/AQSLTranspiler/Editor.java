@@ -54,9 +54,17 @@ class Editor extends JFrame implements ActionListener {
         menu0Item0_0.addActionListener(this);
         menu0Item0_1.addActionListener(this);
 
+        JMenuItem menu1Item0 = new JMenuItem("ToCPPHeader");
+        JMenuItem menu1Item1 = new JMenuItem("ToJavaFile");
+        JMenuItem menu1Item2 = new JMenuItem("ToShaderFile");
+
         menu0Item0.add(menu0Item0_0);
         menu0Item0.add(menu0Item0_1);
         menu0.add(menu0Item0);
+
+        menu1.add(menu1Item0);
+        menu1.add(menu1Item1);
+        menu1.add(menu1Item2);
 
         menuBar.add(menu0);
         menuBar.add(menu1);
