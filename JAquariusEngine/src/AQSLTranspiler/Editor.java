@@ -71,6 +71,7 @@ class Editor extends JFrame implements ActionListener {
         menuBar.add(menu0);
         menuBar.add(menu1);
 
+        textPane.setEditorKit(new TabSizeEditorKit());
         syntaxHighlighter = new SyntaxHighlighter(textPane);
 
         frame.setJMenuBar(menuBar);
