@@ -52,6 +52,7 @@ int main()
     std::cout << shaderStrBuffer.topMainBottom[0] << "\n";
     std::cout << shaderStrBuffer.topMainBottom[1] << "\n";
     std::cout << shaderStrBuffer.topMainBottom[2] << "\n";
+    stringToShader(shaderStrBuffer, "testOutput.glsl");
 
 
     while (!glfwWindowShouldClose(currentWindow)) {
