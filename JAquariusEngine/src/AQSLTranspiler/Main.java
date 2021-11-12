@@ -1,6 +1,8 @@
 package AQSLTranspiler;
 
 // Java Program to create a text editor using java
+import com.formdev.flatlaf.FlatDarculaLaf;
+
 import java.awt.*;
 import javax.swing.*;
 import java.io.*;
@@ -21,8 +23,9 @@ class Main extends JFrame implements ActionListener {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
+            FlatDarculaLaf.setup();
             // Set metal look and feel
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+            UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarculaLaf");
 
             // Set theme to ocean
             MetalLookAndFeel.setCurrentTheme(new OceanTheme());
@@ -74,13 +77,8 @@ class Main extends JFrame implements ActionListener {
         m2.add(mi5);
         m2.add(mi6);
 
-        JMenuItem mc = new JMenuItem("close");
-
-        mc.addActionListener(this);
-
         mb.add(m1);
         mb.add(m2);
-        mb.add(mc);
 
         f.setJMenuBar(mb);
         f.add(t);
@@ -187,9 +185,6 @@ class Main extends JFrame implements ActionListener {
         }
         else if (s.equals("New")) {
             t.setText("");
-        }
-        else if (s.equals("close")) {
-            f.setVisible(false);
         }
     }
 
