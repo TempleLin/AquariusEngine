@@ -146,7 +146,7 @@ class Editor extends JFrame implements ActionListener {
                 System.out.println("SimpleBox2D_FS");
                 break;
             case "ToShaderFile":
-                fileIO.saveTextAsGLSL(textPane.getText(), "glsl", "glsl");
+                fileIO.saveTextAsGLSL(textPane.getText(), new String[]{"glsl"}, new String[]{"glsl"});
                 break;
         }
 

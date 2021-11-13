@@ -1,8 +1,10 @@
 package AQSLTranspiler;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
+import java.util.Arrays;
 
 public class FileIO {
     public String readFileReturnStr(String fileName) {
@@ -23,14 +25,17 @@ public class FileIO {
         }
         return null;
     }
-    public void saveTextAsGLSL(String text, String fileTypeDescription , String fileExtension){
+    public void saveTextAsGLSL(String text, String[] fileTypeDescriptions , String[] fileExtensions){
         JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter fileNameExtensionFilter = new FileNameExtensionFilter(fileTypeDescription, fileExtension);
-        fileChooser.addChoosableFileFilter(fileNameExtensionFilter);
-        fileChooser.setFileFilter(fileNameExtensionFilter);
+        for (int i = 0; i < fileTypeDescriptions.length; i++){
+            fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(fileTypeDescriptions[i], fileExtensions[i]));
+        }
+        FileFilter[] filters = fileChooser.getChoosableFileFilters();
+        fileChooser.setFileFilter(filters[1]);
         int dialog = fileChooser.showOpenDialog(null);
         if (dialog == JFileChooser.APPROVE_OPTION){
-            File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+
+            File file = getSelectedFileWithExtension(fileChooser);
 
             try{
                 FileWriter fileWriter = new FileWriter(file, false);
@@ -43,5 +48,28 @@ public class FileIO {
                 e.printStackTrace();
             }
         }
+    }
+    public void saveTextAsCPPHeader(String text, String fileTypeDescription , String fileExtension){
+
+    }
+
+    /**
+     * Returns the selected file from a JFileChooser, including the extension from
+     * the file filter.
+     */
+    public File getSelectedFileWithExtension(JFileChooser c) {
+        File file = c.getSelectedFile();
+        if (c.getFileFilter() instanceof FileNameExtensionFilter) {
+            String[] exts = ((FileNameExtensionFilter)c.getFileFilter()).getExtensions();
+            String nameLower = file.getName().toLowerCase();
+            for (String ext : exts) { // check if it already has a valid extension
+                if (nameLower.endsWith('.' + ext.toLowerCase())) {
+                    return file; // if yes, return as-is
+                }
+            }
+            // if not, append the first extension from the selected filter
+            file = new File(file.toString() + '.' + exts[0]);
+        }
+        return file;
     }
 }
