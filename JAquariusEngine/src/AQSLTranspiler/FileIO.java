@@ -62,7 +62,7 @@ public class FileIO {
                     }
                     bufferedWriter.flush();
                     bufferedWriter.close();
-                }catch (IllegalStateException e){
+                } catch (IllegalStateException e){
                     e.printStackTrace();
                 }
 

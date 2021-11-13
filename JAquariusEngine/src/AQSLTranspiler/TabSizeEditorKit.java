@@ -6,7 +6,7 @@ import javax.swing.text.*;
 /*
 * @Mainly used for changing the default tab spacing.
 * */
-class TabSizeEditorKit extends StyledEditorKit {
+public class TabSizeEditorKit extends StyledEditorKit {
 
     public static final int TAB_SIZE=12;
 
@@ -19,16 +19,17 @@ class TabSizeEditorKit extends StyledEditorKit {
         public View create(Element elem) {
             String kind = elem.getName();
             if (kind != null) {
-                if (kind.equals(AbstractDocument.ContentElementName)) {
-                    return new LabelView(elem);
-                } else if (kind.equals(AbstractDocument.ParagraphElementName)) {
-                    return new CustomTabParagraphView(elem);
-                } else if (kind.equals(AbstractDocument.SectionElementName)) {
-                    return new BoxView(elem, View.Y_AXIS);
-                } else if (kind.equals(StyleConstants.ComponentElementName)) {
-                    return new ComponentView(elem);
-                } else if (kind.equals(StyleConstants.IconElementName)) {
-                    return new IconView(elem);
+                switch (kind) {
+                    case AbstractDocument.ContentElementName:
+                        return new LabelView(elem);
+                    case AbstractDocument.ParagraphElementName:
+                        return new CustomTabParagraphView(elem);
+                    case AbstractDocument.SectionElementName:
+                        return new BoxView(elem, View.Y_AXIS);
+                    case StyleConstants.ComponentElementName:
+                        return new ComponentView(elem);
+                    case StyleConstants.IconElementName:
+                        return new IconView(elem);
                 }
             }
 
