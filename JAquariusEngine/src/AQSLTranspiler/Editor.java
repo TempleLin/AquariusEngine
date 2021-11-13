@@ -148,8 +148,11 @@ class Editor extends JFrame implements ActionListener {
             case "ToShaderFile":
                 fileIO.saveTextAsFile(textPane.getText(), new String[]{"glsl"}, new String[]{"glsl"}, FileIO.FileTypes.GLSL);
                 break;
+            case "ToJavaFile":
+                fileIO.saveTextAsFile(textPane.getText(), new String[]{"java"}, new String[]{"java"}, FileIO.FileTypes.JAVAFILE);
+                break;
             case "ToCPPHeader":
-                fileIO.saveTextAsFile(textPane.getText(), new String[]{"hpp"}, new String[]{"hpp"}, FileIO.FileTypes.CPPHEADER);
+                fileIO.saveTextAsFile(textPane.getText(), new String[]{"hpp", "h"}, new String[]{"hpp", "h"}, FileIO.FileTypes.CPPHEADER);
                 break;
         }
 

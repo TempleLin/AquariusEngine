@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class FileIO {
     public enum FileTypes{
-        GLSL, CPPHEADER
+        GLSL, CPPHEADER, JAVAFILE
     }
     public String readFileReturnStr(String fileName) {
         try{
@@ -45,7 +45,7 @@ public class FileIO {
                         }
                         case CPPHEADER -> {
                             StringBuilder modifiedText = new StringBuilder();
-                            String varName = JOptionPane.showInputDialog("Enter variable identifier");
+                            String varName = JOptionPane.showInputDialog("Enter variable name");
                             modifiedText.append("const char* ").append(varName).append(" {\n");
 
                             Scanner scanner = new Scanner(text);
@@ -57,6 +57,25 @@ public class FileIO {
                             modifiedText.append("}");
 
                             bufferedWriter.write(modifiedText.toString());
+                        }
+                        case JAVAFILE -> {
+                            String[] inputs = new String[]{
+                              JOptionPane.showInputDialog("Enter package name"),
+                              JOptionPane.showInputDialog("Enter class name"),
+                              JOptionPane.showInputDialog("Enter variable name")
+                            };
+
+                            StringBuilder modifiedText = new StringBuilder();
+                            modifiedText.append("package ").append(inputs[0]).append(";\n\n")
+                                    .append("public class ").append(inputs[1]).append(" {\n")
+                                    .append("\tpublic static String ").append(inputs[2]).append(" = \"\"\"\n");
+                            Scanner scanner = new Scanner(text);
+                            while (scanner.hasNextLine()){
+                                modifiedText.append(scanner.nextLine()).append("\n");
+                            }
+                            modifiedText.append("\"\"\";");
+                            bufferedWriter.write(modifiedText.toString());
+
                         }
                         default -> throw new IllegalStateException("Unexpected value: " + fileType);
                     }

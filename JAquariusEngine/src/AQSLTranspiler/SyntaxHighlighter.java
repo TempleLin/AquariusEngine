@@ -8,6 +8,7 @@ public class SyntaxHighlighter {
     JTextPane textPane;
     DefaultStyledDocument defaultStyledDocument;
     Style style;
+
     public SyntaxHighlighter(JTextPane textPane){
         this.textPane = textPane;
 
