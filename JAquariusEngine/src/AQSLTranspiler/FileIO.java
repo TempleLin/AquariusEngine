@@ -12,12 +12,12 @@ public class FileIO {
             File file = new File(fileName);
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String readText = "";
+            StringBuilder readText = new StringBuilder();
             String strBuffer;
             while ((strBuffer = bufferedReader.readLine()) != null){
-                readText = readText + strBuffer + "\n";
+                readText.append(strBuffer).append("\n");
             }
-            return readText;
+            return readText.toString();
         } catch (NullPointerException | FileNotFoundException exception){
             System.out.println(exception.getMessage());
         } catch (IOException ioException) {
@@ -26,18 +26,11 @@ public class FileIO {
         return null;
     }
     public void saveTextAsGLSL(String text, String[] fileTypeDescriptions , String[] fileExtensions){
-        JFileChooser fileChooser = new JFileChooser();
-        for (int i = 0; i < fileTypeDescriptions.length; i++){
-            fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(fileTypeDescriptions[i], fileExtensions[i]));
-        }
-        FileFilter[] filters = fileChooser.getChoosableFileFilters();
-        fileChooser.setFileFilter(filters[1]);
+        JFileChooser fileChooser = createFilteredFileChooser(fileTypeDescriptions, fileExtensions);
         int dialog = fileChooser.showOpenDialog(null);
         if (dialog == JFileChooser.APPROVE_OPTION){
-
-            File file = getSelectedFileWithExtension(fileChooser);
-
             try{
+                File file = getSelectedFileWithExtension(fileChooser);
                 FileWriter fileWriter = new FileWriter(file, false);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                 bufferedWriter.write(text);
@@ -49,7 +42,7 @@ public class FileIO {
             }
         }
     }
-    public void saveTextAsCPPHeader(String text, String fileTypeDescription , String fileExtension){
+    public void saveTextAsCPPHeader(String text, String[] fileTypeDescription , String[] fileExtension){
 
     }
 
@@ -57,7 +50,7 @@ public class FileIO {
      * Returns the selected file from a JFileChooser, including the extension from
      * the file filter.
      */
-    public File getSelectedFileWithExtension(JFileChooser c) {
+    private File getSelectedFileWithExtension(JFileChooser c) {
         File file = c.getSelectedFile();
         if (c.getFileFilter() instanceof FileNameExtensionFilter) {
             String[] exts = ((FileNameExtensionFilter)c.getFileFilter()).getExtensions();
@@ -71,5 +64,15 @@ public class FileIO {
             file = new File(file.toString() + '.' + exts[0]);
         }
         return file;
+    }
+
+    private JFileChooser createFilteredFileChooser(String[] fileTypeDescriptions , String[] fileExtensions){
+        JFileChooser fileChooser = new JFileChooser();
+        for (int i = 0; i < fileTypeDescriptions.length; i++){
+            fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(fileTypeDescriptions[i], fileExtensions[i]));
+        }
+        FileFilter[] filters = fileChooser.getChoosableFileFilters();
+        fileChooser.setFileFilter(filters[1]);
+        return fileChooser;
     }
 }
