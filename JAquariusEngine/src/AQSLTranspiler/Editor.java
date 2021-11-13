@@ -4,8 +4,6 @@ package AQSLTranspiler;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.*;
 import java.awt.event.*;
 
 class Editor extends JFrame implements ActionListener {
@@ -52,13 +50,18 @@ class Editor extends JFrame implements ActionListener {
         menu0Item0_0.addActionListener(this);
         menu0Item0_1.addActionListener(this);
 
+        menu0Item0.add(menu0Item0_0);
+        menu0Item0.add(menu0Item0_1);
+        menu0.add(menu0Item0);
+
+
         JMenuItem menu1Item0 = new JMenuItem("ToCPPHeader");
         JMenuItem menu1Item1 = new JMenuItem("ToJavaFile");
         JMenuItem menu1Item2 = new JMenuItem("ToShaderFile");
 
-        menu0Item0.add(menu0Item0_0);
-        menu0Item0.add(menu0Item0_1);
-        menu0.add(menu0Item0);
+        menu1Item0.addActionListener(this);
+        menu1Item1.addActionListener(this);
+        menu1Item2.addActionListener(this);
 
         menu1.add(menu1Item0);
         menu1.add(menu1Item1);
@@ -132,14 +135,18 @@ class Editor extends JFrame implements ActionListener {
     // If a button is pressed
     public void actionPerformed(ActionEvent e)
     {
+        FileIO fileIO = new FileIO();
         switch (e.getActionCommand()){
             case "SimpleBox2D_VS":
-                textPane.setText(readFileReturnStr("two_d_tex_vs.glsl"));
+                textPane.setText(fileIO.readFileReturnStr("two_d_tex_vs.glsl"));
                 System.out.println("SimpleBox2D_VS");
                 break;
             case "SimpleBox2D_FS":
-                textPane.setText(readFileReturnStr("two_d_tex_fs.glsl"));
+                textPane.setText(fileIO.readFileReturnStr("two_d_tex_fs.glsl"));
                 System.out.println("SimpleBox2D_FS");
+                break;
+            case "ToShaderFile":
+                fileIO.saveTextAsGLSL(textPane.getText(), "glsl", "glsl");
                 break;
         }
 
@@ -245,22 +252,5 @@ class Editor extends JFrame implements ActionListener {
 //            textPane.setText("");
 //        }
     }
-    public String readFileReturnStr(String fileName) {
-        try{
-            File file = new File(fileName);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String readText = "";
-            String strBuffer;
-            while ((strBuffer = bufferedReader.readLine()) != null){
-                readText = readText + strBuffer + "\n";
-            }
-            return readText;
-        } catch (NullPointerException | FileNotFoundException exception){
-            System.out.println(exception.getMessage());
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-        return null;
-    }
+
     }
