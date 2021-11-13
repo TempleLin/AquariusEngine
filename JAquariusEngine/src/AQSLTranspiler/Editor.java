@@ -1,6 +1,6 @@
 package AQSLTranspiler;
 
-// Java Program to create a text editor using java
+// Library used for better Swing theme.
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import javax.swing.*;

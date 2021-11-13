@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileIO {
@@ -74,8 +73,8 @@ public class FileIO {
                                 modifiedText.append(scanner.nextLine()).append("\n");
                             }
                             modifiedText.append("\"\"\";");
-                            bufferedWriter.write(modifiedText.toString());
 
+                            bufferedWriter.write(modifiedText.toString());
                         }
                         default -> throw new IllegalStateException("Unexpected value: " + fileType);
                     }
