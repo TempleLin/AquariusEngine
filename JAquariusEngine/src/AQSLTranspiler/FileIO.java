@@ -5,8 +5,12 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class FileIO {
+    public enum FileTypes{
+        GLSL, CPPHEADER
+    }
     public String readFileReturnStr(String fileName) {
         try{
             File file = new File(fileName);
@@ -25,7 +29,7 @@ public class FileIO {
         }
         return null;
     }
-    public void saveTextAsGLSL(String text, String[] fileTypeDescriptions , String[] fileExtensions){
+    public void saveTextAsFile(String text, String[] fileTypeDescriptions , String[] fileExtensions, FileTypes fileType){
         JFileChooser fileChooser = createFilteredFileChooser(fileTypeDescriptions, fileExtensions);
         int dialog = fileChooser.showOpenDialog(null);
         if (dialog == JFileChooser.APPROVE_OPTION){
@@ -33,10 +37,35 @@ public class FileIO {
                 File file = getSelectedFileWithExtension(fileChooser);
                 FileWriter fileWriter = new FileWriter(file, false);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                bufferedWriter.write(text);
 
-                bufferedWriter.flush();
-                bufferedWriter.close();
+                try{
+                    switch (fileType) {
+                        case GLSL -> {
+                            bufferedWriter.write(text);
+                        }
+                        case CPPHEADER -> {
+                            StringBuilder modifiedText = new StringBuilder();
+                            String varName = JOptionPane.showInputDialog("Enter variable identifier");
+                            modifiedText.append("const char* ").append(varName).append(" {\n");
+
+                            Scanner scanner = new Scanner(text);
+                            while (scanner.hasNextLine()){
+                                String tempLine = scanner.nextLine();
+                                tempLine = "\"" + tempLine + "\\n\"\n";
+                                modifiedText.append(tempLine);
+                            }
+                            modifiedText.append("}");
+
+                            bufferedWriter.write(modifiedText.toString());
+                        }
+                        default -> throw new IllegalStateException("Unexpected value: " + fileType);
+                    }
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                }catch (IllegalStateException e){
+                    e.printStackTrace();
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -48,7 +77,7 @@ public class FileIO {
 
     /**
      * Returns the selected file from a JFileChooser, including the extension from
-     * the file filter.
+     * the file filter. (Means the file will be set with selected extension name even if user didn't select.)
      */
     private File getSelectedFileWithExtension(JFileChooser c) {
         File file = c.getSelectedFile();
