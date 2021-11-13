@@ -71,9 +71,6 @@ public class FileIO {
             }
         }
     }
-    public void saveTextAsCPPHeader(String text, String[] fileTypeDescription , String[] fileExtension){
-
-    }
 
     /**
      * Returns the selected file from a JFileChooser, including the extension from
