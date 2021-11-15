@@ -32,6 +32,7 @@ namespace aquarius_engine {
 		glm::mat4 rotation = glm::toMat4(rotationQuat);
 
 		tempTransformOffset = glm::translate(tempTransformOffset, translation);
+		tempTransformOffset = glm::scale(tempTransformOffset, scale);
 		tempTransformOffset = rotation * tempTransformOffset;
 		return tempTransformOffset;
 	}
