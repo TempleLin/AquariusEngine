@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 namespace aquarius_engine {
 	AQ_GameObject* AQ_Component::getGameObject() {
@@ -15,24 +16,24 @@ namespace aquarius_engine {
 
 	glm::mat4 AQ_Component::getTransform() {
 		/*
-		* @Translate back to the gameObject's position origin first, then rotate, then translate back. Results in correct relative position
-		*  when the component is not at gameObject's position and the gameObject rotates.
+		* @Temporary move offset to gameObject origin (So that the component's rotation is same as the gameObject), 
+		*  then translate back (Now the translation is relative to the rotation.),
+		*  then rotate the component back to its original rotation.
 		*/
-		glm::vec3 offsetFromOrigin = glm::vec3(transformOffset[0][3], transformOffset[1][3],
-			transformOffset[2][3]);
-		transformOffset = glm::translate(transformOffset, -offsetFromOrigin);
+		glm::mat4 tempTransformOffset = *(this->gameObjectTrans);
 
 		glm::vec3 scale;
 		glm::quat rotationQuat; //Quaternion.
 		glm::vec3 translation;
 		glm::vec3 skew;
 		glm::vec4 perspective;
-		glm::decompose(*(this->gameObjectTrans), scale, rotationQuat, translation, skew, perspective);
+
+		glm::decompose(transformOffset, scale, rotationQuat, translation, skew, perspective);
 		glm::mat4 rotation = glm::toMat4(rotationQuat);
 
-		transformOffset =  rotation * transformOffset;
-		transformOffset = glm::translate(transformOffset, offsetFromOrigin);
-		return transformOffset;
+		tempTransformOffset = glm::translate(tempTransformOffset, translation);
+		tempTransformOffset = rotation * tempTransformOffset;
+		return tempTransformOffset;
 	}
 	void AQ_Component::transformReset() {
 		transformOffset = glm::mat4(1.f);
