@@ -14,7 +14,10 @@ namespace aquarius_engine {
 	}
 
 	glm::mat4 AQ_Component::getTransform() {
-		/*return this->transformOffset * *(this->gameObjectTrans);*/
+		/*
+		* @Translate back to the gameObject's position origin first, then rotate, then translate back. Results in correct relative position
+		*  when the component is not at gameObject's position and the gameObject rotates.
+		*/
 		glm::vec3 offsetFromOrigin = glm::vec3(transformOffset[0][3], transformOffset[1][3],
 			transformOffset[2][3]);
 		transformOffset = glm::translate(transformOffset, -offsetFromOrigin);
