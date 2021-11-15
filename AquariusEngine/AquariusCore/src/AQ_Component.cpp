@@ -1,6 +1,8 @@
 #include "headers/AQ_Component.hpp"
 #include "headers/AQ_GameObject.hpp"
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 namespace aquarius_engine {
 	AQ_GameObject* AQ_Component::getGameObject() {
@@ -12,7 +14,22 @@ namespace aquarius_engine {
 	}
 
 	glm::mat4 AQ_Component::getTransform() {
-		return this->transformOffset * *(this->gameObjectTrans);
+		/*return this->transformOffset * *(this->gameObjectTrans);*/
+		glm::vec3 offsetFromOrigin = glm::vec3(transformOffset[0][3], transformOffset[1][3],
+			transformOffset[2][3]);
+		transformOffset = glm::translate(transformOffset, -offsetFromOrigin);
+
+		glm::vec3 scale;
+		glm::quat rotationQuat; //Quaternion.
+		glm::vec3 translation;
+		glm::vec3 skew;
+		glm::vec4 perspective;
+		glm::decompose(*(this->gameObjectTrans), scale, rotationQuat, translation, skew, perspective);
+		glm::mat4 rotation = glm::toMat4(rotationQuat);
+
+		transformOffset =  rotation * transformOffset;
+		transformOffset = glm::translate(transformOffset, offsetFromOrigin);
+		return transformOffset;
 	}
 	void AQ_Component::transformReset() {
 		transformOffset = glm::mat4(1.f);
