@@ -168,6 +168,8 @@
     <None Include="shaders\2.gamma_correction.vs" />
     <None Include="shaders\debug_quad.vs" />
     <None Include="shaders\debug_quad_depth.fs" />
+    <None Include="shaders\objModelSimpleShader\multi_lights_fs.glsl" />
+    <None Include="shaders\objModelSimpleShader\multi_lights_vs.glsl" />
     <None Include="shaders\shadow_mapping.fs" />
     <None Include="shaders\shadow_mapping.vs" />
     <None Include="shaders\shadow_mapping_depth.fs" />

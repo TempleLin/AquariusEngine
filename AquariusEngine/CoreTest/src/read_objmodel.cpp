@@ -125,7 +125,9 @@ namespace read_objmodel {
 
         // build and compile shaders
         // -------------------------
-        AQ_Shader ourShader("shaders/objModelSimpleShader/shaderVS.glsl", "shaders/objModelSimpleShader/shaderFS.glsl");
+        AQ_Shader ourShader("shaders/objModelSimpleShader/multi_lights_vs.glsl", "shaders/objModelSimpleShader/multi_lights_fs.glsl");
+        ourShader.setInt("material.diffuse", 0);
+        ourShader.setInt("material.specular", 1);
 
         cameraObject = gameObjectCtrl->createGameObject("CAMERA_OBJECT");
         if (!cameraObject)
@@ -143,11 +145,19 @@ namespace read_objmodel {
         // -----------
         AQ_GameObject* guitarObject = gameObjectCtrl->createGameObject("GUITAR_OBJECT");
         AQ_CompModel* guitarModel = gameObjectCtrl->addComponent<AQ_CompModel>(guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
-        AQ_CompModel* guitarModel2 = gameObjectCtrl->addComponent<AQ_CompModel>(guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR2");
-        gameObjectCtrl->removeComponent<AQ_CompModel>(guitarObject, "GUITAR2");
+
+        unsigned int diffuseMap = stbi_image_wrap::loadTexture("resources/textures/container2.png");
+        unsigned int specularMap = stbi_image_wrap::loadTexture("resources/textures/container2_specular.png");
         
         // draw in wireframe
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+        glm::vec3 pointLightPositions[] = {
+            glm::vec3(0.7f,  0.2f,  2.0f),
+            glm::vec3(2.3f, -3.3f, -4.0f),
+            glm::vec3(-4.0f,  2.0f, -12.0f),
+            glm::vec3(0.0f,  0.0f, -3.0f)
+        };
 
         // render loop
         // -----------
@@ -207,12 +217,12 @@ namespace read_objmodel {
             //countTime();
             timeCtrl->updateTime();
 
-            // Delete guitar in 8 seconds.
-            static bool deletedGuitar{ false };
-            if (!deletedGuitar && timeCtrl->getSecondsInGame() > 8) {
-                gameObjectCtrl->deleteGameObject("GUITAR_OBJECT");
-                deletedGuitar = true;
-            }
+            //// Delete guitar in 8 seconds.
+            //static bool deletedGuitar{ false };
+            //if (!deletedGuitar && timeCtrl->getSecondsInGame() > 8) {
+            //    gameObjectCtrl->deleteGameObject("GUITAR_OBJECT");
+            //    deletedGuitar = true;
+            //}
 
             // input
                 // -----
@@ -225,8 +235,58 @@ namespace read_objmodel {
             glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            // don't forget to enable shader before setting uniforms
+
             ourShader.use();
+            ourShader.setVec3("viewPos", camera->position);
+            ourShader.setFloat("material.shininess", 32.0f);
+
+            ourShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+            ourShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+            ourShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+            ourShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+            // point light 1
+            ourShader.setVec3("pointLights[0].position", pointLightPositions[0]);
+            ourShader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+            ourShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
+            ourShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+            ourShader.setFloat("pointLights[0].constant", 1.0f);
+            ourShader.setFloat("pointLights[0].linear", 0.09);
+            ourShader.setFloat("pointLights[0].quadratic", 0.032);
+            // point light 2
+            ourShader.setVec3("pointLights[1].position", pointLightPositions[1]);
+            ourShader.setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+            ourShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
+            ourShader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
+            ourShader.setFloat("pointLights[1].constant", 1.0f);
+            ourShader.setFloat("pointLights[1].linear", 0.09);
+            ourShader.setFloat("pointLights[1].quadratic", 0.032);
+            // point light 3
+            ourShader.setVec3("pointLights[2].position", pointLightPositions[2]);
+            ourShader.setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
+            ourShader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
+            ourShader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
+            ourShader.setFloat("pointLights[2].constant", 1.0f);
+            ourShader.setFloat("pointLights[2].linear", 0.09);
+            ourShader.setFloat("pointLights[2].quadratic", 0.032);
+            // point light 4
+            ourShader.setVec3("pointLights[3].position", pointLightPositions[3]);
+            ourShader.setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
+            ourShader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
+            ourShader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+            ourShader.setFloat("pointLights[3].constant", 1.0f);
+            ourShader.setFloat("pointLights[3].linear", 0.09);
+            ourShader.setFloat("pointLights[3].quadratic", 0.032);
+            // spotLight
+            ourShader.setVec3("spotLight.position", camera->position);
+            ourShader.setVec3("spotLight.direction", camera->front);
+            ourShader.setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
+            ourShader.setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
+            ourShader.setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+            ourShader.setFloat("spotLight.constant", 1.0f);
+            ourShader.setFloat("spotLight.linear", 0.09);
+            ourShader.setFloat("spotLight.quadratic", 0.032);
+            ourShader.setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+            ourShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
 
             // view/projection transformations
             glm::mat4 projection = glm::perspective(glm::radians(camera->zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
@@ -240,6 +300,14 @@ namespace read_objmodel {
             model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
             model = glm::scale(model, glm::vec3(.5f, .5f, .5f));	// it's a bit too big for our scene, so scale it down
             ourShader.setMat4("model", model);
+
+            // bind diffuse map
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, diffuseMap);
+            // bind specular map
+            glActiveTexture(GL_TEXTURE1);
+            glBindTexture(GL_TEXTURE_2D, specularMap);
+
             if (guitarModel)
                 guitarModel->draw(ourShader);
 
