@@ -33,7 +33,7 @@ namespace aquarius_engine {
 
 		tempTransformOffset = glm::translate(tempTransformOffset, translation);
 		tempTransformOffset = glm::scale(tempTransformOffset, scale);
-		tempTransformOffset = rotation * tempTransformOffset;
+		tempTransformOffset = tempTransformOffset * rotation;
 		return tempTransformOffset;
 	}
 	void AQ_Component::transformReset() {
@@ -47,5 +47,8 @@ namespace aquarius_engine {
 	}
 	void AQ_Component::transformScale(glm::vec3 scaleVector) {
 		this->transformOffset = glm::scale(this->transformOffset, scaleVector);
+	}
+	void AQ_Component::setTransform(glm::mat4 transform) {
+		this->transformOffset = transform;
 	}
 }

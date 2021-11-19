@@ -30,6 +30,7 @@ namespace aquarius_engine {
 		virtual void transformRotate(glm::vec3 rotateVector, float angle);
 		virtual void transformTranslate(glm::vec3 translateVector);
 		virtual void transformScale(glm::vec3 scaleVector);
+		virtual void setTransform(glm::mat4 transform);
 
 		virtual ~AQ_Component() {}
 	};
