@@ -145,9 +145,6 @@ namespace read_objmodel {
         // -----------
         AQ_GameObject* guitarObject = gameObjectCtrl->createGameObject("GUITAR_OBJECT");
         AQ_CompModel* guitarModel = gameObjectCtrl->addComponent<AQ_CompModel>(guitarObject, new AQ_CompModel("resources/objects/backpack/backpack.obj"), "GUITAR");
-
-        unsigned int diffuseMap = stbi_image_wrap::loadTexture("resources/textures/container2.png");
-        unsigned int specularMap = stbi_image_wrap::loadTexture("resources/textures/container2_specular.png");
         
         // draw in wireframe
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -300,13 +297,6 @@ namespace read_objmodel {
             model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
             model = glm::scale(model, glm::vec3(.5f, .5f, .5f));	// it's a bit too big for our scene, so scale it down
             ourShader.setMat4("model", model);
-
-            // bind diffuse map
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, diffuseMap);
-            // bind specular map
-            glActiveTexture(GL_TEXTURE1);
-            glBindTexture(GL_TEXTURE_2D, specularMap);
 
             if (guitarModel)
                 guitarModel->draw(ourShader);
