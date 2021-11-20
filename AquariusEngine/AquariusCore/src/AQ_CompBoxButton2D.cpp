@@ -37,6 +37,8 @@ namespace aquarius_engine {
 	}
 
 	bool AQ_CompBoxButton2D::checkInButtonRange(double cursorX, double cursorY, bool normalized) {
+		if (_disableButton) return false;
+
 		double windowWidth{}, windowHeight{};
 		int tempWindWidth{ (int)windowWidth }, tempWindHeight{ (int)windowHeight };
 		glfwGetWindowSize(window, &tempWindWidth, &tempWindHeight);
@@ -58,7 +60,7 @@ namespace aquarius_engine {
 
 	AQ_CompBoxButton2D::AQ_CompBoxButton2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int vertsCount)
 		: AQ_CompSimpleBox2D(vao, vbo, ebo, vertsCount), onHoverCallback(nullptr),
-		onClickCallback(nullptr) {
+		onClickCallback(nullptr), _disableButton(false) {
 
 	}
 
@@ -111,5 +113,14 @@ namespace aquarius_engine {
 
 	bool AQ_CompBoxButton2D::clickCheck(double cursorX, double cursorY, bool normalized) {
 		return checkInButtonRange(cursorX, cursorY, normalized);
+	}
+
+	void AQ_CompBoxButton2D::draw() {
+		if (_disableButton) return;
+		AQ_CompSimpleBox2D::draw();
+	}
+
+	void AQ_CompBoxButton2D::disableButton(bool disable) {
+		_disableButton = disable;
 	}
 }

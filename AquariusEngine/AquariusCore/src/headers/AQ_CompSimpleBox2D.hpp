@@ -45,7 +45,7 @@ namespace aquarius_engine {
 		void bindTexture(int index);
 		void setPreDrawCallback(void(*callback)(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis));
 		void keepAspectRatio();
-		void draw();
+		virtual void draw();
 		void drawSpriteAnim(float timePassedInGame);
 		~AQ_CompSimpleBox2D();
 	};

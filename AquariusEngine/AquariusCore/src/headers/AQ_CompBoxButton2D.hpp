@@ -13,6 +13,7 @@ namespace aquarius_engine {
 	private:
 		glm::vec3 fourVertsXYZ[4];
 		glm::vec3 fourVertsRatioChanged[4];
+		bool _disableButton;
 		void (*onHoverCallback)(AQ_GameObject* gameObjectThis, AQ_GameObjectCtrl* gameObjectCtrl);
 		void (*onClickCallback)(AQ_GameObject* gameObjectThis, AQ_GameObjectCtrl* gameObjectCtrl);
 		void ratioChangeVerts(double* cursorX, double* cursorY, int windowWidth, int windowHeight);
@@ -26,5 +27,7 @@ namespace aquarius_engine {
 		void setListenClick(void (*onClickCallback)(AQ_GameObject* gameObjectThis, AQ_GameObjectCtrl* gameObjectCtrl));
 		virtual bool hoverCheck(double cursorX, double cursorY, bool normalized);
 		virtual bool clickCheck(double cursorX, double cursorY, bool normalized);
+		virtual void draw();
+		void disableButton(bool disable);
 	};
 }
