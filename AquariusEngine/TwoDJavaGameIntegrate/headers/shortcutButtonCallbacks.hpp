@@ -4,7 +4,7 @@
 #include <headers/AQ_Component.hpp>
 #include <headers/AQ_GlobalCtrl.hpp>
 
-namespace firstButton {
+namespace shortcutButton {
 	using namespace aquarius_engine;
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis);
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis);

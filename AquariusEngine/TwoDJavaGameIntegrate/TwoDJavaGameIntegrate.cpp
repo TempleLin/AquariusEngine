@@ -24,7 +24,7 @@
 
 #include "headers/TwoDJavaGameIntegrate.hpp"
 #include "headers/mainCharacterCallbacks.hpp"
-#include "headers/firstButtonCallbacks.hpp"
+#include "headers/shortcutButtonCallbacks.hpp"
 #include "headers/glConfigCallbacks.hpp"
 #include "headers/CustomButtonComp.hpp"
 #include "headers/backgroundCallbacks.h"
@@ -119,12 +119,12 @@ int main()
     // ---------------------------------------------
 
     // -------- Create button ----------------------
-    AQ_GameObject* firstBtn = gameObjectCtrl->createGameObject("FirstButton");
-    CustomButtonComp* firstBtn2D = gameObjectCtrl->addComponent<CustomButtonComp>(firstBtn,
-        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "FirstButton2D");
-    AQ_CompInput* firstBtnInput = gameObjectCtrl->addComponent<AQ_CompInput>(firstBtn, new AQ_CompInput(currentWindow, new unsigned int[1]{ GLFW_KEY_A },
-        new unsigned int[1]{ GLFW_PRESS }, firstButton::processInputs, inputSystemCtrl), "FirstButtonInput");
-    firstBtn->setCallbackFuncs(firstButton::start, firstButton::update, firstButton::stop);
+    AQ_GameObject* shortcutBtn = gameObjectCtrl->createGameObject("ShortcutButton");
+    CustomButtonComp* firstBtn2D = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtn,
+        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "ShortcutButton2D");
+    AQ_CompInput* firstBtnInput = gameObjectCtrl->addComponent<AQ_CompInput>(shortcutBtn, new AQ_CompInput(currentWindow, new unsigned int[1]{ GLFW_KEY_A },
+        new unsigned int[1]{ GLFW_PRESS }, shortcutButton::processInputs, inputSystemCtrl), "ShortcutButtonInput");
+    shortcutBtn->setCallbackFuncs(shortcutButton::start, shortcutButton::update, shortcutButton::stop);
     // ---------------------------------------------
 
     // -------- Backpack button ---------------------

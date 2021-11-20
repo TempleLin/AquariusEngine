@@ -27,7 +27,7 @@
     <ClCompile Include="glConfigCallbacks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="firstButtonCallbacks.cpp">
+    <ClCompile Include="shortcutButtonCallbacks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CustomButtonComp.cpp">
@@ -64,7 +64,7 @@
     <ClInclude Include="headers\glConfigCallbacks.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\firstButtonCallbacks.hpp">
+    <ClInclude Include="headers\shortcutButtonCallbacks.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\CustomButtonComp.hpp">
