@@ -20,13 +20,13 @@ namespace firstButton {
 		glm::vec3 bottomRight{ 0.5f, -0.5f, .0f };
 		glm::vec3 bottomLeft{ -0.5f, -0.5f, .0f };
 		firstBtn2D->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
-		firstBtn2D->translateSensorRange(glm::vec3(.5f, 0.f, 0.f));
+		firstBtn2D->translateSensorRange(glm::vec3(-.9f, -.8f, 0.f));
 		firstBtn2D->scaleSensorRange(glm::vec3(1.f, .4f, 1.f));
 		firstBtn2D->activateTexture(GL_TEXTURE0);
 		firstBtn2D->setShaderID(shaders.at(0).ID);
 		firstBtn2D->keepAspectRatio();
 		firstBtn2D->setPreDrawCallback(firstButtonPredrawCallback);
-		firstBtn2D->transformTranslate(glm::vec3(.5f, 0.f, 0.f));
+		firstBtn2D->transformTranslate(glm::vec3(-.9f, -.8f, 0.f));
 		firstBtn2D->transformScale(glm::vec3(1.f, .4f, 1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
@@ -48,7 +48,18 @@ namespace firstButton {
 
 		double mouseXPos, mouseYPos;
 		glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
-		firstButton->hoverCheck(mouseXPos, mouseYPos, false);
+		bool onHover = firstButton->hoverCheck(mouseXPos, mouseYPos, false);
+
+		static float movementOffset{ 0.f };
+		if (onHover) {
+			if (movementOffset < .75f) {
+				movementOffset += 0.05f;
+				gameObjectThis->transformTranslate(glm::vec3(.05f, 0.f, 0.f));
+			}
+		} else {
+			gameObjectThis->transformTranslate(glm::vec3(-movementOffset, 0.f, 0.f));
+			movementOffset = 0.f;
+		}
 
 		switch (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
 		case GLFW_PRESS:

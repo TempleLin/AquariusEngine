@@ -61,7 +61,7 @@ namespace mainCharacter {
 
 	void mainCharacterPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
 		simpleBox2DThis->transformReset();
-		simpleBox2DThis->transformTranslate(glm::vec3(-.5f, 0.f, 0.f));
+		simpleBox2DThis->transformTranslate(glm::vec3(-.45f, 0.f, 0.f));
 		simpleBox2DThis->transformScale(glm::vec3(2.f, 2.f, 1.f));
 	}
 

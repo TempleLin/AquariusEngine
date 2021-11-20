@@ -35,13 +35,13 @@ namespace backpack_buttons_callbacks {
 
 		backpackWeaponsBtn->addDiffuseTexture("assets/TempWhiteBtn.png", "ClotheBtnTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &firstButtonTexIndex);
 		backpackWeaponsBtn->setSensorRange(btnTopLeft, btnTopRight, btnBottomRight, btnBottomLeft);
-		backpackWeaponsBtn->translateSensorRange(glm::vec3(-.7f, -0.75f, 0.f));
+		backpackWeaponsBtn->translateSensorRange(glm::vec3(-.85f, -0.4f, 0.f));
 		backpackWeaponsBtn->scaleSensorRange(glm::vec3(.5f, .4f, 1.f));
 		backpackWeaponsBtn->activateTexture(GL_TEXTURE0);
 		backpackWeaponsBtn->setShaderID(shaders.at(0).ID);
 		backpackWeaponsBtn->keepAspectRatio();
 		backpackWeaponsBtn->setPreDrawCallback(backpackBtnPredrawCallback);
-		backpackWeaponsBtn->transformTranslate(glm::vec3(-.7f, -0.75f, 0.f));
+		backpackWeaponsBtn->transformTranslate(glm::vec3(-.85f, -0.4f, 0.f));
 		backpackWeaponsBtn->transformScale(glm::vec3(.5f, .4f, 1.f));
 	}
 
