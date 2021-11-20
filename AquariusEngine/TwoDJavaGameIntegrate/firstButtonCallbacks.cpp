@@ -12,8 +12,6 @@ namespace firstButton {
 
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		CustomButtonComp* firstBtn2D = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "FirstButton2D");
-		AQ_GameObject* backgroundGameObject{};
-		backgroundGameObject = gameObjectCtrl->getGameObject("Background");
 
 		int firstButtonTexIndex{};
 		firstBtn2D->addDiffuseTexture("assets/tempButton.png", "FirstButton2D", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &firstButtonTexIndex);

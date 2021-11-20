@@ -29,6 +29,7 @@
 #include "headers/CustomButtonComp.hpp"
 #include "headers/backgroundCallbacks.h"
 #include "headers/PassingValues.hpp"
+#include "headers/backpackButtonsCallbacks.h"
 
 
 using namespace aquarius_engine;
@@ -126,6 +127,17 @@ int main()
     firstBtn->setCallbackFuncs(firstButton::start, firstButton::update, firstButton::stop);
     // ---------------------------------------------
 
+    // -------- Clothes button ---------------------
+    AQ_GameObject* backpackBtns = gameObjectCtrl->createGameObject("BackpackButtons");
+
+    CustomButtonComp* backPackClotheBtn = gameObjectCtrl->addComponent<CustomButtonComp>(backpackBtns,
+        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "BackpackClotheBtn2D");
+
+    AQ_CompInput* clothBtnInput = gameObjectCtrl->addComponent<AQ_CompInput>(backpackBtns, new AQ_CompInput(currentWindow, new unsigned int[0]{},
+        new unsigned int[0]{}, backpack_buttons_callbacks::processInputs, inputSystemCtrl), "ClothButtonInput");
+    
+    backpackBtns->setCallbackFuncs(backpack_buttons_callbacks::start, backpack_buttons_callbacks::update, backpack_buttons_callbacks::stop);
+    // ---------------------------------------------
 
     gameObjectCtrl->startGameObjects();
     // @The shader object gets back from gameObject created in start().

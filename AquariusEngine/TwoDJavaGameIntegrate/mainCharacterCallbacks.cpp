@@ -41,9 +41,10 @@ namespace mainCharacter {
 			"assets/Animations/MainCharWalk/11.png",
 		}, GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true);
 
-		AQ_GameObject* backgroundObject = gameObjectCtrl->getGameObject("Background");
 		mainChar2DComp->setShaderID(shaders.at(0).ID);
 		mainChar2DComp->setPreDrawCallback(mainCharacterPreDrawCallback);
+
+		gameObjectThis->transformTranslate(glm::vec3(0.f, .1f, 0.f));
 	}
 
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis){

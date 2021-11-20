@@ -39,6 +39,9 @@
     <ClCompile Include="PassingValues.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="backpackButtonsCallbacks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\cleanCharacter.jpg">
@@ -71,6 +74,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\PassingValues.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\backpackButtonsCallbacks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
