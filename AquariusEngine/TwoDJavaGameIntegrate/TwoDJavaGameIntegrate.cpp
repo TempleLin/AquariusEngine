@@ -127,14 +127,17 @@ int main()
     firstBtn->setCallbackFuncs(firstButton::start, firstButton::update, firstButton::stop);
     // ---------------------------------------------
 
-    // -------- Clothes button ---------------------
+    // -------- Backpack button ---------------------
     AQ_GameObject* backpackBtns = gameObjectCtrl->createGameObject("BackpackButtons");
 
     CustomButtonComp* backPackClotheBtn = gameObjectCtrl->addComponent<CustomButtonComp>(backpackBtns,
         new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "BackpackClotheBtn2D");
 
-    AQ_CompInput* clothBtnInput = gameObjectCtrl->addComponent<AQ_CompInput>(backpackBtns, new AQ_CompInput(currentWindow, new unsigned int[0]{},
-        new unsigned int[0]{}, backpack_buttons_callbacks::processInputs, inputSystemCtrl), "ClothButtonInput");
+    CustomButtonComp* backPackWeaponsBtn = gameObjectCtrl->addComponent<CustomButtonComp>(backpackBtns,
+        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "BackpackWeaponsBtn2D");
+
+    AQ_CompInput* backpackBtnInput = gameObjectCtrl->addComponent<AQ_CompInput>(backpackBtns, new AQ_CompInput(currentWindow, new unsigned int[0]{},
+        new unsigned int[0]{}, backpack_buttons_callbacks::processInputs, inputSystemCtrl), "BackpackButtonInput");
     
     backpackBtns->setCallbackFuncs(backpack_buttons_callbacks::start, backpack_buttons_callbacks::update, backpack_buttons_callbacks::stop);
     // ---------------------------------------------
