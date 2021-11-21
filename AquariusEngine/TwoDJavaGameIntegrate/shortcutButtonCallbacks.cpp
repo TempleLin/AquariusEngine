@@ -65,7 +65,6 @@ namespace shortcutButton {
 		switch (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
 		case GLFW_PRESS:
 			if (!mouseLeftOnPress) {
-				std::cout << "Mouse pressed\n";
 				static std::string bckgroundTexNames[2]{ "TreeElfBackground", "Background2DTex" };
 				static int currentIndex{ 0 };
 
