@@ -142,6 +142,15 @@ int main()
     backpackBtns->setCallbackFuncs(backpack_buttons_callbacks::start, backpack_buttons_callbacks::update, backpack_buttons_callbacks::stop);
     // ---------------------------------------------
 
+    // -------- Shop and Clerk Lady ----------------
+    AQ_GameObject* shopObject = gameObjectCtrl->createGameObject("ShopObject");
+
+    AQ_CompSimpleBox2D* shopLady = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
+        (shopObject, new AQ_CompSimpleBox2D(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "ShopLady");
+    // ---------------------------------------------
+
+    // Set the first scene to mainhall.
+    currentScene = CurrentScene::MAINHALL;
     gameObjectCtrl->startGameObjects();
     // @The shader object gets back from gameObject created in start().
 

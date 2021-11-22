@@ -6,4 +6,11 @@
 namespace aquarius_engine {
 	extern std::vector<AQ_Shader> shaders;
 	extern AQ_GlobalCtrl::TimeCtrl* timeCtrlRef;
+
+
+	enum class CurrentScene {
+		MAINHALL,
+		SHOP
+	};
+	extern CurrentScene currentScene;
 }
