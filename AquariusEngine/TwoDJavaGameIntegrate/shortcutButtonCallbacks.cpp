@@ -12,23 +12,23 @@ namespace shortcutButton {
 	void shortcutButtonPredrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		CustomButtonComp* firstBtn2D = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShortcutButton2D");
+		CustomButtonComp* shortcutBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShortcutButton2D");
 
 		int shortcutButtonTexIndex{};
-		firstBtn2D->addDiffuseTexture("assets/tempButton.png", "ShortcutButton2D", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
+		shortcutBtn->addDiffuseTexture("assets/tempButton.png", "ShortcutButton2D", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
 		glm::vec3 topLeft{ -0.5f,  0.5f, .0f };
 		glm::vec3 topRight{ 0.5f,  0.5f, .0f };
 		glm::vec3 bottomRight{ 0.5f, -0.5f, .0f };
 		glm::vec3 bottomLeft{ -0.5f, -0.5f, .0f };
-		firstBtn2D->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
-		firstBtn2D->translateSensorRange(glm::vec3(-.9f, -.8f, 0.f));
-		firstBtn2D->scaleSensorRange(glm::vec3(1.f, .4f, 1.f));
-		firstBtn2D->activateTexture(GL_TEXTURE0);
-		firstBtn2D->setShaderID(shaders.at(0).ID);
-		firstBtn2D->keepAspectRatio();
-		firstBtn2D->setPreDrawCallback(shortcutButtonPredrawCallback);
-		firstBtn2D->transformTranslate(glm::vec3(-.9f, -.8f, 0.f));
-		firstBtn2D->transformScale(glm::vec3(1.f, .4f, 1.f));
+		shortcutBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
+		shortcutBtn->translateSensorRange(glm::vec3(-.9f, -.8f, 0.f));
+		shortcutBtn->scaleSensorRange(glm::vec3(1.f, .4f, 1.f));
+		shortcutBtn->activateTexture(GL_TEXTURE0);
+		shortcutBtn->setShaderID(shaders.at(0).ID);
+		shortcutBtn->keepAspectRatio();
+		shortcutBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
+		shortcutBtn->transformTranslate(glm::vec3(-.9f, -.8f, 0.f));
+		shortcutBtn->transformScale(glm::vec3(1.f, .4f, 1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		static CustomButtonComp* firstBtn2D = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShortcutButton2D");
