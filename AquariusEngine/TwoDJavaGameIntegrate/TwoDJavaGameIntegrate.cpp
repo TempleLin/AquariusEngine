@@ -30,6 +30,7 @@
 #include "headers/backgroundCallbacks.h"
 #include "headers/PassingValues.hpp"
 #include "headers/backpackButtonsCallbacks.h"
+#include "headers/shopCallbacks.h"
 
 
 using namespace aquarius_engine;
@@ -144,6 +145,7 @@ int main()
 
     // -------- Shop and Clerk Lady ----------------
     AQ_GameObject* shopObject = gameObjectCtrl->createGameObject("ShopObject");
+    shopObject->setCallbackFuncs(shop::start, shop::update, shop::stop);
 
     AQ_CompSimpleBox2D* shopLady = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
         (shopObject, new AQ_CompSimpleBox2D(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "ShopLady");

@@ -149,6 +149,7 @@
     <ClCompile Include="backpackButtonsCallbacks.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="glConfigCallbacks.cpp" />
+    <ClCompile Include="shopCallbacks.cpp" />
     <ClCompile Include="shortcutButtonCallbacks.cpp" />
     <ClCompile Include="CustomButtonComp.cpp" />
     <ClCompile Include="backgroundCallbacks.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="headers\mainCharacterCallbacks.hpp" />
     <ClInclude Include="headers\PassingValues.hpp" />
     <ClInclude Include="headers\TwoDJavaGameIntegrate.hpp" />
+    <ClInclude Include="headers\shopCallbacks.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
