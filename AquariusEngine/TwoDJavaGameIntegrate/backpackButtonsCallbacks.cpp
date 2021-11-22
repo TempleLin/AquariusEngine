@@ -10,7 +10,7 @@
 
 using namespace aquarius_engine;
 
-namespace backpack_buttons_callbacks {
+namespace backpackButtons {
 	void backpackBtnPredrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {

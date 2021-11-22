@@ -138,9 +138,9 @@ int main()
         new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "BackpackWeaponsBtn2D");
 
     AQ_CompInput* backpackBtnInput = gameObjectCtrl->addComponent<AQ_CompInput>(backpackBtns, new AQ_CompInput(currentWindow, new unsigned int[0]{},
-        new unsigned int[0]{}, backpack_buttons_callbacks::processInputs, inputSystemCtrl), "BackpackButtonInput");
+        new unsigned int[0]{}, backpackButtons::processInputs, inputSystemCtrl), "BackpackButtonInput");
     
-    backpackBtns->setCallbackFuncs(backpack_buttons_callbacks::start, backpack_buttons_callbacks::update, backpack_buttons_callbacks::stop);
+    backpackBtns->setCallbackFuncs(backpackButtons::start, backpackButtons::update, backpackButtons::stop);
     // ---------------------------------------------
 
     // -------- Shop and Clerk Lady ----------------

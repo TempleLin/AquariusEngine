@@ -9,7 +9,7 @@
 
 using namespace aquarius_engine;
 
-namespace backpack_buttons_callbacks {
+namespace backpackButtons {
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis);
 
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis);
