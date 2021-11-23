@@ -130,6 +130,8 @@ int main()
         new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "AttackButton2D");
     CustomButtonComp* shopBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
         new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "ShopButton2D");
+    CustomButtonComp* statusBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
+        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "StatusButton2D");
 
     AQ_CompInput* shortcutInput = gameObjectCtrl->addComponent<AQ_CompInput>(shortcutBtns, new AQ_CompInput(currentWindow, new unsigned int[1]{ GLFW_KEY_A },
         new unsigned int[1]{ GLFW_PRESS }, shortcutButton::processInputs, inputSystemCtrl), "ShortcutButtonInput");

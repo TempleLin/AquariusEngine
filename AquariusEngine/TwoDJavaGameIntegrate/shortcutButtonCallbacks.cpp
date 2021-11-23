@@ -16,6 +16,7 @@ namespace shortcutButton {
 		CustomButtonComp* missionBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D");
 		CustomButtonComp* attackBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D");
 		CustomButtonComp* shopBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShopButton2D");
+		CustomButtonComp* statusBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "StatusButton2D");
 
 		int shortcutButtonTexIndex{};
 		mainhallBtn->addDiffuseTexture("assets/TempShortcuts/MainHall.png", "MainhallDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
@@ -25,56 +26,69 @@ namespace shortcutButton {
 		glm::vec3 bottomLeft{ -0.5f, -0.5f, .0f };
 		mainhallBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		mainhallBtn->translateSensorRange(glm::vec3(0.f, -.8f, 0.f));
-		mainhallBtn->scaleSensorRange(glm::vec3(.4f, .4f, 1.f));
+		mainhallBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		mainhallBtn->activateTexture(GL_TEXTURE0);
 		mainhallBtn->setShaderID(shaders.at(0).ID);
 		mainhallBtn->keepAspectRatio();
 		mainhallBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		mainhallBtn->transformTranslate(glm::vec3(0.f, -.8f, 0.f));
-		mainhallBtn->transformScale(glm::vec3(.4f, .4f, 1.f));
+		mainhallBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 
-		missionBtn->addDiffuseTexture("assets/TempShortcuts/Mission.png", "MissionDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
+		missionBtn->addDiffuseTexture("assets/Shortcuts/Mission.png", "MissionDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
 		missionBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		missionBtn->translateSensorRange(glm::vec3(.2f, -.8f, 0.f));
-		missionBtn->scaleSensorRange(glm::vec3(.4f, .4f, 1.f));
+		missionBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		missionBtn->activateTexture(GL_TEXTURE0);
 		missionBtn->setShaderID(shaders.at(0).ID);
 		missionBtn->keepAspectRatio();
 		missionBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		missionBtn->transformTranslate(glm::vec3(.2f, -.8f, 0.f));
-		missionBtn->transformScale(glm::vec3(.4f, .4f, 1.f));
+		missionBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 
 		attackBtn->addDiffuseTexture("assets/TempShortcuts/Attack.png", "AttackDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
 		attackBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		attackBtn->translateSensorRange(glm::vec3(.4f, -.8f, 0.f));
-		attackBtn->scaleSensorRange(glm::vec3(.4f, .4f, 1.f));
+		attackBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		attackBtn->activateTexture(GL_TEXTURE0);
 		attackBtn->setShaderID(shaders.at(0).ID);
 		attackBtn->keepAspectRatio();
 		attackBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		attackBtn->transformTranslate(glm::vec3(.4f, -.8f, 0.f));
-		attackBtn->transformScale(glm::vec3(.4f, .4f, 1.f));
+		attackBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 
-		shopBtn->addDiffuseTexture("assets/TempShortcuts/Shop.png", "ShopDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
+		shopBtn->addDiffuseTexture("assets/Shortcuts/Shop.png", "ShopDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
 		shopBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		shopBtn->translateSensorRange(glm::vec3(.6f, -.8f, 0.f));
-		shopBtn->scaleSensorRange(glm::vec3(.4f, .4f, 1.f));
+		shopBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		shopBtn->activateTexture(GL_TEXTURE0);
 		shopBtn->setShaderID(shaders.at(0).ID);
 		shopBtn->keepAspectRatio();
 		shopBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		shopBtn->transformTranslate(glm::vec3(.6f, -.8f, 0.f));
-		shopBtn->transformScale(glm::vec3(.4f, .4f, 1.f));
+		shopBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
+
+		statusBtn->addDiffuseTexture("assets/Shortcuts/Status.png", "ShopDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
+		statusBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
+		statusBtn->translateSensorRange(glm::vec3(.8f, -.8f, 0.f));
+		statusBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
+		statusBtn->activateTexture(GL_TEXTURE0);
+		statusBtn->setShaderID(shaders.at(0).ID);
+		statusBtn->keepAspectRatio();
+		statusBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
+		statusBtn->transformTranslate(glm::vec3(.8f, -.8f, 0.f));
+		statusBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		static CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
 		static CustomButtonComp* missionBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D");
 		static CustomButtonComp* attackBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D");
 		static CustomButtonComp* shopBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShopButton2D");
+		static CustomButtonComp* statusBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "StatusButton2D");
 		mainhallBtn->draw();
 		missionBtn->draw();
 		attackBtn->draw();
 		shopBtn->draw();
+		statusBtn->draw();
 	}
 	void stop(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 
@@ -87,7 +101,8 @@ namespace shortcutButton {
 			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D"),
 			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D"),
 			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D"),
-			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShopButton2D")
+			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShopButton2D"),
+			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "StatusButton2D")
 		};
 		static CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
 		static AQ_GameObject* background = gameObjectCtrl->getGameObject("Background");
@@ -100,7 +115,7 @@ namespace shortcutButton {
 		double mouseXPos, mouseYPos;
 		glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
 
-		static bool expand[]{ true, true, true, true };
+		static bool expand[]{ true, true, true, true, true };
 
 		for (int i = 0; i < sizeof(expand) / sizeof(bool); i++) {
 			bool onHover = buttons[i]->hoverCheck(mouseXPos, mouseYPos, false);
