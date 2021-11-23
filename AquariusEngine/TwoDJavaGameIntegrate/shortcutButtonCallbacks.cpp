@@ -13,6 +13,7 @@ namespace shortcutButton {
 
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
+		CustomButtonComp* missionBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D");
 
 		int shortcutButtonTexIndex{};
 		mainhallBtn->addDiffuseTexture("assets/TempShortcuts/MainHall.png", "ShortcutButton2D", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
@@ -29,10 +30,23 @@ namespace shortcutButton {
 		mainhallBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		mainhallBtn->transformTranslate(glm::vec3(0.f, -.8f, 0.f));
 		mainhallBtn->transformScale(glm::vec3(.4f, .4f, 1.f));
+
+		missionBtn->addDiffuseTexture("assets/TempShortcuts/Mission.png", "MissionDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
+		missionBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
+		missionBtn->translateSensorRange(glm::vec3(.25f, -.8f, 0.f));
+		missionBtn->scaleSensorRange(glm::vec3(.4f, .4f, 1.f));
+		missionBtn->activateTexture(GL_TEXTURE0);
+		missionBtn->setShaderID(shaders.at(0).ID);
+		missionBtn->keepAspectRatio();
+		missionBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
+		missionBtn->transformTranslate(glm::vec3(.25f, -.8f, 0.f));
+		missionBtn->transformScale(glm::vec3(.4f, .4f, 1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		static CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
+		static CustomButtonComp* missionBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D");
 		mainhallBtn->draw();
+		missionBtn->draw();
 	}
 	void stop(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 
@@ -41,6 +55,10 @@ namespace shortcutButton {
 	void processInputs(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 		unsigned int* keys, unsigned int* actions) {
 		static AQ_GameObjectCtrl* gameObjectCtrl = gameObjectThis->getGameObjectCtrl();
+		static CustomButtonComp* buttons[]{ 
+			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D"),
+			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D")
+		};
 		static CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
 		static AQ_GameObject* background = gameObjectCtrl->getGameObject("Background");
 		static AQ_CompSimpleBox2D* background2D = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(background, "Background2D");
@@ -51,22 +69,27 @@ namespace shortcutButton {
 
 		double mouseXPos, mouseYPos;
 		glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
-		bool onHover = mainhallBtn->hoverCheck(mouseXPos, mouseYPos, false);
 
-		static bool expand{ true };
-		if (onHover && expand) {
-			/*if (movementOffset < .75f) {
-				movementOffset += 0.05f;
-				gameObjectThis->transformTranslate(glm::vec3(.05f, 0.f, 0.f));
-			}*/
-			mainhallBtn->transformScale(glm::vec3(1.2f, 1.2f, 1.f));
-			expand = false;
-		} else if (!onHover && !expand) {
-			//gameObjectThis->transformTranslate(glm::vec3(-movementOffset, 0.f, 0.f));
-			mainhallBtn->transformScale(glm::vec3(1.f / 1.2f, 1.f / 1.2f, 1.f));
-			//movementOffset = 0.f;
-			expand = true;
+		static bool expand[]{ true, true };
+
+		for (int i = 0; i < 2; i++) {
+			bool onHover = buttons[i]->hoverCheck(mouseXPos, mouseYPos, false);
+
+			if (onHover && expand[i]) {
+				/*if (movementOffset < .75f) {
+					movementOffset += 0.05f;
+					gameObjectThis->transformTranslate(glm::vec3(.05f, 0.f, 0.f));
+				}*/
+				buttons[i]->transformScale(glm::vec3(1.2f, 1.2f, 1.f));
+				expand[i] = false;
+			} else if (!onHover && !expand[i]) {
+				//gameObjectThis->transformTranslate(glm::vec3(-movementOffset, 0.f, 0.f));
+				buttons[i]->transformScale(glm::vec3(1.f / 1.2f, 1.f / 1.2f, 1.f));
+				//movementOffset = 0.f;
+				expand[i] = true;
+			}
 		}
+
 
 		switch (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
 		case GLFW_PRESS:
