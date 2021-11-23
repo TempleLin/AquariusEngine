@@ -157,8 +157,8 @@ int main()
     AQ_GameObject* shopObject = gameObjectCtrl->createGameObject("ShopObject");
     shopObject->setCallbackFuncs(shop::start, shop::update, shop::stop);
 
-    AQ_CompSimpleBox2D* shopLady = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
-        (shopObject, new AQ_CompSimpleBox2D(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "ShopLady");
+    AQ_CompSimpleBox2D* shopBackground = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
+        (shopObject, new AQ_CompSimpleBox2D(backgroundVAO, backgroundVBO, backgroundEBO, 6), "ShopBackground");
     // ---------------------------------------------
 
     // Set the first scene to mainhall.
