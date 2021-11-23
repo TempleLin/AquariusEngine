@@ -104,7 +104,6 @@ namespace shortcutButton {
 			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShopButton2D"),
 			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "StatusButton2D")
 		};
-		static CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
 		static AQ_GameObject* background = gameObjectCtrl->getGameObject("Background");
 		static AQ_CompSimpleBox2D* background2D = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(background, "Background2D");
 
@@ -139,13 +138,16 @@ namespace shortcutButton {
 		switch (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
 		case GLFW_PRESS:
 			if (!mouseLeftOnPress) {
-				static std::string bckgroundTexNames[2]{ "TreeElfBackground", "Background2DTex" };
-				static int currentIndex{ 0 };
-
-				bool pressSuccess = mainhallBtn->clickCheck(mouseXPos, mouseYPos, false);
-				if (pressSuccess) {
-					background2D->switchDiffuseTexture(bckgroundTexNames[currentIndex]);
-					++currentIndex %= 2;
+				if (buttons[0]->clickCheck(mouseXPos, mouseYPos, false)) {
+					std::cout << "Mainhall btn pressed\n";
+				} else if (buttons[1]->clickCheck(mouseXPos, mouseYPos, false)) {
+					std::cout << "Mission btn pressed\n";
+				} else if (buttons[2]->clickCheck(mouseXPos, mouseYPos, false)) {
+					std::cout << "Attack btn pressed\n";
+				} else if (buttons[3]->clickCheck(mouseXPos, mouseYPos, false)) {
+					std::cout << "Shop btn pressed\n";
+				} else if (buttons[4]->clickCheck(mouseXPos, mouseYPos, false)) {
+					std::cout << "Status btn pressed\n";
 				}
 				mouseLeftOnPress = true;
 			}
