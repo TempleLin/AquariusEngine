@@ -32,6 +32,7 @@
 #include "headers/backpackButtonsCallbacks.h"
 #include "headers/shopCallbacks.h"
 #include "headers/attackCallbacks.h"
+#include "headers/missionCallbacks.h"
 
 
 using namespace aquarius_engine;
@@ -169,6 +170,12 @@ int main()
         (attackObject, new AQ_CompSimpleBox2D(backgroundVAO, backgroundVBO, backgroundEBO, 6), "AttackSelectionPage");
     // ---------------------------------------------
      
+    // -------- Mission Page------------------------
+    AQ_GameObject* missionObject = gameObjectCtrl->createGameObject("MissionObject");
+    missionObject->setCallbackFuncs(mission::start, mission::update, mission::stop);
+    AQ_CompSimpleBox2D* missionBoard = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
+        (missionObject, new AQ_CompSimpleBox2D(backgroundVAO, backgroundVBO, backgroundEBO, 6), "MissionBoard");
+    // ---------------------------------------------
    
     // Set the first scene to mainhall.
     currentScene = CurrentScene::MAINHALL;

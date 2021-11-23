@@ -150,6 +150,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="glConfigCallbacks.cpp" />
     <ClCompile Include="attackCallbacks.cpp" />
+    <ClCompile Include="missionCallbacks.cpp" />
     <ClCompile Include="shopCallbacks.cpp" />
     <ClCompile Include="shortcutButtonCallbacks.cpp" />
     <ClCompile Include="CustomButtonComp.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="headers\backpackButtonsCallbacks.h" />
     <ClInclude Include="headers\backgroundCallbacks.h" />
     <ClInclude Include="headers\CustomButtonComp.hpp" />
+    <ClInclude Include="headers\missionCallbacks.h" />
     <ClInclude Include="headers\shortcutButtonCallbacks.hpp" />
     <ClInclude Include="headers\glConfigCallbacks.hpp" />
     <ClInclude Include="headers\mainCharacterCallbacks.hpp" />
