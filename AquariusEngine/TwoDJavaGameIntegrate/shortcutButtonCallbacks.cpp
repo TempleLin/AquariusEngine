@@ -17,7 +17,7 @@ namespace shortcutButton {
 		CustomButtonComp* attackBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D");
 
 		int shortcutButtonTexIndex{};
-		mainhallBtn->addDiffuseTexture("assets/TempShortcuts/MainHall.png", "ShortcutButton2D", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
+		mainhallBtn->addDiffuseTexture("assets/TempShortcuts/MainHall.png", "MainhallDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
 		glm::vec3 topLeft{ -0.5f,  0.5f, .0f };
 		glm::vec3 topRight{ 0.5f,  0.5f, .0f };
 		glm::vec3 bottomRight{ 0.5f, -0.5f, .0f };
