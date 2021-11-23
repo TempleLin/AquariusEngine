@@ -10,7 +10,10 @@ namespace aquarius_engine {
 
 	enum class CurrentScene {
 		MAINHALL,
-		SHOP
+		MISSION,
+		ATTACK,
+		SHOP,
+		STATUS
 	};
 	extern CurrentScene currentScene;
 }
