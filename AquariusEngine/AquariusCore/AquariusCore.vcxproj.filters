@@ -99,6 +99,9 @@
     <ClCompile Include="src\AQ_CompBoxButton2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\AQ_IHoverClick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\AQ_CompCamera.hpp">
@@ -177,6 +180,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\AQ_UniControls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_CompBoxInventory2D.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\AQ_IHoverClick.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

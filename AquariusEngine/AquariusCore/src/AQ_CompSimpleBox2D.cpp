@@ -40,6 +40,7 @@ namespace aquarius_engine {
 				auto temp = textures.at(0);
 				textures.at(0) = textures.at(i);
 				textures.at(i) = temp;
+				break;
 			}
 		}
 	}

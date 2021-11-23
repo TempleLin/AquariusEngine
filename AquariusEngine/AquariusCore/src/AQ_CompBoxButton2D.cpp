@@ -59,8 +59,7 @@ namespace aquarius_engine {
 	}
 
 	AQ_CompBoxButton2D::AQ_CompBoxButton2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int vertsCount)
-		: AQ_CompSimpleBox2D(vao, vbo, ebo, vertsCount), onHoverCallback(nullptr),
-		onClickCallback(nullptr), _disableButton(false) {
+		: AQ_CompSimpleBox2D(vao, vbo, ebo, vertsCount), AQ_IHoverClick(), _disableButton(false) {
 
 	}
 
@@ -99,14 +98,6 @@ namespace aquarius_engine {
 		fourVertsXYZ[3].y += (yTransform / 2);
 	}
 
-	void AQ_CompBoxButton2D::setListenHover(void (*onHoverCallback)(AQ_GameObject* gameObjectThis, AQ_GameObjectCtrl* gameObjectCtrl)) {
-		this->onHoverCallback = onHoverCallback;
-	}
-
-	void AQ_CompBoxButton2D::setListenClick(void (*onClickCallback)(AQ_GameObject* gameObjectThis, AQ_GameObjectCtrl* gameObjectCtrl)) {
-		this->onClickCallback = onClickCallback;
-	}
-
 	bool AQ_CompBoxButton2D::hoverCheck(double cursorX, double cursorY, bool normalized) {
 		return checkInButtonRange(cursorX, cursorY, normalized);
 	}
@@ -120,7 +111,7 @@ namespace aquarius_engine {
 		AQ_CompSimpleBox2D::draw();
 	}
 
-	void AQ_CompBoxButton2D::disableButton(bool disable) {
+	void AQ_CompBoxButton2D::disable(bool disable) {
 		_disableButton = disable;
 	}
 }
