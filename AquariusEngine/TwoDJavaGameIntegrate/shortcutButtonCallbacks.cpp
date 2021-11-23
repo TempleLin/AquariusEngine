@@ -140,14 +140,19 @@ namespace shortcutButton {
 			if (!mouseLeftOnPress) {
 				if (buttons[0]->clickCheck(mouseXPos, mouseYPos, false)) {
 					std::cout << "Mainhall btn pressed\n";
+					currentScene = CurrentScene::MAINHALL;
 				} else if (buttons[1]->clickCheck(mouseXPos, mouseYPos, false)) {
 					std::cout << "Mission btn pressed\n";
+					currentScene = CurrentScene::MISSION;
 				} else if (buttons[2]->clickCheck(mouseXPos, mouseYPos, false)) {
 					std::cout << "Attack btn pressed\n";
+					currentScene = CurrentScene::ATTACK;
 				} else if (buttons[3]->clickCheck(mouseXPos, mouseYPos, false)) {
 					std::cout << "Shop btn pressed\n";
+					currentScene = CurrentScene::SHOP;
 				} else if (buttons[4]->clickCheck(mouseXPos, mouseYPos, false)) {
 					std::cout << "Status btn pressed\n";
+					currentScene = CurrentScene::STATUS;
 				}
 				mouseLeftOnPress = true;
 			}

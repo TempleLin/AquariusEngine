@@ -46,10 +46,12 @@ namespace backpackButtons {
 	}
 
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		static CustomButtonComp* clotheBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "BackpackClotheBtn2D");
-		static CustomButtonComp* weaponsBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "BackpackWeaponsBtn2D");
-		clotheBtn->draw();
-		weaponsBtn->draw();
+		if (currentScene == CurrentScene::MAINHALL) {
+			static CustomButtonComp* clotheBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "BackpackClotheBtn2D");
+			static CustomButtonComp* weaponsBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "BackpackWeaponsBtn2D");
+			clotheBtn->draw();
+			weaponsBtn->draw();
+		}
 	}
 
 	void stop(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
@@ -58,35 +60,37 @@ namespace backpackButtons {
 
 	void processInputs(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 		unsigned int* keys, unsigned int* actions) {
-		static AQ_GameObjectCtrl* gameObjectCtrl = gameObjectThis->getGameObjectCtrl();
-		static CustomButtonComp* clothButton = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "BackpackClotheBtn2D");
-		static CustomButtonComp* weaponsButton = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "BackpackWeaponsBtn2D");
+		if (currentScene == CurrentScene::MAINHALL) {
+			static AQ_GameObjectCtrl* gameObjectCtrl = gameObjectThis->getGameObjectCtrl();
+			static CustomButtonComp* clothButton = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "BackpackClotheBtn2D");
+			static CustomButtonComp* weaponsButton = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "BackpackWeaponsBtn2D");
 
-		double mouseXPos, mouseYPos;
-		glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
+			double mouseXPos, mouseYPos;
+			glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
 
-		static bool mouseLeftOnPress{ false };
-		switch (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
-		case GLFW_PRESS:
-			if (!mouseLeftOnPress) {
-				static std::string bckgroundTexNames[2]{ "TreeElfBackground", "Background2DTex" };
+			static bool mouseLeftOnPress{ false };
+			switch (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
+			case GLFW_PRESS:
+				if (!mouseLeftOnPress) {
+					static std::string bckgroundTexNames[2]{ "TreeElfBackground", "Background2DTex" };
 
-				bool clothBtnPressed = clothButton->clickCheck(mouseXPos, mouseYPos, false);
-				bool weaponsBtnPressed = weaponsButton->clickCheck(mouseXPos, mouseYPos, false);
+					bool clothBtnPressed = clothButton->clickCheck(mouseXPos, mouseYPos, false);
+					bool weaponsBtnPressed = weaponsButton->clickCheck(mouseXPos, mouseYPos, false);
 
-				if (clothBtnPressed) {
-					std::cout << "Pressed cloth button\n";
+					if (clothBtnPressed) {
+						std::cout << "Pressed cloth button\n";
+					}
+					if (weaponsBtnPressed) {
+						std::cout << "Pressed weapons button\n";
+					}
+
+					mouseLeftOnPress = true;
 				}
-				if (weaponsBtnPressed) {
-					std::cout << "Pressed weapons button\n";
-				}
-
-				mouseLeftOnPress = true;
+				break;
+			case GLFW_RELEASE:
+				mouseLeftOnPress = false;
+				break;
 			}
-			break;
-		case GLFW_RELEASE:
-			mouseLeftOnPress = false;
-			break;
 		}
 	}
 

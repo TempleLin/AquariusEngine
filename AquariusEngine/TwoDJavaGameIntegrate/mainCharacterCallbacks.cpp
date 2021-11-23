@@ -21,32 +21,30 @@ namespace mainCharacter {
 	void mainCharacterPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		if (currentScene == CurrentScene::MAINHALL) {
-			AQ_CompSimpleBox2D* mainChar2DComp = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "MainCharacter2D");
+		AQ_CompSimpleBox2D* mainChar2DComp = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "MainCharacter2D");
 
-			int firstTextureIndex{ 0 };
-			mainChar2DComp->addDiffuseTexture("assets/cleanCharacter.png", "CleanCharacter", true,
-				GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, &firstTextureIndex);
+		int firstTextureIndex{ 0 };
+		mainChar2DComp->addDiffuseTexture("assets/cleanCharacter.png", "CleanCharacter", true,
+			GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, &firstTextureIndex);
 
-			mainChar2DComp->setAnimSprites(std::vector<std::string>{
-				"assets/Animations/MainCharWalk/1.png",
-					"assets/Animations/MainCharWalk/2.png",
-					"assets/Animations/MainCharWalk/3.png",
-					"assets/Animations/MainCharWalk/4.png",
-					"assets/Animations/MainCharWalk/5.png",
-					"assets/Animations/MainCharWalk/6.png",
-					"assets/Animations/MainCharWalk/7.png",
-					"assets/Animations/MainCharWalk/8.png",
-					"assets/Animations/MainCharWalk/9.png",
-					"assets/Animations/MainCharWalk/10.png",
-					"assets/Animations/MainCharWalk/11.png",
-			}, GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true);
+		mainChar2DComp->setAnimSprites(std::vector<std::string>{
+			"assets/Animations/MainCharWalk/1.png",
+				"assets/Animations/MainCharWalk/2.png",
+				"assets/Animations/MainCharWalk/3.png",
+				"assets/Animations/MainCharWalk/4.png",
+				"assets/Animations/MainCharWalk/5.png",
+				"assets/Animations/MainCharWalk/6.png",
+				"assets/Animations/MainCharWalk/7.png",
+				"assets/Animations/MainCharWalk/8.png",
+				"assets/Animations/MainCharWalk/9.png",
+				"assets/Animations/MainCharWalk/10.png",
+				"assets/Animations/MainCharWalk/11.png",
+		}, GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true);
 
-			mainChar2DComp->setShaderID(shaders.at(0).ID);
-			mainChar2DComp->setPreDrawCallback(mainCharacterPreDrawCallback);
+		mainChar2DComp->setShaderID(shaders.at(0).ID);
+		mainChar2DComp->setPreDrawCallback(mainCharacterPreDrawCallback);
 
-			gameObjectThis->transformTranslate(glm::vec3(0.f, .1f, 0.f));
-		}
+		gameObjectThis->transformTranslate(glm::vec3(0.f, .1f, 0.f));
 	}
 
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis){
