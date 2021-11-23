@@ -34,9 +34,9 @@ namespace shop {
 		clerk->activateTexture(GL_TEXTURE0);
 		clerk->setShaderID(shaders.at(0).ID);
 		clerk->setPreDrawCallback(clerkPreDrawCallback);
-		clerk->transformTranslate(glm::vec3(.6f, -.25f, 0.f));
-		clerk->transformScale(glm::vec3(1.5f, 1.5f, 1.f));
 		clerk->keepAspectRatio();
+		clerk->transformScale(glm::vec3(1.5f, 2.2f, 1.f));
+		clerk->transformTranslate(glm::vec3(.4f, -.25f, 0.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		if (currentScene == CurrentScene::SHOP) {

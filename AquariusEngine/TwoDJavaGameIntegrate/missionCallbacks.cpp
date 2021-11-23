@@ -10,8 +10,6 @@
 #include <GLES2/gl2.h>
 #endif
 
-#include <chrono>
-
 namespace mission {
 	void missionBoardPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 
@@ -47,11 +45,8 @@ namespace mission {
 
 				if (startMission) {
 					ImGui::Begin(subject);
-					//auto timerStart = std::chrono::high_resolution_clock::now();
-					//auto timerEnd = std::chrono::high_resolution_clock::now();
-					//hours -= ((float)(std::chrono::duration_cast<std::chrono::seconds>(timerEnd - timerStart).count()) / 3600.f);
 					static float lastTimeCount{ 0.f };
-					float currentTime = timeCtrl->getSecondsInGame();
+					float currentTime = glfwGetTime();
 					if (currentTime - lastTimeCount >= 1.f) {
 						hours -= (currentTime / 3600.f);
 						lastTimeCount = currentTime;
