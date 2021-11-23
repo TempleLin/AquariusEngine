@@ -14,6 +14,7 @@ namespace shortcutButton {
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
 		CustomButtonComp* missionBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D");
+		CustomButtonComp* attackBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D");
 
 		int shortcutButtonTexIndex{};
 		mainhallBtn->addDiffuseTexture("assets/TempShortcuts/MainHall.png", "ShortcutButton2D", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
@@ -33,20 +34,33 @@ namespace shortcutButton {
 
 		missionBtn->addDiffuseTexture("assets/TempShortcuts/Mission.png", "MissionDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
 		missionBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
-		missionBtn->translateSensorRange(glm::vec3(.25f, -.8f, 0.f));
+		missionBtn->translateSensorRange(glm::vec3(.2f, -.8f, 0.f));
 		missionBtn->scaleSensorRange(glm::vec3(.4f, .4f, 1.f));
 		missionBtn->activateTexture(GL_TEXTURE0);
 		missionBtn->setShaderID(shaders.at(0).ID);
 		missionBtn->keepAspectRatio();
 		missionBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
-		missionBtn->transformTranslate(glm::vec3(.25f, -.8f, 0.f));
+		missionBtn->transformTranslate(glm::vec3(.2f, -.8f, 0.f));
 		missionBtn->transformScale(glm::vec3(.4f, .4f, 1.f));
+
+		attackBtn->addDiffuseTexture("assets/TempShortcuts/Attack.png", "AttackDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
+		attackBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
+		attackBtn->translateSensorRange(glm::vec3(.4f, -.8f, 0.f));
+		attackBtn->scaleSensorRange(glm::vec3(.4f, .4f, 1.f));
+		attackBtn->activateTexture(GL_TEXTURE0);
+		attackBtn->setShaderID(shaders.at(0).ID);
+		attackBtn->keepAspectRatio();
+		attackBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
+		attackBtn->transformTranslate(glm::vec3(.4f, -.8f, 0.f));
+		attackBtn->transformScale(glm::vec3(.4f, .4f, 1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		static CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
 		static CustomButtonComp* missionBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D");
+		static CustomButtonComp* attackBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D");
 		mainhallBtn->draw();
 		missionBtn->draw();
+		attackBtn->draw();
 	}
 	void stop(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 
@@ -55,9 +69,10 @@ namespace shortcutButton {
 	void processInputs(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 		unsigned int* keys, unsigned int* actions) {
 		static AQ_GameObjectCtrl* gameObjectCtrl = gameObjectThis->getGameObjectCtrl();
-		static CustomButtonComp* buttons[]{ 
+		static CustomButtonComp* buttons[3]{ 
 			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D"),
-			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D")
+			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D"),
+			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D")
 		};
 		static CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
 		static AQ_GameObject* background = gameObjectCtrl->getGameObject("Background");
@@ -70,9 +85,9 @@ namespace shortcutButton {
 		double mouseXPos, mouseYPos;
 		glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
 
-		static bool expand[]{ true, true };
+		static bool expand[]{ true, true, true };
 
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			bool onHover = buttons[i]->hoverCheck(mouseXPos, mouseYPos, false);
 
 			if (onHover && expand[i]) {

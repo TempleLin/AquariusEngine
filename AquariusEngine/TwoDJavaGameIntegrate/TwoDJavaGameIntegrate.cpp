@@ -121,10 +121,14 @@ int main()
 
     // -------- Create button ----------------------
     AQ_GameObject* shortcutBtns = gameObjectCtrl->createGameObject("ShortcutButtons");
+
     CustomButtonComp* mainhallBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
         new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "MainHallButton2D");
     CustomButtonComp* missionBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
         new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "MissionButton2D");
+    CustomButtonComp* attackBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
+        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "AttackButton2D");
+
     AQ_CompInput* shortcutInput = gameObjectCtrl->addComponent<AQ_CompInput>(shortcutBtns, new AQ_CompInput(currentWindow, new unsigned int[1]{ GLFW_KEY_A },
         new unsigned int[1]{ GLFW_PRESS }, shortcutButton::processInputs, inputSystemCtrl), "ShortcutButtonInput");
     shortcutBtns->setCallbackFuncs(shortcutButton::start, shortcutButton::update, shortcutButton::stop);
