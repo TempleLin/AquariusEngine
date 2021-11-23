@@ -15,6 +15,7 @@ namespace shortcutButton {
 		CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
 		CustomButtonComp* missionBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D");
 		CustomButtonComp* attackBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D");
+		CustomButtonComp* shopBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShopButton2D");
 
 		int shortcutButtonTexIndex{};
 		mainhallBtn->addDiffuseTexture("assets/TempShortcuts/MainHall.png", "MainhallDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
@@ -53,14 +54,27 @@ namespace shortcutButton {
 		attackBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		attackBtn->transformTranslate(glm::vec3(.4f, -.8f, 0.f));
 		attackBtn->transformScale(glm::vec3(.4f, .4f, 1.f));
+
+		shopBtn->addDiffuseTexture("assets/TempShortcuts/Shop.png", "ShopDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
+		shopBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
+		shopBtn->translateSensorRange(glm::vec3(.6f, -.8f, 0.f));
+		shopBtn->scaleSensorRange(glm::vec3(.4f, .4f, 1.f));
+		shopBtn->activateTexture(GL_TEXTURE0);
+		shopBtn->setShaderID(shaders.at(0).ID);
+		shopBtn->keepAspectRatio();
+		shopBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
+		shopBtn->transformTranslate(glm::vec3(.6f, -.8f, 0.f));
+		shopBtn->transformScale(glm::vec3(.4f, .4f, 1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		static CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
 		static CustomButtonComp* missionBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D");
 		static CustomButtonComp* attackBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D");
+		static CustomButtonComp* shopBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShopButton2D");
 		mainhallBtn->draw();
 		missionBtn->draw();
 		attackBtn->draw();
+		shopBtn->draw();
 	}
 	void stop(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 
@@ -69,10 +83,11 @@ namespace shortcutButton {
 	void processInputs(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 		unsigned int* keys, unsigned int* actions) {
 		static AQ_GameObjectCtrl* gameObjectCtrl = gameObjectThis->getGameObjectCtrl();
-		static CustomButtonComp* buttons[3]{ 
+		static CustomButtonComp* buttons[]{ 
 			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D"),
 			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D"),
-			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D")
+			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D"),
+			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShopButton2D")
 		};
 		static CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
 		static AQ_GameObject* background = gameObjectCtrl->getGameObject("Background");
@@ -85,9 +100,9 @@ namespace shortcutButton {
 		double mouseXPos, mouseYPos;
 		glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
 
-		static bool expand[]{ true, true, true };
+		static bool expand[]{ true, true, true, true };
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < sizeof(expand) / sizeof(bool); i++) {
 			bool onHover = buttons[i]->hoverCheck(mouseXPos, mouseYPos, false);
 
 			if (onHover && expand[i]) {
