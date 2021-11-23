@@ -163,6 +163,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\AQ_CompBoxButton2D.cpp" />
+    <ClCompile Include="src\AQ_CompBoxInventory2D.cpp" />
     <ClCompile Include="src\AQ_CompButton2D.cpp" />
     <ClCompile Include="src\AQ_CompCamera.cpp" />
     <ClCompile Include="src\AQ_CompInput.cpp" />
