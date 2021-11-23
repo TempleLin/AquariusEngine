@@ -161,6 +161,8 @@ int main()
 
     AQ_CompSimpleBox2D* shopBackground = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
         (shopObject, new AQ_CompSimpleBox2D(backgroundVAO, backgroundVBO, backgroundEBO, 6), "ShopBackground");
+    AQ_CompSimpleBox2D* clerk = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
+        (shopObject, new AQ_CompSimpleBox2D(charAndBtnVAO, charAndBtnVAO, charAndBtnVAO, 6), "Clerk");
     AQ_CompSimpleBox2D* coin = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
         (shopObject, new AQ_CompSimpleBox2D(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "Coin");
     // ---------------------------------------------
