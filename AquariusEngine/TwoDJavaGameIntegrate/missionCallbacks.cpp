@@ -20,7 +20,6 @@ namespace mission {
 		int returnTexIndex{};
 		missionBoard->addDiffuseTexture("assets/MissionBoard.png", "MissionBoardTexImage", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
 			true, &returnTexIndex);
-		missionBoard->activateTexture(GL_TEXTURE0);
 		missionBoard->setShaderID(shaders.at(0).ID);
 		missionBoard->setPreDrawCallback(missionBoardPreDrawCallback);
 	}

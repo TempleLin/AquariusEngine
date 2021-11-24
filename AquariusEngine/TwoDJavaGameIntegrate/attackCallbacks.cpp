@@ -9,6 +9,7 @@ namespace attack {
 	void monster1BtnPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 
 	void startSelectionPageComps();
+	void startAttackingComps();
 
 	enum class AttackMode {
 		SELECTING,
@@ -26,6 +27,7 @@ namespace attack {
 		selectionMonsterBtn1 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn1");
 
 		startSelectionPageComps();
+		startAttackingComps();
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		if (currentScene == CurrentScene::ATTACK) {
@@ -83,7 +85,6 @@ namespace attack {
 		int returnTexIndex{};
 		attackSelectionPage->addDiffuseTexture("assets/AttackSelectionPage.png", "AttackSelectionPageImageTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
 			true, &returnTexIndex);
-		attackSelectionPage->activateTexture(GL_TEXTURE0);
 		attackSelectionPage->setShaderID(shaders.at(0).ID);
 		attackSelectionPage->setPreDrawCallback(selectionPagePreDrawCallback);
 
@@ -93,7 +94,6 @@ namespace attack {
 		glm::vec3 bottomRight{ 0.5f, -0.5f, .0f };
 		glm::vec3 bottomLeft{ -0.5f, -0.5f, .0f };
 		selectionMonsterBtn0->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
-		selectionMonsterBtn0->activateTexture(GL_TEXTURE0);
 		selectionMonsterBtn0->setShaderID(shaders.at(0).ID);
 		selectionMonsterBtn0->keepAspectRatio();
 		selectionMonsterBtn0->setPreDrawCallback(monster0BtnPreDrawCallback);
@@ -104,7 +104,6 @@ namespace attack {
 
 		selectionMonsterBtn1->addDiffuseTexture("assets/SelectionMonster1.png", "Monster1DiffuseTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &returnTexIndex);
 		selectionMonsterBtn1->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
-		selectionMonsterBtn1->activateTexture(GL_TEXTURE0);
 		selectionMonsterBtn1->setShaderID(shaders.at(0).ID);
 		selectionMonsterBtn1->keepAspectRatio();
 		selectionMonsterBtn1->setPreDrawCallback(monster1BtnPreDrawCallback);
@@ -112,6 +111,9 @@ namespace attack {
 		selectionMonsterBtn1->translateSensorRange(glm::vec3(.5f, -.4f, 0.f));
 		selectionMonsterBtn1->transformScale(glm::vec3(.6f, .6f, 1.f));
 		selectionMonsterBtn1->scaleSensorRange(glm::vec3(.6f, .6f, 1.f));
+	}
+	void startAttackingComps() {
+
 	}
 
 	void selectionPagePreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {

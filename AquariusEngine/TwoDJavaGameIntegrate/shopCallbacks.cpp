@@ -22,12 +22,10 @@ namespace shop {
 		int returnTextIndex{};
 		shopBackground->addDiffuseTexture("assets/ShopBackground.png", "ShopBackgroundImageText", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
 			true, &returnTextIndex);
-		shopBackground->activateTexture(GL_TEXTURE0);
 		shopBackground->setShaderID(shaders.at(0).ID);
 		shopBackground->setPreDrawCallback(backgroundPreDrawCallback);
 
 		coin->addDiffuseTexture("assets/Coin.png", "Coin2DTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &returnTextIndex);
-		coin->activateTexture(GL_TEXTURE0);
 		coin->setShaderID(shaders.at(0).ID);
 		coin->setPreDrawCallback(coinPreDrawCallback);
 		coin->transformTranslate(glm::vec3(.8f, .8f, 0.f));
@@ -35,7 +33,6 @@ namespace shop {
 		coin->keepAspectRatio();
 
 		clerk->addDiffuseTexture("assets/Clerk.png", "ClerkTexImage", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &returnTextIndex);
-		clerk->activateTexture(GL_TEXTURE0);
 		clerk->setShaderID(shaders.at(0).ID);
 		clerk->setPreDrawCallback(clerkPreDrawCallback);
 		clerk->keepAspectRatio();

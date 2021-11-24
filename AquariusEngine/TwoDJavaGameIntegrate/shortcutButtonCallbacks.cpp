@@ -33,7 +33,6 @@ namespace shortcutButton {
 		mainhallBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		mainhallBtn->translateSensorRange(glm::vec3(0.f, -.8f, 0.f));
 		mainhallBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
-		mainhallBtn->activateTexture(GL_TEXTURE0);
 		mainhallBtn->setShaderID(shaders.at(0).ID);
 		mainhallBtn->keepAspectRatio();
 		mainhallBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
@@ -44,7 +43,6 @@ namespace shortcutButton {
 		missionBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		missionBtn->translateSensorRange(glm::vec3(.2f, -.8f, 0.f));
 		missionBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
-		missionBtn->activateTexture(GL_TEXTURE0);
 		missionBtn->setShaderID(shaders.at(0).ID);
 		missionBtn->keepAspectRatio();
 		missionBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
@@ -55,7 +53,6 @@ namespace shortcutButton {
 		attackBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		attackBtn->translateSensorRange(glm::vec3(.4f, -.8f, 0.f));
 		attackBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
-		attackBtn->activateTexture(GL_TEXTURE0);
 		attackBtn->setShaderID(shaders.at(0).ID);
 		attackBtn->keepAspectRatio();
 		attackBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
@@ -66,7 +63,6 @@ namespace shortcutButton {
 		shopBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		shopBtn->translateSensorRange(glm::vec3(.6f, -.8f, 0.f));
 		shopBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
-		shopBtn->activateTexture(GL_TEXTURE0);
 		shopBtn->setShaderID(shaders.at(0).ID);
 		shopBtn->keepAspectRatio();
 		shopBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
@@ -77,7 +73,6 @@ namespace shortcutButton {
 		statusBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		statusBtn->translateSensorRange(glm::vec3(.8f, -.8f, 0.f));
 		statusBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
-		statusBtn->activateTexture(GL_TEXTURE0);
 		statusBtn->setShaderID(shaders.at(0).ID);
 		statusBtn->keepAspectRatio();
 		statusBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
