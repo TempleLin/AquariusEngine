@@ -70,8 +70,6 @@ namespace backpackButtons {
 			switch (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
 			case GLFW_PRESS:
 				if (!mouseLeftOnPress) {
-					static std::string bckgroundTexNames[2]{ "TreeElfBackground", "Background2DTex" };
-
 					bool clothBtnPressed = clothButton->clickCheck(mouseXPos, mouseYPos, false);
 					bool weaponsBtnPressed = weaponsButton->clickCheck(mouseXPos, mouseYPos, false);
 

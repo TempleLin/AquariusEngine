@@ -7,6 +7,7 @@ namespace attack {
 	void selectionPagePreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 	void monster0BtnPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 	void monster1BtnPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
+	void treeMonsterPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 
 	void startSelectionPageComps();
 	void startAttackingComps();
@@ -20,11 +21,13 @@ namespace attack {
 	AQ_CompSimpleBox2D* attackSelectionPage;
 	CustomButtonComp* selectionMonsterBtn0;
 	CustomButtonComp* selectionMonsterBtn1;
+	AQ_CompSimpleBox2D* treeMonster;
 
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		attackSelectionPage = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "AttackSelectionPage");
 		selectionMonsterBtn0 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn0");
 		selectionMonsterBtn1 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn1");
+		treeMonster = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "TreeMonster");
 
 		startSelectionPageComps();
 		startAttackingComps();
@@ -38,7 +41,7 @@ namespace attack {
 				selectionMonsterBtn1->draw();
 				break;
 			case AttackMode::ATTACKING:
-
+				treeMonster->draw();
 				break;
 			}
 		}
@@ -59,6 +62,9 @@ namespace attack {
 				selectionMonsterBtn0->hoverCheck(mouseXPos, mouseYPos, false),
 				selectionMonsterBtn1->hoverCheck(mouseXPos, mouseYPos, false)
 			};
+
+			static bool mouseLeftOnPress{ false };
+
 			switch (attackMode) {
 			case AttackMode::SELECTING:
 				if (onHoverMonstersBtns[0] && monstersBtnExpand[0]) {
@@ -74,6 +80,30 @@ namespace attack {
 					selectionMonsterBtn1->transformScale(glm::vec3(1.f / 1.2f, 1.f / 1.2f, 1.f));
 					monstersBtnExpand[1] = true;
 				}
+
+				switch (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
+				case GLFW_PRESS:
+					if (!mouseLeftOnPress) {
+						bool onClickMonstersBtns[] = {
+							selectionMonsterBtn0->clickCheck(mouseXPos, mouseYPos, false),
+							selectionMonsterBtn1->clickCheck(mouseXPos, mouseYPos, false)
+						};
+
+						if (onClickMonstersBtns[0]) {
+							std::cout << "Pressed first monster button\n";
+							attackMode = AttackMode::ATTACKING;
+
+						} else if (onClickMonstersBtns[1]) {
+							std::cout << "Pressed second monster button\n";
+						}
+						mouseLeftOnPress = true;
+					}
+					break;
+				case GLFW_RELEASE:
+					mouseLeftOnPress = false;
+					break;
+				}
+
 				break;
 			case AttackMode::ATTACKING:
 				break;
@@ -110,7 +140,9 @@ namespace attack {
 		selectionMonsterBtn1->scaleSensorRange(glm::vec3(.6f, .6f, 1.f));
 	}
 	void startAttackingComps() {
-
+		int returnTexIndex{};
+		treeMonster->addDiffuseTexture("assets/TreeMonster.png", "TreeMonsterImageTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &returnTexIndex);
+		treeMonster->setPreDrawCallback(treeMonsterPreDrawCallback);
 	}
 
 	void selectionPagePreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
@@ -120,6 +152,9 @@ namespace attack {
 
 	}
 	void monster1BtnPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
+
+	}
+	void treeMonsterPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
 
 	}
 }

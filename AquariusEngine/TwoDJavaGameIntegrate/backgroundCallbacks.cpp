@@ -10,10 +10,6 @@ namespace background_callbacks {
 		int returnTexIndex{}, returnTexIndex1{};
 		background2D->addDiffuseTexture("assets/background.png", "Background2DTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
 			true, &returnTexIndex);
-		background2D->addDiffuseTexture("assets/TreeElf.png", "TreeElfBackground", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
-			true, &returnTexIndex1);
-		background2D->activateTexture(GL_TEXTURE0);
-
 		background2D->setPreDrawCallback(backgroundPreDrawCallback);
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {

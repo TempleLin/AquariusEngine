@@ -29,16 +29,16 @@ namespace mainCharacter {
 
 		mainChar2DComp->setAnimSprites(std::vector<std::string>{
 			"assets/Animations/MainCharWalk/1.png",
-				"assets/Animations/MainCharWalk/2.png",
-				"assets/Animations/MainCharWalk/3.png",
-				"assets/Animations/MainCharWalk/4.png",
-				"assets/Animations/MainCharWalk/5.png",
-				"assets/Animations/MainCharWalk/6.png",
-				"assets/Animations/MainCharWalk/7.png",
-				"assets/Animations/MainCharWalk/8.png",
-				"assets/Animations/MainCharWalk/9.png",
-				"assets/Animations/MainCharWalk/10.png",
-				"assets/Animations/MainCharWalk/11.png",
+			"assets/Animations/MainCharWalk/2.png",
+			"assets/Animations/MainCharWalk/3.png",
+			"assets/Animations/MainCharWalk/4.png",
+			"assets/Animations/MainCharWalk/5.png",
+			"assets/Animations/MainCharWalk/6.png",
+			"assets/Animations/MainCharWalk/7.png",
+			"assets/Animations/MainCharWalk/8.png",
+			"assets/Animations/MainCharWalk/9.png",
+			"assets/Animations/MainCharWalk/10.png",
+			"assets/Animations/MainCharWalk/11.png",
 		}, GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true);
 
 		mainChar2DComp->setPreDrawCallback(mainCharacterPreDrawCallback);

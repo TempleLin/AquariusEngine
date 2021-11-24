@@ -5,7 +5,7 @@
 
 namespace aquarius_engine {
 	AQ_CompSimpleBox2D::AQ_CompSimpleBox2D(unsigned int shaderID, unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount)
-		: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), window(nullptr), _keepAspectRatio(false) {
+		: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), window(nullptr), _keepAspectRatio(false), preDrawCallback(nullptr) {
 		setShaderID(shaderID);
 	}
 
@@ -112,7 +112,8 @@ namespace aquarius_engine {
 	}
 
 	void AQ_CompSimpleBox2D::draw() {
-		preDrawCallback(shaderID, this);
+		if (preDrawCallback)
+			preDrawCallback(shaderID, this);
 		if (!window)
 			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
 
