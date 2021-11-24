@@ -41,7 +41,6 @@ namespace mainCharacter {
 				"assets/Animations/MainCharWalk/11.png",
 		}, GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true);
 
-		mainChar2DComp->setShaderID(shaders.at(0).ID);
 		mainChar2DComp->setPreDrawCallback(mainCharacterPreDrawCallback);
 
 		gameObjectThis->transformTranslate(glm::vec3(0.f, .1f, 0.f));
@@ -49,11 +48,10 @@ namespace mainCharacter {
 
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis){
 		if (currentScene == CurrentScene::MAINHALL) {
+			static AQ_GlobalCtrl::TimeCtrl* timeCtrl = gameObjectCtrl->getUniControls()->getGlobalCtrl()->getTimeCtrl();
 			static AQ_CompSimpleBox2D* mainChar2DComp = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "MainCharacter2D");
-			if (!timeCtrlRef)
-				timeCtrlRef = gameObjectCtrl->getUniControls()->getGlobalCtrl()->getTimeCtrl();
 			//mainChar2DComp->draw();
-			mainChar2DComp->drawSpriteAnim(timeCtrlRef->getSecondsInGame());
+			mainChar2DComp->drawSpriteAnim(timeCtrl->getSecondsInGame());
 		}
 	}
 

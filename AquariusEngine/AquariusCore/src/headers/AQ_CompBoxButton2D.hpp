@@ -18,7 +18,7 @@ namespace aquarius_engine {
 		void ratioChangeVerts(double* cursorX, double* cursorY, int windowWidth, int windowHeight);
 		bool checkInButtonRange(double cursorX, double cursorY, bool normalized);
 	public:
-		AQ_CompBoxButton2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int vertsCount);
+		AQ_CompBoxButton2D(unsigned int shaderID, unsigned int vao, unsigned int vbo, unsigned int ebo, int vertsCount);
 		void setSensorRange(glm::vec3 topLeftVertXYZ, glm::vec3 topRightVertXYZ, glm::vec3 downRightVertXYZ, glm::vec3 downLeftVertXYZ);
 		void translateSensorRange(glm::vec3 translateVector);
 		void scaleSensorRange(glm::vec3 scaleVector);

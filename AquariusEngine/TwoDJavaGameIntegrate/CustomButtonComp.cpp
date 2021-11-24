@@ -7,8 +7,8 @@
 #include <headers/AQ_GlobalCtrl.hpp>
 
 namespace aquarius_engine {
-	CustomButtonComp::CustomButtonComp(unsigned int vao, unsigned int vbo, unsigned int ebo, int vertsCount) : 
-		AQ_CompBoxButton2D(vao, vbo, ebo, vertsCount), onHover(false) {
+	CustomButtonComp::CustomButtonComp(unsigned int shaderID, unsigned int vao, unsigned int vbo, unsigned int ebo, int vertsCount) : 
+		AQ_CompBoxButton2D(shaderID, vao, vbo, ebo, vertsCount), onHover(false) {
 	}
 
 	// @Override

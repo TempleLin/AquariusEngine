@@ -97,14 +97,14 @@ int main()
     ImGui_ImplOpenGL3_Init(glsl_version);
 
 
-    shaders.push_back(AQ_Shader("assets/shaders/two_d_tex_vs.glsl", "assets/shaders/two_d_tex_fs.glsl"));
+    AQ_Shader theShader("assets/shaders/two_d_tex_vs.glsl", "assets/shaders/two_d_tex_fs.glsl");
 
     // -------- Create background-------------------
     AQ_GameObject* backgroundObject = gameObjectCtrl->createGameObject("Background");
     unsigned int backgroundVAO{}, backgroundVBO{}, backgroundEBO{};
     create2DBackgroundVerts(&backgroundVAO, &backgroundVBO, &backgroundEBO);
     AQ_CompSimpleBox2D* background2D = gameObjectCtrl->
-        addComponent<AQ_CompSimpleBox2D>(backgroundObject, new AQ_CompSimpleBox2D(backgroundVAO, backgroundVBO,
+        addComponent<AQ_CompSimpleBox2D>(backgroundObject, new AQ_CompSimpleBox2D(theShader.ID, backgroundVAO, backgroundVBO,
             backgroundEBO, 6), "Background2D");
     backgroundObject->setCallbackFuncs(background_callbacks::start, background_callbacks::update, background_callbacks::stop);
     // ---------------------------------------------
@@ -116,7 +116,7 @@ int main()
     createChar_BtnVerts(&charAndBtnVAO, &charAndBtnVBO, &charAndBtnEBO);
 
     AQ_CompSimpleBox2D* mainChar2D = gameObjectCtrl->
-        addComponent<AQ_CompSimpleBox2D>(mainCharacter, new AQ_CompSimpleBox2D(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "MainCharacter2D");
+        addComponent<AQ_CompSimpleBox2D>(mainCharacter, new AQ_CompSimpleBox2D(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "MainCharacter2D");
     mainChar2D->keepAspectRatio();
     mainCharacter->setCallbackFuncs(mainCharacter::start, mainCharacter::update, mainCharacter::stop);
     // ---------------------------------------------
@@ -125,15 +125,15 @@ int main()
     AQ_GameObject* shortcutBtns = gameObjectCtrl->createGameObject("ShortcutButtons");
 
     CustomButtonComp* mainhallBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
-        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "MainHallButton2D");
+        new CustomButtonComp(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "MainHallButton2D");
     CustomButtonComp* missionBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
-        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "MissionButton2D");
+        new CustomButtonComp(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "MissionButton2D");
     CustomButtonComp* attackBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
-        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "AttackButton2D");
+        new CustomButtonComp(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "AttackButton2D");
     CustomButtonComp* shopBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
-        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "ShopButton2D");
+        new CustomButtonComp(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "ShopButton2D");
     CustomButtonComp* statusBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
-        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "StatusButton2D");
+        new CustomButtonComp(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "StatusButton2D");
 
     AQ_CompInput* shortcutInput = gameObjectCtrl->addComponent<AQ_CompInput>(shortcutBtns, new AQ_CompInput(currentWindow, new unsigned int[1]{ GLFW_KEY_A },
         new unsigned int[1]{ GLFW_PRESS }, shortcutButton::processInputs, inputSystemCtrl), "ShortcutButtonInput");
@@ -144,10 +144,10 @@ int main()
     AQ_GameObject* backpackBtns = gameObjectCtrl->createGameObject("BackpackButtons");
 
     CustomButtonComp* backPackClotheBtn = gameObjectCtrl->addComponent<CustomButtonComp>(backpackBtns,
-        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "BackpackClotheBtn2D");
+        new CustomButtonComp(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "BackpackClotheBtn2D");
 
     CustomButtonComp* backPackWeaponsBtn = gameObjectCtrl->addComponent<CustomButtonComp>(backpackBtns,
-        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "BackpackWeaponsBtn2D");
+        new CustomButtonComp(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "BackpackWeaponsBtn2D");
 
     AQ_CompInput* backpackBtnInput = gameObjectCtrl->addComponent<AQ_CompInput>(backpackBtns, new AQ_CompInput(currentWindow, new unsigned int[0]{},
         new unsigned int[0]{}, backpackButtons::processInputs, inputSystemCtrl), "BackpackButtonInput");
@@ -160,11 +160,11 @@ int main()
     shopObject->setCallbackFuncs(shop::start, shop::update, shop::stop);
 
     AQ_CompSimpleBox2D* shopBackground = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
-        (shopObject, new AQ_CompSimpleBox2D(backgroundVAO, backgroundVBO, backgroundEBO, 6), "ShopBackground");
+        (shopObject, new AQ_CompSimpleBox2D(theShader.ID, backgroundVAO, backgroundVBO, backgroundEBO, 6), "ShopBackground");
     AQ_CompSimpleBox2D* clerk = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
-        (shopObject, new AQ_CompSimpleBox2D(charAndBtnVAO, charAndBtnVAO, charAndBtnVAO, 6), "Clerk");
+        (shopObject, new AQ_CompSimpleBox2D(theShader.ID, charAndBtnVAO, charAndBtnVAO, charAndBtnVAO, 6), "Clerk");
     AQ_CompSimpleBox2D* coin = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
-        (shopObject, new AQ_CompSimpleBox2D(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "Coin");
+        (shopObject, new AQ_CompSimpleBox2D(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "Coin");
     // ---------------------------------------------
 
     // -------- Attack Page-------------------------
@@ -173,18 +173,18 @@ int main()
     AQ_CompInput* attackInput = gameObjectCtrl->addComponent<AQ_CompInput>(attackObject, new AQ_CompInput(currentWindow, new unsigned int[0]{},
         new unsigned int[0]{}, attack::processInputs, inputSystemCtrl), "BackpackButtonInput");
     AQ_CompSimpleBox2D* attackSelectionPage = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
-        (attackObject, new AQ_CompSimpleBox2D(backgroundVAO, backgroundVBO, backgroundEBO, 6), "AttackSelectionPage");
+        (attackObject, new AQ_CompSimpleBox2D(theShader.ID, backgroundVAO, backgroundVBO, backgroundEBO, 6), "AttackSelectionPage");
     CustomButtonComp* selectionMonsterBtn0 = gameObjectCtrl->addComponent<CustomButtonComp>(attackObject,
-        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "SelectionMonsterBtn0");
+        new CustomButtonComp(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "SelectionMonsterBtn0");
     CustomButtonComp* selectionMonsterBtn1 = gameObjectCtrl->addComponent<CustomButtonComp>(attackObject,
-        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "SelectionMonsterBtn1");
+        new CustomButtonComp(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "SelectionMonsterBtn1");
     // ---------------------------------------------
      
     // -------- Mission Page------------------------
     AQ_GameObject* missionObject = gameObjectCtrl->createGameObject("MissionObject");
     missionObject->setCallbackFuncs(mission::start, mission::update, mission::stop);
     AQ_CompSimpleBox2D* missionBoard = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
-        (missionObject, new AQ_CompSimpleBox2D(backgroundVAO, backgroundVBO, backgroundEBO, 6), "MissionBoard");
+        (missionObject, new AQ_CompSimpleBox2D(theShader.ID, backgroundVAO, backgroundVBO, backgroundEBO, 6), "MissionBoard");
     // ---------------------------------------------
    
     // Set the first scene to mainhall.

@@ -85,7 +85,6 @@ namespace attack {
 		int returnTexIndex{};
 		attackSelectionPage->addDiffuseTexture("assets/AttackSelectionPage.png", "AttackSelectionPageImageTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
 			true, &returnTexIndex);
-		attackSelectionPage->setShaderID(shaders.at(0).ID);
 		attackSelectionPage->setPreDrawCallback(selectionPagePreDrawCallback);
 
 		selectionMonsterBtn0->addDiffuseTexture("assets/SelectionMonster0.png", "Monster0DiffuseTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &returnTexIndex);
@@ -94,7 +93,6 @@ namespace attack {
 		glm::vec3 bottomRight{ 0.5f, -0.5f, .0f };
 		glm::vec3 bottomLeft{ -0.5f, -0.5f, .0f };
 		selectionMonsterBtn0->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
-		selectionMonsterBtn0->setShaderID(shaders.at(0).ID);
 		selectionMonsterBtn0->keepAspectRatio();
 		selectionMonsterBtn0->setPreDrawCallback(monster0BtnPreDrawCallback);
 		selectionMonsterBtn0->transformTranslate(glm::vec3(-.1f, .4f, 0.f));
@@ -104,7 +102,6 @@ namespace attack {
 
 		selectionMonsterBtn1->addDiffuseTexture("assets/SelectionMonster1.png", "Monster1DiffuseTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &returnTexIndex);
 		selectionMonsterBtn1->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
-		selectionMonsterBtn1->setShaderID(shaders.at(0).ID);
 		selectionMonsterBtn1->keepAspectRatio();
 		selectionMonsterBtn1->setPreDrawCallback(monster1BtnPreDrawCallback);
 		selectionMonsterBtn1->transformTranslate(glm::vec3(.5f, -.4f, 0.f));

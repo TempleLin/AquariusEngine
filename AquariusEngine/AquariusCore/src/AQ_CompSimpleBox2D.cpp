@@ -4,8 +4,9 @@
 #include "headers/AQ_GlobalCtrl.hpp"
 
 namespace aquarius_engine {
-	AQ_CompSimpleBox2D::AQ_CompSimpleBox2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount)
-		: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), shaderID(0), window(nullptr), _keepAspectRatio(false) {
+	AQ_CompSimpleBox2D::AQ_CompSimpleBox2D(unsigned int shaderID, unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount)
+		: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), window(nullptr), _keepAspectRatio(false) {
+		setShaderID(shaderID);
 	}
 
 	void AQ_CompSimpleBox2D::addDiffuseTexture(std::string imageLocation, std::string name, unsigned int wrap_s, unsigned int wrap_t,

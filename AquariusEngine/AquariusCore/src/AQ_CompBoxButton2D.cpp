@@ -58,8 +58,8 @@ namespace aquarius_engine {
 		
 	}
 
-	AQ_CompBoxButton2D::AQ_CompBoxButton2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int vertsCount)
-		: AQ_CompSimpleBox2D(vao, vbo, ebo, vertsCount), AQ_IHoverClick(), _disableButton(false) {
+	AQ_CompBoxButton2D::AQ_CompBoxButton2D(unsigned int shaderID, unsigned int vao, unsigned int vbo, unsigned int ebo, int vertsCount)
+		: AQ_CompSimpleBox2D(shaderID, vao, vbo, ebo, vertsCount), AQ_IHoverClick(), _disableButton(false) {
 
 	}
 

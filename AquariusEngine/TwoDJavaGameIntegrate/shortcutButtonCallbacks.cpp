@@ -33,7 +33,6 @@ namespace shortcutButton {
 		mainhallBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		mainhallBtn->translateSensorRange(glm::vec3(0.f, -.8f, 0.f));
 		mainhallBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
-		mainhallBtn->setShaderID(shaders.at(0).ID);
 		mainhallBtn->keepAspectRatio();
 		mainhallBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		mainhallBtn->transformTranslate(glm::vec3(0.f, -.8f, 0.f));
@@ -43,7 +42,6 @@ namespace shortcutButton {
 		missionBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		missionBtn->translateSensorRange(glm::vec3(.2f, -.8f, 0.f));
 		missionBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
-		missionBtn->setShaderID(shaders.at(0).ID);
 		missionBtn->keepAspectRatio();
 		missionBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		missionBtn->transformTranslate(glm::vec3(.2f, -.8f, 0.f));
@@ -53,7 +51,6 @@ namespace shortcutButton {
 		attackBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		attackBtn->translateSensorRange(glm::vec3(.4f, -.8f, 0.f));
 		attackBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
-		attackBtn->setShaderID(shaders.at(0).ID);
 		attackBtn->keepAspectRatio();
 		attackBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		attackBtn->transformTranslate(glm::vec3(.4f, -.8f, 0.f));
@@ -63,7 +60,6 @@ namespace shortcutButton {
 		shopBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		shopBtn->translateSensorRange(glm::vec3(.6f, -.8f, 0.f));
 		shopBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
-		shopBtn->setShaderID(shaders.at(0).ID);
 		shopBtn->keepAspectRatio();
 		shopBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		shopBtn->transformTranslate(glm::vec3(.6f, -.8f, 0.f));
@@ -73,7 +69,6 @@ namespace shortcutButton {
 		statusBtn->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		statusBtn->translateSensorRange(glm::vec3(.8f, -.8f, 0.f));
 		statusBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
-		statusBtn->setShaderID(shaders.at(0).ID);
 		statusBtn->keepAspectRatio();
 		statusBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		statusBtn->transformTranslate(glm::vec3(.8f, -.8f, 0.f));

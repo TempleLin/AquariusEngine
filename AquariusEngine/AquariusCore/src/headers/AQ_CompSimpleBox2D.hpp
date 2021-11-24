@@ -32,7 +32,7 @@ namespace aquarius_engine {
 		void setTexWrapFilter(unsigned int wrap_s, unsigned int wrap_t, unsigned int min_filter, unsigned int mag_filter);
 	public:
 
-		AQ_CompSimpleBox2D(unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount);
+		AQ_CompSimpleBox2D(unsigned int shaderID, unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount);
 		void addDiffuseTexture(std::string imageLocation, std::string name, unsigned int wrap_s, unsigned int wrap_t,
 			unsigned int min_filter, unsigned int mag_filter, bool hasAndUseAlpha, int* returnTexIndex);
 		void switchDiffuseTexture(std::string name);

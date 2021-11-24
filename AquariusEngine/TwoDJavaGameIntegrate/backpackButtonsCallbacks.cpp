@@ -27,7 +27,6 @@ namespace backpackButtons {
 		backPackClotheBtn->translateSensorRange(glm::vec3(-.1f, 0.5f, 0.f));
 		backPackClotheBtn->scaleSensorRange(glm::vec3(.5f, .4f, 1.f));
 		backPackClotheBtn->activateTexture(GL_TEXTURE0);
-		backPackClotheBtn->setShaderID(shaders.at(0).ID);
 		backPackClotheBtn->keepAspectRatio();
 		backPackClotheBtn->setPreDrawCallback(backpackBtnPredrawCallback);
 		backPackClotheBtn->transformTranslate(glm::vec3(-.1f, 0.5f, 0.f));
@@ -38,7 +37,6 @@ namespace backpackButtons {
 		backpackWeaponsBtn->translateSensorRange(glm::vec3(-.85f, -0.4f, 0.f));
 		backpackWeaponsBtn->scaleSensorRange(glm::vec3(.5f, .4f, 1.f));
 		backpackWeaponsBtn->activateTexture(GL_TEXTURE0);
-		backpackWeaponsBtn->setShaderID(shaders.at(0).ID);
 		backpackWeaponsBtn->keepAspectRatio();
 		backpackWeaponsBtn->setPreDrawCallback(backpackBtnPredrawCallback);
 		backpackWeaponsBtn->transformTranslate(glm::vec3(-.85f, -0.4f, 0.f));

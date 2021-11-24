@@ -14,7 +14,6 @@ namespace background_callbacks {
 			true, &returnTexIndex1);
 		background2D->activateTexture(GL_TEXTURE0);
 
-		background2D->setShaderID(shaders.at(0).ID);
 		background2D->setPreDrawCallback(backgroundPreDrawCallback);
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
