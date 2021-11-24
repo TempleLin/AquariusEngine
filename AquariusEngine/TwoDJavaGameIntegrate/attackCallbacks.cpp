@@ -80,14 +80,23 @@ namespace attack {
 		double mouseXPos, mouseYPos;
 		glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
 
-		static bool monster0BtnExpand{ true };
-		bool onHoverMonster0 = selectionMonsterBtn0->hoverCheck(mouseXPos, mouseYPos, false);
-		if (onHoverMonster0 && monster0BtnExpand) {
+		static bool monstersBtnExpand[]{ true, true };
+		bool onHoverMonstersBtns[] = { 
+			selectionMonsterBtn0->hoverCheck(mouseXPos, mouseYPos, false), 
+			selectionMonsterBtn1->hoverCheck(mouseXPos, mouseYPos, false) 
+		};
+		if (onHoverMonstersBtns[0] && monstersBtnExpand[0]) {
 			selectionMonsterBtn0->transformScale(glm::vec3(1.2f, 1.2f, 1.f));
-			monster0BtnExpand = false;
-		} else if (!onHoverMonster0 && !monster0BtnExpand) {
+			monstersBtnExpand[0] = false;
+		} else if (!onHoverMonstersBtns[0] && !monstersBtnExpand[0]) {
 			selectionMonsterBtn0->transformScale(glm::vec3(1.f / 1.2f, 1.f / 1.2f, 1.f));
-			monster0BtnExpand = true;
+			monstersBtnExpand[0] = true;
+		} else if (onHoverMonstersBtns[1] && monstersBtnExpand[1]) {
+			selectionMonsterBtn1->transformScale(glm::vec3(1.2f, 1.2f, 1.f));
+			monstersBtnExpand[1] = false;
+		} else if (!onHoverMonstersBtns[1] && !monstersBtnExpand[1]) {
+			selectionMonsterBtn1->transformScale(glm::vec3(1.f / 1.2f, 1.f / 1.2f, 1.f));
+			monstersBtnExpand[1] = true;
 		}
 	}
 
