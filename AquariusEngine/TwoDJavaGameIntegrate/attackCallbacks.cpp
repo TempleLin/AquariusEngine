@@ -60,9 +60,6 @@ namespace attack {
 		if (currentScene == CurrentScene::ATTACK) {
 			switch (attackMode) {
 			case AttackMode::SELECTING:
-				static AQ_CompSimpleBox2D* attackSelectionPage = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "AttackSelectionPage");
-				static CustomButtonComp* selectionMonsterBtn0 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn0");
-				static CustomButtonComp* selectionMonsterBtn1 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn1");
 				attackSelectionPage->draw();
 				selectionMonsterBtn0->draw();
 				selectionMonsterBtn1->draw();
