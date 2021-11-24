@@ -10,10 +10,14 @@ namespace shop {
 	void coinPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 	void clerkPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 
+	AQ_CompSimpleBox2D* shopBackground;
+	AQ_CompSimpleBox2D* coin;
+	AQ_CompSimpleBox2D* clerk;
+
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		AQ_CompSimpleBox2D* shopBackground = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "ShopBackground");
-		AQ_CompSimpleBox2D* coin = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "Coin");
-		AQ_CompSimpleBox2D* clerk = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "Clerk");
+		shopBackground = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "ShopBackground");
+		coin = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "Coin");
+		clerk = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "Clerk");
 
 		int returnTextIndex{};
 		shopBackground->addDiffuseTexture("assets/ShopBackground.png", "ShopBackgroundImageText", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
@@ -40,10 +44,6 @@ namespace shop {
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		if (currentScene == CurrentScene::SHOP) {
-			static AQ_CompSimpleBox2D* shopBackground = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "ShopBackground");
-			static AQ_CompSimpleBox2D* coin = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "Coin");
-			static AQ_CompSimpleBox2D* clerk = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "Clerk");
-
 			shopBackground->draw();
 			coin->draw();
 			clerk->draw();

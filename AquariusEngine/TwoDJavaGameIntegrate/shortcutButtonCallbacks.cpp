@@ -11,12 +11,18 @@ namespace shortcutButton {
 	using namespace aquarius_engine;
 	void shortcutButtonPredrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 
+	CustomButtonComp* mainhallBtn;
+	CustomButtonComp* missionBtn;
+	CustomButtonComp* attackBtn;
+	CustomButtonComp* shopBtn;
+	CustomButtonComp* statusBtn;
+
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
-		CustomButtonComp* missionBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D");
-		CustomButtonComp* attackBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D");
-		CustomButtonComp* shopBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShopButton2D");
-		CustomButtonComp* statusBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "StatusButton2D");
+		mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
+		missionBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D");
+		attackBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D");
+		shopBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShopButton2D");
+		statusBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "StatusButton2D");
 
 		int shortcutButtonTexIndex{};
 		mainhallBtn->addDiffuseTexture("assets/TempShortcuts/MainHall.png", "MainhallDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
@@ -79,11 +85,6 @@ namespace shortcutButton {
 		statusBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		static CustomButtonComp* mainhallBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D");
-		static CustomButtonComp* missionBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D");
-		static CustomButtonComp* attackBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D");
-		static CustomButtonComp* shopBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShopButton2D");
-		static CustomButtonComp* statusBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "StatusButton2D");
 		mainhallBtn->draw();
 		missionBtn->draw();
 		attackBtn->draw();
@@ -98,11 +99,11 @@ namespace shortcutButton {
 		unsigned int* keys, unsigned int* actions) {
 		static AQ_GameObjectCtrl* gameObjectCtrl = gameObjectThis->getGameObjectCtrl();
 		static CustomButtonComp* buttons[]{ 
-			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MainHallButton2D"),
-			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "MissionButton2D"),
-			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "AttackButton2D"),
-			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "ShopButton2D"),
-			gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "StatusButton2D")
+			mainhallBtn,
+			missionBtn,
+			attackBtn,
+			shopBtn,
+			statusBtn
 		};
 		static AQ_GameObject* background = gameObjectCtrl->getGameObject("Background");
 		static AQ_CompSimpleBox2D* background2D = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(background, "Background2D");

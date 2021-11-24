@@ -14,10 +14,14 @@ namespace attack {
 	};
 	AttackMode attackMode = AttackMode::SELECTING;
 
+	AQ_CompSimpleBox2D* attackSelectionPage;
+	CustomButtonComp* selectionMonsterBtn0;
+	CustomButtonComp* selectionMonsterBtn1;
+
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		AQ_CompSimpleBox2D* attackSelectionPage = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "AttackSelectionPage");
-		CustomButtonComp* selectionMonsterBtn0 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn0");
-		CustomButtonComp* selectionMonsterBtn1 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn1");
+		attackSelectionPage = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "AttackSelectionPage");
+		selectionMonsterBtn0 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn0");
+		selectionMonsterBtn1 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn1");
 
 		int returnTexIndex{};
 		attackSelectionPage->addDiffuseTexture("assets/AttackSelectionPage.png", "AttackSelectionPageImageTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
@@ -74,8 +78,6 @@ namespace attack {
 	}
 	void processInputs(GLFWwindow* window, AQ_GameObject* gameObjectThis, AQ_GlobalCtrl::TimeCtrl* timeCtrl,
 		unsigned int* keys, unsigned int* actions) {
-		static AQ_GameObjectCtrl* gameObjectCtrl = gameObjectThis->getGameObjectCtrl();
-		static CustomButtonComp* selectionMonsterBtn0 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn0");
 
 		static bool mouseLeftOnPress{ false };
 		double mouseXPos, mouseYPos;

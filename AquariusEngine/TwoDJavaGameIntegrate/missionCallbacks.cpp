@@ -13,8 +13,10 @@
 namespace mission {
 	void missionBoardPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 
+	AQ_CompSimpleBox2D* missionBoard;
+
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		AQ_CompSimpleBox2D* missionBoard = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "MissionBoard");
+		missionBoard = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "MissionBoard");
 		int returnTexIndex{};
 		missionBoard->addDiffuseTexture("assets/MissionBoard.png", "MissionBoardTexImage", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
 			true, &returnTexIndex);
@@ -25,7 +27,6 @@ namespace mission {
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		if (currentScene == CurrentScene::MISSION) {
 			static AQ_GlobalCtrl::TimeCtrl* timeCtrl = gameObjectCtrl->getUniControls()->getGlobalCtrl()->getTimeCtrl();
-			static AQ_CompSimpleBox2D* missionBoard = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "MissionBoard");
 			missionBoard->draw();
 
 			{
