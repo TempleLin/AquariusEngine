@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -150,6 +150,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="glConfigCallbacks.cpp" />
     <ClCompile Include="attackCallbacks.cpp" />
+    <ClCompile Include="mainCharStatus.cpp" />
     <ClCompile Include="missionCallbacks.cpp" />
     <ClCompile Include="shopCallbacks.cpp" />
     <ClCompile Include="shortcutButtonCallbacks.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="headers\backpackButtonsCallbacks.h" />
     <ClInclude Include="headers\backgroundCallbacks.h" />
     <ClInclude Include="headers\CustomButtonComp.hpp" />
+    <ClInclude Include="headers\mainCharStatus.hpp" />
     <ClInclude Include="headers\missionCallbacks.h" />
     <ClInclude Include="headers\shortcutButtonCallbacks.hpp" />
     <ClInclude Include="headers\glConfigCallbacks.hpp" />
