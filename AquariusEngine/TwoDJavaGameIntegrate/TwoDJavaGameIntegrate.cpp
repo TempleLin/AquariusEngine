@@ -121,7 +121,7 @@ int main()
     mainCharacter->setCallbackFuncs(mainCharacter::start, mainCharacter::update, mainCharacter::stop);
     // ---------------------------------------------
 
-    // -------- Create button ----------------------
+    // -------- Shortcut buttons -------------------
     AQ_GameObject* shortcutBtns = gameObjectCtrl->createGameObject("ShortcutButtons");
 
     CustomButtonComp* mainhallBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
@@ -170,8 +170,14 @@ int main()
     // -------- Attack Page-------------------------
     AQ_GameObject* attackObject = gameObjectCtrl->createGameObject("AttackObject");
     attackObject->setCallbackFuncs(attack::start, attack::update, attack::stop);
+    AQ_CompInput* attackInput = gameObjectCtrl->addComponent<AQ_CompInput>(attackObject, new AQ_CompInput(currentWindow, new unsigned int[0]{},
+        new unsigned int[0]{}, attack::processInputs, inputSystemCtrl), "BackpackButtonInput");
     AQ_CompSimpleBox2D* attackSelectionPage = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
         (attackObject, new AQ_CompSimpleBox2D(backgroundVAO, backgroundVBO, backgroundEBO, 6), "AttackSelectionPage");
+    CustomButtonComp* selectionMonsterBtn0 = gameObjectCtrl->addComponent<CustomButtonComp>(attackObject,
+        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "SelectionMonsterBtn0");
+    CustomButtonComp* selectionMonsterBtn1 = gameObjectCtrl->addComponent<CustomButtonComp>(attackObject,
+        new CustomButtonComp(charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "SelectionMonsterBtn1");
     // ---------------------------------------------
      
     // -------- Mission Page------------------------
