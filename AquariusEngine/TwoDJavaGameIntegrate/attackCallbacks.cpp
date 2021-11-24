@@ -23,16 +23,24 @@ namespace attack {
 	CustomButtonComp* selectionMonsterBtn1;
 	AQ_CompSimpleBox2D* treeMonster;
 
+	AQ_GameObject* mainCharacterObject;
+	AQ_CompSimpleBox2D* mainChar2D;
+
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		attackSelectionPage = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "AttackSelectionPage");
 		selectionMonsterBtn0 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn0");
 		selectionMonsterBtn1 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn1");
 		treeMonster = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "TreeMonster");
 
+		mainCharacterObject = gameObjectCtrl->getGameObject("MainCharacter");
+		mainChar2D = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(mainCharacterObject, "MainCharacter2D");
+
 		startSelectionPageComps();
 		startAttackingComps();
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
+		static AQ_GlobalCtrl::TimeCtrl* timeCtrl = gameObjectCtrl->getUniControls()->getGlobalCtrl()->getTimeCtrl();
+
 		if (currentScene == CurrentScene::ATTACK) {
 			switch (attackMode) {
 			case AttackMode::SELECTING:
@@ -41,7 +49,12 @@ namespace attack {
 				selectionMonsterBtn1->draw();
 				break;
 			case AttackMode::ATTACKING:
+				treeMonster->transformTranslate(glm::vec3(glm::sin(timeCtrl->getSecondsInGame()) * .001f, glm::cos(timeCtrl->getSecondsInGame()) * .001f, 0.f));
 				treeMonster->draw();
+
+				mainChar2D->transformScale(glm::vec3(-1.f, 1.f, 1.f));
+				mainChar2D->drawSpriteAnim(timeCtrl->getSecondsInGame());
+				mainChar2D->transformScale(glm::vec3(-1.f, 1.f, 1.f));
 				break;
 			}
 		}
@@ -142,6 +155,7 @@ namespace attack {
 	void startAttackingComps() {
 		int returnTexIndex{};
 		treeMonster->addDiffuseTexture("assets/TreeMonster.png", "TreeMonsterImageTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &returnTexIndex);
+		treeMonster->transformTranslate(glm::vec3(.5f, 0.f, 0.f));
 		treeMonster->setPreDrawCallback(treeMonsterPreDrawCallback);
 	}
 
