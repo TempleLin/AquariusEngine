@@ -7,7 +7,7 @@ namespace attack {
 	void selectionPagePreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 	void monster0BtnPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 	void monster1BtnPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
-	void treeMonsterPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
+	void succubusPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 
 	void startSelectionPageComps();
 	void startAttackingComps();
@@ -21,7 +21,7 @@ namespace attack {
 	AQ_CompSimpleBox2D* attackSelectionPage;
 	CustomButtonComp* selectionMonsterBtn0;
 	CustomButtonComp* selectionMonsterBtn1;
-	AQ_CompSimpleBox2D* treeMonster;
+	AQ_CompSimpleBox2D* succubus;
 
 	AQ_GameObject* mainCharacterObject;
 	AQ_CompSimpleBox2D* mainChar2D;
@@ -30,7 +30,7 @@ namespace attack {
 		attackSelectionPage = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "AttackSelectionPage");
 		selectionMonsterBtn0 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn0");
 		selectionMonsterBtn1 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn1");
-		treeMonster = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "TreeMonster");
+		succubus = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "Succubus2D");
 
 		mainCharacterObject = gameObjectCtrl->getGameObject("MainCharacter");
 		mainChar2D = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(mainCharacterObject, "MainCharacter2D");
@@ -49,8 +49,8 @@ namespace attack {
 				selectionMonsterBtn1->draw();
 				break;
 			case AttackMode::ATTACKING:
-				treeMonster->transformTranslate(glm::vec3(glm::sin(timeCtrl->getSecondsInGame()) * .001f, glm::cos(timeCtrl->getSecondsInGame()) * .001f, 0.f));
-				treeMonster->draw();
+				succubus->transformTranslate(glm::vec3(glm::sin(timeCtrl->getSecondsInGame()) * .001f, glm::cos(timeCtrl->getSecondsInGame()) * .001f, 0.f));
+				succubus->draw();
 
 				mainChar2D->transformScale(glm::vec3(-1.f, 1.f, 1.f));
 				mainChar2D->drawSpriteAnim(timeCtrl->getSecondsInGame());
@@ -154,9 +154,10 @@ namespace attack {
 	}
 	void startAttackingComps() {
 		int returnTexIndex{};
-		treeMonster->addDiffuseTexture("assets/TreeMonster.png", "TreeMonsterImageTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &returnTexIndex);
-		treeMonster->transformTranslate(glm::vec3(.5f, 0.f, 0.f));
-		treeMonster->setPreDrawCallback(treeMonsterPreDrawCallback);
+		succubus->addDiffuseTexture("assets/Succubus.png", "SuccubusImageTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &returnTexIndex);
+		succubus->transformTranslate(glm::vec3(.5f, 0.f, 0.f));
+		succubus->transformScale(glm::vec3(1.f, 2.3f, 1.f));
+		succubus->setPreDrawCallback(succubusPreDrawCallback);
 	}
 
 	void selectionPagePreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
@@ -168,7 +169,7 @@ namespace attack {
 	void monster1BtnPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
 
 	}
-	void treeMonsterPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
+	void succubusPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
 
 	}
 }

@@ -179,8 +179,8 @@ int main()
     CustomButtonComp* selectionMonsterBtn1 = gameObjectCtrl->addComponent<CustomButtonComp>(attackObject,
         new CustomButtonComp(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "SelectionMonsterBtn1");
 
-    AQ_CompSimpleBox2D* treeMonster = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>(attackObject, 
-        new AQ_CompSimpleBox2D(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "TreeMonster");
+    AQ_CompSimpleBox2D* succubus = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>(attackObject, 
+        new AQ_CompSimpleBox2D(theShader.ID, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6), "Succubus2D");
     // ---------------------------------------------
      
     // -------- Mission Page------------------------
