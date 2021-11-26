@@ -14,7 +14,8 @@ namespace attack {
 
 	enum class AttackMode {
 		SELECTING,
-		ATTACKING
+		ATTACKING0,
+		ATTACKING1
 	};
 	AttackMode attackMode = AttackMode::SELECTING;
 
@@ -48,7 +49,7 @@ namespace attack {
 				selectionMonsterBtn0->draw();
 				selectionMonsterBtn1->draw();
 				break;
-			case AttackMode::ATTACKING:
+			case AttackMode::ATTACKING1:
 				succubus->transformTranslate(glm::vec3(glm::sin(timeCtrl->getSecondsInGame()) * .001f, glm::cos(timeCtrl->getSecondsInGame()) * .001f, 0.f));
 				succubus->draw();
 
@@ -104,10 +105,10 @@ namespace attack {
 
 						if (onClickMonstersBtns[0]) {
 							std::cout << "Pressed first monster button\n";
-							attackMode = AttackMode::ATTACKING;
-
+							attackMode = AttackMode::ATTACKING0;
 						} else if (onClickMonstersBtns[1]) {
 							std::cout << "Pressed second monster button\n";
+							attackMode = AttackMode::ATTACKING1;
 						}
 						mouseLeftOnPress = true;
 					}
@@ -116,9 +117,10 @@ namespace attack {
 					mouseLeftOnPress = false;
 					break;
 				}
-
 				break;
-			case AttackMode::ATTACKING:
+			case AttackMode::ATTACKING0:
+				break;
+			case AttackMode::ATTACKING1:
 				break;
 			}
 		}
