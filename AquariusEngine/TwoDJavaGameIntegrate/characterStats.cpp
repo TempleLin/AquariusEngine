@@ -5,7 +5,8 @@ std::random_device CharacterStats::rd;
 std::default_random_engine CharacterStats::gen{ std::default_random_engine(rd()) };
 
 CharacterStats::CharacterStats(const char* name, int attack, int agility, int defense, int health) :
-	name(name), attack(attack), agility(agility), defense(defense), health(health), dead(false), dis(1, health) {
+	name(name), attack(attack), agility(agility), defense(defense), health(health), dead(false), dis(1, health),
+	forReset(new int[] {attack, agility, defense, health}) {
 }
 const char* CharacterStats::getName() {
 	return this->name;
@@ -61,8 +62,20 @@ void CharacterStats::receiveAttack(const CharacterStats& attacker)
 	}
 }
 
+void CharacterStats::resetStats() {
+	attack = forReset[0];
+	agility = forReset[1];
+	defense = forReset[2];
+	health = forReset[3];
+	dead = false;
+}
+
 bool CharacterStats::isDead() {
 	return this->dead;
+}
+
+CharacterStats::~CharacterStats() {
+	delete[] forReset;
 }
 
 CharacterStats mainCharStats{ "MainCharacter", 5, 1, 5, 100 };

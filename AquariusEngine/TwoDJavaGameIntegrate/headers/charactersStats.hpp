@@ -5,6 +5,7 @@ class CharacterStats {
 private:
 	const char* name;
 	int attack, agility, defense, health;
+	int* forReset;
 	bool dead;
 	static std::random_device rd;
 	static std::default_random_engine gen;
@@ -21,7 +22,9 @@ public:
 	int setDefense(int value);
 	int setHealth(int value);
 	void receiveAttack(const CharacterStats& attacker);
+	void resetStats();
 	bool isDead();
+	~CharacterStats();
 };
 
 extern CharacterStats mainCharStats;

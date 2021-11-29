@@ -172,9 +172,19 @@ namespace attack {
 			lastGameTime = timeCtrl->getSecondsInGame();
 		}
 		if (mainCharStats.isDead()) {
+			mainCharStats.resetStats();
+			for (int i = 0; i < enemiesCount; i++) {
+				_enemies[i]->resetStats();
+			}
+			attackMode = AttackMode::SELECTING;
 			currentScene = CurrentScene::MAINHALL;
 		} else if (allEnemiesDead) {
+			mainCharStats.resetStats();
+			for (int i = 0; i < enemiesCount; i++) {
+				_enemies[i]->resetStats();
+			}
 			delete[] _enemies;
+			attackMode = AttackMode::SELECTING;
 			currentScene = CurrentScene::MAINHALL;
 		}
 	}
