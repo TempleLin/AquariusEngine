@@ -1,6 +1,7 @@
 #include "headers/attackCallbacks.h"
 #include "headers/PassingValues.hpp"
 #include "headers/CustomButtonComp.hpp"
+#include "headers/charactersStats.hpp"
 #include <headers/AQ_CompSimpleBox2D.hpp>
 
 namespace attack {
@@ -11,6 +12,8 @@ namespace attack {
 
 	void startSelectionPageComps();
 	void startAttackingComps();
+
+	void mainCharFightMobs(AQ_GameObjectCtrl* gameObjectCtrl, int enemiesCount, CharacterStats** enemies);
 
 	enum class AttackMode {
 		SELECTING,
@@ -56,6 +59,8 @@ namespace attack {
 				mainChar2D->transformScale(glm::vec3(-1.f, 1.f, 1.f));
 				mainChar2D->drawSpriteAnim(timeCtrl->getSecondsInGame());
 				mainChar2D->transformScale(glm::vec3(-1.f, 1.f, 1.f));
+
+				mainCharFightMobs(gameObjectCtrl, 1, new CharacterStats* { &succubusStats });
 				break;
 			}
 		}
@@ -123,6 +128,54 @@ namespace attack {
 			case AttackMode::ATTACKING1:
 				break;
 			}
+		}
+	}
+
+	void mainCharFightMobs(AQ_GameObjectCtrl* gameObjectCtrl, int enemiesCount, CharacterStats** enemies = nullptr) {
+		static AQ_GlobalCtrl::TimeCtrl* timeCtrl = gameObjectCtrl->getUniControls()->getGlobalCtrl()->getTimeCtrl();
+		static CharacterStats** _enemies{ nullptr };
+		if (enemies) {
+			if (_enemies)
+				delete[] _enemies;
+			_enemies = enemies;
+		}
+		if (!_enemies) {
+			std::cout << "No enemies passed in fighting, cancelled fight.\n";
+			return;
+		}
+
+		bool allEnemiesDead{ false };
+		static bool mainCharTurnToAttack{ true };
+
+		static float lastGameTime{ 0.f };
+		if (timeCtrl->getSecondsInGame() - lastGameTime >= .2f) {
+			switch (mainCharTurnToAttack) {
+			case true:
+				for (int i = 0; i < enemiesCount; i++) {
+					if (!_enemies[i]->isDead()) {
+						_enemies[i]->receiveAttack(mainCharStats);
+						break; // Attack single enemy at a time.
+					}
+					if (i == enemiesCount - 1 && _enemies[i]->isDead()) {
+						allEnemiesDead = true;
+					}
+				}
+				mainCharTurnToAttack = false;
+				break;
+			case false:
+				for (int i = 0; i < enemiesCount; i++) {
+					mainCharStats.receiveAttack(succubusStats);
+				}
+				mainCharTurnToAttack = true;
+				break;
+			}
+			lastGameTime = timeCtrl->getSecondsInGame();
+		}
+		if (mainCharStats.isDead()) {
+			currentScene = CurrentScene::MAINHALL;
+		} else if (allEnemiesDead) {
+			delete[] _enemies;
+			currentScene = CurrentScene::MAINHALL;
 		}
 	}
 

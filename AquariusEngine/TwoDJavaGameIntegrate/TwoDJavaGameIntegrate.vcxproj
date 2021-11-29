@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="backpackButtonsCallbacks.cpp" />
+    <ClCompile Include="characterStats.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="glConfigCallbacks.cpp" />
     <ClCompile Include="attackCallbacks.cpp" />
@@ -170,6 +171,7 @@
     <None Include="assets\shaders\two_d_tex_vs.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\charactersStats.hpp" />
     <ClInclude Include="headers\attackCallbacks.h" />
     <ClInclude Include="headers\backpackButtonsCallbacks.h" />
     <ClInclude Include="headers\backgroundCallbacks.h" />
