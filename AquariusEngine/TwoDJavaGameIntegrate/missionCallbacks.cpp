@@ -45,9 +45,9 @@ namespace mission {
 				if (startMission) {
 					ImGui::Begin(subject);
 					static float lastTimeCount{ 0.f };
-					float currentTime = glfwGetTime();
+					float currentTime = timeCtrl->getSecondsInGame();
 					if (currentTime - lastTimeCount >= 1.f) {
-						hours -= (currentTime / 3600.f);
+						hours -= ((currentTime - lastTimeCount) / 3600.f);
 						lastTimeCount = currentTime;
 					}
 					ImGui::Text("Time left: %f hours", hours);
