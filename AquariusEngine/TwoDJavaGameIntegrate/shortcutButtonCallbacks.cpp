@@ -9,8 +9,6 @@
 
 namespace shortcutButton {
 	using namespace aquarius_engine;
-	void shortcutButtonPredrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
-
 	CustomButtonComp* mainhallBtn;
 	CustomButtonComp* missionBtn;
 	CustomButtonComp* attackBtn;
@@ -34,7 +32,6 @@ namespace shortcutButton {
 		mainhallBtn->translateSensorRange(glm::vec3(0.f, -.8f, 0.f));
 		mainhallBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		mainhallBtn->keepAspectRatio();
-		mainhallBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		mainhallBtn->transformTranslate(glm::vec3(0.f, -.8f, -1.f));
 		mainhallBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 
@@ -43,7 +40,6 @@ namespace shortcutButton {
 		missionBtn->translateSensorRange(glm::vec3(.2f, -.8f, 0.f));
 		missionBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		missionBtn->keepAspectRatio();
-		missionBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		missionBtn->transformTranslate(glm::vec3(.2f, -.8f, -1.f));
 		missionBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 
@@ -52,7 +48,6 @@ namespace shortcutButton {
 		attackBtn->translateSensorRange(glm::vec3(.4f, -.8f, 0.f));
 		attackBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		attackBtn->keepAspectRatio();
-		attackBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		attackBtn->transformTranslate(glm::vec3(.4f, -.8f, -1.f));
 		attackBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 
@@ -61,7 +56,6 @@ namespace shortcutButton {
 		shopBtn->translateSensorRange(glm::vec3(.6f, -.8f, 0.f));
 		shopBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		shopBtn->keepAspectRatio();
-		shopBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		shopBtn->transformTranslate(glm::vec3(.6f, -.8f, -1.f));
 		shopBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 
@@ -70,7 +64,6 @@ namespace shortcutButton {
 		statusBtn->translateSensorRange(glm::vec3(.8f, -.8f, 0.f));
 		statusBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		statusBtn->keepAspectRatio();
-		statusBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
 		statusBtn->transformTranslate(glm::vec3(.8f, -.8f, -1.f));
 		statusBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 	}
@@ -152,9 +145,5 @@ namespace shortcutButton {
 			mouseLeftOnPress = false;
 			break;
 		}
-	}
-
-	void shortcutButtonPredrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
-
 	}
 }

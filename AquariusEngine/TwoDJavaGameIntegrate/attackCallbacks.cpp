@@ -8,11 +8,6 @@ namespace attack {
 
 #define ATTACK_ANIM_SPEED .4f
 
-	void selectionPagePreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
-	void monster0BtnPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
-	void monster1BtnPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
-	void succubusPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
-
 	void startSelectionPageComps();
 	void startAttackingComps();
 
@@ -218,7 +213,6 @@ namespace attack {
 		int returnTexIndex{};
 		attackSelectionPage->addDiffuseTexture("assets/AttackSelectionPage.png", "AttackSelectionPageImageTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
 			true, &returnTexIndex);
-		attackSelectionPage->setPreDrawCallback(selectionPagePreDrawCallback);
 
 		selectionMonsterBtn0->addDiffuseTexture("assets/SelectionMonster0.png", "Monster0DiffuseTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &returnTexIndex);
 		glm::vec3 topLeft{ -0.5f,  0.5f, .0f };
@@ -227,7 +221,6 @@ namespace attack {
 		glm::vec3 bottomLeft{ -0.5f, -0.5f, .0f };
 		selectionMonsterBtn0->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		selectionMonsterBtn0->keepAspectRatio();
-		selectionMonsterBtn0->setPreDrawCallback(monster0BtnPreDrawCallback);
 		selectionMonsterBtn0->transformTranslate(glm::vec3(-.1f, .4f, 0.f));
 		selectionMonsterBtn0->translateSensorRange(glm::vec3(-.1f, .4f, 0.f));
 		selectionMonsterBtn0->transformScale(glm::vec3(.6f, .6f, 1.f));
@@ -236,7 +229,6 @@ namespace attack {
 		selectionMonsterBtn1->addDiffuseTexture("assets/SelectionMonster1.png", "Monster1DiffuseTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &returnTexIndex);
 		selectionMonsterBtn1->setSensorRange(topLeft, topRight, bottomRight, bottomLeft);
 		selectionMonsterBtn1->keepAspectRatio();
-		selectionMonsterBtn1->setPreDrawCallback(monster1BtnPreDrawCallback);
 		selectionMonsterBtn1->transformTranslate(glm::vec3(.5f, -.4f, 0.f));
 		selectionMonsterBtn1->translateSensorRange(glm::vec3(.5f, -.4f, 0.f));
 		selectionMonsterBtn1->transformScale(glm::vec3(.6f, .6f, 1.f));
@@ -247,19 +239,5 @@ namespace attack {
 		succubus->addDiffuseTexture("assets/Succubus.png", "SuccubusImageTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &returnTexIndex);
 		succubus->transformTranslate(glm::vec3(.5f, 0.f, 0.f));
 		succubus->transformScale(glm::vec3(1.f, 2.3f, 1.f));
-		succubus->setPreDrawCallback(succubusPreDrawCallback);
-	}
-
-	void selectionPagePreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
-
-	}
-	void monster0BtnPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
-
-	}
-	void monster1BtnPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
-
-	}
-	void succubusPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
-
 	}
 }

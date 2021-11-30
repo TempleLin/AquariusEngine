@@ -11,8 +11,6 @@
 using namespace aquarius_engine;
 
 namespace backpackButtons {
-	void backpackBtnPredrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
-
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		CustomButtonComp* backPackClotheBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "BackpackClotheBtn2D");
 		CustomButtonComp* backpackWeaponsBtn = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "BackpackWeaponsBtn2D");
@@ -28,7 +26,6 @@ namespace backpackButtons {
 		backPackClotheBtn->scaleSensorRange(glm::vec3(.5f, .4f, 1.f));
 		backPackClotheBtn->activateTexture(GL_TEXTURE0);
 		backPackClotheBtn->keepAspectRatio();
-		backPackClotheBtn->setPreDrawCallback(backpackBtnPredrawCallback);
 		backPackClotheBtn->transformTranslate(glm::vec3(-.1f, 0.5f, 0.f));
 		backPackClotheBtn->transformScale(glm::vec3(.5f, .4f, 1.f));
 
@@ -38,7 +35,6 @@ namespace backpackButtons {
 		backpackWeaponsBtn->scaleSensorRange(glm::vec3(.5f, .4f, 1.f));
 		backpackWeaponsBtn->activateTexture(GL_TEXTURE0);
 		backpackWeaponsBtn->keepAspectRatio();
-		backpackWeaponsBtn->setPreDrawCallback(backpackBtnPredrawCallback);
 		backpackWeaponsBtn->transformTranslate(glm::vec3(-.85f, -0.4f, 0.f));
 		backpackWeaponsBtn->transformScale(glm::vec3(.5f, .4f, 1.f));
 
@@ -91,9 +87,5 @@ namespace backpackButtons {
 				break;
 			}
 		}
-	}
-
-	void backpackBtnPredrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
-
 	}
 }

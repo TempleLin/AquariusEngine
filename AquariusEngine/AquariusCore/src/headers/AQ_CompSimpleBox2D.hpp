@@ -29,7 +29,6 @@ namespace aquarius_engine {
 		std::vector<int> uniforms;
 		std::vector<TextureNamePair> textures;
 		std::vector<unsigned int> animSprites;
-		void(*preDrawCallback)(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 		bool _keepAspectRatio;
 		GLFWwindow* window;
 
@@ -47,7 +46,6 @@ namespace aquarius_engine {
 		void activateTexture(unsigned int index);
 		void bindTexture(std::string textureName);
 		void bindTexture(int index);
-		void setPreDrawCallback(void(*callback)(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis));
 		void keepAspectRatio();
 		void setColor(float r, float g, float b);
 		float* getColor();

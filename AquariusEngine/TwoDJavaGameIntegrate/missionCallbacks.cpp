@@ -11,8 +11,6 @@
 #endif
 
 namespace mission {
-	void missionBoardPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
-
 	AQ_CompSimpleBox2D* missionBoard;
 
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
@@ -20,7 +18,6 @@ namespace mission {
 		int returnTexIndex{};
 		missionBoard->addDiffuseTexture("assets/MissionBoard.png", "MissionBoardTexImage", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
 			true, &returnTexIndex);
-		missionBoard->setPreDrawCallback(missionBoardPreDrawCallback);
 		missionBoard->transformScale(glm::vec3(2.f, 2.f, 1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
@@ -58,10 +55,6 @@ namespace mission {
 		}
 	}
 	void stop(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-
-	}
-
-	void missionBoardPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
 
 	}
 }

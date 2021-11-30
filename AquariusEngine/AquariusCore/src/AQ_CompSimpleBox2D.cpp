@@ -10,7 +10,7 @@ namespace aquarius_engine {
 	int AQ_CompSimpleBox2D::usageCount{ 0 };
 
 	AQ_CompSimpleBox2D::AQ_CompSimpleBox2D(unsigned int shaderID/*, unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount*/)
-		: /*vao(vao), vbo(vbo), ebo(ebo), */color(new float[]{1.f, 1.f, 1.f}), window(nullptr), _keepAspectRatio(false), preDrawCallback(nullptr) {
+		: /*vao(vao), vbo(vbo), ebo(ebo), */color(new float[]{1.f, 1.f, 1.f}), window(nullptr), _keepAspectRatio(false) {
 		setShaderID(shaderID);
 		usageCount++;
 		if (!vertexBuffers) {
@@ -143,10 +143,6 @@ namespace aquarius_engine {
 		glBindTexture(GL_TEXTURE_2D, textures.at(index).texture);
 	}
 
-	void AQ_CompSimpleBox2D::setPreDrawCallback(void(*callback)(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis)) {
-		this->preDrawCallback = callback;
-	}
-
 	void AQ_CompSimpleBox2D::keepAspectRatio() {
 		_keepAspectRatio = true;
 	}
@@ -161,8 +157,6 @@ namespace aquarius_engine {
 	}
 
 	void AQ_CompSimpleBox2D::draw() {
-		if (preDrawCallback)
-			preDrawCallback(shaderID, this);
 		if (!window)
 			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
 
@@ -184,8 +178,6 @@ namespace aquarius_engine {
 	}
 
 	void AQ_CompSimpleBox2D::drawSpriteAnim(float timePassedInGame) {
-		if (preDrawCallback)
-			preDrawCallback(shaderID, this);
 		if (!window)
 			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
 		glUseProgram(shaderID);
