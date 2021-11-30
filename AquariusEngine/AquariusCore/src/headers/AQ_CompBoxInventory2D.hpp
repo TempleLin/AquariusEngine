@@ -10,6 +10,7 @@ namespace aquarius_engine {
 		unsigned int slotTexture;
 		float spacing;
 	public:
+		//AQ_CompBoxInvertory2D(glm::vec3 topLeftVertXYZ, glm::vec3 downRightVertXYZ);
 		void setSlotTexture(std::string imageLocation, unsigned int wrap_s, unsigned int wrap_t,
 			unsigned int min_filter, unsigned int mag_filter, bool hasAndUseAlpha);
 		void setSlotsRange(glm::vec3 topLeftVertXYZ, glm::vec3 downRightVertXYZ);

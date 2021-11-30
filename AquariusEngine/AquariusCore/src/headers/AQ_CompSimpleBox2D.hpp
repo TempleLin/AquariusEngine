@@ -20,7 +20,11 @@ namespace aquarius_engine {
 				: name(name), width(width), height(height), nrChannels(nrChannels), texture(texture) {
 			}
 		};
-		unsigned int vao, vbo, ebo, shaderID;
+		//0: vao, 1: vbo, 2: ebo
+		static unsigned int* vertexBuffers;
+		//Count of AQ_CompSimpleBox2D class objects or its derived objects. when turns 0, the vertexBuffers gets deleted.
+		static int usageCount;
+		unsigned int shaderID;
 		float* color;
 		std::vector<int> uniforms;
 		int uniformsCount, verticesCount;
@@ -33,7 +37,7 @@ namespace aquarius_engine {
 		void setTexWrapFilter(unsigned int wrap_s, unsigned int wrap_t, unsigned int min_filter, unsigned int mag_filter);
 	public:
 
-		AQ_CompSimpleBox2D(unsigned int shaderID, unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount);
+		AQ_CompSimpleBox2D(unsigned int shaderID/*, unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount*/);
 		void addDiffuseTexture(std::string imageLocation, std::string name, unsigned int wrap_s, unsigned int wrap_t,
 			unsigned int min_filter, unsigned int mag_filter, bool hasAndUseAlpha, int* returnTexIndex);
 		void switchDiffuseTexture(std::string name);
@@ -50,6 +54,6 @@ namespace aquarius_engine {
 		float* getColor();
 		virtual void draw();
 		void drawSpriteAnim(float timePassedInGame);
-		~AQ_CompSimpleBox2D();
+		virtual ~AQ_CompSimpleBox2D();
 	};
 }
