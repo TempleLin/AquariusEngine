@@ -5,6 +5,9 @@
 #include <headers/AQ_CompSimpleBox2D.hpp>
 
 namespace attack {
+
+#define ATTACK_ANIM_SPEED .4f
+
 	void selectionPagePreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 	void monster0BtnPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
 	void monster1BtnPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);
@@ -13,7 +16,7 @@ namespace attack {
 	void startSelectionPageComps();
 	void startAttackingComps();
 
-	void mainCharFightMobs(AQ_GameObjectCtrl* gameObjectCtrl, int enemiesCount, CharacterStats** enemies);
+	void mainCharFightMobs(AQ_GameObjectCtrl* gameObjectCtrl, AQ_CompSimpleBox2D* mainChar2D, int enemiesCount, CharacterStats** enemiesStats, AQ_CompSimpleBox2D** enemies2D);
 
 	enum class AttackMode {
 		SELECTING,
@@ -60,7 +63,7 @@ namespace attack {
 				mainChar2D->drawSpriteAnim(timeCtrl->getSecondsInGame());
 				mainChar2D->transformScale(glm::vec3(-1.f, 1.f, 1.f));
 
-				mainCharFightMobs(gameObjectCtrl, 1, new CharacterStats* { &succubusStats });
+				mainCharFightMobs(gameObjectCtrl, mainChar2D, 1, new CharacterStats* { &succubusStats }, new AQ_CompSimpleBox2D* { succubus });
 				break;
 			}
 		}
@@ -131,32 +134,46 @@ namespace attack {
 		}
 	}
 
-	void mainCharFightMobs(AQ_GameObjectCtrl* gameObjectCtrl, int enemiesCount, CharacterStats** enemies = nullptr) {
+	void mainCharFightMobs(AQ_GameObjectCtrl* gameObjectCtrl, AQ_CompSimpleBox2D* mainChar2D, int enemiesCount, CharacterStats** enemiesStats = nullptr, AQ_CompSimpleBox2D** enemies2D = nullptr) {
 		static AQ_GlobalCtrl::TimeCtrl* timeCtrl = gameObjectCtrl->getUniControls()->getGlobalCtrl()->getTimeCtrl();
-		static CharacterStats** _enemies{ nullptr };
-		if (enemies) {
-			if (_enemies)
-				delete[] _enemies;
-			_enemies = enemies;
+		static CharacterStats** _enemiesStats{ nullptr };
+		static AQ_CompSimpleBox2D** _enemies2D{ nullptr };
+		if (enemiesStats) {
+			if (_enemiesStats)
+				delete[] _enemiesStats;
+			_enemiesStats = enemiesStats;
 		}
-		if (!_enemies) {
+		if (!_enemiesStats) {
+			std::cout << "No enemies stats passed in fighting, cancelled fight.\n";
+			return;
+		}
+		if (enemies2D) {
+			if (_enemies2D)
+				delete[] _enemies2D;
+			_enemies2D = enemies2D;
+		}
+		if (!_enemies2D) {
 			std::cout << "No enemies passed in fighting, cancelled fight.\n";
 			return;
 		}
 
 		bool allEnemiesDead{ false };
 		static bool mainCharTurnToAttack{ true };
+		static int lastEnemyTurnedRed{ -1 };
 
 		static float lastGameTime{ 0.f };
-		if (timeCtrl->getSecondsInGame() - lastGameTime >= .2f) {
+		if (timeCtrl->getSecondsInGame() - lastGameTime >= ATTACK_ANIM_SPEED) {
 			switch (mainCharTurnToAttack) {
 			case true:
 				for (int i = 0; i < enemiesCount; i++) {
-					if (!_enemies[i]->isDead()) {
-						_enemies[i]->receiveAttack(mainCharStats);
+					if (!_enemiesStats[i]->isDead()) {
+						_enemiesStats[i]->receiveAttack(mainCharStats);
+						_enemies2D[i]->setColor(1.f, 0.f, 0.f);
+						mainChar2D->setColor(1.f, 1.f, 1.f);
+						lastEnemyTurnedRed = i;
 						break; // Attack single enemy at a time.
 					}
-					if (i == enemiesCount - 1 && _enemies[i]->isDead()) {
+					if (i == enemiesCount - 1 && _enemiesStats[i]->isDead()) {
 						allEnemiesDead = true;
 					}
 				}
@@ -166,26 +183,29 @@ namespace attack {
 				for (int i = 0; i < enemiesCount; i++) {
 					mainCharStats.receiveAttack(succubusStats);
 				}
+				mainChar2D->setColor(1.f, 0.f, 0.f);
+
+				if (lastEnemyTurnedRed != -1)
+					_enemies2D[lastEnemyTurnedRed]->setColor(1.f, 1.f, 1.f);
 				mainCharTurnToAttack = true;
 				break;
 			}
 			lastGameTime = timeCtrl->getSecondsInGame();
 		}
-		if (mainCharStats.isDead()) {
+		if (mainCharStats.isDead() || allEnemiesDead) {
 			mainCharStats.resetStats();
 			for (int i = 0; i < enemiesCount; i++) {
-				_enemies[i]->resetStats();
+				_enemiesStats[i]->resetStats();
 			}
+			_enemies2D[lastEnemyTurnedRed]->setColor(1.f, 1.f, 1.f);
+			lastEnemyTurnedRed = -1;
+			mainChar2D->setColor(1.f, 1.f, 1.f);
 			attackMode = AttackMode::SELECTING;
 			currentScene = CurrentScene::MAINHALL;
-		} else if (allEnemiesDead) {
-			mainCharStats.resetStats();
-			for (int i = 0; i < enemiesCount; i++) {
-				_enemies[i]->resetStats();
-			}
-			delete[] _enemies;
-			attackMode = AttackMode::SELECTING;
-			currentScene = CurrentScene::MAINHALL;
+			delete[] _enemiesStats;
+			delete[] _enemies2D;
+			_enemiesStats = nullptr;
+			_enemies2D = nullptr;
 		}
 	}
 

@@ -5,7 +5,7 @@
 
 namespace aquarius_engine {
 	AQ_CompSimpleBox2D::AQ_CompSimpleBox2D(unsigned int shaderID, unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount)
-		: vao(vao), vbo(vbo), ebo(ebo), verticesCount(verticesCount), window(nullptr), _keepAspectRatio(false), preDrawCallback(nullptr) {
+		: vao(vao), vbo(vbo), ebo(ebo), color(new float[]{1.f, 1.f, 1.f}), verticesCount(verticesCount), window(nullptr), _keepAspectRatio(false), preDrawCallback(nullptr) {
 		setShaderID(shaderID);
 	}
 
@@ -78,7 +78,7 @@ namespace aquarius_engine {
 	void AQ_CompSimpleBox2D::setShaderID(unsigned int shaderID) {
 		this->shaderID = shaderID;
 		uniforms = { glGetUniformLocation(shaderID, "windowWidth"), glGetUniformLocation(shaderID, "windowHeight"),
-		glGetUniformLocation(shaderID, "keepAspectRatio"), glGetUniformLocation(shaderID, "offsetMat") };
+		glGetUniformLocation(shaderID, "keepAspectRatio"), glGetUniformLocation(shaderID, "offsetMat"), glGetUniformLocation(shaderID, "color") };
 	}
 
 	void AQ_CompSimpleBox2D::useShader() {
@@ -111,6 +111,15 @@ namespace aquarius_engine {
 		_keepAspectRatio = true;
 	}
 
+	void AQ_CompSimpleBox2D::setColor(float r, float g, float b) {
+		color[0] = r;
+		color[1] = g;
+		color[2] = b;
+	}
+	float* AQ_CompSimpleBox2D::getColor() {
+		return color;
+	}
+
 	void AQ_CompSimpleBox2D::draw() {
 		if (preDrawCallback)
 			preDrawCallback(shaderID, this);
@@ -128,6 +137,7 @@ namespace aquarius_engine {
 		glUniform1f(uniforms[1], (float)windHeight);
 		glUniform1i(uniforms[2], _keepAspectRatio? GLFW_TRUE : GLFW_FALSE);
 		glUniformMatrix4fv(uniforms[3], 1, false, &(getTransform())[0][0]);
+		glUniform3fv(uniforms[4], 1, this->color);
 
 		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
@@ -148,11 +158,13 @@ namespace aquarius_engine {
 		glUniform1f(uniforms[1], (float)windHeight);
 		glUniform1i(uniforms[2], _keepAspectRatio ? GLFW_TRUE : GLFW_FALSE);
 		glUniformMatrix4fv(uniforms[3], 1, false, &(getTransform())[0][0]);
+		glUniform3fv(uniforms[4], 1, this->color);
 
 		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 
 	AQ_CompSimpleBox2D::~AQ_CompSimpleBox2D() {
+		delete[] color;
 	}
 }
