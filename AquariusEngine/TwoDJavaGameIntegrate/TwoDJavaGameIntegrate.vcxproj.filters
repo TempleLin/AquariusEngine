@@ -51,9 +51,6 @@
     <ClCompile Include="missionCallbacks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mainCharStatus.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="characterStats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -101,9 +98,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\missionCallbacks.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\mainCharStatus.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\charactersStats.hpp">
