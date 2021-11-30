@@ -27,7 +27,6 @@ namespace aquarius_engine {
 		unsigned int shaderID;
 		float* color;
 		std::vector<int> uniforms;
-		int uniformsCount, verticesCount;
 		std::vector<TextureNamePair> textures;
 		std::vector<unsigned int> animSprites;
 		void(*preDrawCallback)(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis);

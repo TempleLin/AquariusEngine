@@ -41,6 +41,9 @@ namespace backpackButtons {
 		backpackWeaponsBtn->setPreDrawCallback(backpackBtnPredrawCallback);
 		backpackWeaponsBtn->transformTranslate(glm::vec3(-.85f, -0.4f, 0.f));
 		backpackWeaponsBtn->transformScale(glm::vec3(.5f, .4f, 1.f));
+
+		backPackClotheBtn->transformTranslate(glm::vec3(0.f, 0.f, -1.f));
+		backpackWeaponsBtn->transformTranslate(glm::vec3(0.f, 0.f, -1.f));
 	}
 
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {

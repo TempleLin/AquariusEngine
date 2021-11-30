@@ -10,17 +10,17 @@ namespace aquarius_engine {
 	int AQ_CompSimpleBox2D::usageCount{ 0 };
 
 	AQ_CompSimpleBox2D::AQ_CompSimpleBox2D(unsigned int shaderID/*, unsigned int vao, unsigned int vbo, unsigned int ebo, int verticesCount*/)
-		: /*vao(vao), vbo(vbo), ebo(ebo), */color(new float[]{1.f, 1.f, 1.f}), verticesCount(verticesCount), window(nullptr), _keepAspectRatio(false), preDrawCallback(nullptr) {
+		: /*vao(vao), vbo(vbo), ebo(ebo), */color(new float[]{1.f, 1.f, 1.f}), window(nullptr), _keepAspectRatio(false), preDrawCallback(nullptr) {
 		setShaderID(shaderID);
 		usageCount++;
 		if (!vertexBuffers) {
 			vertexBuffers = new unsigned int[3];
 			float vertices[] = {
 				// positions          // colors           // texture coords
-				 0.5f,  0.5f, -1.0f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   // top right
-				 0.5f, -0.5f, -1.0f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f,   // bottom right
-				-0.5f, -0.5f, -1.0f,   1.0f, 1.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-				-0.5f,  0.5f, -1.0f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
+				 0.5f,  0.5f, 0.f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   // top right
+				 0.5f, -0.5f, 0.f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f,   // bottom right
+				-0.5f, -0.5f, 0.f,   1.0f, 1.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+				-0.5f,  0.5f, 0.f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
 			};
 			unsigned int indices[] = {  // note that we start from 0!
 				0, 1, 3,   // first triangle
@@ -179,12 +179,13 @@ namespace aquarius_engine {
 		glUniformMatrix4fv(uniforms[3], 1, false, &(getTransform())[0][0]);
 		glUniform3fv(uniforms[4], 1, this->color);
 
-		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 
 	void AQ_CompSimpleBox2D::drawSpriteAnim(float timePassedInGame) {
-		preDrawCallback(shaderID, this);
+		if (preDrawCallback)
+			preDrawCallback(shaderID, this);
 		if (!window)
 			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
 		glUseProgram(shaderID);
@@ -200,7 +201,7 @@ namespace aquarius_engine {
 		glUniformMatrix4fv(uniforms[3], 1, false, &(getTransform())[0][0]);
 		glUniform3fv(uniforms[4], 1, this->color);
 
-		glDrawElements(GL_TRIANGLES, verticesCount, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 

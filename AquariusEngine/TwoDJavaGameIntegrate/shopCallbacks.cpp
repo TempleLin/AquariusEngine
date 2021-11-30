@@ -23,10 +23,11 @@ namespace shop {
 		shopBackground->addDiffuseTexture("assets/ShopBackground.png", "ShopBackgroundImageText", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
 			true, &returnTextIndex);
 		shopBackground->setPreDrawCallback(backgroundPreDrawCallback);
+		shopBackground->transformScale(glm::vec3(2.f, 2.f, 1.f));
 
 		coin->addDiffuseTexture("assets/Coin.png", "Coin2DTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &returnTextIndex);
 		coin->setPreDrawCallback(coinPreDrawCallback);
-		coin->transformTranslate(glm::vec3(.8f, .8f, 0.f));
+		coin->transformTranslate(glm::vec3(.8f, .8f, -1.f));
 		coin->transformScale(glm::vec3(.4f, .4f, .4f));
 		coin->keepAspectRatio();
 
@@ -34,7 +35,7 @@ namespace shop {
 		clerk->setPreDrawCallback(clerkPreDrawCallback);
 		clerk->keepAspectRatio();
 		clerk->transformScale(glm::vec3(1.5f, 2.2f, 1.f));
-		clerk->transformTranslate(glm::vec3(.4f, -.25f, 0.f));
+		clerk->transformTranslate(glm::vec3(.4f, -.25f, -1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		if (currentScene == CurrentScene::SHOP) {

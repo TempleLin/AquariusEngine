@@ -3,6 +3,7 @@
 #include "headers/PassingValues.hpp"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/gtx/string_cast.hpp>
 #include <headers/AQ_Component.hpp>
 #include <headers/AQ_CompSimpleBox2D.hpp>
 
@@ -43,7 +44,13 @@ namespace mainCharacter {
 
 		mainChar2DComp->setPreDrawCallback(mainCharacterPreDrawCallback);
 
-		gameObjectThis->transformTranslate(glm::vec3(0.f, .1f, 0.f));
+		std::cout << glm::to_string(mainChar2DComp->getTransform()) << "\n";
+		mainChar2DComp->transformTranslate(glm::vec3(0.f, 0.f, -1.f));
+		std::cout << glm::to_string(mainChar2DComp->getTransform()) << "\n";
+
+		//gameObjectThis->transformTranslate(glm::vec3(0.f, .1f, -1.f));
+		//std::cout << glm::to_string(mainChar2DComp->getTransform()) << "\n";
+
 	}
 
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis){
@@ -62,7 +69,7 @@ namespace mainCharacter {
 	void mainCharacterPreDrawCallback(unsigned int shaderID, AQ_CompSimpleBox2D* simpleBox2DThis) {
 		if (currentScene == CurrentScene::MAINHALL) {
 			simpleBox2DThis->transformReset();
-			simpleBox2DThis->transformTranslate(glm::vec3(-.45f, 0.f, 0.f));
+			simpleBox2DThis->transformTranslate(glm::vec3(-.45f, 0.f, -1.f));
 			simpleBox2DThis->transformScale(glm::vec3(2.f, 2.f, 1.f));
 		}
 	}

@@ -21,6 +21,7 @@ namespace mission {
 		missionBoard->addDiffuseTexture("assets/MissionBoard.png", "MissionBoardTexImage", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
 			true, &returnTexIndex);
 		missionBoard->setPreDrawCallback(missionBoardPreDrawCallback);
+		missionBoard->transformScale(glm::vec3(2.f, 2.f, 1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		if (currentScene == CurrentScene::MISSION) {

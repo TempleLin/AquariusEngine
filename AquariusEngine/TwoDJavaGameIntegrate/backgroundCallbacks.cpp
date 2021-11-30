@@ -11,6 +11,7 @@ namespace background_callbacks {
 		background2D->addDiffuseTexture("assets/background.png", "Background2DTex", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR,
 			true, &returnTexIndex);
 		background2D->setPreDrawCallback(backgroundPreDrawCallback);
+		background2D->transformScale(glm::vec3(2.f, 2.f, 1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		if (currentScene == CurrentScene::MAINHALL) {

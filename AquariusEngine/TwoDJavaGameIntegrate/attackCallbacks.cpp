@@ -42,6 +42,11 @@ namespace attack {
 		mainCharacterObject = gameObjectCtrl->getGameObject("MainCharacter");
 		mainChar2D = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(mainCharacterObject, "MainCharacter2D");
 
+		attackSelectionPage->transformScale(glm::vec3(2.f, 2.f, 1.f));
+		succubus->transformTranslate(glm::vec3(0.f, 0.f, -1.f));
+		selectionMonsterBtn0->transformTranslate(glm::vec3(0.f, 0.f, -1.f));
+		selectionMonsterBtn1->transformTranslate(glm::vec3(0.f, 0.f, -1.f));
+
 		startSelectionPageComps();
 		startAttackingComps();
 	}

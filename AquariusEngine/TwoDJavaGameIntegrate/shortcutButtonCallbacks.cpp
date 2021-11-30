@@ -35,7 +35,7 @@ namespace shortcutButton {
 		mainhallBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		mainhallBtn->keepAspectRatio();
 		mainhallBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
-		mainhallBtn->transformTranslate(glm::vec3(0.f, -.8f, 0.f));
+		mainhallBtn->transformTranslate(glm::vec3(0.f, -.8f, -1.f));
 		mainhallBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 
 		missionBtn->addDiffuseTexture("assets/Shortcuts/Mission.png", "MissionDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
@@ -44,7 +44,7 @@ namespace shortcutButton {
 		missionBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		missionBtn->keepAspectRatio();
 		missionBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
-		missionBtn->transformTranslate(glm::vec3(.2f, -.8f, 0.f));
+		missionBtn->transformTranslate(glm::vec3(.2f, -.8f, -1.f));
 		missionBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 
 		attackBtn->addDiffuseTexture("assets/TempShortcuts/Attack.png", "AttackDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
@@ -53,7 +53,7 @@ namespace shortcutButton {
 		attackBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		attackBtn->keepAspectRatio();
 		attackBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
-		attackBtn->transformTranslate(glm::vec3(.4f, -.8f, 0.f));
+		attackBtn->transformTranslate(glm::vec3(.4f, -.8f, -1.f));
 		attackBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 
 		shopBtn->addDiffuseTexture("assets/Shortcuts/Shop.png", "ShopDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
@@ -62,7 +62,7 @@ namespace shortcutButton {
 		shopBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		shopBtn->keepAspectRatio();
 		shopBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
-		shopBtn->transformTranslate(glm::vec3(.6f, -.8f, 0.f));
+		shopBtn->transformTranslate(glm::vec3(.6f, -.8f, -1.f));
 		shopBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 
 		statusBtn->addDiffuseTexture("assets/Shortcuts/Status.png", "ShopDiffuse", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &shortcutButtonTexIndex);
@@ -71,7 +71,7 @@ namespace shortcutButton {
 		statusBtn->scaleSensorRange(glm::vec3(.35f, .35f, 1.f));
 		statusBtn->keepAspectRatio();
 		statusBtn->setPreDrawCallback(shortcutButtonPredrawCallback);
-		statusBtn->transformTranslate(glm::vec3(.8f, -.8f, 0.f));
+		statusBtn->transformTranslate(glm::vec3(.8f, -.8f, -1.f));
 		statusBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
