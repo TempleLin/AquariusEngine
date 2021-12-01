@@ -43,8 +43,6 @@ using namespace stbi_image_wrap;
 void glfwError(int id, const char* description);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-void create2DBackgroundVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo);
-void createChar_BtnVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo);
 
 AQ_OpenGL* aqOpenGL = new AQ_OpenGL();
 GLFWwindow* currentWindow;
@@ -103,22 +101,16 @@ int main()
 
     // -------- Create background-------------------
     AQ_GameObject* backgroundObject = gameObjectCtrl->createGameObject("Background");
-    unsigned int backgroundVAO{}, backgroundVBO{}, backgroundEBO{};
-    create2DBackgroundVerts(&backgroundVAO, &backgroundVBO, &backgroundEBO);
     AQ_CompSimpleBox2D* background2D = gameObjectCtrl->
-        addComponent<AQ_CompSimpleBox2D>(backgroundObject, new AQ_CompSimpleBox2D(theShader.ID/*, backgroundVAO, backgroundVBO,
-            backgroundEBO, 6*/), "Background2D");
+        addComponent<AQ_CompSimpleBox2D>(backgroundObject, new AQ_CompSimpleBox2D(theShader.ID), "Background2D");
     backgroundObject->setCallbackFuncs(background_callbacks::start, background_callbacks::update, background_callbacks::stop);
     // ---------------------------------------------
 
     // -------- Create main character --------------
     AQ_GameObject* mainCharacter = gameObjectCtrl->createGameObject("MainCharacter");
 
-    unsigned int charAndBtnVAO, charAndBtnVBO, charAndBtnEBO;
-    createChar_BtnVerts(&charAndBtnVAO, &charAndBtnVBO, &charAndBtnEBO);
-
     AQ_CompSimpleBox2D* mainChar2D = gameObjectCtrl->
-        addComponent<AQ_CompSimpleBox2D>(mainCharacter, new AQ_CompSimpleBox2D(theShader.ID/*, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6*/), "MainCharacter2D");
+        addComponent<AQ_CompSimpleBox2D>(mainCharacter, new AQ_CompSimpleBox2D(theShader.ID), "MainCharacter2D");
     mainChar2D->keepAspectRatio();
     mainCharacter->setCallbackFuncs(mainCharacter::start, mainCharacter::update, mainCharacter::stop);
     // ---------------------------------------------
@@ -127,15 +119,15 @@ int main()
     AQ_GameObject* shortcutBtns = gameObjectCtrl->createGameObject("ShortcutButtons");
 
     CustomButtonComp* mainhallBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
-        new CustomButtonComp(theShader.ID/*, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6*/), "MainHallButton2D");
+        new CustomButtonComp(theShader.ID), "MainHallButton2D");
     CustomButtonComp* missionBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
-        new CustomButtonComp(theShader.ID/*, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6*/), "MissionButton2D");
+        new CustomButtonComp(theShader.ID), "MissionButton2D");
     CustomButtonComp* attackBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
-        new CustomButtonComp(theShader.ID/*, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6*/), "AttackButton2D");
+        new CustomButtonComp(theShader.ID), "AttackButton2D");
     CustomButtonComp* shopBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
-        new CustomButtonComp(theShader.ID/*, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6*/), "ShopButton2D");
+        new CustomButtonComp(theShader.ID), "ShopButton2D");
     CustomButtonComp* statusBtn = gameObjectCtrl->addComponent<CustomButtonComp>(shortcutBtns,
-        new CustomButtonComp(theShader.ID/*, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6*/), "StatusButton2D");
+        new CustomButtonComp(theShader.ID), "StatusButton2D");
 
     AQ_CompInput* shortcutInput = gameObjectCtrl->addComponent<AQ_CompInput>(shortcutBtns, new AQ_CompInput(currentWindow, new unsigned int[1]{ GLFW_KEY_A },
         new unsigned int[1]{ GLFW_PRESS }, shortcutButton::processInputs, inputSystemCtrl), "ShortcutButtonInput");
@@ -152,10 +144,10 @@ int main()
     AQ_GameObject* backpackBtns = gameObjectCtrl->createGameObject("BackpackButtons");
 
     CustomButtonComp* backPackClotheBtn = gameObjectCtrl->addComponent<CustomButtonComp>(backpackBtns,
-        new CustomButtonComp(theShader.ID/*, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6*/), "BackpackClotheBtn2D");
+        new CustomButtonComp(theShader.ID), "BackpackClotheBtn2D");
 
     CustomButtonComp* backPackWeaponsBtn = gameObjectCtrl->addComponent<CustomButtonComp>(backpackBtns,
-        new CustomButtonComp(theShader.ID/*, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6*/), "BackpackWeaponsBtn2D");
+        new CustomButtonComp(theShader.ID), "BackpackWeaponsBtn2D");
 
     AQ_CompInput* backpackBtnInput = gameObjectCtrl->addComponent<AQ_CompInput>(backpackBtns, new AQ_CompInput(currentWindow, new unsigned int[0]{},
         new unsigned int[0]{}, backpackButtons::processInputs, inputSystemCtrl), "BackpackButtonInput");
@@ -168,11 +160,11 @@ int main()
     shopObject->setCallbackFuncs(shop::start, shop::update, shop::stop);
 
     AQ_CompSimpleBox2D* shopBackground = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
-        (shopObject, new AQ_CompSimpleBox2D(theShader.ID/*, backgroundVAO, backgroundVBO, backgroundEBO, 6*/), "ShopBackground");
+        (shopObject, new AQ_CompSimpleBox2D(theShader.ID), "ShopBackground");
     AQ_CompSimpleBox2D* clerk = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
-        (shopObject, new AQ_CompSimpleBox2D(theShader.ID/*, charAndBtnVAO, charAndBtnVAO, charAndBtnVAO, 6*/), "Clerk");
+        (shopObject, new AQ_CompSimpleBox2D(theShader.ID), "Clerk");
     AQ_CompSimpleBox2D* coin = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
-        (shopObject, new AQ_CompSimpleBox2D(theShader.ID/*, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6*/), "Coin");
+        (shopObject, new AQ_CompSimpleBox2D(theShader.ID), "Coin");
     // ---------------------------------------------
 
     // -------- Attack Page-------------------------
@@ -181,21 +173,21 @@ int main()
     AQ_CompInput* attackInput = gameObjectCtrl->addComponent<AQ_CompInput>(attackObject, new AQ_CompInput(currentWindow, new unsigned int[0]{},
         new unsigned int[0]{}, attack::processInputs, inputSystemCtrl), "BackpackButtonInput");
     AQ_CompSimpleBox2D* attackSelectionPage = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
-        (attackObject, new AQ_CompSimpleBox2D(theShader.ID/*, backgroundVAO, backgroundVBO, backgroundEBO, 6*/), "AttackSelectionPage");
+        (attackObject, new AQ_CompSimpleBox2D(theShader.ID), "AttackSelectionPage");
     CustomButtonComp* selectionMonsterBtn0 = gameObjectCtrl->addComponent<CustomButtonComp>(attackObject,
-        new CustomButtonComp(theShader.ID/*, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6*/), "SelectionMonsterBtn0");
+        new CustomButtonComp(theShader.ID), "SelectionMonsterBtn0");
     CustomButtonComp* selectionMonsterBtn1 = gameObjectCtrl->addComponent<CustomButtonComp>(attackObject,
-        new CustomButtonComp(theShader.ID/*, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6*/), "SelectionMonsterBtn1");
+        new CustomButtonComp(theShader.ID), "SelectionMonsterBtn1");
 
     AQ_CompSimpleBox2D* succubus = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>(attackObject, 
-        new AQ_CompSimpleBox2D(theShader.ID/*, charAndBtnVAO, charAndBtnVBO, charAndBtnEBO, 6*/), "Succubus2D");
+        new AQ_CompSimpleBox2D(theShader.ID), "Succubus2D");
     // ---------------------------------------------
      
     // -------- Mission Page------------------------
     AQ_GameObject* missionObject = gameObjectCtrl->createGameObject("MissionObject");
     missionObject->setCallbackFuncs(mission::start, mission::update, mission::stop);
     AQ_CompSimpleBox2D* missionBoard = gameObjectCtrl->addComponent<AQ_CompSimpleBox2D>
-        (missionObject, new AQ_CompSimpleBox2D(theShader.ID/*, backgroundVAO, backgroundVBO, backgroundEBO, 6*/), "MissionBoard");
+        (missionObject, new AQ_CompSimpleBox2D(theShader.ID), "MissionBoard");
     // ---------------------------------------------
    
     // Set the first scene to mainhall.
@@ -250,28 +242,6 @@ int main()
             if (ImGui::Button("Press me!")) {
 
             }
-
-            //static float f = 0.0f;
-            //static int counter = 0;
-
-            //ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-            //ImVec2 windowSize(336.f, 210.f);
-            //ImGui::SetWindowSize(windowSize);
-            //ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-            ////ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-            ////ImGui::Checkbox("Another Window", &show_another_window);
-
-            //ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ////ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-            //if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-            //    counter++;
-            //ImGui::SameLine();
-            //ImGui::Text("counter = %d", counter);
-
-            //ImGui::Text("Seconds passed in game: %u", (unsigned int)timeCtrl->getSecondsInGame());
-            //ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-            //ImGui::End();
         }
 
         timeCtrl->updateTime();
@@ -296,78 +266,4 @@ int main()
     gameObjectCtrl->deleteGameObject("MainCharacter");
     delete uniControls;
     delete scene;
-
-    unsigned int buffersToDel[4]{ charAndBtnVBO, charAndBtnEBO, backgroundVBO, backgroundEBO };
-    unsigned int vertexArraysToDel[2]{ charAndBtnVAO, backgroundVAO };
-
-    glDeleteVertexArrays(1, vertexArraysToDel);
-    glDeleteBuffers(4, buffersToDel);
-}
-
-void create2DBackgroundVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo) {
-    float vertices[] = {
-        // positions          // colors           // texture coords
-         1.f,  1.f, .0f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   // top right
-         1.f, -1.f, .0f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f,   // bottom right
-        -1.f, -1.f, .0f,   1.0f, 1.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-        -1.f,  1.f, .0f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
-    };
-    unsigned int indices[] = {  // note that we start from 0!
-        0, 1, 3,   // first triangle
-        1, 2, 3    // second triangle
-    };
-    glGenVertexArrays(1, vao);
-    glBindVertexArray(*vao);
-
-    glGenBuffers(1, vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, *vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glGenBuffers(1, ebo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    // color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-    // texture coord attribute
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
-}
-
-void createChar_BtnVerts(unsigned int* vao, unsigned int* vbo, unsigned int* ebo) {
-    float vertices[] = {
-        // positions          // colors           // texture coords
-         0.5f,  0.5f, -1.0f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   // top right
-         0.5f, -0.5f, -1.0f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f,   // bottom right
-        -0.5f, -0.5f, -1.0f,   1.0f, 1.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-        -0.5f,  0.5f, -1.0f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
-    };
-    unsigned int indices[] = {  // note that we start from 0!
-        0, 1, 3,   // first triangle
-        1, 2, 3    // second triangle
-    };
-    glGenVertexArrays(1, vao);
-    glBindVertexArray(*vao);
-
-    glGenBuffers(1, vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, *vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glGenBuffers(1, ebo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    // color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-    // texture coord attribute
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
 }
