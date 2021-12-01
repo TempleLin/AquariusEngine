@@ -151,6 +151,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="glConfigCallbacks.cpp" />
     <ClCompile Include="attackCallbacks.cpp" />
+    <ClCompile Include="backpackCallbacks.cpp" />
     <ClCompile Include="missionCallbacks.cpp" />
     <ClCompile Include="shopCallbacks.cpp" />
     <ClCompile Include="shortcutButtonCallbacks.cpp" />
@@ -170,6 +171,7 @@
     <None Include="assets\shaders\two_d_tex_vs.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\backpackCallbacks.h" />
     <ClInclude Include="headers\charactersStats.hpp" />
     <ClInclude Include="headers\attackCallbacks.h" />
     <ClInclude Include="headers\backpackButtonsCallbacks.h" />

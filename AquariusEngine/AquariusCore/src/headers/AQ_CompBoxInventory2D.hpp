@@ -8,9 +8,10 @@ namespace aquarius_engine {
 	class AQ_CompBoxInvertory2D : public AQ_CompSimpleBox2D, public AQ_IHoverClick {
 	private:
 		unsigned int slotTexture;
+		bool rowMajor;
 		float spacing;
 	public:
-		//AQ_CompBoxInvertory2D(glm::vec3 topLeftVertXYZ, glm::vec3 downRightVertXYZ);
+		AQ_CompBoxInvertory2D(unsigned int shaderID, bool rowMajor);
 		void setSlotTexture(std::string imageLocation, unsigned int wrap_s, unsigned int wrap_t,
 			unsigned int min_filter, unsigned int mag_filter, bool hasAndUseAlpha);
 		void setSlotsRange(glm::vec3 topLeftVertXYZ, glm::vec3 downRightVertXYZ);

@@ -118,7 +118,8 @@ namespace aquarius_engine {
 	void AQ_CompSimpleBox2D::setShaderID(unsigned int shaderID) {
 		this->shaderID = shaderID;
 		uniforms = { glGetUniformLocation(shaderID, "windowWidth"), glGetUniformLocation(shaderID, "windowHeight"),
-		glGetUniformLocation(shaderID, "keepAspectRatio"), glGetUniformLocation(shaderID, "offsetMat"), glGetUniformLocation(shaderID, "color") };
+		glGetUniformLocation(shaderID, "keepAspectRatio"), glGetUniformLocation(shaderID, "offsetMat"), glGetUniformLocation(shaderID, "color"), 
+		glGetUniformLocation(shaderID, "useTexture") };
 	}
 
 	void AQ_CompSimpleBox2D::useShader() {
@@ -162,7 +163,13 @@ namespace aquarius_engine {
 
 		glUseProgram(shaderID);
 		glActiveTexture(GL_TEXTURE0);
-		bindTexture(0);
+
+		if (textures.size()) {
+			bindTexture(0);
+		} else {
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+
 		glBindVertexArray(vertexBuffers[0]);
 
 		int windWidth, windHeight;
@@ -172,6 +179,7 @@ namespace aquarius_engine {
 		glUniform1i(uniforms[2], _keepAspectRatio? GLFW_TRUE : GLFW_FALSE);
 		glUniformMatrix4fv(uniforms[3], 1, false, &(getTransform())[0][0]);
 		glUniform3fv(uniforms[4], 1, this->color);
+		glUniform1i(uniforms[5], textures.size() ? true : false);
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
@@ -181,8 +189,13 @@ namespace aquarius_engine {
 		if (!window)
 			window = getGameObject()->getGameObjectCtrl()->getSceneGameObjects()->getScene()->getCurrentWindow();
 		glUseProgram(shaderID);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, animSprites.at((int)((timePassedInGame - (int)timePassedInGame) / (1.f / (float)(animSprites.size())))));
+		if (animSprites.size()) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, animSprites.at((int)((timePassedInGame - (int)timePassedInGame) / (1.f / (float)(animSprites.size())))));
+		} else {
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+
 		glBindVertexArray(vertexBuffers[0]);
 
 		int windWidth, windHeight;
@@ -192,6 +205,7 @@ namespace aquarius_engine {
 		glUniform1i(uniforms[2], _keepAspectRatio ? GLFW_TRUE : GLFW_FALSE);
 		glUniformMatrix4fv(uniforms[3], 1, false, &(getTransform())[0][0]);
 		glUniform3fv(uniforms[4], 1, this->color);
+		glUniform1i(uniforms[5], animSprites.size() ? true : false);
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);

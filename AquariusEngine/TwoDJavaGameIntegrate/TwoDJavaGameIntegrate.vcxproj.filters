@@ -54,6 +54,9 @@
     <ClCompile Include="characterStats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="backpackCallbacks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\cleanCharacter.jpg">
@@ -101,6 +104,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\charactersStats.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\backpackCallbacks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

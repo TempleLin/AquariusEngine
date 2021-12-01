@@ -14,6 +14,7 @@
 #include <headers/AQ_UniControls.h>
 #include <headers/AQ_GlobalCtrl.hpp>
 #include <headers/AQ_CompInput.hpp>
+#include <headers/AQ_CompBoxInventory2D.hpp>
 
 #include "dear_imgui/imgui.h"
 #include "dear_imgui/imgui_impl_glfw.h"
@@ -33,6 +34,7 @@
 #include "headers/shopCallbacks.h"
 #include "headers/attackCallbacks.h"
 #include "headers/missionCallbacks.h"
+#include "headers/backpackCallbacks.h"
 
 
 using namespace aquarius_engine;
@@ -138,6 +140,12 @@ int main()
     AQ_CompInput* shortcutInput = gameObjectCtrl->addComponent<AQ_CompInput>(shortcutBtns, new AQ_CompInput(currentWindow, new unsigned int[1]{ GLFW_KEY_A },
         new unsigned int[1]{ GLFW_PRESS }, shortcutButton::processInputs, inputSystemCtrl), "ShortcutButtonInput");
     shortcutBtns->setCallbackFuncs(shortcutButton::start, shortcutButton::update, shortcutButton::stop);
+    // ---------------------------------------------
+
+    // -------- Backpack ---------------------------
+    AQ_GameObject* backpackObject = gameObjectCtrl->createGameObject("BackpackObject");
+    AQ_CompBoxInvertory2D* backpack2D = gameObjectCtrl->addComponent<AQ_CompBoxInvertory2D>(backpackObject, new AQ_CompBoxInvertory2D(theShader.ID, true), "Backpack2D");
+    backpackObject->setCallbackFuncs(backpack::start, backpack::update, backpack::stop);
     // ---------------------------------------------
 
     // -------- Backpack button ---------------------
