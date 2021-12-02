@@ -195,7 +195,7 @@ int main()
     gameObjectCtrl->startGameObjects();
     // @The shader object gets back from gameObject created in start().
 
-    audioSystemCtrl->play2D("assets/Sounds/Musics/Testing/getout.ogg", true);
+    audioSystemCtrl->play2D("assets/Sounds/Musics/Locations_Shop_Loop_Stem2_Strings.wav", true);
     while(!glfwWindowShouldClose(currentWindow)) {
         glfwPollEvents();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
