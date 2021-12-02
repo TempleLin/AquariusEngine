@@ -12,8 +12,6 @@ namespace aquarius_engine {
 	AQ_CompBoxInventory2D::AQ_CompBoxInventory2D(unsigned int shaderID, bool rowMajor, unsigned int slotCount) 
 		: AQ_CompSimpleBox2D(shaderID), AQ_IHoverClick(), rowMajor(rowMajor), slotTexture(0), slotCount(slotCount) {
 		if (!slotInstancingShaderID) {
-			//AQ_Shader slotInstancingShader("../AquariusCore/shaders/two_d_slot_tex_vs.glsl", "../AquariusCore/shaders/two_d_slot_tex_fs.glsl");
-			//slotInstancingShader.use();
 			unsigned int vertex, fragment;
 			vertex = glCreateShader(GL_VERTEX_SHADER);
 			glShaderSource(vertex, 1, &slotInstanceShader_vs, NULL);
