@@ -245,6 +245,7 @@ int main()
         }
 
         timeCtrl->updateTime();
+        std::cout << "FPS: " << timeCtrl->getFPS() << "\n";
         inputSystemCtrl->processInputs();
         gameObjectCtrl->updateGameObjects();
 
