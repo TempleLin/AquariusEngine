@@ -49,8 +49,8 @@ namespace aquarius_engine {
 			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 			glEnableVertexAttribArray(2);
 
-			glm::vec2 translations[100];
-			int index = 0;
+			//glm::vec2 translations[100];
+			/*int index = 0;
 			float offset = 0.1f;
 			for (int y = -10; y < 10; y += 2)
 			{
@@ -61,11 +61,45 @@ namespace aquarius_engine {
 					translation.y = (float)y / 10.0f + offset;
 					translations[index++] = translation;
 				}
+			}*/
+			glm::vec2 translations[36];
+			int index = 0;
+			for (float x = -.5f + .05f; x <= .5f - .05f; x += .15f) {
+				for (float y = -.5f + .05f; y <= .5f - .05f; y += .15f) {
+					glm::vec2 translation;
+					translation.x = x + .075f;
+					translation.y = y + .075f;
+					translations[index++] = translation;
+					std::cout << index << "\n";
+				}
 			}
+			/*glm::vec2 translations[36];
+			int index = 0;
+			for (float x = -.5f; x <= .5f; x+=.2f) {
+				for (float y = -.5f; y <= .5f; y+=.2f) {
+					glm::vec2 translation;
+					translation.x = x;
+					translation.y = y;
+					translations[index++] = translation;
+					std::cout << index << "\n";
+				}
+			}*/
+			/*glm::vec2 translations[100];
+			int index{ 0 };
+			float offset{ 1.f / 100.f };
+			for (float y = -.5f; y < .5f; y += .1f) {
+				for (float x = -.5f; x < .5f; x += .1f) {
+					glm::vec2 translation;
+					translation.x = (float)x / 1.f + offset;
+					translation.y = (float)y / 1.f + offset;
+					translations[index++] = translation;
+					std::cout << index << "\n";
+				}
+			}*/
 
 			glGenBuffers(1, &slotInstancingVertexBuffers[3]);
 			glBindBuffer(GL_ARRAY_BUFFER, slotInstancingVertexBuffers[3]);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * 100, &translations[0], GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(translations), &translations[0], GL_STATIC_DRAW);
 			// also set instance data
 			glEnableVertexAttribArray(3);
 			//glBindBuffer(GL_ARRAY_BUFFER, slotInstancingVertexBuffers[3]); // this attribute comes from a different vertex buffer
@@ -126,7 +160,7 @@ namespace aquarius_engine {
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, slotTexture);
 
-		glDrawArraysInstanced(GL_TRIANGLES, 0, 6, 100);
+		glDrawArraysInstanced(GL_TRIANGLES, 0, 6, 36);
 	}
 	void AQ_CompBoxInventory2D::disable(bool disable) {
 		AQ_IHoverClick::disable(disable);
