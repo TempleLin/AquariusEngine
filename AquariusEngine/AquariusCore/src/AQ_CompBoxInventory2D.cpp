@@ -1,5 +1,6 @@
 #include "headers/AQ_CompBoxInventory2D.hpp"
 #include "headers/stbi_image_wrapper.hpp"
+#include "headers/AQ_DefaultShaders.hpp"
 #include "headers/AQ_Shader.hpp"
 
 namespace aquarius_engine {
@@ -11,9 +12,24 @@ namespace aquarius_engine {
 	AQ_CompBoxInventory2D::AQ_CompBoxInventory2D(unsigned int shaderID, bool rowMajor, unsigned int slotCount) 
 		: AQ_CompSimpleBox2D(shaderID), AQ_IHoverClick(), rowMajor(rowMajor), slotTexture(0), slotCount(slotCount) {
 		if (!slotInstancingShaderID) {
-			AQ_Shader slotInstancingShader("../AquariusCore/shaders/two_d_slot_tex_vs.glsl", "../AquariusCore/shaders/two_d_slot_tex_fs.glsl");
-			slotInstancingShader.use();
-			slotInstancingShaderID = slotInstancingShader.ID;
+			//AQ_Shader slotInstancingShader("../AquariusCore/shaders/two_d_slot_tex_vs.glsl", "../AquariusCore/shaders/two_d_slot_tex_fs.glsl");
+			//slotInstancingShader.use();
+			unsigned int vertex, fragment;
+			vertex = glCreateShader(GL_VERTEX_SHADER);
+			glShaderSource(vertex, 1, &slotInstanceShader_vs, NULL);
+			glCompileShader(vertex);
+			checkCompileErrors(vertex, "VERTEX");
+			fragment = glCreateShader(GL_FRAGMENT_SHADER);
+			glShaderSource(fragment, 1, &slotInstanceShader_fs, NULL);
+			glCompileShader(fragment);
+			checkCompileErrors(fragment, "FRAGMENT");
+			slotInstancingShaderID = glCreateProgram();
+			glAttachShader(slotInstancingShaderID, vertex);
+			glAttachShader(slotInstancingShaderID, fragment);
+			glLinkProgram(slotInstancingShaderID);
+			checkCompileErrors(slotInstancingShaderID, "PROGRAM");
+			glDeleteShader(vertex);
+			glDeleteShader(fragment);
 		}
 		if (!slotShaderUniforms) {
 			slotShaderUniforms = new int[] {
@@ -194,6 +210,25 @@ namespace aquarius_engine {
 			}
 			if (slotShaderUniforms) {
 				delete[] slotShaderUniforms;
+			}
+		}
+	}
+
+
+	void AQ_CompBoxInventory2D::checkCompileErrors(unsigned int shader, std::string type) {
+		GLint success;
+		GLchar infoLog[1024];
+		if (type != "PROGRAM") {
+			glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+			if (!success) {
+				glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+				std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+			}
+		} else {
+			glGetProgramiv(shader, GL_LINK_STATUS, &success);
+			if (!success) {
+				glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+				std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
 			}
 		}
 	}

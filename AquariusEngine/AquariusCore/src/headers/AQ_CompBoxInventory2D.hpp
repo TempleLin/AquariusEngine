@@ -6,7 +6,7 @@
 
 namespace aquarius_engine {
 	class AQ_CompBoxInventory2D : public AQ_CompSimpleBox2D, public AQ_IHoverClick {
-	private:
+	protected:
 		unsigned int slotTexture;
 		static unsigned int slotInstancingShaderID, slotInstancingUsageCount;
 		static unsigned int* slotInstancingVertexBuffers; //0: vao, 1: vbo, 2:ebo, 3:instancing_vbo
@@ -14,6 +14,8 @@ namespace aquarius_engine {
 		bool rowMajor;
 		float spacing;
 		unsigned int slotCount;
+
+		void checkCompileErrors(unsigned int shader, std::string type);
 	public:
 		AQ_CompBoxInventory2D(unsigned int shaderID, bool rowMajor, unsigned int slotCount);
 		void setSlotTexture(std::string imageLocation, unsigned int wrap_s, unsigned int wrap_t,

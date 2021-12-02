@@ -191,7 +191,7 @@
     <ClInclude Include="src\headers\AQ_IHoverClick.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\slotInstanceShader.hpp">
+    <ClInclude Include="src\headers\AQ_DefaultShaders.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
