@@ -35,7 +35,7 @@ namespace aquarius_engine {
 			std::cout << "On click button\n";
 			static AQ_GlobalCtrl::AudioSystemCtrl* audioSystemCtrl = getGameObject()->getGameObjectCtrl()->getUniControls()->getGlobalCtrl()
 				->getAudioSystemCtrl();
-			audioSystemCtrl->play2D("assets/Sounds/SoundEffects/Testing/explosion.wav", false);
+			audioSystemCtrl->play2D("assets/Sounds/SoundEffects/mixkit-game-click-1114.wav", false);
 		}
 		return superCheck;
 	}
