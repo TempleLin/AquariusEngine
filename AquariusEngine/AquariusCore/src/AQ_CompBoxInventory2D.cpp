@@ -25,12 +25,30 @@ namespace aquarius_engine {
 		if (!slotInstancingVertexBuffers) {
 			slotInstancingVertexBuffers = new unsigned int[4]{ 0,0,0,0 };
 			float vertices[] = {
-				// positions          // colors           // texture coords
-				 0.05f,  0.05f, 0.f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   // top right
-				 0.05f, -0.05f, 0.f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f,   // bottom right
-				-0.05f, -0.05f, 0.f,   1.0f, 1.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-				-0.05f,  0.05f, 0.f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
+				-0.05f,  0.05f, 0.f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f,
+				 0.05f, -0.05f, 0.f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f,
+				-0.05f, -0.05f, 0.f,   1.0f, 1.0f, 1.0f,   0.0f, 0.0f,
+				-0.05f,  0.05f, 0.f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f,
+				 0.05f, -0.05f, 0.f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f,
+				 0.05f,  0.05f, 0.f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f
+
+
+				//// positions          // colors           // texture coords
+				// 0.05f,  0.05f, 0.f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   // top right
+				// 0.05f, -0.05f, 0.f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f,   // bottom right
+				//-0.05f, -0.05f, 0.f,   1.0f, 1.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+				//-0.05f,  0.05f, 0.f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
 			};
+			//float quadVertices[] = {
+			//	// positions     // colors
+			//	-0.05f,  0.05f,  1.0f, 0.0f, 0.0f,//
+			//	 0.05f, -0.05f,  0.0f, 1.0f, 0.0f,
+			//	-0.05f, -0.05f,  0.0f, 0.0f, 1.0f,//
+
+			//	-0.05f,  0.05f,  1.0f, 0.0f, 0.0f,
+			//	 0.05f, -0.05f,  0.0f, 1.0f, 0.0f,//
+			//	 0.05f,  0.05f,  0.0f, 1.0f, 1.0f//
+			//};
 			unsigned int indices[] = {  // note that we start from 0!
 				0, 1, 3,   // first triangle
 				1, 2, 3    // second triangle
@@ -42,9 +60,9 @@ namespace aquarius_engine {
 			glBindBuffer(GL_ARRAY_BUFFER, slotInstancingVertexBuffers[1]);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-			glGenBuffers(1, &slotInstancingVertexBuffers[2]);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, slotInstancingVertexBuffers[2]);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+			//glGenBuffers(1, &slotInstancingVertexBuffers[2]);
+			//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, slotInstancingVertexBuffers[2]);
+			//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 			// position attribute
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
@@ -128,7 +146,7 @@ namespace aquarius_engine {
 		glUniform1f(slotShaderUniforms[1], (float)windHeight);
 		glUniform1i(slotShaderUniforms[2], _keepAspectRatio ? GLFW_TRUE : GLFW_FALSE);
 		glUniformMatrix4fv(slotShaderUniforms[3], 1, false, &(getTransform())[0][0]);
-		glUniform3fv(slotShaderUniforms[4], 1, this->color);
+		glUniform3fv(slotShaderUniforms[4], 1, this->color); //Needs to add slotColor feature.
 		glUniform1i(slotShaderUniforms[5], slotTexture ? true : false);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, slotTexture);
