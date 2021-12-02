@@ -4,9 +4,9 @@
 #include <headers/AQ_CompBoxInventory2D.hpp>
 
 namespace backpack {
-	AQ_CompBoxInvertory2D* backpack2D;
+	AQ_CompBoxInventory2D* backpack2D;
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		backpack2D = gameObjectCtrl->getComponent<AQ_CompBoxInvertory2D>(gameObjectThis, "Backpack2D");
+		backpack2D = gameObjectCtrl->getComponent<AQ_CompBoxInventory2D>(gameObjectThis, "Backpack2D");
 		int firstTextureIndex;
 		backpack2D->addDiffuseTexture("assets/tempBackpackBack.png", "BackpackBackground",
 			GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &firstTextureIndex);

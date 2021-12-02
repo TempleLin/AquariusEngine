@@ -68,6 +68,8 @@
     <None Include="assets\shaders\two_d_color_fs.glsl" />
     <None Include="assets\shaders\two_d_tex_vs.glsl" />
     <None Include="assets\shaders\two_d_tex_fs.glsl" />
+    <None Include="assets\shaders\two_d_slot_tex_vs.glsl" />
+    <None Include="assets\shaders\two_d_slot_tex_fs.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\mainCharacterCallbacks.hpp">

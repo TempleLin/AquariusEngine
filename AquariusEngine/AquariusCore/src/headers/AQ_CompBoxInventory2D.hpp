@@ -5,15 +5,17 @@
 #include <vector>
 
 namespace aquarius_engine {
-	class AQ_CompBoxInvertory2D : public AQ_CompSimpleBox2D, public AQ_IHoverClick {
+	class AQ_CompBoxInventory2D : public AQ_CompSimpleBox2D, public AQ_IHoverClick {
 	private:
 		unsigned int slotTexture;
-		static unsigned int slotInstancingShaderID;
+		static unsigned int slotInstancingShaderID, slotInstancingUsageCount;
+		static unsigned int* slotInstancingVertexBuffers; //0: vao, 1: vbo, 2:ebo, 3:instancing_vbo
+		static int* slotShaderUniforms;
 		bool rowMajor;
 		float spacing;
 		unsigned int slotCount;
 	public:
-		AQ_CompBoxInvertory2D(unsigned int shaderID, bool rowMajor, unsigned int slotCount);
+		AQ_CompBoxInventory2D(unsigned int shaderID, bool rowMajor, unsigned int slotCount);
 		void setSlotTexture(std::string imageLocation, unsigned int wrap_s, unsigned int wrap_t,
 			unsigned int min_filter, unsigned int mag_filter, bool hasAndUseAlpha);
 		void setSlotsRange(glm::vec3 topLeftVertXYZ, glm::vec3 downRightVertXYZ);
@@ -29,5 +31,7 @@ namespace aquarius_engine {
 		virtual void transformTranslate(glm::vec3 translateVector);
 		virtual void transformScale(glm::vec3 scaleVector);
 		virtual void setTransform(glm::mat4 transform);
+
+		virtual ~AQ_CompBoxInventory2D();
 	};
 }
