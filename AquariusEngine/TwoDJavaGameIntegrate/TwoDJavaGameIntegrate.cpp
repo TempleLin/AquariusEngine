@@ -136,7 +136,7 @@ int main()
 
     // -------- Backpack ---------------------------
     AQ_GameObject* backpackObject = gameObjectCtrl->createGameObject("BackpackObject");
-    AQ_CompBoxInventory2D* backpack2D = gameObjectCtrl->addComponent<AQ_CompBoxInventory2D>(backpackObject, new AQ_CompBoxInventory2D(theShader.ID, true, 100), "Backpack2D");
+    AQ_CompBoxInventory2D* backpack2D = gameObjectCtrl->addComponent<AQ_CompBoxInventory2D>(backpackObject, new AQ_CompBoxInventory2D(theShader.ID, true, 36, .1f), "Backpack2D");
     backpackObject->setCallbackFuncs(backpack::start, backpack::update, backpack::stop);
     // ---------------------------------------------
 

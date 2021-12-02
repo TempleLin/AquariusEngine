@@ -9,8 +9,8 @@ namespace aquarius_engine {
 	unsigned int AQ_CompBoxInventory2D::slotInstancingUsageCount{ 0 };
 	int* AQ_CompBoxInventory2D::slotShaderUniforms{ nullptr };
 
-	AQ_CompBoxInventory2D::AQ_CompBoxInventory2D(unsigned int shaderID, bool rowMajor, unsigned int slotCount) 
-		: AQ_CompSimpleBox2D(shaderID), AQ_IHoverClick(), rowMajor(rowMajor), slotTexture(0), slotCount(slotCount) {
+	AQ_CompBoxInventory2D::AQ_CompBoxInventory2D(unsigned int shaderID, bool rowMajor, unsigned int slotCount, float slotSize)
+		: AQ_CompSimpleBox2D(shaderID), AQ_IHoverClick(), rowMajor(rowMajor), slotTexture(0), slotCount(slotCount), slotSize(slotSize) {
 		if (!slotInstancingShaderID) {
 			unsigned int vertex, fragment;
 			vertex = glCreateShader(GL_VERTEX_SHADER);
@@ -38,13 +38,15 @@ namespace aquarius_engine {
 		}
 		if (!slotInstancingVertexBuffers) {
 			slotInstancingVertexBuffers = new unsigned int[4]{ 0,0,0,0 };
+			float halfSlotSize = slotSize / 2.f;
 			float vertices[] = {
-				-0.05f,  0.05f, -.001f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f,
-				 0.05f, -0.05f, -.001f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f,
-				-0.05f, -0.05f, -.001f,   1.0f, 1.0f, 1.0f,   0.0f, 0.0f,
-				-0.05f,  0.05f, -.001f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f,
-				 0.05f, -0.05f, -.001f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f,
-				 0.05f,  0.05f, -.001f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f
+				// x			y			  z			r	  g		b		texturecood
+				-halfSlotSize,  halfSlotSize, -.001f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f,
+				 halfSlotSize, -halfSlotSize, -.001f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f,
+				-halfSlotSize, -halfSlotSize, -.001f,   1.0f, 1.0f, 1.0f,   0.0f, 0.0f,
+				-halfSlotSize,  halfSlotSize, -.001f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f,
+				 halfSlotSize, -halfSlotSize, -.001f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f,
+				 halfSlotSize,  halfSlotSize, -.001f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f
 			};
 			glGenVertexArrays(1, &slotInstancingVertexBuffers[0]);
 			glBindVertexArray(slotInstancingVertexBuffers[0]);
@@ -76,7 +78,8 @@ namespace aquarius_engine {
 					translations[index++] = translation;
 				}
 			}*/
-			glm::vec2 translations[36];
+			translations = new glm::vec2[slotCount];
+
 			int index = 0;
 			for (float x = -.5f + .05f; x <= .5f - .05f; x += .15f) {
 				for (float y = -.5f + .05f; y <= .5f - .05f; y += .15f) {
@@ -113,7 +116,7 @@ namespace aquarius_engine {
 
 			glGenBuffers(1, &slotInstancingVertexBuffers[3]);
 			glBindBuffer(GL_ARRAY_BUFFER, slotInstancingVertexBuffers[3]);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(translations), &translations[0], GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * slotCount, translations, GL_STATIC_DRAW);
 			// also set instance data
 			glEnableVertexAttribArray(3);
 			//glBindBuffer(GL_ARRAY_BUFFER, slotInstancingVertexBuffers[3]); // this attribute comes from a different vertex buffer
@@ -174,7 +177,7 @@ namespace aquarius_engine {
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, slotTexture);
 
-		glDrawArraysInstanced(GL_TRIANGLES, 0, 6, 36);
+		glDrawArraysInstanced(GL_TRIANGLES, 0, 6, slotCount);
 	}
 	void AQ_CompBoxInventory2D::disable(bool disable) {
 		AQ_IHoverClick::disable(disable);
@@ -210,6 +213,7 @@ namespace aquarius_engine {
 				delete[] slotShaderUniforms;
 			}
 		}
+		delete[] translations;
 	}
 
 

@@ -14,10 +14,12 @@ namespace aquarius_engine {
 		bool rowMajor;
 		float spacing;
 		unsigned int slotCount;
+		glm::vec2* translations;
+		float slotSize;
 
 		void checkCompileErrors(unsigned int shader, std::string type);
 	public:
-		AQ_CompBoxInventory2D(unsigned int shaderID, bool rowMajor, unsigned int slotCount);
+		AQ_CompBoxInventory2D(unsigned int shaderID, bool rowMajor, unsigned int slotCount, float slotSize);
 		void setSlotTexture(std::string imageLocation, unsigned int wrap_s, unsigned int wrap_t,
 			unsigned int min_filter, unsigned int mag_filter, bool hasAndUseAlpha);
 		void setSlotsRange(glm::vec3 topLeftVertXYZ, glm::vec3 downRightVertXYZ);
