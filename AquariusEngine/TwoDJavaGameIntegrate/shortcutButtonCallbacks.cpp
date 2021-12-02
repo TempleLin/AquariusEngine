@@ -68,11 +68,13 @@ namespace shortcutButton {
 		statusBtn->transformScale(glm::vec3(.35f, .35f, 1.f));
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
-		mainhallBtn->draw();
-		missionBtn->draw();
-		attackBtn->draw();
-		shopBtn->draw();
-		statusBtn->draw();
+		if (attackMode == AttackMode::SELECTING) {
+			mainhallBtn->draw();
+			missionBtn->draw();
+			attackBtn->draw();
+			shopBtn->draw();
+			statusBtn->draw();
+		}
 	}
 	void stop(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 

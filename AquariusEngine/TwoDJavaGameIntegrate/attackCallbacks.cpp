@@ -14,13 +14,6 @@ namespace attack {
 
 	void mainCharFightMobs(AQ_GameObjectCtrl* gameObjectCtrl, AQ_CompSimpleBox2D* mainChar2D, int enemiesCount, CharacterStats** enemiesStats, AQ_CompSimpleBox2D** enemies2D);
 
-	enum class AttackMode {
-		SELECTING,
-		ATTACKING0,
-		ATTACKING1
-	};
-	AttackMode attackMode = AttackMode::SELECTING;
-
 	AQ_CompSimpleBox2D* attackSelectionPage;
 	CustomButtonComp* selectionMonsterBtn0;
 	CustomButtonComp* selectionMonsterBtn1;

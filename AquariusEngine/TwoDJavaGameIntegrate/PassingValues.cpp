@@ -6,4 +6,5 @@ namespace aquarius_engine {
 	//AQ_GlobalCtrl::TimeCtrl* timeCtrlRef{ nullptr };
 
 	CurrentScene currentScene = CurrentScene::MAINHALL;
+	AttackMode attackMode = AttackMode::SELECTING;
 }

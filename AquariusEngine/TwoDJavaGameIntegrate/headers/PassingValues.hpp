@@ -16,4 +16,12 @@ namespace aquarius_engine {
 		STATUS
 	};
 	extern CurrentScene currentScene;
+
+
+	enum class AttackMode {
+		SELECTING,
+		ATTACKING0,
+		ATTACKING1
+	};
+	extern AttackMode attackMode;
 }
