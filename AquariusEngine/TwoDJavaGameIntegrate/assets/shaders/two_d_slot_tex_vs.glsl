@@ -17,25 +17,25 @@ vec3 resultPos;
 void setAspectRatio();
 
 void main() {
-    setAspectRatio();
-    gl_Position = offsetMat * vec4(resultPos, 1.0);
-    gl_Position.xy += aOffset;
-
-    ourColor = aColor;
-    ourColor *= color;
-    TexCoord = aTexCoord;
+	setAspectRatio();
+	gl_Position = offsetMat * vec4(resultPos, 1.0);
+	ourColor = aColor;
+	ourColor *= color;
+	TexCoord = aTexCoord;
 }
 
 void setAspectRatio() {
-    if (keepAspectRatio) {
-        if (windowWidth > windowHeight) {
-            resultPos = vec3(windowHeight / windowWidth * aPos.x, aPos.y, aPos.z);
-        } else if (windowWidth < windowHeight) {
-            resultPos = vec3(aPos.x, windowWidth / windowHeight * aPos.y, aPos.z);
-        } else {
-            resultPos = aPos;
-        }
-    } else {
-        resultPos = aPos;
-    }
+	if (keepAspectRatio) {
+		if (windowWidth > windowHeight) {
+			resultPos = vec3(windowHeight / windowWidth * (aPos.x + aOffset.x), aPos.y + aOffset.y, aPos.z);
+		} else if (windowWidth < windowHeight) {
+			resultPos = vec3(aPos.x + aOffset.x, windowWidth / windowHeight * (aPos.y + aOffset.y), aPos.z);
+		} else {
+			resultPos = aPos;
+			resultPos.xy += aOffset;
+		}
+	} else {
+		resultPos = aPos;
+		resultPos.xy += aOffset;
+	}
 }

@@ -17,9 +17,9 @@ vec3 resultPos;
 void setAspectRatio();
 
 void main() {
+    gl_Position.xy += aOffset;
     setAspectRatio();
     gl_Position = offsetMat * vec4(resultPos, 1.0);
-    gl_Position.xy += aOffset;
 
     ourColor = aColor;
     ourColor *= color;
