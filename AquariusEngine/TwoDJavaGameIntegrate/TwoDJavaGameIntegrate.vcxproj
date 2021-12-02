@@ -156,7 +156,7 @@
     <ClCompile Include="shopCallbacks.cpp" />
     <ClCompile Include="shortcutButtonCallbacks.cpp" />
     <ClCompile Include="CustomButtonComp.cpp" />
-    <ClCompile Include="backgroundCallbacks.cpp" />
+    <ClCompile Include="mainhallCallbacks.cpp" />
     <ClCompile Include="PassingValues.cpp" />
     <ClCompile Include="mainCharacterCallbacks.cpp" />
     <ClCompile Include="TwoDJavaGameIntegrate.cpp" />
@@ -175,7 +175,7 @@
     <ClInclude Include="headers\charactersStats.hpp" />
     <ClInclude Include="headers\attackCallbacks.h" />
     <ClInclude Include="headers\backpackButtonsCallbacks.h" />
-    <ClInclude Include="headers\backgroundCallbacks.h" />
+    <ClInclude Include="headers\mainhallCallbacks.h" />
     <ClInclude Include="headers\CustomButtonComp.hpp" />
     <ClInclude Include="headers\missionCallbacks.h" />
     <ClInclude Include="headers\shortcutButtonCallbacks.hpp" />

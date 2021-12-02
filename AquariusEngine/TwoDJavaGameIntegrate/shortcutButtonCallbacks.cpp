@@ -88,9 +88,6 @@ namespace shortcutButton {
 			shopBtn,
 			statusBtn
 		};
-		static AQ_GameObject* background = gameObjectCtrl->getGameObject("Background");
-		static AQ_CompSimpleBox2D* background2D = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(background, "Background2D");
-
 		static AQ_GameObject* shopObject = gameObjectCtrl->getGameObject("ShopObject");
 
 		static bool mouseLeftOnPress{ false };

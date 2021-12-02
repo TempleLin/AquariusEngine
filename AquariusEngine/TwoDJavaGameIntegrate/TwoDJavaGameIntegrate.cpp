@@ -28,7 +28,7 @@
 #include "headers/shortcutButtonCallbacks.hpp"
 #include "headers/glConfigCallbacks.hpp"
 #include "headers/CustomButtonComp.hpp"
-#include "headers/backgroundCallbacks.h"
+#include "headers/mainhallCallbacks.h"
 #include "headers/PassingValues.hpp"
 #include "headers/backpackButtonsCallbacks.h"
 #include "headers/shopCallbacks.h"
@@ -100,10 +100,10 @@ int main()
     AQ_Shader theShader("assets/shaders/two_d_tex_vs.glsl", "assets/shaders/two_d_tex_fs.glsl");
 
     // -------- Create background-------------------
-    AQ_GameObject* backgroundObject = gameObjectCtrl->createGameObject("Background");
+    AQ_GameObject* mainhallObject = gameObjectCtrl->createGameObject("MainhallObject");
     AQ_CompSimpleBox2D* background2D = gameObjectCtrl->
-        addComponent<AQ_CompSimpleBox2D>(backgroundObject, new AQ_CompSimpleBox2D(theShader.ID), "Background2D");
-    backgroundObject->setCallbackFuncs(background_callbacks::start, background_callbacks::update, background_callbacks::stop);
+        addComponent<AQ_CompSimpleBox2D>(mainhallObject, new AQ_CompSimpleBox2D(theShader.ID), "Mainhall2D");
+    mainhallObject->setCallbackFuncs(mainhall::start, mainhall::update, mainhall::stop);
     // ---------------------------------------------
 
     // -------- Create main character --------------

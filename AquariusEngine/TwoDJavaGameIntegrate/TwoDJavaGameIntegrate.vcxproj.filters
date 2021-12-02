@@ -33,7 +33,7 @@
     <ClCompile Include="CustomButtonComp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="backgroundCallbacks.cpp">
+    <ClCompile Include="mainhallCallbacks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PassingValues.cpp">
@@ -85,7 +85,7 @@
     <ClInclude Include="headers\CustomButtonComp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\backgroundCallbacks.h">
+    <ClInclude Include="headers\mainhallCallbacks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\PassingValues.hpp">
