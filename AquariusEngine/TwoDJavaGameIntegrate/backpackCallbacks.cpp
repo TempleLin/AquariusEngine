@@ -10,7 +10,7 @@ namespace backpack {
 		int firstTextureIndex;
 		backpack2D->addDiffuseTexture("assets/tempBackpackBack.png", "BackpackBackground",
 			GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true, &firstTextureIndex);
-		backpack2D->setSlotTexture("assets/tempBackpackBack.png", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true);
+		backpack2D->setSlotTexture("assets/331069-200.png", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR, true);
 		backpack2D->transformTranslate(glm::vec3(.4f, .1f, -.5f));
 		backpack2D->transformScale(glm::vec3(1.f, 1.5f, 1.f));
 	}
