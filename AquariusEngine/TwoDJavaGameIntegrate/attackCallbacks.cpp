@@ -2,6 +2,7 @@
 #include "headers/PassingValues.hpp"
 #include "headers/CustomButtonComp.hpp"
 #include "headers/charactersStats.hpp"
+#include <headers/AQ_GlobalCtrl.hpp>
 #include <headers/AQ_CompSimpleBox2D.hpp>
 
 namespace attack {
@@ -28,7 +29,11 @@ namespace attack {
 	AQ_GameObject* mainCharacterObject;
 	AQ_CompSimpleBox2D* mainChar2D;
 
+	AQ_GlobalCtrl::AudioSystemCtrl* audioSystemCtrl;
+
 	void start(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
+		audioSystemCtrl = gameObjectCtrl->getUniControls()->getGlobalCtrl()->getAudioSystemCtrl();
+
 		attackSelectionPage = gameObjectCtrl->getComponent<AQ_CompSimpleBox2D>(gameObjectThis, "AttackSelectionPage");
 		selectionMonsterBtn0 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn0");
 		selectionMonsterBtn1 = gameObjectCtrl->getComponent<CustomButtonComp>(gameObjectThis, "SelectionMonsterBtn1");
@@ -47,15 +52,26 @@ namespace attack {
 	}
 	void update(AQ_GameObjectCtrl* gameObjectCtrl, AQ_GameObject* gameObjectThis) {
 		static AQ_GlobalCtrl::TimeCtrl* timeCtrl = gameObjectCtrl->getUniControls()->getGlobalCtrl()->getTimeCtrl();
+		static bool playingBattleMusic{ false };
 
 		if (currentScene == CurrentScene::ATTACK) {
 			switch (attackMode) {
 			case AttackMode::SELECTING:
+				if (playingBattleMusic) {
+					playingBattleMusic = false;
+					audioSystemCtrl->stopAllSounds();
+					audioSystemCtrl->play2D("assets/Sounds/Musics/Locations_Shop_Loop_Stem2_Strings.wav", true);
+				}
 				attackSelectionPage->draw();
 				selectionMonsterBtn0->draw();
 				selectionMonsterBtn1->draw();
 				break;
 			case AttackMode::ATTACKING1:
+				if (!playingBattleMusic) {
+					audioSystemCtrl->stopAllSounds();
+					audioSystemCtrl->play2D("assets/Sounds/Musics/BattleTheme_1_Loop_CompleteTrack.wav", true);
+					playingBattleMusic = true;
+				}
 				succubus->transformTranslate(glm::vec3(glm::sin(timeCtrl->getSecondsInGame()) * .001f, glm::cos(timeCtrl->getSecondsInGame()) * .001f, 0.f));
 				succubus->draw();
 
@@ -65,6 +81,12 @@ namespace attack {
 
 				mainCharFightMobs(gameObjectCtrl, mainChar2D, 1, new CharacterStats* { &succubusStats }, new AQ_CompSimpleBox2D* { succubus });
 				break;
+			}
+		} else {
+			if (playingBattleMusic) {
+				playingBattleMusic = false;
+				audioSystemCtrl->stopAllSounds();
+				audioSystemCtrl->play2D("assets/Sounds/Musics/Locations_Shop_Loop_Stem2_Strings.wav", true);
 			}
 		}
 	}
