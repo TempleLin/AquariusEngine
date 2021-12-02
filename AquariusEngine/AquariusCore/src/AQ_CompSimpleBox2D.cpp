@@ -218,5 +218,8 @@ namespace aquarius_engine {
 			glDeleteVertexArrays(1, vertexBuffers);
 			delete[] vertexBuffers;
 		}
+		for (int i = 0; i < textures.size(); i++) {
+			glDeleteTextures(1, &(textures.at(i).texture));
+		}
 	}
 }
