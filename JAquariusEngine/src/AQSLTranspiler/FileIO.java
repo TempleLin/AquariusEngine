@@ -53,7 +53,7 @@ public class FileIO {
                                 tempLine = "\"" + tempLine + "\\n\"\n";
                                 modifiedText.append(tempLine);
                             }
-                            modifiedText.append("}");
+                            modifiedText.append("};");
 
                             bufferedWriter.write(modifiedText.toString());
                         }

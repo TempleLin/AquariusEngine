@@ -82,6 +82,10 @@ namespace aquarius_engine {
 		return iSecondsInGame;
 	}
 
+	float AQ_GlobalCtrl::TimeCtrl::getFPS() {
+		return 1.f / deltaTime;
+	}
+
 	AQ_GlobalCtrl::~AQ_GlobalCtrl() {
 		delete timeCtrl;
 		delete inputSystemCtrl;

@@ -191,6 +191,9 @@
     <ClInclude Include="src\headers\AQ_IHoverClick.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\headers\AQ_DefaultShaders.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="5.1.framebuffers_vs.glsl">

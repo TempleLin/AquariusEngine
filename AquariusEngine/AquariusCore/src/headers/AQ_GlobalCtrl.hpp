@@ -34,6 +34,7 @@ namespace aquarius_engine {
 			void updateTime();
 			float getDeltaTime();
 			float getSecondsInGame();
+			float getFPS();
 		};
 		/*class LightsCtrl {
 		private:
